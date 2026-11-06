@@ -68,8 +68,8 @@
       }
       var r = val.indexOf('{{') >= 0 ? interpolate(val, scope) : val;
       if (name === 'checked') { if (r === true || r === 'true' || r === '') el.checked = true; continue; }
-      if (r === false || r == null) { if (name === 'aria-pressed') el.setAttribute(name, 'false'); continue; }
-      if (r === true) { el.setAttribute(name, name === 'aria-pressed' ? 'true' : ''); continue; }
+      if (r === false || r == null) { if (/^aria-/.test(name)) el.setAttribute(name, 'false'); continue; }
+      if (r === true) { el.setAttribute(name, /^aria-/.test(name) ? 'true' : ''); continue; }
       el.setAttribute(name, String(r));
     }
     renderNodes(node.childNodes, scope, el);

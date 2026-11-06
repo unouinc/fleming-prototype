@@ -66,15 +66,36 @@ a{color:#1A1A1A}a:hover{color:#3A63F4}
             </select>
           </label>
         </fieldset>
-        <fieldset style="border: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px">
-          <legend style="font-size: 12px; font-weight: 700; color: #5C5C5C; padding: 0 0 6px">こだわり</legend>
-          <sc-for list="{{prefs}}" as="p" hint-placeholder-count="5">
-            <label style="display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 700; min-height: 32px; cursor: pointer">
-              <input type="checkbox" style="width: 18px; height: 18px; accent-color: #3A63F4; margin: 0">
-              <span>{{p}}</span>
-            </label>
-          </sc-for>
-        </fieldset>
+        <div style="display: flex; flex-direction: column; gap: 8px">
+          <span style="font-size: 12px; font-weight: 700; color: #5C5C5C">こだわり</span>
+          <div style="position: relative">
+          <button type="button" onClick="{{togglePrefs}}" aria-expanded="{{prefsOpen}}" style="display: flex; align-items: center; justify-content: space-between; gap: 8px; width: 100%; border: 1.5px solid #D9D4C7; background: #F6F5F1; border-radius: 12px; font-family: inherit; font-size: 14px; font-weight: 700; color: {{prefsBtnColor}}; padding: 0 14px; min-height: 44px; cursor: pointer; text-align: left">
+            <span style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap">{{prefsLabel}}</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="#5C5C5C" aria-hidden="true" style="flex: 0 0 auto; transform: {{prefsCaret}}"><path d="M6 9l6 6 6-6z"></path></svg>
+          </button>
+          <sc-if value="{{prefsOpen}}" hint-placeholder-val="{{false}}">
+            <ul role="listbox" aria-label="こだわり" style="list-style: none; margin: 0; padding: 6px 0; position: absolute; left: 0; right: 0; top: calc(100% + 6px); z-index: 10; background: #FFFFFF; border-radius: 14px; box-shadow: 0 8px 24px rgba(26,26,26,0.12); border: 1px solid #EDEAE2">
+              <sc-for list="{{prefOpts}}" as="o" hint-placeholder-count="5">
+                <li role="option" aria-selected="{{o.on}}">
+                  <button type="button" onClick="{{o.toggle}}" style="display: flex; align-items: center; justify-content: space-between; gap: 10px; width: 100%; border: none; background: {{o.bg}}; font-family: inherit; font-size: 14px; font-weight: 700; color: #1A1A1A; padding: 0 16px; min-height: 44px; cursor: pointer; text-align: left">
+                    <span>{{o.label}}</span>
+                    <sc-if value="{{o.on}}" hint-placeholder-val="{{false}}">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3A63F4" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"></path></svg>
+                    </sc-if>
+                  </button>
+                </li>
+              </sc-for>
+            </ul>
+          </sc-if>
+          </div>
+          <sc-if value="{{hasPrefs}}" hint-placeholder-val="{{true}}">
+            <div style="display: flex; flex-wrap: wrap; gap: 6px">
+              <sc-for list="{{prefsSelected}}" as="c" hint-placeholder-count="2">
+                <button type="button" onClick="{{c.toggle}}" aria-label="{{c.label}} を外す" style="display: flex; align-items: center; gap: 6px; border: none; background: #1A1A1A; color: #FFFFFF; border-radius: 999px; font-family: inherit; font-size: 12px; font-weight: 700; padding: 8px 10px 8px 12px; min-height: 32px; cursor: pointer">{{c.label}}<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></button>
+              </sc-for>
+            </div>
+          </sc-if>
+        </div>
       </div>
       <div style="background: #FFD338; border-radius: 20px; padding: 20px; display: flex; flex-direction: column; gap: 10px">
         <span style="font-size: 12px; font-weight: 700">紹介で5万円</span>
@@ -204,7 +225,7 @@ a{color:#1A1A1A}a:hover{color:#3A63F4}
 <script src="runtime.js"></script>
 <script>
 class Component extends DCLogic {
-  constructor(p) { super(p); this.state = { tab: 0, liked: {}, work: { 0: true, 1: false } }; }
+  constructor(p) { super(p); this.state = { tab: 0, liked: {}, work: { 0: true, 1: false }, prefsOpen: false, prefs: { 0: true, 1: true } }; }
   renderVals() {
     const tabs = ['おすすめ', '新着', '給与順'].map((label, i) => ({ label, pick: () => this.setState({ tab: i }), bg: this.state.tab === i ? '#1A1A1A' : 'transparent', fg: this.state.tab === i ? '#FFFFFF' : '#1A1A1A' }));
         const workTypes = [['正社員', 128], ['パート', 64]].map((w, i) => ({ label: w[0], n: w[1], on: !!this.state.work[i], toggle: () => this.setState({ work: Object.assign({}, this.state.work, { [i]: !this.state.work[i] }) }) }));
@@ -222,9 +243,16 @@ class Component extends DCLogic {
       ];
       return Object.assign({}, j, { bars, liked, likes: j.likes + (liked ? 1 : 0), likeFill: liked ? '#FF8FB1' : 'none', likeBg: liked ? '#FFE3EC' : '#FFFFFF', likeBorder: liked ? '#FF8FB1' : '#D9D4C7', like: () => this.setState({ liked: Object.assign({}, this.state.liked, { [j.id]: !liked }) }) });
     });
+    const prefNames = ['受け持ち7人以下', '残業 月10時間以内', '日勤のみ', '2交代', '託児所あり', '病院から介護へ', '教育担当つき', '駅から10分以内'];
+    const prefOpts = prefNames.map((label, i) => ({ label, on: !!this.state.prefs[i], bg: this.state.prefs[i] ? '#F1F4FF' : '#FFFFFF', toggle: () => this.setState({ prefs: Object.assign({}, this.state.prefs, { [i]: !this.state.prefs[i] }) }) }));
+    const prefsSelected = prefOpts.filter((o) => o.on);
     return {
       tabs, workTypes, jobs, count: 233,
-      prefs: ['受け持ち7人以下', '残業 月10時間以内', '日勤のみ', '託児所あり', '病院から介護へ'],
+      prefOpts, prefsSelected, hasPrefs: prefsSelected.length > 0,
+      prefsOpen: this.state.prefsOpen, togglePrefs: () => this.setState({ prefsOpen: !this.state.prefsOpen }),
+      prefsLabel: prefsSelected.length ? prefsSelected.length + '件を選択中' : 'こだわりを選ぶ',
+      prefsBtnColor: prefsSelected.length ? '#1A1A1A' : '#8A857A',
+      prefsCaret: this.state.prefsOpen ? 'rotate(180deg)' : 'none',
       scouts: [
         { org: 'みなと中央病院', text: '内科病棟の師長です。プロフィールを拝見して、一度お話しできればと…', color: '#3A63F4' },
         { org: 'さくら台リハビリ病院', text: '日勤のみの働き方に興味はありませんか？', color: '#FFD338' }
