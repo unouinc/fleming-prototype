@@ -117,7 +117,7 @@ a{color:#1A1A1A}a:hover{color:#3A63F4}
 
       <sc-for list="{{jobs}}" as="j" hint-placeholder-count="4">
         <article style="background: #FFFFFF; border-radius: 24px; overflow: hidden; display: flex; flex-direction: column">
-          <a href="job.html" aria-label="{{j.title}}" style="display: block; height: 300px; background: #DAD6CC; position: relative; text-decoration: none; overflow: hidden">
+          <a href="job.html" aria-label="{{j.title}}" style="display: block; height: 360px; background: #1A1A1A; position: relative; text-decoration: none; overflow: hidden">
             <img src="{{j.img}}" alt="{{j.photo}}" style="width: 100%; height: 100%; object-fit: cover; display: block">
             <span style="position: absolute; left: 16px; top: 16px; display: flex; gap: 6px">
               <span style="background: #FFFFFF; color: #1A1A1A; font-size: 12px; font-weight: 700; padding: 6px 12px; border-radius: 999px">{{j.type}}</span>
@@ -177,10 +177,10 @@ class Component extends DCLogic {
     const tabs = ['おすすめ', '新着', '給与順'].map((label, i) => ({ label, pick: () => this.setState({ tab: i }), bg: this.state.tab === i ? '#1A1A1A' : 'transparent', fg: this.state.tab === i ? '#FFFFFF' : '#1A1A1A' }));
         const workTypes = [['正社員', 128], ['パート', 64]].map((w, i) => ({ label: w[0], n: w[1], on: !!this.state.work[i], toggle: () => this.setState({ work: Object.assign({}, this.state.work, { [i]: !this.state.work[i] }) }) }));
     const raw = [
-      { id: 1, type: '正社員', cat: '病院', title: '「聞きやすさ」で選ばれる内科病棟で、一緒に働く看護師を募集', org: 'みなと中央病院', area: '東京都港区', payLabel: '月収', pay: '276,500円〜', payNote: '夜勤4回を含む', img: 'images/station.jpg', photo: '申し送り中のナースステーション（師長とスタッフ）', pts: 7, ot: 8, tr: 6.5, facts: ['教育担当つき', '2交代', '有休消化 9割'], likes: 128, posted: '2日前' },
-      { id: 2, type: '正社員', cat: '回復期', title: '患者さんの「帰る」を支える回復期リハビリ病院で、日勤のみも可', org: 'さくら台リハビリ病院', area: '神奈川県横浜市', payLabel: '月収', pay: '262,000円〜', payNote: '日勤のみの場合', img: 'images/rehab.jpg', photo: 'リハビリ室で患者さんと歩行練習をする看護師', pts: 9, ot: 5, tr: 8.0, facts: ['日勤のみOK', '託児所あり'], likes: 96, posted: '4日前' },
+      { id: 1, type: '正社員', cat: '病院', title: '「聞きやすさ」で選ばれる内科病棟で、一緒に働く看護師を募集', org: 'みなと中央病院', area: '東京都港区', payLabel: '月収', pay: '276,500円〜', payNote: '夜勤4回を含む', img: 'images/sns3.jpg', photo: '病棟の廊下でポーズをとるスタッフ4名（動画サムネイル）', pts: 7, ot: 8, tr: 6.5, facts: ['教育担当つき', '2交代', '有休消化 9割'], likes: 128, posted: '2日前' },
+      { id: 2, type: '正社員', cat: '回復期', title: '患者さんの「帰る」を支える回復期リハビリ病院で、日勤のみも可', org: 'さくら台リハビリ病院', area: '神奈川県横浜市', payLabel: '月収', pay: '262,000円〜', payNote: '日勤のみの場合', img: 'images/sns2.jpg', photo: '手を振るスタッフ一同（動画サムネイル）', pts: 9, ot: 5, tr: 8.0, facts: ['日勤のみOK', '託児所あり'], likes: 96, posted: '4日前' },
       { id: 3, type: '正社員', cat: '介護施設', title: '病院から介護へ。看取りまで寄り添う特養で、看護師を募集', org: 'ひだまりの郷', area: '千葉県船橋市', payLabel: '月収', pay: '258,000円〜', payNote: '夜勤4回を含む', img: 'images/care.jpg', photo: '食堂で入居者と談笑するスタッフ（夕方の光）', pts: 25, ot: 3, tr: 12.5, facts: ['夜勤 月4回', '有休消化 9割', '病院から転職多め'], likes: 54, posted: '1週間前' },
-      { id: 4, type: 'パート', cat: 'クリニック', title: '週3日から。子育て中の看護師が半分を占める外来で働く', org: '[クリニック名]', area: '東京都世田谷区', payLabel: '時給', pay: '1,900円〜', payNote: '週3日・16時まで', img: 'images/mentor.jpg', photo: '外来の受付前、スタッフ3名の集合写真', pts: 0, ot: 0, tr: 4.0, facts: ['週3日〜', '16時まで'], likes: 73, posted: '1週間前' }
+      { id: 4, type: 'パート', cat: 'クリニック', title: '週3日から。子育て中の看護師が半分を占める外来で働く', org: '[クリニック名]', area: '東京都世田谷区', payLabel: '時給', pay: '1,900円〜', payNote: '週3日・16時まで', img: 'images/sns1.jpg', photo: 'ナース編・前職なんですか？（動画サムネイル）', pts: 0, ot: 0, tr: 4.0, facts: ['週3日〜', '16時まで'], likes: 73, posted: '1週間前' }
     ];
     const jobs = raw.map((j) => {
       const liked = !!this.state.liked[j.id];
