@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fleming マイプロフィール</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&amp;family=Outfit:wght@600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#F6F5F1}
+a{color:#1A1A1A}a:hover{color:#3A63F4}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<template id="tpl">
+<div style="width: 100%; min-height: 100vh; background: #F6F5F1; color: #1A1A1A; font-family: 'Noto Sans JP', 'Hiragino Sans', sans-serif; font-weight: 500; letter-spacing: 0.01em; -webkit-font-smoothing: antialiased; display: flex; flex-direction: column">
+
+  <header style="background: #FFFFFF; border-bottom: 1px solid #E3E0D8">
+    <div style="max-width: 1360px; margin: 0 auto; padding: 0 32px; height: 64px; box-sizing: border-box; display: flex; align-items: center; gap: 28px">
+      <a href="index.html" style="display: flex; align-items: center; gap: 8px; text-decoration: none; flex: 0 0 auto">
+        <span style="width: 30px; height: 30px; border-radius: 50%; background: #3A63F4; display: flex; align-items: center; justify-content: center"><span style="width: 11px; height: 11px; border-radius: 50%; background: #FFD338"></span></span>
+        <span style="font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 22px; letter-spacing: -0.4px">Fleming</span>
+      </a>
+      <nav aria-label="グローバル" style="margin-left: auto; display: flex; align-items: center; gap: 4px; font-size: 14px; font-weight: 700">
+        <a href="index.html" style="text-decoration: none; padding: 10px 14px; border-radius: 999px; min-height: 44px; box-sizing: border-box; display: flex; align-items: center">さがす</a>
+        <a href="scouts.html" style="text-decoration: none; padding: 10px 14px; border-radius: 999px; min-height: 44px; box-sizing: border-box; display: flex; align-items: center; gap: 8px">スカウト<span style="background: #3A63F4; color: #FFFFFF; font-family: 'Outfit', sans-serif; font-size: 12px; padding: 2px 8px; border-radius: 999px">3</span></a>
+        <a href="scouts.html" style="text-decoration: none; padding: 10px 14px; border-radius: 999px; min-height: 44px; box-sizing: border-box; display: flex; align-items: center">メッセージ</a>
+        <a href="#" style="text-decoration: none; padding: 10px 14px; border-radius: 999px; min-height: 44px; box-sizing: border-box; display: flex; align-items: center">気になる</a>
+        <a href="profile.html" aria-current="page" aria-label="マイプロフィール" style="margin-left: 8px; width: 40px; height: 40px; border-radius: 50%; background: #FFD338; border: 2px solid #1A1A1A; display: flex; align-items: center; justify-content: center; text-decoration: none; font-size: 14px; font-weight: 900">M</a>
+      </nav>
+    </div>
+  </header>
+
+  <div style="max-width: 1360px; width: 100%; margin: 0 auto; padding: 28px 32px 64px; box-sizing: border-box; display: flex; flex-wrap: wrap; gap: 24px; align-items: flex-start">
+
+    <!-- Left: identity + status -->
+    <aside style="flex: 0 1 320px; min-width: 260px; display: flex; flex-direction: column; gap: 16px">
+      <div style="background: #FFFFFF; border-radius: 24px; padding: 28px; display: flex; flex-direction: column; align-items: center; gap: 14px; text-align: center">
+        <span style="width: 96px; height: 96px; border-radius: 50%; background: #FFD338; border: 2px solid #1A1A1A; display: flex; align-items: center; justify-content: center; font-size: 32px; font-weight: 900">M</span>
+        <div style="display: flex; flex-direction: column; gap: 4px">
+          <span style="font-size: 20px; font-weight: 900">[あなたの名前]</span>
+          <span style="font-size: 13px; font-weight: 700; color: #5C5C5C">看護師 4年目｜急性期・内科｜東京都</span>
+        </div>
+        <div style="width: 100%; display: flex; flex-direction: column; gap: 6px">
+          <div style="display: flex; justify-content: space-between; font-size: 12px; font-weight: 700"><span>プロフィールの充実度</span><span style="font-family: 'Outfit', sans-serif">{{pct}}%</span></div>
+          <div style="height: 8px; background: #EDEAE2; border-radius: 999px; overflow: hidden"><div style="height: 8px; width: {{pctW}}; background: #3A63F4; border-radius: 999px"></div></div>
+        </div>
+        <button type="button" style="width: 100%; border: 2px solid #1A1A1A; background: #FFFFFF; border-radius: 999px; font-family: inherit; font-size: 14px; font-weight: 700; padding: 12px; min-height: 44px; cursor: pointer">基本情報を編集</button>
+      </div>
+
+      <div style="background: #FFFFFF; border-radius: 24px; padding: 24px; display: flex; flex-direction: column; gap: 14px">
+        <span style="font-size: 14px; font-weight: 900">いまの気持ち</span>
+        <span style="font-size: 12px; line-height: 1.7; color: #5C5C5C">病院に見えるのはこの状態だけ。本名や連絡先は、あなたが決めるまで届きません。</span>
+        <div style="display: flex; flex-direction: column; gap: 8px">
+          <sc-for list="{{moods}}" as="m" hint-placeholder-count="3">
+            <button type="button" onClick="{{m.pick}}" aria-pressed="{{m.on}}" style="border: 2px solid {{m.border}}; background: {{m.bg}}; color: {{m.fg}}; border-radius: 16px; font-family: inherit; text-align: left; padding: 12px 16px; min-height: 44px; display: flex; flex-direction: column; gap: 2px; cursor: pointer">
+              <span style="font-size: 14px; font-weight: 900">{{m.label}}</span>
+              <span style="font-size: 12px; opacity: 0.85">{{m.desc}}</span>
+            </button>
+          </sc-for>
+        </div>
+      </div>
+
+      <div style="background: #FFD338; border-radius: 24px; padding: 24px; display: flex; flex-direction: column; gap: 12px">
+        <span style="font-size: 14px; font-weight: 900">紹介で5万円</span>
+        <span style="font-size: 13px; line-height: 1.7">紹介した人がFlemingで転職したら、あなたに5万円（税込）。</span>
+        <div style="background: #FFFFFF; border-radius: 12px; padding: 10px 14px; display: flex; justify-content: space-between; align-items: center; gap: 8px">
+          <span style="font-family: 'Outfit', sans-serif; font-size: 13px; font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">fleming.jp/r/[コード]</span>
+          <button type="button" style="border: none; background: #1A1A1A; color: #FFFFFF; border-radius: 999px; font-family: inherit; font-size: 12px; font-weight: 700; padding: 8px 12px; min-height: 36px; cursor: pointer; flex: 0 0 auto">コピー</button>
+        </div>
+        <div style="display: flex; justify-content: space-between; font-size: 12px; font-weight: 700">
+          <span>紹介した人 <span style="font-family: 'Outfit', sans-serif; font-size: 16px">3</span>人</span>
+          <span>転職が決まった人 <span style="font-family: 'Outfit', sans-serif; font-size: 16px">1</span>人</span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main -->
+    <main style="flex: 999 1 560px; min-width: 0; display: flex; flex-direction: column; gap: 20px">
+      <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px">
+        <h1 style="margin: 0; font-size: 26px; font-weight: 900">マイプロフィール</h1>
+        <a href="#" style="text-decoration: none; font-size: 13px; font-weight: 700; color: #3A63F4">病院からどう見えるかを確認 →</a>
+      </div>
+
+      <!-- Wishes -->
+      <section style="background: #FFFFFF; border-radius: 24px; padding: 28px; display: flex; flex-direction: column; gap: 20px">
+        <div style="display: flex; justify-content: space-between; align-items: center; gap: 12px">
+          <div style="display: flex; flex-direction: column; gap: 4px">
+            <h2 style="margin: 0; font-size: 18px; font-weight: 900">職場に求めること</h2>
+            <span style="font-size: 12px; color: #5C5C5C">ここが、スカウトと「相性」の計算に使われます</span>
+          </div>
+          <button type="button" style="border: 1.5px solid #D9D4C7; background: #FFFFFF; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 700; padding: 8px 14px; min-height: 40px; cursor: pointer">編集</button>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 14px">
+          <span style="font-size: 13px; font-weight: 700; color: #5C5C5C">大事にしたい順に、3つまで</span>
+          <ol style="margin: 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 10px">
+            <sc-for list="{{priorities}}" as="p" hint-placeholder-count="3">
+              <li style="flex: 1 1 180px; min-width: 0; background: {{p.bg}}; color: {{p.fg}}; border-radius: 16px; padding: 16px; display: flex; gap: 12px; align-items: center">
+                <span style="font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 24px">{{p.n}}</span>
+                <span style="font-size: 15px; font-weight: 900">{{p.label}}</span>
+              </li>
+            </sc-for>
+          </ol>
+        </div>
+        <dl style="margin: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px 24px">
+          <sc-for list="{{wishes}}" as="w" hint-placeholder-count="6">
+            <div style="display: flex; justify-content: space-between; gap: 12px; padding: 12px 0; border-bottom: 1px solid #EDEAE2">
+              <dt style="font-size: 13px; font-weight: 700; color: #5C5C5C">{{w.k}}</dt>
+              <dd style="margin: 0; font-size: 14px; font-weight: 700; text-align: right">{{w.v}}</dd>
+            </div>
+          </sc-for>
+        </dl>
+      </section>
+
+      <!-- Experience -->
+      <section style="background: #FFFFFF; border-radius: 24px; padding: 28px; display: flex; flex-direction: column; gap: 20px">
+        <div style="display: flex; justify-content: space-between; align-items: center; gap: 12px">
+          <h2 style="margin: 0; font-size: 18px; font-weight: 900">経験</h2>
+          <button type="button" style="border: 1.5px solid #D9D4C7; background: #FFFFFF; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 700; padding: 8px 14px; min-height: 40px; cursor: pointer">追加</button>
+        </div>
+        <ol style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 0">
+          <sc-for list="{{exp}}" as="e" hint-placeholder-count="3">
+            <li style="display: flex; gap: 16px; padding: 16px 0; border-bottom: 1px solid #EDEAE2">
+              <span style="width: 110px; flex: 0 0 auto; font-family: 'Outfit', sans-serif; font-size: 13px; font-weight: 600; color: #5C5C5C; padding-top: 2px">{{e.when}}</span>
+              <div style="display: flex; flex-direction: column; gap: 4px; min-width: 0">
+                <span style="font-size: 15px; font-weight: 900">{{e.title}}</span>
+                <span style="font-size: 13px; font-weight: 700; color: #5C5C5C">{{e.meta}}</span>
+                <span style="font-size: 13px; line-height: 1.7">{{e.text}}</span>
+              </div>
+            </li>
+          </sc-for>
+        </ol>
+        <div style="display: flex; flex-wrap: wrap; gap: 8px">
+          <span style="font-size: 12px; font-weight: 700; color: #5C5C5C; padding: 6px 0">できること</span>
+          <sc-for list="{{skills}}" as="s" hint-placeholder-count="6">
+            <span style="font-size: 12px; font-weight: 700; background: #F6F5F1; padding: 6px 12px; border-radius: 999px">{{s}}</span>
+          </sc-for>
+        </div>
+      </section>
+
+      <!-- Activity -->
+      <section style="background: #FFFFFF; border-radius: 24px; padding: 28px; display: flex; flex-direction: column; gap: 16px">
+        <h2 style="margin: 0; font-size: 18px; font-weight: 900">最近の動き</h2>
+        <div style="display: flex; flex-wrap: wrap; gap: 12px">
+          <sc-for list="{{stats}}" as="s" hint-placeholder-count="4">
+            <a href="{{s.href}}" style="flex: 1 1 140px; min-width: 0; text-decoration: none; background: #F6F5F1; border-radius: 16px; padding: 16px; display: flex; flex-direction: column; gap: 4px">
+              <span style="font-size: 12px; font-weight: 700; color: #5C5C5C">{{s.label}}</span>
+              <span style="font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 28px; color: #1A1A1A">{{s.n}}</span>
+            </a>
+          </sc-for>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 0">
+          <sc-for list="{{log}}" as="l" hint-placeholder-count="3">
+            <div style="display: flex; gap: 12px; align-items: center; padding: 12px 0; border-top: 1px solid #EDEAE2; font-size: 13px">
+              <span aria-hidden="true" style="width: 28px; height: 28px; border-radius: 8px; background: {{l.color}}; flex: 0 0 auto"></span>
+              <span style="flex: 1 1 auto; font-weight: 700">{{l.text}}</span>
+              <span style="color: #5C5C5C; flex: 0 0 auto">{{l.when}}</span>
+            </div>
+          </sc-for>
+        </div>
+      </section>
+      <p style="margin: 0; font-size: 12px; color: #5C5C5C">※名前・経歴・数値はプロトタイプ用のサンプルです</p>
+    </main>
+  </div>
+</div>
+</template>
+<script src="runtime.js"></script>
+<script>
+class Component extends DCLogic {
+  constructor(p) { super(p); this.state = { mood: 1 }; }
+  renderVals() {
+    const moodsRaw = [
+      ['すぐにでも転職したい', '条件が合えば、1〜2か月で動けます'],
+      ['いい職場があれば', 'スカウトは受け取ります。急いではいません'],
+      ['いまは情報収集だけ', 'スカウトは止めて、募集だけ見たい']
+    ];
+    const moods = moodsRaw.map((m, i) => ({ label: m[0], desc: m[1], on: this.state.mood === i, pick: () => this.setState({ mood: i }), bg: this.state.mood === i ? '#1A1A1A' : '#FFFFFF', fg: this.state.mood === i ? '#FFFFFF' : '#1A1A1A', border: this.state.mood === i ? '#1A1A1A' : '#D9D4C7' }));
+    return {
+      pct: 60, pctW: '60%', moods,
+      priorities: [
+        { n: 1, label: '人間関係・聞きやすさ', bg: '#3A63F4', fg: '#FFFFFF' },
+        { n: 2, label: '受け持ち人数が適正', bg: '#FFD338', fg: '#1A1A1A' },
+        { n: 3, label: '休みが取りやすい', bg: '#FF8FB1', fg: '#1A1A1A' }
+      ],
+      wishes: [
+        { k: '希望エリア', v: '東京都（通勤45分以内）' }, { k: '働き方', v: '正社員・2交代まで' },
+        { k: '受け持ち', v: '7人以下' }, { k: '残業', v: '月10時間以内' },
+        { k: '希望年収', v: '[金額]〜' }, { k: '病院から介護への転職', v: '検討してもよい' }
+      ],
+      exp: [
+        { when: '2023 – 現在', title: '[病院名]｜内科・急性期', meta: '看護師・正社員｜受け持ち 10〜12人', text: '入退院の多い混合病棟。プリセプターとして新人2名を担当。' },
+        { when: '2022 – 2023', title: '[病院名]｜外科', meta: '看護師・正社員', text: '新卒入職。術前術後の看護を担当。' },
+        { when: '2018 – 2022', title: '[学校名]', meta: '看護学科', text: '' }
+      ],
+      skills: ['急性期', '内科', 'プリセプター', '看取り', '電子カルテ [製品名]', 'BLS'],
+      stats: [
+        { label: '届いたスカウト', n: 3, href: 'scouts.html' }, { label: '話を聞きに行った', n: 1, href: 'scouts.html' },
+        { label: '気になる', n: 6, href: 'index.html' }, { label: '見学した', n: 1, href: 'scouts.html' }
+      ],
+      log: [
+        { text: 'みなと中央病院からスカウトが届きました', when: '今日', color: '#3A63F4' },
+        { text: 'ひだまりの郷の見学（11/8）が確定しました', when: '2日前', color: '#FF8FB1' },
+        { text: '紹介した[名前]さんが登録しました', when: '1週間前', color: '#FFD338' }
+      ]
+    };
+  }
+}
+mount(Component, 'tpl', 'app');
+</script>
+</body>
+</html>
