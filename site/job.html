@@ -74,62 +74,27 @@ a{color:#1A1A1A}a:hover{color:#3A63F4}
 
       <!-- Tabs -->
       <nav aria-label="ページ内" style="display: flex; gap: 4px; border-bottom: 2px solid #E3E0D8; font-size: 14px; font-weight: 700">
-        <a href="#story" style="text-decoration: none; padding: 12px 16px; border-bottom: 3px solid #1A1A1A; margin-bottom: -2px; min-height: 44px; box-sizing: border-box; display: flex; align-items: center">ストーリー</a>
-        <a href="#numbers" style="text-decoration: none; padding: 12px 16px; color: #5C5C5C; min-height: 44px; box-sizing: border-box; display: flex; align-items: center">数字で見る</a>
+        <a href="#about" style="text-decoration: none; padding: 12px 16px; border-bottom: 3px solid #1A1A1A; margin-bottom: -2px; min-height: 44px; box-sizing: border-box; display: flex; align-items: center">施設概要</a>
         <a href="members-a.html" style="text-decoration: none; padding: 12px 16px; color: #5C5C5C; min-height: 44px; box-sizing: border-box; display: flex; align-items: center">メンバー</a>
         <a href="#terms" style="text-decoration: none; padding: 12px 16px; color: #5C5C5C; min-height: 44px; box-sizing: border-box; display: flex; align-items: center">募集要項</a>
+        <a href="#numbers" style="text-decoration: none; padding: 12px 16px; color: #5C5C5C; min-height: 44px; box-sizing: border-box; display: flex; align-items: center">数字で見る</a>
       </nav>
 
-      <!-- Story -->
-      <section id="story" style="background: #FFFFFF; border-radius: 24px; padding: 36px; display: flex; flex-direction: column; gap: 36px">
-        <sc-for list="{{story}}" as="s" hint-placeholder-count="4">
-          <div style="display: flex; flex-direction: column; gap: 12px">
-            <span style="font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 12px; letter-spacing: 2px; color: #3A63F4">{{s.en}}</span>
-            <h2 style="margin: 0; font-size: 22px; font-weight: 900">{{s.ja}}</h2>
-            <p style="margin: 0; font-size: 15px; line-height: 2; color: #3D3D3D; white-space: pre-line">{{s.body}}</p>
-          </div>
-        </sc-for>
-      </section>
-
-      <!-- Numbers -->
-      <section id="numbers" style="background: #FFFFFF; border-radius: 24px; padding: 36px; display: flex; flex-direction: column; gap: 24px">
-        <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 12px">
-          <div style="display: flex; flex-direction: column; gap: 8px">
-            <span style="font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 12px; letter-spacing: 2px; color: #3A63F4">NUMBERS</span>
-            <h2 style="margin: 0; font-size: 22px; font-weight: 900">入る前に知っておきたい数字</h2>
-          </div>
-          <span style="font-size: 12px; font-weight: 700; color: #5C5C5C">病院の申告値｜2026年10月更新</span>
+      <!-- About -->
+      <section id="about" style="background: #FFFFFF; border-radius: 24px; padding: 36px; display: flex; flex-direction: column; gap: 24px">
+        <div style="display: flex; flex-direction: column; gap: 8px">
+          <span style="font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 12px; letter-spacing: 2px; color: #3A63F4">ABOUT</span>
+          <h2 style="margin: 0; font-size: 22px; font-weight: 900">施設概要</h2>
         </div>
-        <div style="display: flex; flex-direction: column; gap: 14px; background: #F6F5F1; border-radius: 20px; padding: 20px">
-          <sc-for list="{{bars}}" as="b" hint-placeholder-count="2">
-            <div style="display: flex; flex-direction: column; gap: 6px">
-              <div style="display: flex; justify-content: space-between; align-items: baseline; font-size: 13px; font-weight: 700">
-                <span>{{b.label}}</span>
-                <span style="display: flex; gap: 10px; align-items: baseline"><span style="font-size: 11px; color: #5C5C5C">エリア平均 {{b.avg}}</span><span style="font-family: 'Outfit', sans-serif; font-size: 20px">{{b.value}}</span></span>
-              </div>
-              <div style="height: 12px; background: #E6E2D8; border-radius: 999px; position: relative; overflow: hidden">
-                <div style="position: absolute; left: 0; top: 0; height: 12px; border-radius: 999px; background: {{b.color}}; width: {{b.w}}"></div>
-                <div style="position: absolute; top: 0; height: 12px; width: 3px; background: #1A1A1A; left: {{b.avgPos}}"></div>
-              </div>
-              <span style="font-size: 11px; color: #5C5C5C">{{b.note}}</span>
+        <p style="margin: 0; font-size: 15px; line-height: 2; color: #3D3D3D">港区にある[病床数]床の急性期病院。内科病棟では、高齢の患者さんの急性期治療から退院支援までを担当します。看護師は[人数]名、中途入職が半数以上で、ブランクから復帰したメンバーもいます。</p>
+        <dl style="margin: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px 24px">
+          <sc-for list="{{about}}" as="a" hint-placeholder-count="8">
+            <div style="display: flex; flex-direction: column; gap: 4px; padding: 12px 0; border-bottom: 1px solid #EDEAE2">
+              <dt style="font-size: 12px; font-weight: 700; color: #5C5C5C">{{a.k}}</dt>
+              <dd style="margin: 0; font-size: 15px; font-weight: 700; line-height: 1.6">{{a.v}}</dd>
             </div>
           </sc-for>
-          <div style="display: flex; flex-wrap: wrap; gap: 12px">
-            <sc-for list="{{facts}}" as="f" hint-placeholder-count="2">
-              <div style="flex: 1 1 140px; min-width: 0; background: #FFFFFF; border-radius: 14px; padding: 14px; display: flex; flex-direction: column; gap: 2px">
-                <span style="font-size: 12px; font-weight: 700; color: #5C5C5C">{{f.label}}</span>
-                <span style="font-size: 20px; font-weight: 900">{{f.value}}</span>
-                <span style="font-size: 11px; color: #5C5C5C">{{f.note}}</span>
-              </div>
-            </sc-for>
-          </div>
-        </div>
-        <div style="display: flex; flex-direction: column; gap: 10px">
-          <span style="font-size: 14px; font-weight: 900">働く人の声</span>
-          <sc-for list="{{voices}}" as="v" hint-placeholder-count="3">
-            <blockquote style="margin: 0; background: #F6F5F1; border-radius: 16px 16px 16px 4px; padding: 14px 18px; font-size: 14px; line-height: 1.8">{{v.text}}<span style="display: block; margin-top: 6px; font-size: 12px; color: #5C5C5C">— {{v.who}}</span></blockquote>
-          </sc-for>
-        </div>
+        </dl>
       </section>
 
       <!-- Members -->
@@ -171,6 +136,47 @@ a{color:#1A1A1A}a:hover{color:#3A63F4}
           </sc-for>
         </dl>
       </section>
+      <!-- Numbers -->
+      <section id="numbers" style="background: #FFFFFF; border-radius: 24px; padding: 36px; display: flex; flex-direction: column; gap: 24px">
+        <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 12px">
+          <div style="display: flex; flex-direction: column; gap: 8px">
+            <span style="font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 12px; letter-spacing: 2px; color: #3A63F4">NUMBERS</span>
+            <h2 style="margin: 0; font-size: 22px; font-weight: 900">入る前に知っておきたい数字</h2>
+          </div>
+          <span style="font-size: 12px; font-weight: 700; color: #5C5C5C">病院の申告値｜2026年10月更新</span>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 14px; background: #F6F5F1; border-radius: 20px; padding: 20px">
+          <sc-for list="{{bars}}" as="b" hint-placeholder-count="2">
+            <div style="display: flex; flex-direction: column; gap: 6px">
+              <div style="display: flex; justify-content: space-between; align-items: baseline; font-size: 13px; font-weight: 700">
+                <span>{{b.label}}</span>
+                <span style="display: flex; gap: 10px; align-items: baseline"><span style="font-size: 11px; color: #5C5C5C">エリア平均 {{b.avg}}</span><span style="font-family: 'Outfit', sans-serif; font-size: 20px">{{b.value}}</span></span>
+              </div>
+              <div style="height: 12px; background: #E6E2D8; border-radius: 999px; position: relative; overflow: hidden">
+                <div style="position: absolute; left: 0; top: 0; height: 12px; border-radius: 999px; background: {{b.color}}; width: {{b.w}}"></div>
+                <div style="position: absolute; top: 0; height: 12px; width: 3px; background: #1A1A1A; left: {{b.avgPos}}"></div>
+              </div>
+              <span style="font-size: 11px; color: #5C5C5C">{{b.note}}</span>
+            </div>
+          </sc-for>
+          <div style="display: flex; flex-wrap: wrap; gap: 12px">
+            <sc-for list="{{facts}}" as="f" hint-placeholder-count="2">
+              <div style="flex: 1 1 140px; min-width: 0; background: #FFFFFF; border-radius: 14px; padding: 14px; display: flex; flex-direction: column; gap: 2px">
+                <span style="font-size: 12px; font-weight: 700; color: #5C5C5C">{{f.label}}</span>
+                <span style="font-size: 20px; font-weight: 900">{{f.value}}</span>
+                <span style="font-size: 11px; color: #5C5C5C">{{f.note}}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 10px">
+          <span style="font-size: 14px; font-weight: 900">働く人の声</span>
+          <sc-for list="{{voices}}" as="v" hint-placeholder-count="3">
+            <blockquote style="margin: 0; background: #F6F5F1; border-radius: 16px 16px 16px 4px; padding: 14px 18px; font-size: 14px; line-height: 1.8">{{v.text}}<span style="display: block; margin-top: 6px; font-size: 12px; color: #5C5C5C">— {{v.who}}</span></blockquote>
+          </sc-for>
+        </div>
+      </section>
+
       <p style="margin: 0; font-size: 12px; color: #5C5C5C">※病院名・声・数値はプロトタイプ用のサンプルです</p>
     </main>
 
@@ -235,11 +241,11 @@ class Component extends DCLogic {
       apply: () => this.setState({ applied: true }),
       liked: this.state.liked, toggleLike: () => this.setState({ liked: !this.state.liked }),
       likeFill: this.state.liked ? '#FF8FB1' : 'none', likeBg: this.state.liked ? '#FFE3EC' : '#FFFFFF', likeBorder: this.state.liked ? '#FF8FB1' : '#1A1A1A',
-      story: [
-        { en: 'WHAT', ja: 'なにをやっているのか', body: '港区にある[病床数]床の急性期病院です。内科病棟では、高齢の患者さんの急性期治療から退院支援までを担当します。\n看護師は[人数]名。中途入職が半数以上で、ブランクから復帰したメンバーもいます。' },
-        { en: 'WHY', ja: 'なぜやるのか', body: '「聞けない空気」が、ミスと離職を生む。前の職場でそれを経験した師長が、この病棟で最初に決めたのは「わからないことは、その場で聞く」をルールにすることでした。\n忙しさはなくなりません。でも、ひとりで抱える忙しさは、なくせると考えています。' },
-        { en: 'HOW', ja: 'どうやっているのか', body: '日勤の受け持ちは7人まで。超えそうな日は、朝の申し送りでチーム全体で調整します。\n中途入職者には3か月間、同じ教育担当がつきます。質問は口頭でもチャットでもOK。月1回、師長との15分の1on1があります。' },
-        { en: 'JOIN', ja: 'こんなことをやります', body: '内科病棟での日勤・夜勤（2交代）。入院時のアセスメント、日々のケア、退院に向けた多職種カンファレンスへの参加。\nまずは見学や、オンラインでの雑談からで大丈夫です。' }
+      about: [
+        { k: '施設の種類', v: '急性期病院（一般病床）' }, { k: '病床数', v: '[病床数]床' },
+        { k: '診療科', v: '内科・外科・整形外科・循環器内科 ほか' }, { k: '所在地', v: '東京都港区（最寄り [駅名] 徒歩[分]分）' },
+        { k: '職員数', v: '看護師 [人数]名／全体 [人数]名' }, { k: '看護体制', v: '7対1・2交代' },
+        { k: '電子カルテ', v: '[製品名]' }, { k: '運営', v: '[法人名]' }
       ],
       axes: raw.map((r) => ({ label: r[0], v: r[1], avg: r[2], w: r[1] + '%', avgPos: r[2] + '%', color: r[3] })),
       bars: [
