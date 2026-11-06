@@ -118,7 +118,6 @@ a{color:#1A1A1A}a:hover{color:#3A63F4}
                 </div>
               </div>
             </div>
-            <p style="margin: 0; font-size: 14px; line-height: 1.8; color: #3D3D3D">{{j.lead}}</p>
             <div style="display: flex; flex-direction: column; gap: 8px; background: #F6F5F1; border-radius: 16px; padding: 12px 14px">
               <sc-for list="{{j.bars}}" as="b" hint-placeholder-count="2">
                 <div style="display: flex; align-items: center; gap: 10px; font-size: 12px; font-weight: 700">
@@ -210,10 +209,10 @@ class Component extends DCLogic {
     const tabs = ['おすすめ', '新着', '給与順'].map((label, i) => ({ label, pick: () => this.setState({ tab: i }), bg: this.state.tab === i ? '#1A1A1A' : 'transparent', fg: this.state.tab === i ? '#FFFFFF' : '#1A1A1A' }));
         const workTypes = [['正社員', 128], ['パート', 64]].map((w, i) => ({ label: w[0], n: w[1], on: !!this.state.work[i], toggle: () => this.setState({ work: Object.assign({}, this.state.work, { [i]: !this.state.work[i] }) }) }));
     const raw = [
-      { id: 1, type: '正社員', cat: '病院', title: '「聞きやすさ」で選ばれる内科病棟で、一緒に働く看護師を募集', org: 'みなと中央病院', area: '東京都港区', payLabel: '月収', pay: '276,500円〜', payNote: '夜勤4回を含む', img: 'images/station.jpg', photo: '申し送り中のナースステーション（師長とスタッフ）', lead: '日勤の受け持ちは7人。わからないことを聞いても嫌な顔をされない。そんな病棟をつくってきた師長が、まずは見学からお話しします。', pts: 7, ot: 8, facts: ['教育担当つき', '2交代', '有休消化 9割'], likes: 128, posted: '2日前' },
-      { id: 2, type: '正社員', cat: '回復期', title: '患者さんの「帰る」を支える回復期リハビリ病院で、日勤のみも可', org: 'さくら台リハビリ病院', area: '神奈川県横浜市', payLabel: '月収', pay: '262,000円〜', payNote: '日勤のみの場合', img: 'images/rehab.jpg', photo: 'リハビリ室で患者さんと歩行練習をする看護師', lead: '急性期のスピードより、ひとりの患者さんと長く向き合いたい方へ。日勤のみ、託児所あり。病院から介護へ移った看護師も多い職場です。', pts: 9, ot: 5, facts: ['日勤のみOK', '託児所あり'], likes: 96, posted: '4日前' },
-      { id: 3, type: '正社員', cat: '介護施設', title: '病院から介護へ。看取りまで寄り添う特養で、看護師を募集', org: 'ひだまりの郷', area: '千葉県船橋市', payLabel: '月収', pay: '258,000円〜', payNote: '夜勤4回を含む', img: 'images/care.jpg', photo: '食堂で入居者と談笑するスタッフ（夕方の光）', lead: '病院から介護へ移った看護師が半数。医療処置は少なく、ひとりの入居者と長く向き合えます。見学だけでも歓迎です。', pts: 25, ot: 3, facts: ['夜勤 月4回', '有休消化 9割', '病院から転職多め'], likes: 54, posted: '1週間前' },
-      { id: 4, type: 'パート', cat: 'クリニック', title: '週3日から。子育て中の看護師が半分を占める外来で働く', org: '[クリニック名]', area: '東京都世田谷区', payLabel: '時給', pay: '1,900円〜', payNote: '週3日・16時まで', img: 'images/mentor.jpg', photo: '外来の受付前、スタッフ3名の集合写真', lead: '16時までの勤務、急なお休みはチームでカバー。働く人の声で一番多かったのは「お互いさま」でした。', pts: 0, ot: 0, facts: ['週3日〜', '16時まで'], likes: 73, posted: '1週間前' }
+      { id: 1, type: '正社員', cat: '病院', title: '「聞きやすさ」で選ばれる内科病棟で、一緒に働く看護師を募集', org: 'みなと中央病院', area: '東京都港区', payLabel: '月収', pay: '276,500円〜', payNote: '夜勤4回を含む', img: 'images/station.jpg', photo: '申し送り中のナースステーション（師長とスタッフ）', pts: 7, ot: 8, facts: ['教育担当つき', '2交代', '有休消化 9割'], likes: 128, posted: '2日前' },
+      { id: 2, type: '正社員', cat: '回復期', title: '患者さんの「帰る」を支える回復期リハビリ病院で、日勤のみも可', org: 'さくら台リハビリ病院', area: '神奈川県横浜市', payLabel: '月収', pay: '262,000円〜', payNote: '日勤のみの場合', img: 'images/rehab.jpg', photo: 'リハビリ室で患者さんと歩行練習をする看護師', pts: 9, ot: 5, facts: ['日勤のみOK', '託児所あり'], likes: 96, posted: '4日前' },
+      { id: 3, type: '正社員', cat: '介護施設', title: '病院から介護へ。看取りまで寄り添う特養で、看護師を募集', org: 'ひだまりの郷', area: '千葉県船橋市', payLabel: '月収', pay: '258,000円〜', payNote: '夜勤4回を含む', img: 'images/care.jpg', photo: '食堂で入居者と談笑するスタッフ（夕方の光）', pts: 25, ot: 3, facts: ['夜勤 月4回', '有休消化 9割', '病院から転職多め'], likes: 54, posted: '1週間前' },
+      { id: 4, type: 'パート', cat: 'クリニック', title: '週3日から。子育て中の看護師が半分を占める外来で働く', org: '[クリニック名]', area: '東京都世田谷区', payLabel: '時給', pay: '1,900円〜', payNote: '週3日・16時まで', img: 'images/mentor.jpg', photo: '外来の受付前、スタッフ3名の集合写真', pts: 0, ot: 0, facts: ['週3日〜', '16時まで'], likes: 73, posted: '1週間前' }
     ];
     const jobs = raw.map((j) => {
       const liked = !!this.state.liked[j.id];
