@@ -9,6 +9,16 @@
 <style>
 body{margin:0;background:#F6F5F1}
 a{color:#1A1A1A}a:hover{color:#3A63F4}
+.tabbar{display:none}
+@media (max-width: 760px){
+  .pc-only{display:none!important}
+  .hdr{padding:0 16px!important;height:56px!important}
+  .wrap{padding:12px 16px 96px!important;gap:16px!important}
+  .pagetitle{font-size:20px!important}
+  .hero{height:240px!important}
+  .artbody{padding:20px!important;gap:22px!important}
+  .tabbar{display:flex!important;position:fixed;left:0;right:0;bottom:0;z-index:50;background:#FFFFFF;border-top:1px solid #E3E0D8;padding:6px 0 calc(6px + env(safe-area-inset-bottom));justify-content:space-around}
+}
 </style>
 </head>
 <body>
@@ -17,12 +27,12 @@ a{color:#1A1A1A}a:hover{color:#3A63F4}
 <div style="width: 100%; min-height: 100vh; background: #F6F5F1; color: #1A1A1A; font-family: 'Noto Sans JP', 'Hiragino Sans', sans-serif; font-weight: 500; letter-spacing: 0.01em; -webkit-font-smoothing: antialiased; display: flex; flex-direction: column">
 
   <header style="background: #FFFFFF; border-bottom: 1px solid #E3E0D8">
-    <div style="max-width: 1360px; margin: 0 auto; padding: 0 32px; height: 64px; box-sizing: border-box; display: flex; align-items: center; gap: 28px">
+    <div class="hdr" style="max-width: 1360px; margin: 0 auto; padding: 0 32px; height: 64px; box-sizing: border-box; display: flex; align-items: center; gap: 28px">
       <a href="index.html" style="display: flex; align-items: center; gap: 8px; text-decoration: none; flex: 0 0 auto">
         <span style="width: 30px; height: 30px; border-radius: 50%; background: #3A63F4; display: flex; align-items: center; justify-content: center"><span style="width: 11px; height: 11px; border-radius: 50%; background: #FFD338"></span></span>
         <span style="font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 22px; letter-spacing: -0.4px">Fleming</span>
       </a>
-      <nav aria-label="グローバル" style="margin-left: auto; display: flex; align-items: center; gap: 4px; font-size: 14px; font-weight: 700">
+      <nav class="pc-only" aria-label="グローバル" style="margin-left: auto; display: flex; align-items: center; gap: 4px; font-size: 14px; font-weight: 700">
         <a href="index.html" style="text-decoration: none; padding: 10px 14px; border-radius: 999px; min-height: 44px; box-sizing: border-box; display: flex; align-items: center">さがす</a>
         <a href="scouts.html" style="text-decoration: none; padding: 10px 14px; border-radius: 999px; min-height: 44px; box-sizing: border-box; display: flex; align-items: center; gap: 8px">スカウト<span style="background: #3A63F4; color: #FFFFFF; font-family: 'Outfit', sans-serif; font-size: 12px; padding: 2px 8px; border-radius: 999px">3</span></a>
         <a href="profile.html" aria-label="マイプロフィール" style="margin-left: 8px; width: 40px; height: 40px; border-radius: 50%; background: #DAD6CC; color: #6B675E; display: flex; align-items: center; justify-content: center; text-decoration: none; font-size: 14px; font-weight: 900"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"></circle><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"></path></svg></a>
@@ -30,11 +40,11 @@ a{color:#1A1A1A}a:hover{color:#3A63F4}
     </div>
   </header>
 
-  <div style="max-width: 1360px; width: 100%; margin: 0 auto; padding: 24px 32px 80px; box-sizing: border-box; display: flex; flex-wrap: wrap; gap: 32px; align-items: flex-start">
+  <div class="wrap" style="max-width: 1360px; width: 100%; margin: 0 auto; padding: 24px 32px 80px; box-sizing: border-box; display: flex; flex-wrap: wrap; gap: 32px; align-items: flex-start">
     <main style="flex: 999 1 620px; min-width: 0; display: flex; flex-direction: column; gap: 24px">
       <div style="display: flex; flex-direction: column; gap: 10px">
         <a href="job.html" style="font-size: 13px; font-weight: 700; color: #5C5C5C; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; min-height: 32px">← 募集に戻る</a>
-        <h1 style="margin: 0; font-size: 26px; font-weight: 900; line-height: 1.45">「聞きやすさ」で選ばれる内科病棟で、一緒に働く看護師を募集</h1>
+        <h1 class="pagetitle" style="margin: 0; font-size: 26px; font-weight: 900; line-height: 1.45">「聞きやすさ」で選ばれる内科病棟で、一緒に働く看護師を募集</h1>
         <span style="font-size: 14px; font-weight: 700; color: #5C5C5C">みなと中央病院 · 東京都港区</span>
       </div>
 
@@ -46,10 +56,10 @@ a{color:#1A1A1A}a:hover{color:#3A63F4}
 
       <!-- Article -->
       <article style="background: #FFFFFF; border-radius: 24px; overflow: hidden; display: flex; flex-direction: column">
-        <div style="height: 460px; background: #DAD6CC; overflow: hidden">
+        <div class="hero" style="height: 460px; background: #DAD6CC; overflow: hidden">
           <img src="images/director.jpg" alt="会議室で話す施設長" style="width: 100%; height: 100%; object-fit: cover; display: block">
         </div>
-        <div style="padding: 36px; display: flex; flex-direction: column; gap: 28px">
+        <div class="artbody" style="padding: 36px; display: flex; flex-direction: column; gap: 28px">
           <div style="display: flex; flex-direction: column; gap: 12px">
             <span style="font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 12px; letter-spacing: 2px; color: #3A63F4">INTERVIEW</span>
             <h2 style="margin: 0; font-size: 28px; font-weight: 900; line-height: 1.5">「忙しさはなくせない。でも、ひとりで抱える忙しさはなくせる」</h2>
@@ -90,7 +100,7 @@ a{color:#1A1A1A}a:hover{color:#3A63F4}
               </sc-for>
               <sc-if value="{{sec.photo}}" hint-placeholder-val="{{false}}">
                 <figure style="margin: 8px 0 0; display: flex; flex-direction: column; gap: 8px">
-                  <div style="height: 380px; border-radius: 16px; overflow: hidden; background: #DAD6CC">
+                  <div class="hero" style="height: 380px; border-radius: 16px; overflow: hidden; background: #DAD6CC">
                     <img src="{{sec.photo}}" alt="{{sec.caption}}" style="width: 100%; height: 100%; object-fit: cover; display: block">
                   </div>
                   <figcaption style="font-size: 12px; color: #5C5C5C">{{sec.caption}}</figcaption>
@@ -132,6 +142,11 @@ a{color:#1A1A1A}a:hover{color:#3A63F4}
       </div>
     </aside>
   </div>
+  <nav class="tabbar" aria-label="モバイルナビゲーション">
+    <a href="index.html" style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px; text-decoration: none; font-size: 10px; font-weight: 700; color: #8A857A; min-height: 44px; justify-content: center; position: relative"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-4-4"></path></svg>さがす</a>
+    <a href="scouts.html" style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px; text-decoration: none; font-size: 10px; font-weight: 700; color: #8A857A; min-height: 44px; justify-content: center; position: relative"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"></rect><path d="M3 8l9 6 9-6"></path></svg><span style="position: absolute; top: 2px; left: calc(50% + 6px); background: #3A63F4; color: #FFFFFF; font-family: 'Outfit', sans-serif; font-size: 10px; padding: 1px 6px; border-radius: 999px">3</span>スカウト</a>
+    <a href="profile.html" style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px; text-decoration: none; font-size: 10px; font-weight: 700; color: #8A857A; min-height: 44px; justify-content: center; position: relative"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"></circle><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"></path></svg>プロフィール</a>
+  </nav>
 </div>
 </template>
 <script src="runtime.js"></script>

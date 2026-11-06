@@ -93,9 +93,11 @@
       var frag = document.createDocumentFragment();
       renderNodes(tpl.content.childNodes, vals, frag);
       var y = window.scrollY;
+      var ae = document.activeElement, fid = ae && ae.id, pos = ae && ae.selectionStart;
       root.innerHTML = '';
       root.appendChild(frag);
       window.scrollTo(0, y);
+      if (fid) { var el2 = document.getElementById(fid); if (el2) { el2.focus(); try { if (pos != null) el2.setSelectionRange(pos, pos); } catch (e) {} } }
     };
     inst.__render();
   };

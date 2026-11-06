@@ -9,6 +9,25 @@
 <style>
 body{margin:0;background:#F6F5F1}
 a{color:#1A1A1A}a:hover{color:#3A63F4}
+.m-only{display:none}
+.tabbar{display:none}
+.arealist::-webkit-scrollbar{width:6px}.arealist::-webkit-scrollbar-thumb{background:#D9D4C7;border-radius:3px}
+@media (max-width: 760px){
+  .pc-only{display:none!important}
+  .m-only{display:flex!important}
+  .hdr{padding:0 16px!important;height:56px!important}
+  .wrap{padding:12px 16px 96px!important;gap:12px!important}
+  .filters{display:none!important}
+  .filters.open{display:flex!important;position:fixed;inset:0;z-index:60;background:#F6F5F1;overflow:auto;padding:12px 16px 110px!important;box-sizing:border-box;margin:0;min-width:0!important}
+  .cover{height:220px!important}
+  .cardbody{padding:14px 16px 16px!important;gap:12px!important}
+  .ctitle{font-size:17px!important}
+  .stat{flex:1 1 0!important;padding:8px 10px!important;border-radius:10px!important}
+  .statl{font-size:10px!important}
+  .statv{font-size:17px!important}
+  .cta{flex:1 1 auto!important;justify-content:center}
+  .tabbar{display:flex!important;position:fixed;left:0;right:0;bottom:0;z-index:50;background:#FFFFFF;border-top:1px solid #E3E0D8;padding:6px 0 calc(6px + env(safe-area-inset-bottom));justify-content:space-around}
+}
 </style>
 </head>
 <body>
@@ -18,33 +37,37 @@ a{color:#1A1A1A}a:hover{color:#3A63F4}
 
   <!-- App bar -->
   <header style="background: #FFFFFF; border-bottom: 1px solid #E3E0D8">
-    <div style="max-width: 1360px; margin: 0 auto; padding: 0 32px; height: 64px; box-sizing: border-box; display: flex; align-items: center; gap: 28px">
+    <div class="hdr" style="max-width: 1360px; margin: 0 auto; padding: 0 32px; height: 64px; box-sizing: border-box; display: flex; align-items: center; gap: 28px">
       <a href="index.html" style="display: flex; align-items: center; gap: 8px; text-decoration: none; flex: 0 0 auto">
         <span style="width: 30px; height: 30px; border-radius: 50%; background: #3A63F4; display: flex; align-items: center; justify-content: center"><span style="width: 11px; height: 11px; border-radius: 50%; background: #FFD338"></span></span>
         <span style="font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 22px; letter-spacing: -0.4px">Fleming</span>
       </a>
-      <form aria-label="募集を検索" style="flex: 1 1 320px; min-width: 0; max-width: 480px; display: flex; align-items: center; gap: 10px; background: #F6F5F1; border-radius: 999px; padding: 0 16px; height: 42px; box-sizing: border-box">
+      <form class="pc-only" aria-label="募集を検索" style="flex: 1 1 320px; min-width: 0; max-width: 480px; display: flex; align-items: center; gap: 10px; background: #F6F5F1; border-radius: 999px; padding: 0 16px; height: 42px; box-sizing: border-box">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#5C5C5C" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-4-4"></path></svg>
         <label for="q" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">キーワード</label>
         <input id="q" type="search" placeholder="病院名、エリア、「残業少なめ」など" style="flex: 1 1 auto; min-width: 0; border: none; background: transparent; font-family: inherit; font-size: 14px; font-weight: 700; color: #1A1A1A; outline: none">
       </form>
-      <nav aria-label="グローバル" style="margin-left: auto; display: flex; align-items: center; gap: 4px; font-size: 14px; font-weight: 700">
+      <nav class="pc-only" aria-label="グローバル" style="margin-left: auto; display: flex; align-items: center; gap: 4px; font-size: 14px; font-weight: 700">
         <a href="index.html" aria-current="page" style="text-decoration: none; padding: 10px 14px; border-radius: 999px; background: #1A1A1A; color: #FFFFFF; min-height: 44px; box-sizing: border-box; display: flex; align-items: center">さがす</a>
         <a href="scouts.html" style="text-decoration: none; padding: 10px 14px; border-radius: 999px; min-height: 44px; box-sizing: border-box; display: flex; align-items: center; gap: 8px">スカウト<span style="background: #3A63F4; color: #FFFFFF; font-family: 'Outfit', sans-serif; font-size: 12px; padding: 2px 8px; border-radius: 999px">3</span></a>
         <a href="profile.html" aria-label="マイプロフィール" style="margin-left: 8px; width: 40px; height: 40px; border-radius: 50%; background: #DAD6CC; color: #6B675E; display: flex; align-items: center; justify-content: center; text-decoration: none; font-size: 14px; font-weight: 900"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"></circle><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"></path></svg></a>
       </nav>
+      <button type="button" class="m-only" aria-label="検索" style="margin-left: auto; width: 40px; height: 40px; border-radius: 50%; border: none; background: #F6F5F1; align-items: center; justify-content: center; cursor: pointer"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1A1A1A" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-4-4"></path></svg></button>
     </div>
   </header>
 
   <!-- Body: 3 columns -->
-  <div style="max-width: 1160px; width: 100%; margin: 0 auto; padding: 28px 32px 64px; box-sizing: border-box; display: flex; flex-wrap: wrap; gap: 24px; align-items: flex-start">
+  <div class="wrap" style="max-width: 1160px; width: 100%; margin: 0 auto; padding: 28px 32px 64px; box-sizing: border-box; display: flex; flex-wrap: wrap; gap: 24px; align-items: flex-start">
 
     <!-- Left: filters -->
-    <aside aria-label="絞り込み" style="flex: 0 1 260px; min-width: 220px; display: flex; flex-direction: column; gap: 16px">
+    <aside aria-label="絞り込み" class="filters {{sheetCls}}" style="flex: 0 1 260px; min-width: 220px; display: flex; flex-direction: column; gap: 16px">
       <div style="background: #FFFFFF; border-radius: 20px; padding: 20px; display: flex; flex-direction: column; gap: 18px">
         <div style="display: flex; justify-content: space-between; align-items: center">
           <span style="font-size: 15px; font-weight: 900">絞り込み</span>
-          <button type="button" style="border: none; background: transparent; font-family: inherit; font-size: 12px; font-weight: 700; color: #3A63F4; cursor: pointer; min-height: 32px">リセット</button>
+          <span style="display: flex; gap: 8px; align-items: center">
+            <button type="button" style="border: none; background: transparent; font-family: inherit; font-size: 12px; font-weight: 700; color: #3A63F4; cursor: pointer; min-height: 32px">リセット</button>
+            <button type="button" class="m-only" onClick="{{closeSheet}}" aria-label="閉じる" style="width: 36px; height: 36px; border-radius: 50%; border: none; background: #F6F5F1; align-items: center; justify-content: center; cursor: pointer"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1A1A1A" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></button>
+          </span>
         </div>
         <fieldset style="border: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px">
           <legend style="font-size: 12px; font-weight: 700; color: #5C5C5C; padding: 0 0 6px">働き方</legend>
@@ -56,13 +79,38 @@ a{color:#1A1A1A}a:hover{color:#3A63F4}
             </label>
           </sc-for>
         </fieldset>
-        <fieldset style="border: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px">
-          <legend style="font-size: 12px; font-weight: 700; color: #5C5C5C; padding: 0 0 6px">エリア</legend>
-          <label style="display: flex; flex-direction: column; gap: 6px; font-size: 13px; font-weight: 700">
-            <select style="font-family: inherit; font-size: 14px; font-weight: 700; padding: 10px 12px; border-radius: 12px; border: 1.5px solid #D9D4C7; background: #FFFFFF; color: #1A1A1A; min-height: 44px">
-              <option>東京都</option><option>神奈川県</option><option>千葉県</option><option>埼玉県</option>
-            </select>
+        <fieldset style="border: none; margin: 0; padding: 0; min-width: 0; display: flex; flex-direction: column; gap: 8px">
+          <legend style="font-size: 12px; font-weight: 700; color: #5C5C5C; padding: 0 0 6px">エリア（市区町村・複数選択可）</legend>
+          <sc-if value="{{hasAreas}}" hint-placeholder-val="{{true}}">
+            <div style="display: flex; flex-wrap: wrap; gap: 6px">
+              <sc-for list="{{areaChips}}" as="c" hint-placeholder-count="2">
+                <button type="button" onClick="{{c.remove}}" aria-label="{{c.label}} を外す" style="display: flex; align-items: center; gap: 6px; border: none; background: #1A1A1A; color: #FFFFFF; border-radius: 999px; font-family: inherit; font-size: 12px; font-weight: 700; padding: 8px 10px 8px 12px; min-height: 32px; cursor: pointer">{{c.label}}<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></button>
+              </sc-for>
+            </div>
+          </sc-if>
+          <div style="display: flex; gap: 4px; background: #F6F5F1; border-radius: 12px; padding: 4px">
+            <sc-for list="{{prefs}}" as="p" hint-placeholder-count="4">
+              <button type="button" onClick="{{p.pick}}" aria-pressed="{{p.on}}" style="flex: 1 1 0; border: none; background: {{p.bg}}; color: {{p.fg}}; border-radius: 9px; font-family: inherit; font-size: 12px; font-weight: 700; padding: 0 2px; min-height: 34px; cursor: pointer; white-space: nowrap">{{p.short}}</button>
+            </sc-for>
+          </div>
+          <label style="display: flex; align-items: center; gap: 8px; border: 1.5px solid #D9D4C7; background: #FFFFFF; border-radius: 12px; padding: 0 12px; min-height: 42px">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#5C5C5C" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-4-4"></path></svg>
+            <input id="areaq" type="search" value="{{areaQ}}" onInput="{{setAreaQ}}" placeholder="{{areaPlaceholder}}" style="flex: 1 1 auto; min-width: 0; width: 0; border: none; background: transparent; font-family: inherit; font-size: 14px; font-weight: 700; color: #1A1A1A; outline: none">
           </label>
+          <ul class="arealist" role="listbox" aria-label="市区町村" aria-multiselectable="true" style="list-style: none; margin: 0; padding: 0; max-height: 192px; overflow: auto; border: 1.5px solid #EDEAE2; border-radius: 12px; display: flex; flex-direction: column">
+            <sc-for list="{{areaOptions}}" as="o" hint-placeholder-count="6">
+              <li role="option" aria-selected="{{o.on}}">
+                <label style="display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 700; min-height: 38px; padding: 0 12px; cursor: pointer; background: {{o.bg}}">
+                  <input type="checkbox" checked="{{o.on}}" onChange="{{o.toggle}}" style="width: 16px; height: 16px; accent-color: #3A63F4; margin: 0">
+                  <span style="flex: 1 1 auto">{{o.label}}</span>
+                  <span style="font-family: 'Outfit', sans-serif; font-size: 11px; color: #8A857A">{{o.n}}</span>
+                </label>
+              </li>
+            </sc-for>
+            <sc-if value="{{noAreaHit}}" hint-placeholder-val="{{false}}">
+              <li style="padding: 12px; font-size: 12px; color: #8A857A">「{{areaQ}}」に一致する市区町村はありません</li>
+            </sc-if>
+          </ul>
         </fieldset>
         <sc-for list="{{filters}}" as="f" hint-placeholder-count="3">
         <div style="display: flex; flex-direction: column; gap: 8px">
@@ -102,10 +150,19 @@ a{color:#1A1A1A}a:hover{color:#3A63F4}
         <span style="font-size: 15px; font-weight: 900; line-height: 1.6">同期や元同僚に、<br>そのまま送れる紹介文があります</span>
         <a href="profile.html" style="align-self: flex-start; text-decoration: none; font-size: 13px; font-weight: 700; padding: 10px 16px; border-radius: 999px; background: #1A1A1A; color: #FFFFFF; min-height: 40px; box-sizing: border-box; display: flex; align-items: center">紹介リンクを見る</a>
       </div>
+      <div class="m-only" style="position: fixed; left: 0; right: 0; bottom: 0; z-index: 70; background: #FFFFFF; border-top: 1px solid #E3E0D8; padding: 12px 16px calc(12px + env(safe-area-inset-bottom))">
+        <button type="button" onClick="{{closeSheet}}" style="flex: 1 1 auto; border: none; background: #1A1A1A; color: #FFFFFF; border-radius: 999px; font-family: inherit; font-size: 15px; font-weight: 700; min-height: 52px; cursor: pointer"><span style="font-family: 'Outfit', sans-serif; font-size: 17px">{{count}}</span> 件の募集を見る</button>
+      </div>
     </aside>
 
     <!-- Center: feed -->
     <main style="flex: 999 1 560px; min-width: 0; display: flex; flex-direction: column; gap: 16px">
+      <div class="m-only" style="gap: 8px; overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 0 -16px; padding: 0 16px; scrollbar-width: none">
+        <button type="button" onClick="{{openSheet}}" style="flex: 0 0 auto; display: flex; align-items: center; gap: 6px; border: 1.5px solid #1A1A1A; background: #FFFFFF; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 700; padding: 0 14px; min-height: 38px; cursor: pointer"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M7 12h10M10 18h4"></path></svg>絞り込み<span style="background: #3A63F4; color: #FFFFFF; font-family: 'Outfit', sans-serif; font-size: 11px; padding: 1px 7px; border-radius: 999px">{{activeCount}}</span></button>
+        <sc-for list="{{summaryChips}}" as="c" hint-placeholder-count="3">
+          <span style="flex: 0 0 auto; display: flex; align-items: center; background: #1A1A1A; color: #FFFFFF; border-radius: 999px; font-size: 12px; font-weight: 700; padding: 0 12px; min-height: 38px; white-space: nowrap">{{c}}</span>
+        </sc-for>
+      </div>
       <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px">
         <div style="display: flex; gap: 4px; background: #FFFFFF; border-radius: 999px; padding: 4px">
           <sc-for list="{{tabs}}" as="t" hint-placeholder-count="3">
@@ -117,17 +174,17 @@ a{color:#1A1A1A}a:hover{color:#3A63F4}
 
       <sc-for list="{{jobs}}" as="j" hint-placeholder-count="4">
         <article style="background: #FFFFFF; border-radius: 24px; overflow: hidden; display: flex; flex-direction: column">
-          <a href="job.html" aria-label="{{j.title}}" style="display: block; height: 360px; background: #1A1A1A; position: relative; text-decoration: none; overflow: hidden">
+          <a href="job.html" aria-label="{{j.title}}" class="cover" style="display: block; height: 360px; background: #1A1A1A; position: relative; text-decoration: none; overflow: hidden">
             <img src="{{j.img}}" alt="{{j.photo}}" style="width: 100%; height: 100%; object-fit: cover; display: block">
             <span style="position: absolute; left: 16px; top: 16px; display: flex; gap: 6px">
               <span style="background: #FFFFFF; color: #1A1A1A; font-size: 12px; font-weight: 700; padding: 6px 12px; border-radius: 999px">{{j.type}}</span>
               <span style="background: #1A1A1A; color: #FFFFFF; font-size: 12px; font-weight: 700; padding: 6px 12px; border-radius: 999px">{{j.cat}}</span>
             </span>
           </a>
-          <div style="padding: 20px 24px 22px; display: flex; flex-direction: column; gap: 14px">
+          <div class="cardbody" style="padding: 20px 24px 22px; display: flex; flex-direction: column; gap: 14px">
             <div style="display: flex; align-items: flex-start; gap: 16px">
               <div style="flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; gap: 6px">
-                <a href="job.html" style="text-decoration: none; font-size: 21px; font-weight: 900; line-height: 1.5">{{j.title}}</a>
+                <a href="job.html" class="ctitle" style="text-decoration: none; font-size: 21px; font-weight: 900; line-height: 1.5">{{j.title}}</a>
                 <div style="display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 700; color: #5C5C5C">
                   <span aria-hidden="true" style="width: 22px; height: 22px; border-radius: 6px; background: #DAD6CC; border: 1px solid #C9C4B8"></span>
                   <span>{{j.org}}</span><span>·</span><span>{{j.area}}</span>
@@ -141,9 +198,9 @@ a{color:#1A1A1A}a:hover{color:#3A63F4}
             </div>
             <div style="display: flex; flex-wrap: wrap; gap: 8px">
               <sc-for list="{{j.bars}}" as="b" hint-placeholder-count="3">
-                <div style="flex: 1 1 150px; min-width: 0; display: flex; flex-direction: column; gap: 2px; background: #F6F5F1; border-radius: 12px; padding: 10px 14px">
-                  <span style="font-size: 11px; font-weight: 700; color: #5C5C5C">{{b.label}}</span>
-                  <span style="font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 20px; line-height: 1.2; color: {{b.color}}">{{b.value}}</span>
+                <div class="stat" style="flex: 1 1 150px; min-width: 0; display: flex; flex-direction: column; gap: 2px; background: #F6F5F1; border-radius: 12px; padding: 10px 14px">
+                  <span class="statl pc-only" style="font-size: 11px; font-weight: 700; color: #5C5C5C">{{b.label}}</span><span class="statl m-only" style="font-size: 11px; font-weight: 700; color: #5C5C5C">{{b.short}}</span>
+                  <span class="statv" style="font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 20px; line-height: 1.2; color: {{b.color}}">{{b.value}}</span>
                 </div>
               </sc-for>
             </div>
@@ -153,7 +210,7 @@ a{color:#1A1A1A}a:hover{color:#3A63F4}
               </sc-for>
             </div>
             <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px; padding-top: 6px; border-top: 1px solid #EDEAE2">
-              <a href="job.html" style="text-decoration: none; font-size: 14px; font-weight: 700; padding: 12px 20px; border-radius: 999px; background: #1A1A1A; color: #FFFFFF; min-height: 44px; box-sizing: border-box; display: flex; align-items: center">話を聞きに行きたい</a>
+              <a href="job.html" class="cta" style="text-decoration: none; font-size: 14px; font-weight: 700; padding: 12px 20px; border-radius: 999px; background: #1A1A1A; color: #FFFFFF; min-height: 44px; box-sizing: border-box; display: flex; align-items: center">話を聞きに行きたい</a>
               <button type="button" onClick="{{j.like}}" aria-pressed="{{j.liked}}" style="border: 1.5px solid {{j.likeBorder}}; background: {{j.likeBg}}; color: #1A1A1A; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 700; padding: 10px 14px; min-height: 44px; display: flex; align-items: center; gap: 6px; cursor: pointer">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="{{j.likeFill}}" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-4.6-9.5-9C.8 8.6 2.9 4 7 4c2.2 0 3.6 1.2 5 3 1.4-1.8 2.8-3 5-3 4.1 0 6.2 4.6 4.5 8-2.5 4.4-9.5 9-9.5 9z"></path></svg>
                 気になる <span style="font-family: 'Outfit', sans-serif">{{j.likes}}</span>
@@ -167,12 +224,17 @@ a{color:#1A1A1A}a:hover{color:#3A63F4}
     </main>
 
   </div>
+  <nav class="tabbar" aria-label="モバイルナビゲーション">
+    <a href="index.html" aria-current="page" style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px; text-decoration: none; font-size: 10px; font-weight: 700; color: #1A1A1A; min-height: 44px; justify-content: center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-4-4"></path></svg>さがす</a>
+    <a href="scouts.html" style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px; text-decoration: none; font-size: 10px; font-weight: 700; color: #8A857A; min-height: 44px; justify-content: center; position: relative"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"></rect><path d="M3 8l9 6 9-6"></path></svg><span style="position: absolute; top: 2px; left: calc(50% + 6px); background: #3A63F4; color: #FFFFFF; font-family: 'Outfit', sans-serif; font-size: 10px; padding: 1px 6px; border-radius: 999px">3</span>スカウト</a>
+    <a href="profile.html" style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px; text-decoration: none; font-size: 10px; font-weight: 700; color: #8A857A; min-height: 44px; justify-content: center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"></circle><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"></path></svg>プロフィール</a>
+  </nav>
 </div>
 </template>
 <script src="runtime.js"></script>
 <script>
 class Component extends DCLogic {
-  constructor(p) { super(p); this.state = { tab: 0, liked: {}, work: { 0: true, 1: false }, open: null, pts: 1, ot: 1, other: { 0: true } }; }
+  constructor(p) { super(p); this.state = { tab: 0, liked: {}, work: { 0: true, 1: false }, open: null, pts: 1, ot: 1, other: { 0: true }, pref: '東京都', areaQ: '', areas: { '東京都|港区': true, '東京都|世田谷区': true }, sheet: false }; }
   renderVals() {
     const tabs = ['おすすめ', '新着', '給与順'].map((label, i) => ({ label, pick: () => this.setState({ tab: i }), bg: this.state.tab === i ? '#1A1A1A' : 'transparent', fg: this.state.tab === i ? '#FFFFFF' : '#1A1A1A' }));
         const workTypes = [['正社員', 128], ['パート', 64]].map((w, i) => ({ label: w[0], n: w[1], on: !!this.state.work[i], toggle: () => this.setState({ work: Object.assign({}, this.state.work, { [i]: !this.state.work[i] }) }) }));
@@ -185,9 +247,9 @@ class Component extends DCLogic {
     const jobs = raw.map((j) => {
       const liked = !!this.state.liked[j.id];
       const bars = [
-        { label: '1人あたりの担当患者数', value: j.pts ? j.pts + '人' : '外来', w: Math.min(100, j.pts / 30 * 100) + '%', avgPos: (10 / 30 * 100) + '%', color: j.pts <= 10 ? '#1A1A1A' : '#D9486F' },
-        { label: '平均残業時間（月）', value: j.ot + 'h', w: Math.min(100, j.ot / 40 * 100) + '%', avgPos: (18 / 40 * 100) + '%', color: j.ot <= 18 ? '#1A1A1A' : '#D9486F' },
-        { label: '離職率（年）', value: j.tr + '%', w: Math.min(100, j.tr / 30 * 100) + '%', avgPos: (11 / 30 * 100) + '%', color: j.tr <= 11 ? '#1A1A1A' : '#D9486F' }
+        { label: '1人あたりの担当患者数', short: '担当患者数', value: j.pts ? j.pts + '人' : '外来', w: Math.min(100, j.pts / 30 * 100) + '%', avgPos: (10 / 30 * 100) + '%', color: j.pts <= 10 ? '#1A1A1A' : '#D9486F' },
+        { label: '平均残業時間（月）', short: '残業（月）', value: j.ot + 'h', w: Math.min(100, j.ot / 40 * 100) + '%', avgPos: (18 / 40 * 100) + '%', color: j.ot <= 18 ? '#1A1A1A' : '#D9486F' },
+        { label: '離職率（年）', short: '離職率（年）', value: j.tr + '%', w: Math.min(100, j.tr / 30 * 100) + '%', avgPos: (11 / 30 * 100) + '%', color: j.tr <= 11 ? '#1A1A1A' : '#D9486F' }
       ];
       return Object.assign({}, j, { bars, liked, likes: j.likes + (liked ? 1 : 0), likeFill: liked ? '#FF8FB1' : 'none', likeBg: liked ? '#FFE3EC' : '#FFFFFF', likeBorder: liked ? '#FF8FB1' : '#D9D4C7', like: () => this.setState({ liked: Object.assign({}, this.state.liked, { [j.id]: !liked }) }) });
     });
@@ -204,6 +266,19 @@ class Component extends DCLogic {
       const chips = options.filter((o) => o.on);
       return { title, open: st.open === key, toggle: () => this.setState({ open: st.open === key ? null : key }), options, label: chips.length ? chips.length + '件を選択中' : '選ぶ', color: chips.length ? '#1A1A1A' : '#8A857A', caret: st.open === key ? 'rotate(180deg)' : 'none', hasChips: chips.length > 0, chips };
     };
+    const AREAS = {
+      '東京都': ['千代田区','中央区','港区','新宿区','文京区','台東区','墨田区','江東区','品川区','目黒区','大田区','世田谷区','渋谷区','中野区','杉並区','豊島区','北区','荒川区','板橋区','練馬区','足立区','葛飾区','江戸川区','八王子市','立川市','武蔵野市','三鷹市','府中市','調布市','町田市','小金井市','日野市','国分寺市','西東京市'],
+      '神奈川県': ['横浜市','川崎市','相模原市','横須賀市','藤沢市','鎌倉市','茅ヶ崎市','平塚市','厚木市','大和市','海老名市','小田原市'],
+      '千葉県': ['千葉市','船橋市','市川市','松戸市','柏市','市原市','流山市','八千代市','習志野市','浦安市','我孫子市'],
+      '埼玉県': ['さいたま市','川口市','川越市','所沢市','越谷市','草加市','春日部市','上尾市','熊谷市','新座市','久喜市']
+    };
+    const areas = st.areas || {};
+    const prefs = Object.keys(AREAS).map((p) => ({ short: p.replace('県', '').replace('都', ''), on: st.pref === p, bg: st.pref === p ? '#1A1A1A' : 'transparent', fg: st.pref === p ? '#FFFFFF' : '#5C5C5C', pick: () => this.setState({ pref: p, areaQ: '' }) }));
+    const q = (st.areaQ || '').trim();
+    const areaOptions = AREAS[st.pref].filter((m) => !q || m.indexOf(q) >= 0).map((m, i) => { const key = st.pref + '|' + m; const on = !!areas[key]; return { label: m, n: ((m.length * 7 + i * 13) % 40) + 3, on, bg: on ? '#F1F4FF' : '#FFFFFF', toggle: () => this.setState({ areas: Object.assign({}, areas, { [key]: !on }) }) }; });
+    const areaChips = Object.keys(areas).filter((k) => areas[k]).map((k) => ({ label: k.split('|')[1], remove: () => this.setState({ areas: Object.assign({}, areas, { [k]: false }) }) }));
+    const activeCount = areaChips.length + Object.values(st.work).filter(Boolean).length + (st.pts < 3 ? 1 : 0) + (st.ot < 3 ? 1 : 0) + Object.values(st.other || {}).filter(Boolean).length;
+    const summaryChips = areaChips.map((c) => c.label).concat(st.work[0] ? ['正社員'] : [], st.pts < 3 ? [['5人以下', '7人以下', '10人以下'][st.pts]] : []);
     const filters = [
       single('pts', '1人あたりの担当患者数', ['5人以下', '7人以下', '10人以下', 'こだわらない']),
       single('ot', '平均残業時間', ['月5時間以内', '月10時間以内', '月20時間以内', 'こだわらない']),
@@ -211,6 +286,8 @@ class Component extends DCLogic {
     ];
     return {
       tabs, workTypes, jobs, count: 233, filters,
+      prefs, areaOptions, areaChips, hasAreas: areaChips.length > 0, noAreaHit: areaOptions.length === 0, areaQ: st.areaQ || '', areaPlaceholder: st.pref + 'の市区町村を検索', setAreaQ: (e) => this.setState({ areaQ: e.target.value }),
+      activeCount, summaryChips, sheetCls: st.sheet ? 'open' : '', openSheet: () => this.setState({ sheet: true }), closeSheet: () => this.setState({ sheet: false }),
     };
   }
 }
