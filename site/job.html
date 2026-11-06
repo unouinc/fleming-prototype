@@ -64,7 +64,7 @@ a{color:#1A1A1A}a:hover{color:#3A63F4}
     <main style="flex: 999 1 620px; min-width: 0; display: flex; flex-direction: column; gap: 28px">
       <div style="display: flex; flex-direction: column; gap: 14px">
         <div style="display: flex; gap: 6px; flex-wrap: wrap">
-          <span style="background: #1A1A1A; color: #FFFFFF; font-size: 12px; font-weight: 700; padding: 6px 12px; border-radius: 999px">正社員</span>
+          <span style="background: #3B4654; color: #FFFFFF; font-size: 12px; font-weight: 700; padding: 6px 12px; border-radius: 999px">正社員</span>
           <span style="background: #FFFFFF; font-size: 12px; font-weight: 700; padding: 6px 12px; border-radius: 999px; border: 1.5px solid #D9D4C7">病院・急性期</span>
           <span style="background: #FFFFFF; font-size: 12px; font-weight: 700; padding: 6px 12px; border-radius: 999px; border: 1.5px solid #D9D4C7">看護師</span>
         </div>
@@ -116,13 +116,13 @@ a{color:#1A1A1A}a:hover{color:#3A63F4}
           <h2 style="margin: 0; font-size: 22px; font-weight: 900">話を聞きに行くと会える人</h2>
         </div>
         <div style="display: flex; gap: 8px; flex-wrap: wrap">
-          <a href="members-a.html" style="text-decoration: none; font-size: 13px; font-weight: 700; padding: 10px 16px; border-radius: 999px; border: 2px solid #1A1A1A; min-height: 40px; box-sizing: border-box; display: flex; align-items: center">チームの構成を見る（組織図）</a>
-          <a href="members-b.html" style="text-decoration: none; font-size: 13px; font-weight: 700; padding: 10px 16px; border-radius: 999px; border: 2px solid #1A1A1A; min-height: 40px; box-sizing: border-box; display: flex; align-items: center">数字で見るメンバー・師長の紹介</a>
+          <a href="members-a.html" style="text-decoration: none; font-size: 13px; font-weight: 700; padding: 10px 16px; border-radius: 999px; border: 2px solid #D9D4C7; min-height: 40px; box-sizing: border-box; display: flex; align-items: center">チームの構成を見る（組織図）</a>
+          <a href="members-b.html" style="text-decoration: none; font-size: 13px; font-weight: 700; padding: 10px 16px; border-radius: 999px; border: 2px solid #D9D4C7; min-height: 40px; box-sizing: border-box; display: flex; align-items: center">数字で見るメンバー・師長の紹介</a>
         </div>
         <div style="display: flex; flex-wrap: wrap; gap: 16px">
           <sc-for list="{{members}}" as="m" hint-placeholder-count="3">
             <div style="flex: 1 1 220px; min-width: 0; display: flex; gap: 14px; align-items: flex-start">
-              <span aria-hidden="true" style="width: 56px; height: 56px; border-radius: 50%; background: #DAD6CC; color: #6B675E; border: 2px solid #1A1A1A; flex: 0 0 auto; display: flex; align-items: center; justify-content: center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"></circle><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"></path></svg></span>
+              <span aria-hidden="true" style="width: 56px; height: 56px; border-radius: 50%; background: #DAD6CC; color: #6B675E; border: 2px solid #D9D4C7; flex: 0 0 auto; display: flex; align-items: center; justify-content: center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"></circle><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"></path></svg></span>
               <div style="display: flex; flex-direction: column; gap: 4px">
                 <span style="font-size: 15px; font-weight: 900">{{m.role}}</span>
                 <span style="font-size: 12px; font-weight: 700; color: #5C5C5C">{{m.meta}}</span>
@@ -151,7 +151,7 @@ a{color:#1A1A1A}a:hover{color:#3A63F4}
               </div>
               <div style="height: 12px; background: #E6E2D8; border-radius: 999px; position: relative; overflow: hidden">
                 <div style="position: absolute; left: 0; top: 0; height: 12px; border-radius: 999px; background: {{b.color}}; width: {{b.w}}"></div>
-                <div style="position: absolute; top: 0; height: 12px; width: 3px; background: #1A1A1A; left: {{b.avgPos}}"></div>
+                <div style="position: absolute; top: 0; height: 12px; width: 3px; background: #3B4654; left: {{b.avgPos}}"></div>
               </div>
               <span style="font-size: 11px; color: #5C5C5C">{{b.note}}</span>
             </div>
@@ -179,7 +179,7 @@ a{color:#1A1A1A}a:hover{color:#3A63F4}
 
     <!-- Side: action card -->
     <aside style="flex: 0 1 340px; min-width: 280px; display: flex; flex-direction: column; gap: 16px">
-      <div style="background: #FFFFFF; border: 2px solid #1A1A1A; border-radius: 24px; padding: 24px; display: flex; flex-direction: column; gap: 16px">
+      <div style="background: #FFFFFF; border: 2px solid #D9D4C7; border-radius: 24px; padding: 24px; display: flex; flex-direction: column; gap: 16px">
         <div style="display: flex; align-items: center; gap: 14px">
           <span aria-hidden="true" style="width: 48px; height: 48px; border-radius: 12px; background: #DAD6CC; border: 1px solid #C9C4B8; flex: 0 0 auto"></span>
           <div style="display: flex; flex-direction: column; gap: 2px; min-width: 0">
@@ -196,7 +196,7 @@ a{color:#1A1A1A}a:hover{color:#3A63F4}
           </div>
         </sc-if>
         <sc-if value="{{notApplied}}" hint-placeholder-val="{{true}}">
-          <button type="button" onClick="{{apply}}" style="border: none; background: #1A1A1A; color: #FFFFFF; border-radius: 999px; font-family: inherit; font-size: 16px; font-weight: 700; padding: 16px; min-height: 56px; cursor: pointer">話を聞きに行きたい</button>
+          <button type="button" onClick="{{apply}}" style="border: none; background: #3B4654; color: #FFFFFF; border-radius: 999px; font-family: inherit; font-size: 16px; font-weight: 700; padding: 16px; min-height: 56px; cursor: pointer">話を聞きに行きたい</button>
         </sc-if>
         <div style="display: flex; gap: 8px">
           <button type="button" onClick="{{toggleLike}}" aria-pressed="{{liked}}" style="flex: 1 1 auto; border: 2px solid {{likeBorder}}; background: {{likeBg}}; border-radius: 999px; font-family: inherit; font-size: 14px; font-weight: 700; padding: 12px; min-height: 48px; display: flex; align-items: center; justify-content: center; gap: 6px; cursor: pointer">
@@ -218,7 +218,7 @@ a{color:#1A1A1A}a:hover{color:#3A63F4}
         <a href="profile.html" style="font-size: 12px; font-weight: 700; color: #3A63F4; text-decoration: none">希望条件を編集 →</a>
       </div>
 
-      <div style="background: #1A1A1A; color: #FFFFFF; border-radius: 24px; padding: 24px; display: flex; flex-direction: column; gap: 10px">
+      <div style="background: #3B4654; color: #FFFFFF; border-radius: 24px; padding: 24px; display: flex; flex-direction: column; gap: 10px">
         <span style="font-size: 13px; font-weight: 900; color: #FFD338">この募集を友だちに</span>
         <span style="font-size: 13px; line-height: 1.7">合いそうな同期がいたら送ってみてください。その人がFlemingで転職したら、あなたに5万円。</span>
         <button type="button" style="align-self: flex-start; border: none; background: #FFFFFF; color: #1A1A1A; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 700; padding: 10px 16px; min-height: 40px; cursor: pointer">紹介文をコピー</button>

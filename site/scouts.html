@@ -33,7 +33,7 @@ a{color:#1A1A1A}a:hover{color:#3A63F4}
       </a>
       <nav class="pc-only" aria-label="グローバル" style="margin-left: auto; display: flex; align-items: center; gap: 4px; font-size: 14px; font-weight: 700">
         <a href="index.html" style="text-decoration: none; padding: 10px 14px; border-radius: 999px; min-height: 44px; box-sizing: border-box; display: flex; align-items: center">さがす</a>
-        <a href="scouts.html" aria-current="page" style="text-decoration: none; padding: 10px 14px; border-radius: 999px; background: #1A1A1A; color: #FFFFFF; min-height: 44px; box-sizing: border-box; display: flex; align-items: center; gap: 8px">スカウト<span style="background: #3A63F4; color: #FFFFFF; font-family: 'Outfit', sans-serif; font-size: 12px; padding: 2px 8px; border-radius: 999px">3</span></a>
+        <a href="scouts.html" aria-current="page" style="text-decoration: none; padding: 10px 14px; border-radius: 999px; background: #3B4654; color: #FFFFFF; min-height: 44px; box-sizing: border-box; display: flex; align-items: center; gap: 8px">スカウト<span style="background: #3A63F4; color: #FFFFFF; font-family: 'Outfit', sans-serif; font-size: 12px; padding: 2px 8px; border-radius: 999px">3</span></a>
         <a href="profile.html" aria-label="マイプロフィール" style="margin-left: 8px; width: 40px; height: 40px; border-radius: 50%; background: #DAD6CC; color: #6B675E; display: flex; align-items: center; justify-content: center; text-decoration: none; font-size: 14px; font-weight: 900"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"></circle><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"></path></svg></a>
       </nav>
     </div>
@@ -91,7 +91,7 @@ a{color:#1A1A1A}a:hover{color:#3A63F4}
             </div>
           </sc-for>
           <sc-if value="{{cur.showOffer}}" hint-placeholder-val="{{true}}">
-            <div style="align-self: flex-start; max-width: 78%; background: #FFFFFF; border: 2px solid #1A1A1A; border-radius: 20px; padding: 18px 20px; display: flex; flex-direction: column; gap: 12px">
+            <div style="align-self: flex-start; max-width: 78%; background: #FFFFFF; border: 2px solid #D9D4C7; border-radius: 20px; padding: 18px 20px; display: flex; flex-direction: column; gap: 12px">
               <span style="font-size: 12px; font-weight: 700; color: #3A63F4">病院からの提案</span>
               <span style="font-size: 15px; font-weight: 900">見学 or オンラインで15分、話しませんか</span>
               <div style="display: flex; gap: 8px; flex-wrap: wrap">
@@ -115,7 +115,7 @@ a{color:#1A1A1A}a:hover{color:#3A63F4}
           <div style="display: flex; gap: 10px; align-items: flex-end">
             <label for="reply" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">返信</label>
             <textarea id="reply" rows="2" placeholder="返信を書く（匿名のまま送れます）" style="flex: 1 1 auto; min-width: 0; font-family: inherit; font-size: 14px; font-weight: 500; padding: 12px 16px; border-radius: 16px; border: 1.5px solid #D9D4C7; resize: vertical; background: #FFFFFF; color: #1A1A1A"></textarea>
-            <button type="button" style="border: none; background: #1A1A1A; color: #FFFFFF; border-radius: 999px; font-family: inherit; font-size: 14px; font-weight: 700; padding: 0 22px; min-height: 48px; cursor: pointer; flex: 0 0 auto">送信</button>
+            <button type="button" style="border: none; background: #3B4654; color: #FFFFFF; border-radius: 999px; font-family: inherit; font-size: 14px; font-weight: 700; padding: 0 22px; min-height: 48px; cursor: pointer; flex: 0 0 auto">送信</button>
           </div>
           <span style="font-size: 11px; color: #5C5C5C">本名と連絡先は、あなたが「話を聞きに行く」と決めるまで病院には届きません。</span>
         </form>
@@ -134,8 +134,8 @@ a{color:#1A1A1A}a:hover{color:#3A63F4}
 class Component extends DCLogic {
   constructor(p) { super(p); this.state = { filter: 0, cur: 0, slot: -1 }; }
   renderVals() {
-    const filters = ['すべて', 'スカウト', '進行中'].map((label, i) => ({ label, pick: () => this.setState({ filter: i }), bg: this.state.filter === i ? '#1A1A1A' : 'transparent', fg: this.state.filter === i ? '#FFFFFF' : '#1A1A1A' }));
-    const me = (text, at) => ({ who: 'あなた', at, text, align: 'flex-end', bg: '#1A1A1A', fg: '#FFFFFF', radius: '20px 20px 4px 20px' });
+    const filters = ['すべて', 'スカウト', '進行中'].map((label, i) => ({ label, pick: () => this.setState({ filter: i }), bg: this.state.filter === i ? '#3B4654' : 'transparent', fg: this.state.filter === i ? '#FFFFFF' : '#1A1A1A' }));
+    const me = (text, at) => ({ who: 'あなた', at, text, align: 'flex-end', bg: '#3B4654', fg: '#FFFFFF', radius: '20px 20px 4px 20px' });
     const them = (who, text, at) => ({ who, at, text, align: 'flex-start', bg: '#FFFFFF', fg: '#1A1A1A', radius: '20px 20px 20px 4px' });
     const data = [
       { org: 'みなと中央病院', from: '内科病棟 師長', color: '#3A63F4', kind: 'スカウト', kindColor: '#3A63F4', when: '1時間前', unread: true, preview: 'プロフィールを拝見しました。「受け持ち7人以下」「聞きやすい職場」というご希望、まさに…', showOffer: true,

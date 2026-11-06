@@ -48,7 +48,7 @@ a{color:#1A1A1A}a:hover{color:#3A63F4}
         <input id="q" type="search" placeholder="病院名、エリア、「残業少なめ」など" style="flex: 1 1 auto; min-width: 0; border: none; background: transparent; font-family: inherit; font-size: 14px; font-weight: 700; color: #1A1A1A; outline: none">
       </form>
       <nav class="pc-only" aria-label="グローバル" style="margin-left: auto; display: flex; align-items: center; gap: 4px; font-size: 14px; font-weight: 700">
-        <a href="index.html" aria-current="page" style="text-decoration: none; padding: 10px 14px; border-radius: 999px; background: #1A1A1A; color: #FFFFFF; min-height: 44px; box-sizing: border-box; display: flex; align-items: center">さがす</a>
+        <a href="index.html" aria-current="page" style="text-decoration: none; padding: 10px 14px; border-radius: 999px; background: #3B4654; color: #FFFFFF; min-height: 44px; box-sizing: border-box; display: flex; align-items: center">さがす</a>
         <a href="scouts.html" style="text-decoration: none; padding: 10px 14px; border-radius: 999px; min-height: 44px; box-sizing: border-box; display: flex; align-items: center; gap: 8px">スカウト<span style="background: #3A63F4; color: #FFFFFF; font-family: 'Outfit', sans-serif; font-size: 12px; padding: 2px 8px; border-radius: 999px">3</span></a>
         <a href="profile.html" aria-label="マイプロフィール" style="margin-left: 8px; width: 40px; height: 40px; border-radius: 50%; background: #DAD6CC; color: #6B675E; display: flex; align-items: center; justify-content: center; text-decoration: none; font-size: 14px; font-weight: 900"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"></circle><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"></path></svg></a>
       </nav>
@@ -84,7 +84,7 @@ a{color:#1A1A1A}a:hover{color:#3A63F4}
           <sc-if value="{{hasAreas}}" hint-placeholder-val="{{true}}">
             <div style="display: flex; flex-wrap: wrap; gap: 6px">
               <sc-for list="{{areaChips}}" as="c" hint-placeholder-count="2">
-                <button type="button" onClick="{{c.remove}}" aria-label="{{c.label}} を外す" style="display: flex; align-items: center; gap: 6px; border: none; background: #1A1A1A; color: #FFFFFF; border-radius: 999px; font-family: inherit; font-size: 12px; font-weight: 700; padding: 8px 10px 8px 12px; min-height: 32px; cursor: pointer">{{c.label}}<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></button>
+                <button type="button" onClick="{{c.remove}}" aria-label="{{c.label}} を外す" style="display: flex; align-items: center; gap: 6px; border: none; background: #3B4654; color: #FFFFFF; border-radius: 999px; font-family: inherit; font-size: 12px; font-weight: 700; padding: 8px 10px 8px 12px; min-height: 32px; cursor: pointer">{{c.label}}<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></button>
               </sc-for>
             </div>
           </sc-if>
@@ -138,7 +138,7 @@ a{color:#1A1A1A}a:hover{color:#3A63F4}
           <sc-if value="{{f.hasChips}}" hint-placeholder-val="{{false}}">
             <div style="display: flex; flex-wrap: wrap; gap: 6px">
               <sc-for list="{{f.chips}}" as="c" hint-placeholder-count="2">
-                <button type="button" onClick="{{c.pick}}" aria-label="{{c.label}} を外す" style="display: flex; align-items: center; gap: 6px; border: none; background: #1A1A1A; color: #FFFFFF; border-radius: 999px; font-family: inherit; font-size: 12px; font-weight: 700; padding: 8px 10px 8px 12px; min-height: 32px; cursor: pointer">{{c.label}}<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></button>
+                <button type="button" onClick="{{c.pick}}" aria-label="{{c.label}} を外す" style="display: flex; align-items: center; gap: 6px; border: none; background: #3B4654; color: #FFFFFF; border-radius: 999px; font-family: inherit; font-size: 12px; font-weight: 700; padding: 8px 10px 8px 12px; min-height: 32px; cursor: pointer">{{c.label}}<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></button>
               </sc-for>
             </div>
           </sc-if>
@@ -148,19 +148,19 @@ a{color:#1A1A1A}a:hover{color:#3A63F4}
       <div style="background: #FFD338; border-radius: 20px; padding: 20px; display: flex; flex-direction: column; gap: 10px">
         <span style="font-size: 12px; font-weight: 700">紹介で5万円</span>
         <span style="font-size: 15px; font-weight: 900; line-height: 1.6">同期や元同僚に、<br>そのまま送れる紹介文があります</span>
-        <a href="profile.html" style="align-self: flex-start; text-decoration: none; font-size: 13px; font-weight: 700; padding: 10px 16px; border-radius: 999px; background: #1A1A1A; color: #FFFFFF; min-height: 40px; box-sizing: border-box; display: flex; align-items: center">紹介リンクを見る</a>
+        <a href="profile.html" style="align-self: flex-start; text-decoration: none; font-size: 13px; font-weight: 700; padding: 10px 16px; border-radius: 999px; background: #3B4654; color: #FFFFFF; min-height: 40px; box-sizing: border-box; display: flex; align-items: center">紹介リンクを見る</a>
       </div>
       <div class="m-only" style="position: fixed; left: 0; right: 0; bottom: 0; z-index: 70; background: #FFFFFF; border-top: 1px solid #E3E0D8; padding: 12px 16px calc(12px + env(safe-area-inset-bottom))">
-        <button type="button" onClick="{{closeSheet}}" style="flex: 1 1 auto; border: none; background: #1A1A1A; color: #FFFFFF; border-radius: 999px; font-family: inherit; font-size: 15px; font-weight: 700; min-height: 52px; cursor: pointer"><span style="font-family: 'Outfit', sans-serif; font-size: 17px">{{count}}</span> 件の募集を見る</button>
+        <button type="button" onClick="{{closeSheet}}" style="flex: 1 1 auto; border: none; background: #3B4654; color: #FFFFFF; border-radius: 999px; font-family: inherit; font-size: 15px; font-weight: 700; min-height: 52px; cursor: pointer"><span style="font-family: 'Outfit', sans-serif; font-size: 17px">{{count}}</span> 件の募集を見る</button>
       </div>
     </aside>
 
     <!-- Center: feed -->
     <main style="flex: 999 1 560px; min-width: 0; display: flex; flex-direction: column; gap: 16px">
       <div class="m-only" style="gap: 8px; overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 0 -16px; padding: 0 16px; scrollbar-width: none">
-        <button type="button" onClick="{{openSheet}}" style="flex: 0 0 auto; display: flex; align-items: center; gap: 6px; border: 1.5px solid #1A1A1A; background: #FFFFFF; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 700; padding: 0 14px; min-height: 38px; cursor: pointer"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M7 12h10M10 18h4"></path></svg>絞り込み<span style="background: #3A63F4; color: #FFFFFF; font-family: 'Outfit', sans-serif; font-size: 11px; padding: 1px 7px; border-radius: 999px">{{activeCount}}</span></button>
+        <button type="button" onClick="{{openSheet}}" style="flex: 0 0 auto; display: flex; align-items: center; gap: 6px; border: 1.5px solid #C9C4B8; background: #FFFFFF; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 700; padding: 0 14px; min-height: 38px; cursor: pointer"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M7 12h10M10 18h4"></path></svg>絞り込み<span style="background: #3A63F4; color: #FFFFFF; font-family: 'Outfit', sans-serif; font-size: 11px; padding: 1px 7px; border-radius: 999px">{{activeCount}}</span></button>
         <sc-for list="{{summaryChips}}" as="c" hint-placeholder-count="3">
-          <span style="flex: 0 0 auto; display: flex; align-items: center; background: #1A1A1A; color: #FFFFFF; border-radius: 999px; font-size: 12px; font-weight: 700; padding: 0 12px; min-height: 38px; white-space: nowrap">{{c}}</span>
+          <span style="flex: 0 0 auto; display: flex; align-items: center; background: #3B4654; color: #FFFFFF; border-radius: 999px; font-size: 12px; font-weight: 700; padding: 0 12px; min-height: 38px; white-space: nowrap">{{c}}</span>
         </sc-for>
       </div>
       <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px">
@@ -174,11 +174,11 @@ a{color:#1A1A1A}a:hover{color:#3A63F4}
 
       <sc-for list="{{jobs}}" as="j" hint-placeholder-count="4">
         <article style="background: #FFFFFF; border-radius: 24px; overflow: hidden; display: flex; flex-direction: column">
-          <a href="job.html" aria-label="{{j.title}}" class="cover" style="display: block; height: 360px; background: #1A1A1A; position: relative; text-decoration: none; overflow: hidden">
+          <a href="job.html" aria-label="{{j.title}}" class="cover" style="display: block; height: 360px; background: #3B4654; position: relative; text-decoration: none; overflow: hidden">
             <img src="{{j.img}}" alt="{{j.photo}}" style="width: 100%; height: 100%; object-fit: cover; display: block">
             <span style="position: absolute; left: 16px; top: 16px; display: flex; gap: 6px">
               <span style="background: #FFFFFF; color: #1A1A1A; font-size: 12px; font-weight: 700; padding: 6px 12px; border-radius: 999px">{{j.type}}</span>
-              <span style="background: #1A1A1A; color: #FFFFFF; font-size: 12px; font-weight: 700; padding: 6px 12px; border-radius: 999px">{{j.cat}}</span>
+              <span style="background: #3B4654; color: #FFFFFF; font-size: 12px; font-weight: 700; padding: 6px 12px; border-radius: 999px">{{j.cat}}</span>
             </span>
           </a>
           <div class="cardbody" style="padding: 20px 24px 22px; display: flex; flex-direction: column; gap: 14px">
@@ -210,7 +210,7 @@ a{color:#1A1A1A}a:hover{color:#3A63F4}
               </sc-for>
             </div>
             <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px; padding-top: 6px; border-top: 1px solid #EDEAE2">
-              <a href="job.html" class="cta" style="text-decoration: none; font-size: 14px; font-weight: 700; padding: 12px 20px; border-radius: 999px; background: #1A1A1A; color: #FFFFFF; min-height: 44px; box-sizing: border-box; display: flex; align-items: center">話を聞きに行きたい</a>
+              <a href="job.html" class="cta" style="text-decoration: none; font-size: 14px; font-weight: 700; padding: 12px 20px; border-radius: 999px; background: #3B4654; color: #FFFFFF; min-height: 44px; box-sizing: border-box; display: flex; align-items: center">話を聞きに行きたい</a>
               <button type="button" onClick="{{j.like}}" aria-pressed="{{j.liked}}" style="border: 1.5px solid {{j.likeBorder}}; background: {{j.likeBg}}; color: #1A1A1A; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 700; padding: 10px 14px; min-height: 44px; display: flex; align-items: center; gap: 6px; cursor: pointer">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="{{j.likeFill}}" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-4.6-9.5-9C.8 8.6 2.9 4 7 4c2.2 0 3.6 1.2 5 3 1.4-1.8 2.8-3 5-3 4.1 0 6.2 4.6 4.5 8-2.5 4.4-9.5 9-9.5 9z"></path></svg>
                 気になる <span style="font-family: 'Outfit', sans-serif">{{j.likes}}</span>
@@ -220,7 +220,7 @@ a{color:#1A1A1A}a:hover{color:#3A63F4}
           </div>
         </article>
       </sc-for>
-      <button type="button" style="align-self: center; border: 2px solid #1A1A1A; background: #FFFFFF; border-radius: 999px; font-family: inherit; font-size: 14px; font-weight: 700; padding: 12px 28px; min-height: 48px; cursor: pointer">もっと見る</button>
+      <button type="button" style="align-self: center; border: 2px solid #D9D4C7; background: #FFFFFF; border-radius: 999px; font-family: inherit; font-size: 14px; font-weight: 700; padding: 12px 28px; min-height: 48px; cursor: pointer">もっと見る</button>
     </main>
 
   </div>
@@ -236,7 +236,7 @@ a{color:#1A1A1A}a:hover{color:#3A63F4}
 class Component extends DCLogic {
   constructor(p) { super(p); this.state = { tab: 0, liked: {}, work: { 0: true, 1: false }, open: null, pts: 1, ot: 1, other: { 0: true }, pref: '東京都', areaQ: '', areas: { '東京都|港区': true, '東京都|世田谷区': true }, sheet: false }; }
   renderVals() {
-    const tabs = ['おすすめ', '新着', '給与順'].map((label, i) => ({ label, pick: () => this.setState({ tab: i }), bg: this.state.tab === i ? '#1A1A1A' : 'transparent', fg: this.state.tab === i ? '#FFFFFF' : '#1A1A1A' }));
+    const tabs = ['おすすめ', '新着', '給与順'].map((label, i) => ({ label, pick: () => this.setState({ tab: i }), bg: this.state.tab === i ? '#3B4654' : 'transparent', fg: this.state.tab === i ? '#FFFFFF' : '#1A1A1A' }));
         const workTypes = [['正社員', 128], ['パート', 64]].map((w, i) => ({ label: w[0], n: w[1], on: !!this.state.work[i], toggle: () => this.setState({ work: Object.assign({}, this.state.work, { [i]: !this.state.work[i] }) }) }));
     const raw = [
       { id: 1, type: '正社員', cat: '病院', title: '「聞きやすさ」で選ばれる内科病棟で、一緒に働く看護師を募集', org: 'みなと中央病院', area: '東京都港区', payLabel: '月収', pay: '276,500円〜', payNote: '夜勤4回を含む', img: 'images/sns3.jpg', photo: '病棟の廊下でポーズをとるスタッフ4名（動画サムネイル）', pts: 7, ot: 8, tr: 6.5, facts: ['教育担当つき', '2交代', '有休消化 9割'], likes: 128, posted: '2日前' },
@@ -273,7 +273,7 @@ class Component extends DCLogic {
       '埼玉県': ['さいたま市','川口市','川越市','所沢市','越谷市','草加市','春日部市','上尾市','熊谷市','新座市','久喜市']
     };
     const areas = st.areas || {};
-    const prefs = Object.keys(AREAS).map((p) => ({ short: p.replace('県', '').replace('都', ''), on: st.pref === p, bg: st.pref === p ? '#1A1A1A' : 'transparent', fg: st.pref === p ? '#FFFFFF' : '#5C5C5C', pick: () => this.setState({ pref: p, areaQ: '' }) }));
+    const prefs = Object.keys(AREAS).map((p) => ({ short: p.replace('県', '').replace('都', ''), on: st.pref === p, bg: st.pref === p ? '#3B4654' : 'transparent', fg: st.pref === p ? '#FFFFFF' : '#5C5C5C', pick: () => this.setState({ pref: p, areaQ: '' }) }));
     const q = (st.areaQ || '').trim();
     const areaOptions = AREAS[st.pref].filter((m) => !q || m.indexOf(q) >= 0).map((m, i) => { const key = st.pref + '|' + m; const on = !!areas[key]; return { label: m, n: ((m.length * 7 + i * 13) % 40) + 3, on, bg: on ? '#F1F4FF' : '#FFFFFF', toggle: () => this.setState({ areas: Object.assign({}, areas, { [key]: !on }) }) }; });
     const areaChips = Object.keys(areas).filter((k) => areas[k]).map((k) => ({ label: k.split('|')[1], remove: () => this.setState({ areas: Object.assign({}, areas, { [k]: false }) }) }));
