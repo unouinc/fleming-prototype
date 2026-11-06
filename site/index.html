@@ -150,7 +150,7 @@ a{color:#1A1A1A}a:hover{color:#3A63F4}
                   <span style="width: 64px; flex: 0 0 auto; text-align: right; font-family: 'Outfit', sans-serif; font-size: 15px; color: #1A1A1A">{{b.value}}</span>
                 </div>
               </sc-for>
-              <span style="font-size: 10px; color: #8A857A">黒い線はエリア平均（担当患者数 10人／残業 月18時間）</span>
+              <span style="font-size: 10px; color: #8A857A">黒い線はエリア平均（担当患者数 10人／残業 月18時間／離職率 11%）</span>
             </div>
             <div style="display: flex; gap: 6px; flex-wrap: wrap">
               <sc-for list="{{j.facts}}" as="f" hint-placeholder-count="3">
@@ -182,16 +182,17 @@ class Component extends DCLogic {
     const tabs = ['おすすめ', '新着', '給与順'].map((label, i) => ({ label, pick: () => this.setState({ tab: i }), bg: this.state.tab === i ? '#1A1A1A' : 'transparent', fg: this.state.tab === i ? '#FFFFFF' : '#1A1A1A' }));
         const workTypes = [['正社員', 128], ['パート', 64]].map((w, i) => ({ label: w[0], n: w[1], on: !!this.state.work[i], toggle: () => this.setState({ work: Object.assign({}, this.state.work, { [i]: !this.state.work[i] }) }) }));
     const raw = [
-      { id: 1, type: '正社員', cat: '病院', title: '「聞きやすさ」で選ばれる内科病棟で、一緒に働く看護師を募集', org: 'みなと中央病院', area: '東京都港区', payLabel: '月収', pay: '276,500円〜', payNote: '夜勤4回を含む', img: 'images/station.jpg', photo: '申し送り中のナースステーション（師長とスタッフ）', pts: 7, ot: 8, facts: ['教育担当つき', '2交代', '有休消化 9割'], likes: 128, posted: '2日前' },
-      { id: 2, type: '正社員', cat: '回復期', title: '患者さんの「帰る」を支える回復期リハビリ病院で、日勤のみも可', org: 'さくら台リハビリ病院', area: '神奈川県横浜市', payLabel: '月収', pay: '262,000円〜', payNote: '日勤のみの場合', img: 'images/rehab.jpg', photo: 'リハビリ室で患者さんと歩行練習をする看護師', pts: 9, ot: 5, facts: ['日勤のみOK', '託児所あり'], likes: 96, posted: '4日前' },
-      { id: 3, type: '正社員', cat: '介護施設', title: '病院から介護へ。看取りまで寄り添う特養で、看護師を募集', org: 'ひだまりの郷', area: '千葉県船橋市', payLabel: '月収', pay: '258,000円〜', payNote: '夜勤4回を含む', img: 'images/care.jpg', photo: '食堂で入居者と談笑するスタッフ（夕方の光）', pts: 25, ot: 3, facts: ['夜勤 月4回', '有休消化 9割', '病院から転職多め'], likes: 54, posted: '1週間前' },
-      { id: 4, type: 'パート', cat: 'クリニック', title: '週3日から。子育て中の看護師が半分を占める外来で働く', org: '[クリニック名]', area: '東京都世田谷区', payLabel: '時給', pay: '1,900円〜', payNote: '週3日・16時まで', img: 'images/mentor.jpg', photo: '外来の受付前、スタッフ3名の集合写真', pts: 0, ot: 0, facts: ['週3日〜', '16時まで'], likes: 73, posted: '1週間前' }
+      { id: 1, type: '正社員', cat: '病院', title: '「聞きやすさ」で選ばれる内科病棟で、一緒に働く看護師を募集', org: 'みなと中央病院', area: '東京都港区', payLabel: '月収', pay: '276,500円〜', payNote: '夜勤4回を含む', img: 'images/station.jpg', photo: '申し送り中のナースステーション（師長とスタッフ）', pts: 7, ot: 8, tr: 6.5, facts: ['教育担当つき', '2交代', '有休消化 9割'], likes: 128, posted: '2日前' },
+      { id: 2, type: '正社員', cat: '回復期', title: '患者さんの「帰る」を支える回復期リハビリ病院で、日勤のみも可', org: 'さくら台リハビリ病院', area: '神奈川県横浜市', payLabel: '月収', pay: '262,000円〜', payNote: '日勤のみの場合', img: 'images/rehab.jpg', photo: 'リハビリ室で患者さんと歩行練習をする看護師', pts: 9, ot: 5, tr: 8.0, facts: ['日勤のみOK', '託児所あり'], likes: 96, posted: '4日前' },
+      { id: 3, type: '正社員', cat: '介護施設', title: '病院から介護へ。看取りまで寄り添う特養で、看護師を募集', org: 'ひだまりの郷', area: '千葉県船橋市', payLabel: '月収', pay: '258,000円〜', payNote: '夜勤4回を含む', img: 'images/care.jpg', photo: '食堂で入居者と談笑するスタッフ（夕方の光）', pts: 25, ot: 3, tr: 12.5, facts: ['夜勤 月4回', '有休消化 9割', '病院から転職多め'], likes: 54, posted: '1週間前' },
+      { id: 4, type: 'パート', cat: 'クリニック', title: '週3日から。子育て中の看護師が半分を占める外来で働く', org: '[クリニック名]', area: '東京都世田谷区', payLabel: '時給', pay: '1,900円〜', payNote: '週3日・16時まで', img: 'images/mentor.jpg', photo: '外来の受付前、スタッフ3名の集合写真', pts: 0, ot: 0, tr: 4.0, facts: ['週3日〜', '16時まで'], likes: 73, posted: '1週間前' }
     ];
     const jobs = raw.map((j) => {
       const liked = !!this.state.liked[j.id];
       const bars = [
         { label: '1人あたりの担当患者数', value: j.pts ? j.pts + '人' : '外来', w: Math.min(100, j.pts / 30 * 100) + '%', avgPos: (10 / 30 * 100) + '%', color: j.pts <= 10 ? '#3A63F4' : '#FF8FB1' },
-        { label: '平均残業時間（月）', value: j.ot + 'h', w: Math.min(100, j.ot / 40 * 100) + '%', avgPos: (18 / 40 * 100) + '%', color: j.ot <= 18 ? '#3A63F4' : '#FF8FB1' }
+        { label: '平均残業時間（月）', value: j.ot + 'h', w: Math.min(100, j.ot / 40 * 100) + '%', avgPos: (18 / 40 * 100) + '%', color: j.ot <= 18 ? '#3A63F4' : '#FF8FB1' },
+        { label: '離職率（年）', value: j.tr + '%', w: Math.min(100, j.tr / 30 * 100) + '%', avgPos: (11 / 30 * 100) + '%', color: j.tr <= 11 ? '#3A63F4' : '#FF8FB1' }
       ];
       return Object.assign({}, j, { bars, liked, likes: j.likes + (liked ? 1 : 0), likeFill: liked ? '#FF8FB1' : 'none', likeBg: liked ? '#FFE3EC' : '#FFFFFF', likeBorder: liked ? '#FF8FB1' : '#D9D4C7', like: () => this.setState({ liked: Object.assign({}, this.state.liked, { [j.id]: !liked }) }) });
     });

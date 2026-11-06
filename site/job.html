@@ -246,7 +246,8 @@ class Component extends DCLogic {
       axes: raw.map((r) => ({ label: r[0], v: r[1], avg: r[2], w: r[1] + '%', avgPos: r[2] + '%', color: r[3] })),
       bars: [
         { label: '1人あたりの担当患者数（日勤）', value: '7人', avg: '10人', w: (7 / 30 * 100) + '%', avgPos: (10 / 30 * 100) + '%', color: '#3A63F4', note: '内科病棟の平均。目盛りは最大30人' },
-        { label: '平均残業時間（月）', value: '8h', avg: '18h', w: (8 / 40 * 100) + '%', avgPos: (18 / 40 * 100) + '%', color: '#3A63F4', note: '直近6か月の実績。目盛りは最大40時間' }
+        { label: '平均残業時間（月）', value: '8h', avg: '18h', w: (8 / 40 * 100) + '%', avgPos: (18 / 40 * 100) + '%', color: '#3A63F4', note: '直近6か月の実績。目盛りは最大40時間' },
+        { label: '離職率（年）', value: '6.5%', avg: '11%', w: (6.5 / 30 * 100) + '%', avgPos: (11 / 30 * 100) + '%', color: '#3A63F4', note: '昨年度、看護師24名中 2名が退職（産休・育休は含まない）。目盛りは最大30%' }
       ],
       facts: [
         { label: '夜勤', value: '月4回', note: '2交代・仮眠2時間' },
