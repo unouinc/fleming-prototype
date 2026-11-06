@@ -139,18 +139,13 @@ a{color:#1A1A1A}a:hover{color:#3A63F4}
                 </div>
               </div>
             </div>
-            <div style="display: flex; flex-direction: column; gap: 8px; background: #F6F5F1; border-radius: 16px; padding: 12px 14px">
-              <sc-for list="{{j.bars}}" as="b" hint-placeholder-count="2">
-                <div style="display: flex; align-items: center; gap: 10px; font-size: 12px; font-weight: 700">
-                  <span style="width: 128px; flex: 0 0 auto; color: #5C5C5C">{{b.label}}</span>
-                  <span style="flex: 1 1 auto; height: 10px; background: #E6E2D8; border-radius: 999px; position: relative; overflow: hidden">
-                    <span style="position: absolute; left: 0; top: 0; height: 10px; border-radius: 999px; background: {{b.color}}; width: {{b.w}}"></span>
-                    <span style="position: absolute; top: 0; height: 10px; width: 2px; background: #1A1A1A; left: {{b.avgPos}}"></span>
-                  </span>
-                  <span style="width: 64px; flex: 0 0 auto; text-align: right; font-family: 'Outfit', sans-serif; font-size: 15px; color: #1A1A1A">{{b.value}}</span>
+            <div style="display: flex; flex-wrap: wrap; gap: 8px">
+              <sc-for list="{{j.bars}}" as="b" hint-placeholder-count="3">
+                <div style="flex: 1 1 150px; min-width: 0; display: flex; flex-direction: column; gap: 2px; background: #F6F5F1; border-radius: 12px; padding: 10px 14px">
+                  <span style="font-size: 11px; font-weight: 700; color: #5C5C5C">{{b.label}}</span>
+                  <span style="font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 20px; line-height: 1.2; color: {{b.color}}">{{b.value}}</span>
                 </div>
               </sc-for>
-              <span style="font-size: 10px; color: #8A857A">黒い線はエリア平均（担当患者数 10人／残業 月18時間／離職率 11%）</span>
             </div>
             <div style="display: flex; gap: 6px; flex-wrap: wrap">
               <sc-for list="{{j.facts}}" as="f" hint-placeholder-count="3">
@@ -190,9 +185,9 @@ class Component extends DCLogic {
     const jobs = raw.map((j) => {
       const liked = !!this.state.liked[j.id];
       const bars = [
-        { label: '1人あたりの担当患者数', value: j.pts ? j.pts + '人' : '外来', w: Math.min(100, j.pts / 30 * 100) + '%', avgPos: (10 / 30 * 100) + '%', color: j.pts <= 10 ? '#3A63F4' : '#FF8FB1' },
-        { label: '平均残業時間（月）', value: j.ot + 'h', w: Math.min(100, j.ot / 40 * 100) + '%', avgPos: (18 / 40 * 100) + '%', color: j.ot <= 18 ? '#3A63F4' : '#FF8FB1' },
-        { label: '離職率（年）', value: j.tr + '%', w: Math.min(100, j.tr / 30 * 100) + '%', avgPos: (11 / 30 * 100) + '%', color: j.tr <= 11 ? '#3A63F4' : '#FF8FB1' }
+        { label: '1人あたりの担当患者数', value: j.pts ? j.pts + '人' : '外来', w: Math.min(100, j.pts / 30 * 100) + '%', avgPos: (10 / 30 * 100) + '%', color: j.pts <= 10 ? '#1A1A1A' : '#D9486F' },
+        { label: '平均残業時間（月）', value: j.ot + 'h', w: Math.min(100, j.ot / 40 * 100) + '%', avgPos: (18 / 40 * 100) + '%', color: j.ot <= 18 ? '#1A1A1A' : '#D9486F' },
+        { label: '離職率（年）', value: j.tr + '%', w: Math.min(100, j.tr / 30 * 100) + '%', avgPos: (11 / 30 * 100) + '%', color: j.tr <= 11 ? '#1A1A1A' : '#D9486F' }
       ];
       return Object.assign({}, j, { bars, liked, likes: j.likes + (liked ? 1 : 0), likeFill: liked ? '#FF8FB1' : 'none', likeBg: liked ? '#FFE3EC' : '#FFFFFF', likeBorder: liked ? '#FF8FB1' : '#D9D4C7', like: () => this.setState({ liked: Object.assign({}, this.state.liked, { [j.id]: !liked }) }) });
     });
