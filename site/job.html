@@ -77,20 +77,25 @@ a{color:#1A1A1A}a:hover{color:#3A63F4}
       </nav>
 
       <!-- About -->
-      <section id="about" style="background: #FFFFFF; border-radius: 24px; padding: 36px; display: flex; flex-direction: column; gap: 24px">
+      <section id="about" style="background: #FFFFFF; border-radius: 24px; padding: 36px; display: flex; flex-direction: column; gap: 32px">
         <div style="display: flex; flex-direction: column; gap: 8px">
           <span style="font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 12px; letter-spacing: 2px; color: #3A63F4">ABOUT</span>
           <h2 style="margin: 0; font-size: 22px; font-weight: 900">施設概要</h2>
         </div>
         <p style="margin: 0; font-size: 15px; line-height: 2; color: #3D3D3D">港区にある[病床数]床の急性期病院。内科病棟では、高齢の患者さんの急性期治療から退院支援までを担当します。看護師は[人数]名、中途入職が半数以上で、ブランクから復帰したメンバーもいます。</p>
-        <dl style="margin: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px 24px">
-          <sc-for list="{{about}}" as="a" hint-placeholder-count="8">
-            <div style="display: flex; flex-direction: column; gap: 4px; padding: 12px 0; border-bottom: 1px solid #EDEAE2">
-              <dt style="font-size: 12px; font-weight: 700; color: #5C5C5C">{{a.k}}</dt>
-              <dd style="margin: 0; font-size: 15px; font-weight: 700; line-height: 1.6">{{a.v}}</dd>
-            </div>
-          </sc-for>
-        </dl>
+        <sc-for list="{{groups}}" as="g" hint-placeholder-count="8">
+          <div style="display: flex; flex-direction: column; gap: 4px">
+            <h3 style="margin: 0 0 8px; font-size: 16px; font-weight: 900; padding-bottom: 10px; border-bottom: 2px solid #1A1A1A">{{g.title}}</h3>
+            <dl style="margin: 0; display: flex; flex-direction: column">
+              <sc-for list="{{g.rows}}" as="r" hint-placeholder-count="4">
+                <div style="display: flex; gap: 16px; padding: 12px 0; border-bottom: 1px solid #EDEAE2">
+                  <dt style="flex: 0 0 150px; font-size: 13px; font-weight: 700; color: #5C5C5C; padding-top: 2px">{{r.k}}</dt>
+                  <dd style="margin: 0; flex: 1 1 auto; min-width: 0; font-size: 14px; font-weight: 700; line-height: 1.7; white-space: pre-line">{{r.v}}</dd>
+                </div>
+              </sc-for>
+            </dl>
+          </div>
+        </sc-for>
       </section>
 
       <!-- Members -->
@@ -117,21 +122,6 @@ a{color:#1A1A1A}a:hover{color:#3A63F4}
         </div>
       </section>
 
-      <!-- Terms -->
-      <section id="terms" style="background: #FFFFFF; border-radius: 24px; padding: 36px; display: flex; flex-direction: column; gap: 20px">
-        <div style="display: flex; flex-direction: column; gap: 8px">
-          <span style="font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 12px; letter-spacing: 2px; color: #3A63F4">TERMS</span>
-          <h2 style="margin: 0; font-size: 22px; font-weight: 900">募集要項</h2>
-        </div>
-        <dl style="margin: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px 24px">
-          <sc-for list="{{terms}}" as="t" hint-placeholder-count="6">
-            <div style="display: flex; flex-direction: column; gap: 4px; padding: 12px 0; border-bottom: 1px solid #EDEAE2">
-              <dt style="font-size: 12px; font-weight: 700; color: #5C5C5C">{{t.k}}</dt>
-              <dd style="margin: 0; font-size: 15px; font-weight: 700; line-height: 1.6">{{t.v}}</dd>
-            </div>
-          </sc-for>
-        </dl>
-      </section>
       <!-- Numbers -->
       <section id="numbers" style="background: #FFFFFF; border-radius: 24px; padding: 36px; display: flex; flex-direction: column; gap: 24px">
         <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 12px">
@@ -237,11 +227,40 @@ class Component extends DCLogic {
       apply: () => this.setState({ applied: true }),
       liked: this.state.liked, toggleLike: () => this.setState({ liked: !this.state.liked }),
       likeFill: this.state.liked ? '#FF8FB1' : 'none', likeBg: this.state.liked ? '#FFE3EC' : '#FFFFFF', likeBorder: this.state.liked ? '#FF8FB1' : '#1A1A1A',
-      about: [
-        { k: '施設の種類', v: '急性期病院（一般病床）' }, { k: '病床数', v: '[病床数]床' },
-        { k: '診療科', v: '内科・外科・整形外科・循環器内科 ほか' }, { k: '所在地', v: '東京都港区（最寄り [駅名] 徒歩[分]分）' },
-        { k: '職員数', v: '看護師 [人数]名／全体 [人数]名' }, { k: '看護体制', v: '7対1・2交代' },
-        { k: '電子カルテ', v: '[製品名]' }, { k: '運営', v: '[法人名]' }
+      groups: [
+        { title: '募集要項', rows: [
+          { k: '職種', v: '正看護師' }, { k: '雇用形態', v: '正社員（常勤・夜勤あり）' }, { k: '配属先', v: '内科病棟' },
+          { k: '業務内容', v: '内科病棟での入院患者の看護（アセスメント、日々のケア、退院支援カンファレンスへの参加）' },
+          { k: '応募条件', v: '看護師免許。経験年数は問いません。ブランクのある方、主婦・主夫の方も応募可' },
+          { k: '教育制度', v: '中途入職者に教育担当が3か月専任。OJT、院内研修、院外研修' }
+        ] },
+        { title: '給与', rows: [
+          { k: '月収', v: '276,500円〜（夜勤4回・各種手当を含む目安）' }, { k: '基本給', v: '[金額]〜' },
+          { k: '賞与', v: '年2回（基本給の約[月数]か月分）' }, { k: '昇給', v: '年1回' },
+          { k: '給与モデル', v: '経験5年・夜勤4回：月収 [金額]／年収 [金額]' }
+        ] },
+        { title: '手当', rows: [
+          { k: '夜勤手当', v: '[金額]円／回' }, { k: '資格手当', v: '[金額]円' }, { k: '家族手当', v: '[金額]円（世帯主、上限[人]名）' },
+          { k: '通勤手当', v: '月[金額]円まで。車通勤可（駐車場あり）' }, { k: '固定残業代', v: 'なし' }
+        ] },
+        { title: '休日・休暇', rows: [
+          { k: '年間休日', v: '[日数]日' }, { k: '休日制度', v: '4週8休' },
+          { k: '休暇', v: '夏季・冬季休暇、産前産後休暇、育児休暇、有給休暇（初年度[日数]日）' }, { k: '有休消化率', v: '9割（前年度実績）' }
+        ] },
+        { title: '勤務時間・交替制', rows: [
+          { k: '日勤', v: '8:30〜17:15（休憩60分）' }, { k: '夜勤', v: '16:30〜翌9:00（仮眠2時間）' },
+          { k: '交替制', v: '2交替制。夜勤は看護師3名＋看護補助者1名' }, { k: '残業時間', v: '月8時間（直近6か月の実績）' }, { k: '夜勤回数', v: '月4回' }
+        ] },
+        { title: '福利厚生', rows: [
+          { k: '社会保険', v: '雇用・労災・健康・厚生年金' }, { k: '退職金', v: 'あり（勤続3年以上）' }, { k: '定年・再雇用', v: '60歳／65歳まで再雇用' },
+          { k: 'その他', v: '制服貸与、復職支援、院内保育所（[時間]まで）' }
+        ] },
+        { title: '施設情報', rows: [
+          { k: '施設形態', v: '一般病院（急性期）' }, { k: '病床数', v: '[病床数]床' }, { k: '診療科目', v: '内科・外科・整形外科・循環器内科 ほか' },
+          { k: '看護基準', v: '7対1' }, { k: '職員数', v: '看護師 [人数]名／全体 [人数]名' }, { k: 'カルテ', v: '電子カルテ（[製品名]）' },
+          { k: '寮・保育', v: '寮なし／院内保育所あり' }, { k: '勤務地・交通', v: '東京都港区[住所]\n[駅名]駅 徒歩[分]分。車通勤可' },
+          { k: '運営', v: '[法人名]' }, { k: '公式サイト', v: '[URL]' }
+        ] }
       ],
       axes: raw.map((r) => ({ label: r[0], v: r[1], avg: r[2], w: r[1] + '%', avgPos: r[2] + '%', color: r[3] })),
       bars: [
@@ -262,11 +281,6 @@ class Component extends DCLogic {
         { role: '内科病棟 師長', meta: '看護師歴 [年数]年', text: 'まずは私がお話しします。見学は平日の午後ならいつでも。', color: '#FFD338' },
         { role: '教育担当', meta: '看護師歴 [年数]年', text: '中途入職の3か月、横について一緒に動きます。', color: '#FF8FB1' },
         { role: '看護師 4年目', meta: '中途入職', text: '去年入りました。転職の不安、同じ目線で答えます。', color: '#3A63F4' }
-      ],
-      terms: [
-        { k: '雇用形態', v: '正社員' }, { k: '勤務地', v: '東京都港区（最寄り [駅名]）' },
-        { k: '給与', v: '月収 276,500円〜（基本給 [金額]＋夜勤手当 [金額]/回×4回＋各種手当）' }, { k: '勤務時間', v: '日勤 8:30〜17:15／夜勤 16:30〜9:00（2交代）' },
-        { k: '休日', v: '4週8休・年間休日 [日数]日' }, { k: '応募資格', v: '看護師免許（経験年数は問いません）' }
       ],
       fit: [
         { label: '受け持ち 7人以下', val: '7人', mark: '◎', bg: '#3A63F4', fg: '#FFFFFF' },
