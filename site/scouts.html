@@ -42,7 +42,7 @@ a{color:#1A1A1A}a:hover{color:#3A63F4}
   <div class="wrap" style="max-width: 1360px; width: 100%; margin: 0 auto; padding: 28px 32px 64px; box-sizing: border-box; display: flex; flex-direction: column; gap: 20px">
     <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px">
       <h1 class="pagetitle" style="margin: 0; font-size: 26px; font-weight: 900">スカウト・メッセージ</h1>
-      <div style="display: flex; gap: 4px; background: #FFFFFF; border-radius: 999px; padding: 4px">
+      <div style="display: flex; gap: 4px; background: #FFFFFF; border-radius: 8px; padding: 4px">
         <sc-for list="{{filters}}" as="f" hint-placeholder-count="3">
           <button type="button" onClick="{{f.pick}}" style="border: none; background: {{f.bg}}; color: {{f.fg}}; border-radius: 4px; font-family: inherit; font-size: 14px; font-weight: 700; padding: 10px 18px; min-height: 40px; cursor: pointer">{{f.label}}</button>
         </sc-for>
