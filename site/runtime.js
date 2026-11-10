@@ -93,10 +93,13 @@
       var frag = document.createDocumentFragment();
       renderNodes(tpl.content.childNodes, vals, frag);
       var y = window.scrollY;
+      var keep = {}; Array.prototype.forEach.call(root.querySelectorAll('[data-keep-scroll][id]'), function (k) { keep[k.id] = k.scrollTop; });
       var ae = document.activeElement, fid = ae && ae.id, pos = ae && ae.selectionStart;
       root.innerHTML = '';
       root.appendChild(frag);
       window.scrollTo(0, y);
+      Object.keys(keep).forEach(function (id) { var k = document.getElementById(id); if (k) k.scrollTop = keep[id]; });
+      document.body.style.overflow = root.querySelector('[aria-modal="true"]') ? 'hidden' : '';
       if (fid) { var el2 = document.getElementById(fid); if (el2) { el2.focus(); try { if (pos != null) el2.setSelectionRange(pos, pos); } catch (e) {} } }
     };
     inst.__render();
