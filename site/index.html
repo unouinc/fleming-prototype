@@ -17,13 +17,15 @@ a{color:#1A1A1A}a:hover{color:#3A63F4}
   .m-only{display:flex!important}
   .hdr{padding:0 16px!important;height:56px!important}
   .wrap{padding:12px 16px 96px!important;gap:16px!important;flex-direction:column!important;align-items:stretch!important}
-  .side{position:static!important;width:auto!important;flex:0 0 auto!important}
+  .side{position:static!important;width:auto!important;flex:0 0 auto!important;order:-1}
+  .cardtop{grid-template-columns:1fr!important;padding:0!important;gap:0!important}
+  .cardtop .cover{order:-1;border-radius:0!important}
+  .cardtop .ctext{padding:14px 16px 0!important}
   .ov{padding:0!important}
   .dlg{max-width:none!important;height:100%;max-height:none!important;border-radius:0!important}
   .optgrid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
   .dlghead{grid-template-columns:88px 1fr 88px!important;padding:0 8px!important}
   .dlgtitle{font-size:15px!important;white-space:nowrap}
-  .cover{height:220px!important}
   .cardbody{padding:14px 16px 16px!important;gap:12px!important}
   .ctitle{font-size:17px!important}
   .stat{flex:1 1 0!important;padding:8px 10px!important;border-radius:10px!important}
@@ -63,7 +65,78 @@ a{color:#1A1A1A}a:hover{color:#3A63F4}
   <!-- Body: 3 columns -->
   <div class="wrap" style="max-width: 1160px; width: 100%; margin: 0 auto; padding: 28px 32px 64px; box-sizing: border-box; display: flex; gap: 28px; align-items: flex-start">
 
-    <!-- Left: search conditions -->
+
+    <!-- Left: results -->
+    <main style="flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; gap: 16px">
+      <div style="display: flex; flex-direction: column; gap: 6px">
+        <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap">
+          <h1 style="margin: 0; font-size: 22px; font-weight: 700; color: #333333">{{prefTitle}}<span style="font-size: 15px; font-weight: 700"> の病院の看護師求人</span></h1>
+          <span style="font-size: 12px; font-weight: 400; color: #666666">2026/11/10更新</span>
+        </div>
+        <span style="font-size: 13px; font-weight: 400; color: #666666">全 <span style="font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', Meiryo, sans-serif; font-size: 24px; font-weight: 700; color: #333333">{{count}}</span> 件（{{fac}}施設）</span>
+      </div>
+      <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px">
+        <div style="display: flex; gap: 4px; background: #FFFFFF; border-radius: 8px; padding: 4px">
+          <sc-for list="{{tabs}}" as="t" hint-placeholder-count="3">
+            <button type="button" onClick="{{t.pick}}" style="border: none; background: {{t.bg}}; color: {{t.fg}}; border-radius: 4px; font-family: inherit; font-size: 14px; font-weight: 700; padding: 10px 18px; min-height: 40px; cursor: pointer">{{t.label}}</button>
+          </sc-for>
+        </div>
+        <span style="font-size: 12px; font-weight: 700; color: #5C5C5C">1-4件 / {{fac}}施設</span>
+      </div>
+
+      <sc-for list="{{jobs}}" as="j" hint-placeholder-count="4">
+        <article style="background: #FFFFFF; border-radius: 8px; overflow: hidden; display: flex; flex-direction: column">
+          <div class="cardtop" style="display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 20px; padding: 20px 24px 0; align-items: start">
+            <div class="ctext" style="min-width: 0; display: flex; flex-direction: column; gap: 8px">
+              <div style="display: flex; gap: 6px; flex-wrap: wrap">
+                <span style="font-size: 12px; font-weight: 400; color: #333333; border: 1px solid #C9C4B8; padding: 2px 8px; border-radius: 4px">{{j.type}}</span>
+                <span style="font-size: 12px; font-weight: 400; color: #333333; border: 1px solid #C9C4B8; padding: 2px 8px; border-radius: 4px">{{j.cat}}</span>
+              </div>
+              <a href="job.html" class="ctitle" style="text-decoration: none; font-size: 18px; font-weight: 500; line-height: 1.6; color: #333333">{{j.title}}</a>
+              <div style="display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 400; color: #666666; flex-wrap: wrap">
+                <span aria-hidden="true" style="width: 20px; height: 20px; border-radius: 4px; background: #DAD6CC; border: 1px solid #C9C4B8"></span>
+                <span>{{j.org}}</span><span>·</span><span>{{j.area}}</span>
+              </div>
+              <div style="display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; margin-top: 4px">
+                <span style="font-size: 12px; font-weight: 400; color: #666666">{{j.payLabel}}</span>
+                <span style="font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', Meiryo, sans-serif; font-weight: 700; font-size: 20px; color: #333333">{{j.pay}}</span>
+                <span style="font-size: 12px; font-weight: 400; color: #666666">{{j.payNote}}</span>
+              </div>
+            </div>
+            <a href="job.html" aria-label="{{j.title}}" class="cover" style="display: block; aspect-ratio: 16 / 9; background: #3B4654; border-radius: 6px; overflow: hidden; text-decoration: none">
+              <img src="{{j.img}}" alt="{{j.photo}}" style="width: 100%; height: 100%; object-fit: cover; display: block">
+            </a>
+          </div>
+          <div class="cardbody" style="padding: 16px 24px 22px; display: flex; flex-direction: column; gap: 14px">
+            <div style="display: flex; flex-wrap: wrap; gap: 8px">
+              <sc-for list="{{j.bars}}" as="b" hint-placeholder-count="3">
+                <div class="stat" style="flex: 1 1 150px; min-width: 0; display: flex; flex-direction: column; gap: 2px; background: #F6F5F1; border-radius: 6px; padding: 10px 14px">
+                  <span class="statl pc-only" style="font-size: 11px; font-weight: 700; color: #5C5C5C">{{b.label}}</span><span class="statl m-only" style="font-size: 11px; font-weight: 700; color: #5C5C5C">{{b.short}}</span>
+                  <span class="statv" style="font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', Meiryo, sans-serif; font-weight: 700; font-size: 20px; line-height: 1.2; color: {{b.color}}">{{b.value}}</span>
+                </div>
+              </sc-for>
+            </div>
+            <div style="display: flex; gap: 6px; flex-wrap: wrap">
+              <sc-for list="{{j.facts}}" as="f" hint-placeholder-count="3">
+                <span style="font-size: 12px; font-weight: 700; background: #F6F5F1; padding: 6px 10px; border-radius: 999px">{{f}}</span>
+              </sc-for>
+            </div>
+            <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px; padding-top: 6px; border-top: 1px solid #EDEAE2">
+              <a href="job.html" class="cta" style="text-decoration: none; font-size: 14px; font-weight: 700; padding: 12px 20px; border-radius: 4px; background: #3B4654; color: #FFFFFF; min-height: 44px; box-sizing: border-box; display: flex; align-items: center">話を聞きに行きたい</a>
+              <button type="button" onClick="{{j.like}}" aria-pressed="{{j.liked}}" style="border: 1.5px solid {{j.likeBorder}}; background: {{j.likeBg}}; color: #1A1A1A; border-radius: 4px; font-family: inherit; font-size: 13px; font-weight: 700; padding: 10px 14px; min-height: 44px; display: flex; align-items: center; gap: 6px; cursor: pointer">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="{{j.likeFill}}" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-4.6-9.5-9C.8 8.6 2.9 4 7 4c2.2 0 3.6 1.2 5 3 1.4-1.8 2.8-3 5-3 4.1 0 6.2 4.6 4.5 8-2.5 4.4-9.5 9-9.5 9z"></path></svg>
+                気になる <span style="font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', Meiryo, sans-serif">{{j.likes}}</span>
+              </button>
+              <span style="margin-left: auto; font-size: 12px; font-weight: 700; color: #5C5C5C">{{j.posted}}</span>
+            </div>
+          </div>
+        </article>
+      </sc-for>
+      <a href="profile.html" style="display: flex; align-items: center; gap: 16px; background: #FFD338; border-radius: 8px; padding: 16px 20px; text-decoration: none; color: #1A1A1A"><span style="font-size: 12px; font-weight: 900; background: #FFFFFF; padding: 4px 10px; border-radius: 999px; flex: 0 0 auto">紹介で5万円</span><span style="flex: 1 1 auto; font-size: 14px; font-weight: 700; line-height: 1.6">同期や元同僚に、そのまま送れる紹介文があります</span><span style="font-size: 14px; font-weight: 700">›</span></a>
+      <button type="button" style="align-self: center; border: 2px solid #D9D4C7; background: #FFFFFF; border-radius: 4px; font-family: inherit; font-size: 14px; font-weight: 700; padding: 12px 28px; min-height: 48px; cursor: pointer">もっと見る</button>
+    </main>
+
+    <!-- Right: search conditions -->
     <aside class="side" aria-label="検索条件" style="flex: 0 0 300px; width: 300px; position: sticky; top: 88px; display: flex; flex-direction: column; gap: 10px">
       <div style="display: flex; align-items: center; justify-content: space-between">
         <span style="font-size: 14px; font-weight: 700; color: #333333">検索条件</span>
@@ -107,7 +180,7 @@ a{color:#1A1A1A}a:hover{color:#3A63F4}
             <sc-if value="{{noCond}}" hint-placeholder-val="{{true}}">
               <button type="button" onClick="{{openCond}}" style="width: 100%; display: flex; align-items: center; gap: 12px; border: none; background: #FFFFFF; font-family: inherit; text-align: left; padding: 0 16px; min-height: 56px; cursor: pointer">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3A63F4" stroke-width="2.2" stroke-linecap="round" aria-hidden="true" style="flex: 0 0 auto"><path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12"></path><circle cx="16" cy="6" r="2"></circle><circle cx="10" cy="12" r="2"></circle><circle cx="18" cy="18" r="2"></circle></svg>
-                <span style="flex: 1 1 auto; min-width: 0; font-size: 15px; font-weight: 400; color: #8A857A">働き方、担当患者数、残業など</span>
+                <span style="flex: 1 1 auto; min-width: 0; font-size: 15px; font-weight: 400; color: #8A857A; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">働き方、担当患者数、残業など</span>
                 <span style="flex: 0 0 auto; font-size: 13px; font-weight: 400; color: #3A63F4">選択</span>
               </button>
             </sc-if>
@@ -115,76 +188,6 @@ a{color:#1A1A1A}a:hover{color:#3A63F4}
       </div>
       <a href="#" style="align-self: flex-end; font-size: 13px; font-weight: 400; color: #3A63F4; text-decoration: none">条件の保存・新着求人のお知らせ設定 ›</a>
     </aside>
-
-    <!-- Right: results -->
-    <main style="flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; gap: 16px">
-      <div style="display: flex; flex-direction: column; gap: 6px">
-        <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap">
-          <h1 style="margin: 0; font-size: 22px; font-weight: 700; color: #333333">{{prefTitle}}<span style="font-size: 15px; font-weight: 700"> の病院の看護師求人</span></h1>
-          <span style="font-size: 12px; font-weight: 400; color: #666666">2026/11/10更新</span>
-        </div>
-        <span style="font-size: 13px; font-weight: 400; color: #666666">全 <span style="font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', Meiryo, sans-serif; font-size: 24px; font-weight: 700; color: #333333">{{count}}</span> 件（{{fac}}施設）</span>
-      </div>
-      <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px">
-        <div style="display: flex; gap: 4px; background: #FFFFFF; border-radius: 8px; padding: 4px">
-          <sc-for list="{{tabs}}" as="t" hint-placeholder-count="3">
-            <button type="button" onClick="{{t.pick}}" style="border: none; background: {{t.bg}}; color: {{t.fg}}; border-radius: 4px; font-family: inherit; font-size: 14px; font-weight: 700; padding: 10px 18px; min-height: 40px; cursor: pointer">{{t.label}}</button>
-          </sc-for>
-        </div>
-        <span style="font-size: 12px; font-weight: 700; color: #5C5C5C">1-4件 / {{fac}}施設</span>
-      </div>
-
-      <sc-for list="{{jobs}}" as="j" hint-placeholder-count="4">
-        <article style="background: #FFFFFF; border-radius: 8px; overflow: hidden; display: flex; flex-direction: column">
-          <a href="job.html" aria-label="{{j.title}}" class="cover" style="display: block; height: 360px; background: #3B4654; position: relative; text-decoration: none; overflow: hidden">
-            <img src="{{j.img}}" alt="{{j.photo}}" style="width: 100%; height: 100%; object-fit: cover; display: block">
-            <span style="position: absolute; left: 16px; top: 16px; display: flex; gap: 6px">
-              <span style="background: #FFFFFF; color: #1A1A1A; font-size: 12px; font-weight: 700; padding: 6px 12px; border-radius: 999px">{{j.type}}</span>
-              <span style="background: #3B4654; color: #FFFFFF; font-size: 12px; font-weight: 700; padding: 6px 12px; border-radius: 999px">{{j.cat}}</span>
-            </span>
-          </a>
-          <div class="cardbody" style="padding: 20px 24px 22px; display: flex; flex-direction: column; gap: 14px">
-            <div style="display: flex; align-items: flex-start; gap: 16px">
-              <div style="flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; gap: 6px">
-                <a href="job.html" class="ctitle" style="text-decoration: none; font-size: 20px; font-weight: 700; line-height: 1.5; color: #333333">{{j.title}}</a>
-                <div style="display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 700; color: #5C5C5C">
-                  <span aria-hidden="true" style="width: 22px; height: 22px; border-radius: 4px; background: #DAD6CC; border: 1px solid #C9C4B8"></span>
-                  <span>{{j.org}}</span><span>·</span><span>{{j.area}}</span>
-                </div>
-                <div style="display: flex; align-items: baseline; gap: 8px; margin-top: 2px">
-                  <span style="font-size: 12px; font-weight: 700; color: #5C5C5C">{{j.payLabel}}</span>
-                  <span style="font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', Meiryo, sans-serif; font-weight: 700; font-size: 22px; letter-spacing: -0.3px">{{j.pay}}</span>
-                  <span style="font-size: 12px; font-weight: 700; color: #5C5C5C">{{j.payNote}}</span>
-                </div>
-              </div>
-            </div>
-            <div style="display: flex; flex-wrap: wrap; gap: 8px">
-              <sc-for list="{{j.bars}}" as="b" hint-placeholder-count="3">
-                <div class="stat" style="flex: 1 1 150px; min-width: 0; display: flex; flex-direction: column; gap: 2px; background: #F6F5F1; border-radius: 6px; padding: 10px 14px">
-                  <span class="statl pc-only" style="font-size: 11px; font-weight: 700; color: #5C5C5C">{{b.label}}</span><span class="statl m-only" style="font-size: 11px; font-weight: 700; color: #5C5C5C">{{b.short}}</span>
-                  <span class="statv" style="font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', Meiryo, sans-serif; font-weight: 700; font-size: 20px; line-height: 1.2; color: {{b.color}}">{{b.value}}</span>
-                </div>
-              </sc-for>
-            </div>
-            <div style="display: flex; gap: 6px; flex-wrap: wrap">
-              <sc-for list="{{j.facts}}" as="f" hint-placeholder-count="3">
-                <span style="font-size: 12px; font-weight: 700; background: #F6F5F1; padding: 6px 10px; border-radius: 999px">{{f}}</span>
-              </sc-for>
-            </div>
-            <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px; padding-top: 6px; border-top: 1px solid #EDEAE2">
-              <a href="job.html" class="cta" style="text-decoration: none; font-size: 14px; font-weight: 700; padding: 12px 20px; border-radius: 4px; background: #3B4654; color: #FFFFFF; min-height: 44px; box-sizing: border-box; display: flex; align-items: center">話を聞きに行きたい</a>
-              <button type="button" onClick="{{j.like}}" aria-pressed="{{j.liked}}" style="border: 1.5px solid {{j.likeBorder}}; background: {{j.likeBg}}; color: #1A1A1A; border-radius: 4px; font-family: inherit; font-size: 13px; font-weight: 700; padding: 10px 14px; min-height: 44px; display: flex; align-items: center; gap: 6px; cursor: pointer">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="{{j.likeFill}}" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-4.6-9.5-9C.8 8.6 2.9 4 7 4c2.2 0 3.6 1.2 5 3 1.4-1.8 2.8-3 5-3 4.1 0 6.2 4.6 4.5 8-2.5 4.4-9.5 9-9.5 9z"></path></svg>
-                気になる <span style="font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', Meiryo, sans-serif">{{j.likes}}</span>
-              </button>
-              <span style="margin-left: auto; font-size: 12px; font-weight: 700; color: #5C5C5C">{{j.posted}}</span>
-            </div>
-          </div>
-        </article>
-      </sc-for>
-      <a href="profile.html" style="display: flex; align-items: center; gap: 16px; background: #FFD338; border-radius: 8px; padding: 16px 20px; text-decoration: none; color: #1A1A1A"><span style="font-size: 12px; font-weight: 900; background: #FFFFFF; padding: 4px 10px; border-radius: 999px; flex: 0 0 auto">紹介で5万円</span><span style="flex: 1 1 auto; font-size: 14px; font-weight: 700; line-height: 1.6">同期や元同僚に、そのまま送れる紹介文があります</span><span style="font-size: 14px; font-weight: 700">›</span></a>
-      <button type="button" style="align-self: center; border: 2px solid #D9D4C7; background: #FFFFFF; border-radius: 4px; font-family: inherit; font-size: 14px; font-weight: 700; padding: 12px 28px; min-height: 48px; cursor: pointer">もっと見る</button>
-    </main>
 
   </div>
   <sc-if value="{{modalOpen}}" hint-placeholder-val="{{false}}">
