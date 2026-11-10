@@ -33,7 +33,7 @@ a{color:#1A1A1A}a:hover{color:#3A63F4}
       </a>
       <nav class="pc-only" aria-label="グローバル" style="margin-left: auto; display: flex; align-items: center; gap: 4px; font-size: 14px; font-weight: 700">
         <a href="index.html" style="text-decoration: none; padding: 10px 14px; border-radius: 4px; min-height: 44px; box-sizing: border-box; display: flex; align-items: center">さがす</a>
-        <a href="scouts.html" style="text-decoration: none; padding: 10px 14px; border-radius: 4px; min-height: 44px; box-sizing: border-box; display: flex; align-items: center; gap: 8px">スカウト<span style="background: #3A63F4; color: #FFFFFF; font-family: 'Outfit', sans-serif; font-size: 12px; padding: 2px 8px; border-radius: 999px">3</span></a>
+        <a href="scouts.html" style="text-decoration: none; padding: 10px 14px; border-radius: 4px; min-height: 44px; box-sizing: border-box; display: flex; align-items: center; gap: 8px">スカウト<span style="background: #3A63F4; color: #FFFFFF; font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', Meiryo, sans-serif; font-size: 12px; padding: 2px 8px; border-radius: 999px">3</span></a>
         <a href="profile.html" aria-current="page" aria-label="マイプロフィール" style="margin-left: 8px; width: 40px; height: 40px; border-radius: 50%; background: #DAD6CC; color: #6B675E; display: flex; align-items: center; justify-content: center; text-decoration: none; font-size: 14px; font-weight: 900"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"></circle><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"></path></svg></a>
       </nav>
     </div>
@@ -50,7 +50,7 @@ a{color:#1A1A1A}a:hover{color:#3A63F4}
           <span style="font-size: 13px; font-weight: 700; color: #5C5C5C">看護師 4年目｜急性期・内科｜東京都</span>
         </div>
         <div style="width: 100%; display: flex; flex-direction: column; gap: 6px">
-          <div style="display: flex; justify-content: space-between; font-size: 12px; font-weight: 700"><span>プロフィールの充実度</span><span style="font-family: 'Outfit', sans-serif">{{pct}}%</span></div>
+          <div style="display: flex; justify-content: space-between; font-size: 12px; font-weight: 700"><span>プロフィールの充実度</span><span style="font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', Meiryo, sans-serif">{{pct}}%</span></div>
           <div style="height: 8px; background: #EDEAE2; border-radius: 999px; overflow: hidden"><div style="height: 8px; width: {{pctW}}; background: #3A63F4; border-radius: 999px"></div></div>
         </div>
         <button type="button" style="width: 100%; border: 2px solid #D9D4C7; background: #FFFFFF; border-radius: 4px; font-family: inherit; font-size: 14px; font-weight: 700; padding: 12px; min-height: 44px; cursor: pointer">基本情報を編集</button>
@@ -73,12 +73,12 @@ a{color:#1A1A1A}a:hover{color:#3A63F4}
         <span style="font-size: 14px; font-weight: 900">紹介で5万円</span>
         <span style="font-size: 13px; line-height: 1.7">紹介した人がFlemingで転職したら、あなたに5万円（税込）。</span>
         <div style="background: #FFFFFF; border-radius: 6px; padding: 10px 14px; display: flex; justify-content: space-between; align-items: center; gap: 8px">
-          <span style="font-family: 'Outfit', sans-serif; font-size: 13px; font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">fleming.jp/r/[コード]</span>
+          <span style="font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', Meiryo, sans-serif; font-size: 13px; font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">fleming.jp/r/[コード]</span>
           <button type="button" style="border: none; background: #3B4654; color: #FFFFFF; border-radius: 4px; font-family: inherit; font-size: 12px; font-weight: 700; padding: 8px 12px; min-height: 36px; cursor: pointer; flex: 0 0 auto">コピー</button>
         </div>
         <div style="display: flex; justify-content: space-between; font-size: 12px; font-weight: 700">
-          <span>紹介した人 <span style="font-family: 'Outfit', sans-serif; font-size: 16px">3</span>人</span>
-          <span>転職が決まった人 <span style="font-family: 'Outfit', sans-serif; font-size: 16px">1</span>人</span>
+          <span>紹介した人 <span style="font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', Meiryo, sans-serif; font-size: 16px">3</span>人</span>
+          <span>転職が決まった人 <span style="font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', Meiryo, sans-serif; font-size: 16px">1</span>人</span>
         </div>
       </div>
     </aside>
@@ -104,7 +104,7 @@ a{color:#1A1A1A}a:hover{color:#3A63F4}
           <ol style="margin: 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 10px">
             <sc-for list="{{priorities}}" as="p" hint-placeholder-count="3">
               <li style="flex: 1 1 180px; min-width: 0; background: {{p.bg}}; color: {{p.fg}}; border-radius: 8px; padding: 16px; display: flex; gap: 12px; align-items: center">
-                <span style="font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 24px">{{p.n}}</span>
+                <span style="font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', Meiryo, sans-serif; font-weight: 700; font-size: 24px">{{p.n}}</span>
                 <span style="font-size: 15px; font-weight: 900">{{p.label}}</span>
               </li>
             </sc-for>
@@ -129,7 +129,7 @@ a{color:#1A1A1A}a:hover{color:#3A63F4}
         <ol style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 0">
           <sc-for list="{{exp}}" as="e" hint-placeholder-count="3">
             <li style="display: flex; gap: 16px; padding: 16px 0; border-bottom: 1px solid #EDEAE2">
-              <span style="width: 110px; flex: 0 0 auto; font-family: 'Outfit', sans-serif; font-size: 13px; font-weight: 600; color: #5C5C5C; padding-top: 2px">{{e.when}}</span>
+              <span style="width: 110px; flex: 0 0 auto; font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', Meiryo, sans-serif; font-size: 13px; font-weight: 600; color: #5C5C5C; padding-top: 2px">{{e.when}}</span>
               <div style="display: flex; flex-direction: column; gap: 4px; min-width: 0">
                 <span style="font-size: 15px; font-weight: 900">{{e.title}}</span>
                 <span style="font-size: 13px; font-weight: 700; color: #5C5C5C">{{e.meta}}</span>
@@ -153,7 +153,7 @@ a{color:#1A1A1A}a:hover{color:#3A63F4}
           <sc-for list="{{stats}}" as="s" hint-placeholder-count="4">
             <a href="{{s.href}}" style="flex: 1 1 140px; min-width: 0; text-decoration: none; background: #F6F5F1; border-radius: 8px; padding: 16px; display: flex; flex-direction: column; gap: 4px">
               <span style="font-size: 12px; font-weight: 700; color: #5C5C5C">{{s.label}}</span>
-              <span style="font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 28px; color: #1A1A1A">{{s.n}}</span>
+              <span style="font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', Meiryo, sans-serif; font-weight: 700; font-size: 28px; color: #1A1A1A">{{s.n}}</span>
             </a>
           </sc-for>
         </div>
@@ -172,7 +172,7 @@ a{color:#1A1A1A}a:hover{color:#3A63F4}
   </div>
   <nav class="tabbar" aria-label="モバイルナビゲーション">
     <a href="index.html" style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px; text-decoration: none; font-size: 10px; font-weight: 700; color: #8A857A; min-height: 44px; justify-content: center; position: relative"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-4-4"></path></svg>さがす</a>
-    <a href="scouts.html" style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px; text-decoration: none; font-size: 10px; font-weight: 700; color: #8A857A; min-height: 44px; justify-content: center; position: relative"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"></rect><path d="M3 8l9 6 9-6"></path></svg><span style="position: absolute; top: 2px; left: calc(50% + 6px); background: #3A63F4; color: #FFFFFF; font-family: 'Outfit', sans-serif; font-size: 10px; padding: 1px 6px; border-radius: 999px">3</span>スカウト</a>
+    <a href="scouts.html" style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px; text-decoration: none; font-size: 10px; font-weight: 700; color: #8A857A; min-height: 44px; justify-content: center; position: relative"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"></rect><path d="M3 8l9 6 9-6"></path></svg><span style="position: absolute; top: 2px; left: calc(50% + 6px); background: #3A63F4; color: #FFFFFF; font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', Meiryo, sans-serif; font-size: 10px; padding: 1px 6px; border-radius: 999px">3</span>スカウト</a>
     <a href="profile.html" aria-current="page" style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px; text-decoration: none; font-size: 10px; font-weight: 700; color: #1A1A1A; min-height: 44px; justify-content: center; position: relative"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"></circle><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"></path></svg>プロフィール</a>
   </nav>
 </div>

@@ -52,7 +52,7 @@ a{color:#1A1A1A}a:hover{color:#3A63F4}
       </form>
       <nav class="pc-only" aria-label="グローバル" style="margin-left: auto; display: flex; align-items: center; gap: 4px; font-size: 14px; font-weight: 700">
         <a href="index.html" aria-current="page" style="text-decoration: none; padding: 10px 14px; border-radius: 4px; background: #3B4654; color: #FFFFFF; min-height: 44px; box-sizing: border-box; display: flex; align-items: center">さがす</a>
-        <a href="scouts.html" style="text-decoration: none; padding: 10px 14px; border-radius: 4px; min-height: 44px; box-sizing: border-box; display: flex; align-items: center; gap: 8px">スカウト<span style="background: #3A63F4; color: #FFFFFF; font-family: 'Outfit', sans-serif; font-size: 12px; padding: 2px 8px; border-radius: 999px">3</span></a>
+        <a href="scouts.html" style="text-decoration: none; padding: 10px 14px; border-radius: 4px; min-height: 44px; box-sizing: border-box; display: flex; align-items: center; gap: 8px">スカウト<span style="background: #3A63F4; color: #FFFFFF; font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', Meiryo, sans-serif; font-size: 12px; padding: 2px 8px; border-radius: 999px">3</span></a>
         <a href="profile.html" aria-label="マイプロフィール" style="margin-left: 8px; width: 40px; height: 40px; border-radius: 50%; background: #DAD6CC; color: #6B675E; display: flex; align-items: center; justify-content: center; text-decoration: none; font-size: 14px; font-weight: 900"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"></circle><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"></path></svg></a>
       </nav>
       <button type="button" class="m-only" onClick="{{openCond}}" aria-label="検索条件" style="margin-left: auto; width: 40px; height: 40px; border-radius: 50%; border: none; background: #F6F5F1; align-items: center; justify-content: center; cursor: pointer"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1A1A1A" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-4-4"></path></svg></button>
@@ -69,20 +69,20 @@ a{color:#1A1A1A}a:hover{color:#3A63F4}
           <h1 style="margin: 0; font-size: 24px; font-weight: 700">{{prefTitle}}<span style="font-size: 16px; font-weight: 700"> の病院の看護師求人</span></h1>
           <span style="font-size: 12px; font-weight: 400; color: #666666">2026/11/10更新</span>
         </div>
-        <span style="font-size: 13px; font-weight: 400; color: #666666">全 <span style="font-family: 'Outfit', sans-serif; font-size: 22px; color: #1A1A1A">{{count}}</span> 件（{{fac}}施設）</span>
+        <span style="font-size: 13px; font-weight: 400; color: #666666">全 <span style="font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', Meiryo, sans-serif; font-size: 24px; font-weight: 700; color: #333333">{{count}}</span> 件（{{fac}}施設）</span>
         <div style="background: #FFFFFF; border: 1px solid #D9D4C7; border-radius: 8px; overflow: hidden; display: flex; flex-direction: column">
           <button type="button" onClick="{{openArea}}" style="display: flex; align-items: center; gap: 12px; border: none; border-bottom: 1px solid #EDEAE2; background: #FFFFFF; font-family: inherit; text-align: left; padding: 0 16px; min-height: 52px; cursor: pointer">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="#3A63F4" aria-hidden="true" style="flex: 0 0 auto"><path d="M12 2c-3.9 0-7 3.1-7 7 0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5z"></path></svg>
-            <span style="flex: 1 1 auto; min-width: 0; font-size: 15px; font-weight: 400; color: #333333; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">{{areaSummary}}</span>
-            <span style="flex: 0 0 auto; font-size: 14px; font-weight: 700; color: #3A63F4">変更</span>
+            <span style="flex: 1 1 auto; min-width: 0; font-size: 16px; font-weight: 400; color: #333333; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">{{areaSummary}}</span>
+            <span style="flex: 0 0 auto; font-size: 14px; font-weight: 400; color: #3A63F4">変更</span>
           </button>
           <button type="button" onClick="{{openCond}}" style="display: flex; align-items: center; gap: 12px; border: none; background: #FFFFFF; font-family: inherit; text-align: left; padding: 0 16px; min-height: 52px; cursor: pointer">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3A63F4" stroke-width="2.2" stroke-linecap="round" aria-hidden="true" style="flex: 0 0 auto"><path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12M20 18h0"></path><circle cx="16" cy="6" r="2"></circle><circle cx="10" cy="12" r="2"></circle><circle cx="18" cy="18" r="2"></circle></svg>
-            <span style="flex: 1 1 auto; min-width: 0; font-size: 15px; font-weight: 700; color: {{condColor}}; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">{{condSummary}}</span>
-            <span style="flex: 0 0 auto; font-size: 14px; font-weight: 700; color: #3A63F4">選択</span>
+            <span style="flex: 1 1 auto; min-width: 0; font-size: 16px; font-weight: 400; color: {{condColor}}; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">{{condSummary}}</span>
+            <span style="flex: 0 0 auto; font-size: 14px; font-weight: 400; color: #3A63F4">選択</span>
           </button>
         </div>
-        <a href="#" style="align-self: flex-end; font-size: 13px; font-weight: 700; color: #3A63F4; text-decoration: none">条件の保存・新着求人のお知らせ設定 ›</a>
+        <a href="#" style="align-self: flex-end; font-size: 13px; font-weight: 400; color: #3A63F4; text-decoration: none">条件の保存・新着求人のお知らせ設定 ›</a>
       </section>
       <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px">
         <div style="display: flex; gap: 4px; background: #FFFFFF; border-radius: 8px; padding: 4px">
@@ -112,7 +112,7 @@ a{color:#1A1A1A}a:hover{color:#3A63F4}
                 </div>
                 <div style="display: flex; align-items: baseline; gap: 8px; margin-top: 2px">
                   <span style="font-size: 12px; font-weight: 700; color: #5C5C5C">{{j.payLabel}}</span>
-                  <span style="font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 22px; letter-spacing: -0.3px">{{j.pay}}</span>
+                  <span style="font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', Meiryo, sans-serif; font-weight: 700; font-size: 22px; letter-spacing: -0.3px">{{j.pay}}</span>
                   <span style="font-size: 12px; font-weight: 700; color: #5C5C5C">{{j.payNote}}</span>
                 </div>
               </div>
@@ -121,7 +121,7 @@ a{color:#1A1A1A}a:hover{color:#3A63F4}
               <sc-for list="{{j.bars}}" as="b" hint-placeholder-count="3">
                 <div class="stat" style="flex: 1 1 150px; min-width: 0; display: flex; flex-direction: column; gap: 2px; background: #F6F5F1; border-radius: 6px; padding: 10px 14px">
                   <span class="statl pc-only" style="font-size: 11px; font-weight: 700; color: #5C5C5C">{{b.label}}</span><span class="statl m-only" style="font-size: 11px; font-weight: 700; color: #5C5C5C">{{b.short}}</span>
-                  <span class="statv" style="font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 20px; line-height: 1.2; color: {{b.color}}">{{b.value}}</span>
+                  <span class="statv" style="font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', Meiryo, sans-serif; font-weight: 700; font-size: 20px; line-height: 1.2; color: {{b.color}}">{{b.value}}</span>
                 </div>
               </sc-for>
             </div>
@@ -134,7 +134,7 @@ a{color:#1A1A1A}a:hover{color:#3A63F4}
               <a href="job.html" class="cta" style="text-decoration: none; font-size: 14px; font-weight: 700; padding: 12px 20px; border-radius: 4px; background: #3B4654; color: #FFFFFF; min-height: 44px; box-sizing: border-box; display: flex; align-items: center">話を聞きに行きたい</a>
               <button type="button" onClick="{{j.like}}" aria-pressed="{{j.liked}}" style="border: 1.5px solid {{j.likeBorder}}; background: {{j.likeBg}}; color: #1A1A1A; border-radius: 4px; font-family: inherit; font-size: 13px; font-weight: 700; padding: 10px 14px; min-height: 44px; display: flex; align-items: center; gap: 6px; cursor: pointer">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="{{j.likeFill}}" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-4.6-9.5-9C.8 8.6 2.9 4 7 4c2.2 0 3.6 1.2 5 3 1.4-1.8 2.8-3 5-3 4.1 0 6.2 4.6 4.5 8-2.5 4.4-9.5 9-9.5 9z"></path></svg>
-                気になる <span style="font-family: 'Outfit', sans-serif">{{j.likes}}</span>
+                気になる <span style="font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', Meiryo, sans-serif">{{j.likes}}</span>
               </button>
               <span style="margin-left: auto; font-size: 12px; font-weight: 700; color: #5C5C5C">{{j.posted}}</span>
             </div>
@@ -167,7 +167,7 @@ a{color:#1A1A1A}a:hover{color:#3A63F4}
               <sc-for list="{{prefList}}" as="p" hint-placeholder-count="7">
                 <button type="button" onClick="{{p.pick}}" style="display: flex; align-items: center; gap: 12px; border: 1px solid {{p.border}}; background: #FFFFFF; border-radius: 6px; font-family: inherit; text-align: left; padding: 0 16px; min-height: 52px; cursor: pointer">
                   <span style="flex: 1 1 auto; font-size: 15px; font-weight: 400; color: #333333">{{p.label}}</span>
-                  <span style="font-family: 'Outfit', sans-serif; font-size: 12px; font-weight: 500; background: #EEF2FF; color: #3A63F4; padding: 2px 8px; border-radius: 999px">{{p.n}}</span>
+                  <span style="font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', Meiryo, sans-serif; font-size: 12px; font-weight: 500; background: #EEF2FF; color: #3A63F4; padding: 2px 8px; border-radius: 999px">{{p.n}}</span>
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#8A857A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg>
                 </button>
               </sc-for>
@@ -177,11 +177,11 @@ a{color:#1A1A1A}a:hover{color:#3A63F4}
           <sc-if value="{{isArea}}" hint-placeholder-val="{{false}}">
             <div style="padding: 20px 20px 0; display: flex; flex-direction: column; gap: 8px">
               <span style="font-size: 13px; font-weight: 700">選択中の都道府県</span>
-              <button type="button" onClick="{{openPref}}" style="display: flex; align-items: center; justify-content: space-between; border: 1px solid #D9D4C7; background: #FFFFFF; border-radius: 6px; font-family: inherit; padding: 0 16px; min-height: 48px; cursor: pointer"><span style="font-size: 15px; font-weight: 400; color: #333333">{{prefTitle}}</span><span style="font-size: 13px; font-weight: 700; color: #3A63F4">変更 ›</span></button>
+              <button type="button" onClick="{{openPref}}" style="display: flex; align-items: center; justify-content: space-between; border: 1px solid #D9D4C7; background: #FFFFFF; border-radius: 6px; font-family: inherit; padding: 0 16px; min-height: 48px; cursor: pointer"><span style="font-size: 15px; font-weight: 400; color: #333333">{{prefTitle}}</span><span style="font-size: 13px; font-weight: 400; color: #3A63F4">変更 ›</span></button>
             </div>
             <div role="tablist" style="display: flex; justify-content: center; gap: 8px; margin-top: 16px; border-bottom: 1px solid #E3E0D8">
               <sc-for list="{{areaTabs}}" as="t" hint-placeholder-count="2">
-                <button type="button" role="tab" aria-selected="{{t.on}}" onClick="{{t.pick}}" style="border: none; border-bottom: 3px solid {{t.line}}; margin-bottom: -1px; background: transparent; font-family: inherit; font-size: 15px; font-weight: 700; color: {{t.fg}}; padding: 0 16px; min-height: 48px; cursor: pointer">{{t.label}}</button>
+                <button type="button" role="tab" aria-selected="{{t.on}}" onClick="{{t.pick}}" style="border: none; border-bottom: 3px solid {{t.line}}; margin-bottom: -1px; background: transparent; font-family: inherit; font-size: 15px; font-weight: {{t.fw}}; color: {{t.fg}}; padding: 0 16px; min-height: 48px; cursor: pointer">{{t.label}}</button>
               </sc-for>
             </div>
             <ul style="list-style: none; margin: 0; padding: 0; background: #FFFFFF">
@@ -190,7 +190,7 @@ a{color:#1A1A1A}a:hover{color:#3A63F4}
                   <label style="flex: 1 1 auto; display: flex; align-items: center; gap: 12px; cursor: pointer; min-height: 48px">
                     <input type="checkbox" checked="{{r.on}}" onChange="{{r.toggle}}" style="width: 20px; height: 20px; accent-color: #3A63F4; margin: 0; flex: 0 0 auto">
                     <span style="font-size: 15px; font-weight: {{r.weight}}; color: #333333">{{r.label}}</span>
-                    <span style="font-family: 'Outfit', sans-serif; font-size: 12px; font-weight: 500; background: #EEF2FF; color: #3A63F4; padding: 2px 8px; border-radius: 999px">{{r.n}}</span>
+                    <span style="font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', Meiryo, sans-serif; font-size: 12px; font-weight: 500; background: #EEF2FF; color: #3A63F4; padding: 2px 8px; border-radius: 999px">{{r.n}}</span>
                     <span style="font-size: 12px; font-weight: 400; color: #3A63F4">{{r.partial}}</span>
                   </label>
                   <sc-if value="{{r.isGroup}}" hint-placeholder-val="{{false}}">
@@ -205,7 +205,7 @@ a{color:#1A1A1A}a:hover{color:#3A63F4}
             <div style="padding: 16px 20px 24px; display: flex; flex-direction: column; gap: 12px">
               <div style="display: flex; justify-content: space-between; align-items: center; gap: 12px">
                 <span style="font-size: 12px; font-weight: 400; color: #666666">Flemingは病院の正看護師求人だけを掲載しています</span>
-                <button type="button" onClick="{{clearCond}}" style="border: none; background: transparent; font-family: inherit; font-size: 13px; font-weight: 700; color: #3A63F4; cursor: pointer; min-height: 36px">すべて解除</button>
+                <button type="button" onClick="{{clearCond}}" style="border: none; background: transparent; font-family: inherit; font-size: 13px; font-weight: 400; color: #3A63F4; cursor: pointer; min-height: 36px">すべて解除</button>
               </div>
               <sc-for list="{{condSections}}" as="sec" hint-placeholder-count="6">
                 <div style="background: #FFFFFF; border-radius: 8px; padding: 18px 18px 14px; display: flex; flex-direction: column; gap: 10px">
@@ -231,21 +231,21 @@ a{color:#1A1A1A}a:hover{color:#3A63F4}
               </sc-for>
               <div style="background: #FFFFFF; border-radius: 8px; padding: 18px; display: flex; flex-direction: column; gap: 10px">
                 <span style="font-size: 15px; font-weight: 700">病院名</span>
-                <input id="condname" type="search" value="{{nameQ}}" onInput="{{setName}}" placeholder="例：みなと中央病院" style="border: 1px solid #D9D4C7; border-radius: 6px; font-family: inherit; font-size: 15px; font-weight: 700; padding: 0 14px; min-height: 46px; color: #1A1A1A; outline: none">
+                <input id="condname" type="search" value="{{nameQ}}" onInput="{{setName}}" placeholder="例：みなと中央病院" style="border: 1px solid #D9D4C7; border-radius: 6px; font-family: inherit; font-size: 15px; font-weight: 400; padding: 0 14px; min-height: 46px; color: #1A1A1A; outline: none">
               </div>
             </div>
           </sc-if>
         </div>
         <div style="border-top: 1px solid #EDEAE2; padding: 14px 20px 16px; display: flex; flex-direction: column; align-items: center; gap: 8px; background: #FFFFFF">
-          <button type="button" onClick="{{closeModal}}" style="width: 100%; max-width: 360px; border: none; background: #3B4654; color: #FFFFFF; border-radius: 6px; font-family: inherit; font-size: 17px; font-weight: 700; min-height: 52px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px">検索する<span style="font-size: 13px; font-weight: 700">全 <span style="font-family: 'Outfit', sans-serif; font-size: 18px">{{count}}</span> 件（{{fac}}施設）</span></button>
-          <button type="button" onClick="{{switchModal}}" style="border: none; background: transparent; font-family: inherit; font-size: 14px; font-weight: 700; color: #3A63F4; cursor: pointer; min-height: 36px; display: flex; align-items: center; gap: 6px"><svg width="16" height="16" viewBox="0 0 24 24" fill="#3A63F4" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><path d="M12 7v10M7 12h10" stroke="#FFFFFF" stroke-width="2.4" stroke-linecap="round"></path></svg>{{switchLabel}}</button>
+          <button type="button" onClick="{{closeModal}}" style="width: 100%; max-width: 360px; border: none; background: #3B4654; color: #FFFFFF; border-radius: 6px; font-family: inherit; font-size: 17px; font-weight: 700; min-height: 52px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px">検索する<span style="font-size: 13px; font-weight: 700">全 <span style="font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', Meiryo, sans-serif; font-size: 18px">{{count}}</span> 件（{{fac}}施設）</span></button>
+          <button type="button" onClick="{{switchModal}}" style="border: none; background: transparent; font-family: inherit; font-size: 14px; font-weight: 400; color: #3A63F4; cursor: pointer; min-height: 36px; display: flex; align-items: center; gap: 6px"><svg width="16" height="16" viewBox="0 0 24 24" fill="#3A63F4" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><path d="M12 7v10M7 12h10" stroke="#FFFFFF" stroke-width="2.4" stroke-linecap="round"></path></svg>{{switchLabel}}</button>
         </div>
       </div>
     </div>
   </sc-if>
   <nav class="tabbar" aria-label="モバイルナビゲーション">
     <a href="index.html" aria-current="page" style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px; text-decoration: none; font-size: 10px; font-weight: 700; color: #1A1A1A; min-height: 44px; justify-content: center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-4-4"></path></svg>さがす</a>
-    <a href="scouts.html" style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px; text-decoration: none; font-size: 10px; font-weight: 700; color: #8A857A; min-height: 44px; justify-content: center; position: relative"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"></rect><path d="M3 8l9 6 9-6"></path></svg><span style="position: absolute; top: 2px; left: calc(50% + 6px); background: #3A63F4; color: #FFFFFF; font-family: 'Outfit', sans-serif; font-size: 10px; padding: 1px 6px; border-radius: 999px">3</span>スカウト</a>
+    <a href="scouts.html" style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px; text-decoration: none; font-size: 10px; font-weight: 700; color: #8A857A; min-height: 44px; justify-content: center; position: relative"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"></rect><path d="M3 8l9 6 9-6"></path></svg><span style="position: absolute; top: 2px; left: calc(50% + 6px); background: #3A63F4; color: #FFFFFF; font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', Meiryo, sans-serif; font-size: 10px; padding: 1px 6px; border-radius: 999px">3</span>スカウト</a>
     <a href="profile.html" style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px; text-decoration: none; font-size: 10px; font-weight: 700; color: #8A857A; min-height: 44px; justify-content: center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"></circle><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"></path></svg>プロフィール</a>
   </nav>
 </div>
@@ -358,7 +358,7 @@ class Component extends DCLogic {
     const m = st.modal;
     const close = () => this.setState({ modal: null });
     return {
-      tabs, jobs, count, fac, prefTitle, areaSummary, condSummary, condColor: condLabels.length ? '#1A1A1A' : '#8A857A',
+      tabs, jobs, count, fac, prefTitle, areaSummary, condSummary, condColor: condLabels.length ? '#333333' : '#8A857A',
       openArea: () => this.setState({ modal: 'area' }), openCond: () => this.setState({ modal: 'cond' }), openPref: () => this.setState({ modal: 'pref' }),
       modalOpen: !!m, isArea: m === 'area', isPref: m === 'pref', isCond: m === 'cond',
       modalTitle: m === 'cond' ? 'こだわり条件を選択' : m === 'pref' ? '都道府県を選択' : '市区町村・路線選択',
@@ -366,7 +366,7 @@ class Component extends DCLogic {
       closeModal: close,
       switchLabel: m === 'cond' ? 'エリア条件の追加・変更' : 'こだわり条件の追加・変更', switchModal: () => this.setState({ modal: m === 'cond' ? 'area' : 'cond' }),
       prefList, areaRows,
-      areaTabs: ['市区町村', '路線・駅'].map((label, i) => ({ label, on: st.areaTab === i, line: st.areaTab === i ? '#3B4654' : 'transparent', fg: st.areaTab === i ? '#1A1A1A' : '#8A857A', pick: () => this.setState({ areaTab: i }) })),
+      areaTabs: ['市区町村', '路線・駅'].map((label, i) => ({ label, on: st.areaTab === i, line: st.areaTab === i ? '#3B4654' : 'transparent', fg: st.areaTab === i ? '#333333' : '#8A857A', fw: st.areaTab === i ? 700 : 400, pick: () => this.setState({ areaTab: i }) })),
       condSections, clearCond: () => this.setState({ c: { emp: {}, shift: {}, pay: null, pts: null, ot: null, tr: null, night: null, htype: {}, beds: {}, duty: {}, dept: {}, feat: {} }, name: '' }),
       nameQ: st.name, setName: (e) => this.setState({ name: e.target.value })
     };
