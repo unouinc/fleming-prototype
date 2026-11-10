@@ -16,7 +16,8 @@ a{color:#1A1A1A}a:hover{color:#3A63F4}
   .pc-only{display:none!important}
   .m-only{display:flex!important}
   .hdr{padding:0 16px!important;height:56px!important}
-  .wrap{padding:12px 16px 96px!important;gap:12px!important}
+  .wrap{padding:12px 16px 96px!important;gap:16px!important;flex-direction:column!important;align-items:stretch!important}
+  .side{position:static!important;width:auto!important;flex:0 0 auto!important}
   .ov{padding:0!important}
   .dlg{max-width:none!important;height:100%;max-height:none!important;border-radius:0!important}
   .optgrid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
@@ -60,30 +61,70 @@ a{color:#1A1A1A}a:hover{color:#3A63F4}
   </header>
 
   <!-- Body: 3 columns -->
-  <div class="wrap" style="max-width: 880px; width: 100%; margin: 0 auto; padding: 28px 32px 64px; box-sizing: border-box; display: flex; flex-direction: column; gap: 24px">
+  <div class="wrap" style="max-width: 1160px; width: 100%; margin: 0 auto; padding: 28px 32px 64px; box-sizing: border-box; display: flex; gap: 28px; align-items: flex-start">
 
-    <!-- Center: feed -->
-    <main style="min-width: 0; display: flex; flex-direction: column; gap: 16px">
-      <section aria-label="検索条件" style="display: flex; flex-direction: column; gap: 10px">
+    <!-- Left: search conditions -->
+    <aside class="side" aria-label="検索条件" style="flex: 0 0 300px; width: 300px; position: sticky; top: 88px; display: flex; flex-direction: column; gap: 10px">
+      <div style="display: flex; align-items: center; justify-content: space-between">
+        <span style="font-size: 14px; font-weight: 700; color: #333333">検索条件</span>
+        <sc-if value="{{anySel}}" hint-placeholder-val="{{false}}"><button type="button" onClick="{{clearAll}}" style="border: none; background: transparent; font-family: inherit; font-size: 13px; font-weight: 400; color: #3A63F4; cursor: pointer; min-height: 32px; padding: 0">すべてクリア</button></sc-if>
+      </div>
+      <div style="background: #FFFFFF; border: 1px solid #D9D4C7; border-radius: 8px; overflow: hidden; display: flex; flex-direction: column">
+          <div style="border-bottom: 1px solid #EDEAE2">
+            <sc-if value="{{hasArea}}" hint-placeholder-val="{{false}}">
+              <div style="padding: 14px 16px 16px; display: flex; flex-direction: column; gap: 10px">
+                <div style="display: flex; align-items: center; gap: 8px">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="#3A63F4" aria-hidden="true" style="flex: 0 0 auto"><path d="M12 2c-3.9 0-7 3.1-7 7 0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5z"></path></svg>
+                  <span style="flex: 1 1 auto; font-size: 14px; font-weight: 700; color: #333333">{{prefTitle}}</span>
+                  <button type="button" onClick="{{openArea}}" style="border: none; background: transparent; font-family: inherit; font-size: 13px; font-weight: 400; color: #3A63F4; cursor: pointer; min-height: 32px; padding: 0">変更</button>
+                </div>
+                <div style="display: flex; flex-wrap: wrap; gap: 6px">
+                  <sc-for list="{{areaChips}}" as="c" hint-placeholder-count="3"><span style="display: inline-flex; align-items: center; gap: 2px; background: #F3F4F8; border: 1px solid #E1E4EC; border-radius: 999px; padding: 0 4px 0 12px; min-height: 32px; font-size: 13px; font-weight: 400; color: #333333">{{c.label}}<button type="button" onClick="{{c.remove}}" aria-label="{{c.label}}を外す" style="width: 28px; height: 28px; border: none; background: transparent; cursor: pointer; display: flex; align-items: center; justify-content: center; padding: 0"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#8A857A" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></button></span></sc-for>
+                </div>
+              </div>
+            </sc-if>
+            <sc-if value="{{noArea}}" hint-placeholder-val="{{true}}">
+              <button type="button" onClick="{{openArea}}" style="width: 100%; display: flex; align-items: center; gap: 12px; border: none; background: #FFFFFF; font-family: inherit; text-align: left; padding: 0 16px; min-height: 56px; cursor: pointer">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="#3A63F4" aria-hidden="true" style="flex: 0 0 auto"><path d="M12 2c-3.9 0-7 3.1-7 7 0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5z"></path></svg>
+                <span style="flex: 1 1 auto; min-width: 0; font-size: 15px; font-weight: 400; color: #333333">{{prefTitle}}（すべて）</span>
+                <span style="flex: 0 0 auto; font-size: 13px; font-weight: 400; color: #3A63F4">変更</span>
+              </button>
+            </sc-if>
+          </div>
+          <div style="border-bottom: 1px solid #EDEAE2">
+            <sc-if value="{{hasCond}}" hint-placeholder-val="{{false}}">
+              <div style="padding: 14px 16px 16px; display: flex; flex-direction: column; gap: 10px">
+                <div style="display: flex; align-items: center; gap: 8px">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3A63F4" stroke-width="2.2" stroke-linecap="round" aria-hidden="true" style="flex: 0 0 auto"><path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12"></path><circle cx="16" cy="6" r="2"></circle><circle cx="10" cy="12" r="2"></circle><circle cx="18" cy="18" r="2"></circle></svg>
+                  <span style="flex: 1 1 auto; font-size: 14px; font-weight: 700; color: #333333">こだわり条件</span>
+                  <button type="button" onClick="{{openCond}}" style="border: none; background: transparent; font-family: inherit; font-size: 13px; font-weight: 400; color: #3A63F4; cursor: pointer; min-height: 32px; padding: 0">変更</button>
+                </div>
+                <div style="display: flex; flex-wrap: wrap; gap: 6px">
+                  <sc-for list="{{condChips}}" as="c" hint-placeholder-count="3"><span style="display: inline-flex; align-items: center; gap: 2px; background: #F3F4F8; border: 1px solid #E1E4EC; border-radius: 999px; padding: 0 4px 0 12px; min-height: 32px; font-size: 13px; font-weight: 400; color: #333333">{{c.label}}<button type="button" onClick="{{c.remove}}" aria-label="{{c.label}}を外す" style="width: 28px; height: 28px; border: none; background: transparent; cursor: pointer; display: flex; align-items: center; justify-content: center; padding: 0"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#8A857A" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></button></span></sc-for>
+                </div>
+              </div>
+            </sc-if>
+            <sc-if value="{{noCond}}" hint-placeholder-val="{{true}}">
+              <button type="button" onClick="{{openCond}}" style="width: 100%; display: flex; align-items: center; gap: 12px; border: none; background: #FFFFFF; font-family: inherit; text-align: left; padding: 0 16px; min-height: 56px; cursor: pointer">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3A63F4" stroke-width="2.2" stroke-linecap="round" aria-hidden="true" style="flex: 0 0 auto"><path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12"></path><circle cx="16" cy="6" r="2"></circle><circle cx="10" cy="12" r="2"></circle><circle cx="18" cy="18" r="2"></circle></svg>
+                <span style="flex: 1 1 auto; min-width: 0; font-size: 15px; font-weight: 400; color: #8A857A">働き方、担当患者数、残業など</span>
+                <span style="flex: 0 0 auto; font-size: 13px; font-weight: 400; color: #3A63F4">選択</span>
+              </button>
+            </sc-if>
+          </div>
+      </div>
+      <a href="#" style="align-self: flex-end; font-size: 13px; font-weight: 400; color: #3A63F4; text-decoration: none">条件の保存・新着求人のお知らせ設定 ›</a>
+    </aside>
+
+    <!-- Right: results -->
+    <main style="flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; gap: 16px">
+      <div style="display: flex; flex-direction: column; gap: 6px">
         <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap">
-          <h1 style="margin: 0; font-size: 24px; font-weight: 700">{{prefTitle}}<span style="font-size: 16px; font-weight: 700"> の病院の看護師求人</span></h1>
+          <h1 style="margin: 0; font-size: 22px; font-weight: 700; color: #333333">{{prefTitle}}<span style="font-size: 15px; font-weight: 700"> の病院の看護師求人</span></h1>
           <span style="font-size: 12px; font-weight: 400; color: #666666">2026/11/10更新</span>
         </div>
         <span style="font-size: 13px; font-weight: 400; color: #666666">全 <span style="font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', Meiryo, sans-serif; font-size: 24px; font-weight: 700; color: #333333">{{count}}</span> 件（{{fac}}施設）</span>
-        <div style="background: #FFFFFF; border: 1px solid #D9D4C7; border-radius: 8px; overflow: hidden; display: flex; flex-direction: column">
-          <button type="button" onClick="{{openArea}}" style="display: flex; align-items: center; gap: 12px; border: none; border-bottom: 1px solid #EDEAE2; background: #FFFFFF; font-family: inherit; text-align: left; padding: 0 16px; min-height: 52px; cursor: pointer">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="#3A63F4" aria-hidden="true" style="flex: 0 0 auto"><path d="M12 2c-3.9 0-7 3.1-7 7 0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5z"></path></svg>
-            <span style="flex: 1 1 auto; min-width: 0; font-size: 16px; font-weight: 400; color: #333333; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">{{areaSummary}}</span>
-            <span style="flex: 0 0 auto; font-size: 14px; font-weight: 400; color: #3A63F4">変更</span>
-          </button>
-          <button type="button" onClick="{{openCond}}" style="display: flex; align-items: center; gap: 12px; border: none; background: #FFFFFF; font-family: inherit; text-align: left; padding: 0 16px; min-height: 52px; cursor: pointer">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3A63F4" stroke-width="2.2" stroke-linecap="round" aria-hidden="true" style="flex: 0 0 auto"><path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12M20 18h0"></path><circle cx="16" cy="6" r="2"></circle><circle cx="10" cy="12" r="2"></circle><circle cx="18" cy="18" r="2"></circle></svg>
-            <span style="flex: 1 1 auto; min-width: 0; font-size: 16px; font-weight: 400; color: {{condColor}}; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">{{condSummary}}</span>
-            <span style="flex: 0 0 auto; font-size: 14px; font-weight: 400; color: #3A63F4">選択</span>
-          </button>
-        </div>
-        <a href="#" style="align-self: flex-end; font-size: 13px; font-weight: 400; color: #3A63F4; text-decoration: none">条件の保存・新着求人のお知らせ設定 ›</a>
-      </section>
+      </div>
       <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px">
         <div style="display: flex; gap: 4px; background: #FFFFFF; border-radius: 8px; padding: 4px">
           <sc-for list="{{tabs}}" as="t" hint-placeholder-count="3">
@@ -255,8 +296,8 @@ a{color:#1A1A1A}a:hover{color:#3A63F4}
 class Component extends DCLogic {
   constructor(p) {
     super(p);
-    this.state = { tab: 0, liked: {}, modal: (p && p.modal) || null, pref: '東京都', areaTab: 0, areas: { '東京都|東京23区|江東区': true, '東京都|東京23区|墨田区': true }, lines: {}, exp: { '東京都|東京23区': true },
-      c: { emp: { 0: true }, shift: {}, pay: null, pts: 2, ot: 2, tr: null, night: null, htype: {}, beds: {}, duty: { 0: true }, dept: {}, feat: { 0: true } }, name: '' };
+    this.state = { tab: 0, liked: {}, modal: (p && p.modal) || null, pref: '東京都', areaTab: 0, areas: (p && p.preset) ? { '東京都|東京23区|江東区': true, '東京都|東京23区|墨田区': true } : {}, lines: {}, exp: { '東京都|東京23区': true },
+      c: (p && p.preset) ? { emp: { 0: true }, shift: { 2: true }, pay: null, pts: 2, ot: 2, tr: null, night: null, htype: {}, beds: {}, duty: { 0: true }, dept: {}, feat: { 0: true } } : { emp: {}, shift: {}, pay: null, pts: null, ot: null, tr: null, night: null, htype: {}, beds: {}, duty: {}, dept: {}, feat: {} }, name: '' };
   }
   renderVals() {
     const st = this.state;
@@ -346,6 +387,12 @@ class Component extends DCLogic {
       { title: '診療科', badge: '', note: '', groups: [multi('dept', '', ['内科', '外科', '整形外科', '脳神経外科', '循環器', '消化器', '呼吸器', '小児科', '産婦人科', '精神科', 'リハビリテーション科', '緩和ケア'])] },
       { title: '職場の特徴', badge: '', note: '', groups: [multi('feat', '', ['中途にも教育担当', '師長インタビューあり', '託児所あり', '寮あり', '電子カルテあり', '駅徒歩5分以内', '車通勤可', '4週8休以上', '年間休日120日以上', 'ブランク可'])] }
     ];
+    const areaChips = Object.keys(areas).filter((k) => areas[k]).map((k) => { const [p, g, it] = k.split('|'); return { label: label(p, g, it), remove: () => setAreas({ [k]: false }) }; })
+      .concat(Object.keys(lines).filter((k) => lines[k]).map((k) => ({ label: k.split('|')[1], remove: () => this.setState({ lines: Object.assign({}, lines, { [k]: false }) }) })));
+    const SHORT = { '月給': '月給', '1人あたりの担当患者数（日勤）': '担当患者数', '平均残業時間（月）': '残業', '離職率（年）': '離職率', '夜勤回数（月）': '夜勤' };
+    const condChips = [];
+    condSections.forEach((s) => s.groups.forEach((g) => g.options.forEach((o) => { if (o.on) condChips.push({ label: g.type === 'radio' ? ((SHORT[g.title] || g.title) + ' ' + o.label) : o.label, remove: o.toggle }); })));
+    if (st.name) condChips.push({ label: '「' + st.name + '」', remove: () => this.setState({ name: '' }) });
     const condLabels = [];
     condSections.forEach((s) => s.groups.forEach((g) => g.options.forEach((o) => { if (o.on) condLabels.push(g.title && g.type === 'radio' ? (g.title.replace(/（.*）/, '') + ' ' + o.label) : o.label); })));
     if (st.name) condLabels.push('「' + st.name + '」');
@@ -358,6 +405,8 @@ class Component extends DCLogic {
     const m = st.modal;
     const close = () => this.setState({ modal: null });
     return {
+      areaChips, condChips, hasArea: areaChips.length > 0, hasCond: condChips.length > 0, noArea: !areaChips.length, noCond: !condChips.length, anySel: areaChips.length + condChips.length > 0,
+      clearAll: () => this.setState({ areas: {}, lines: {}, name: '', c: { emp: {}, shift: {}, pay: null, pts: null, ot: null, tr: null, night: null, htype: {}, beds: {}, duty: {}, dept: {}, feat: {} } }),
       tabs, jobs, count, fac, prefTitle, areaSummary, condSummary, condColor: condLabels.length ? '#333333' : '#8A857A',
       openArea: () => this.setState({ modal: 'area' }), openCond: () => this.setState({ modal: 'cond' }), openPref: () => this.setState({ modal: 'pref' }),
       modalOpen: !!m, isArea: m === 'area', isPref: m === 'pref', isCond: m === 'cond',
