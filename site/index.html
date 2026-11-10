@@ -75,13 +75,14 @@ a{color:#1A1A1A}a:hover{color:#3A63F4}
         </div>
         <span style="font-size: 13px; font-weight: 400; color: #666666">全 <span style="font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', Meiryo, sans-serif; font-size: 24px; font-weight: 700; color: #333333">{{count}}</span> 件（{{fac}}施設）</span>
       </div>
-      <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px">
-        <div style="display: flex; gap: 4px; background: #FFFFFF; border-radius: 8px; padding: 4px">
-          <sc-for list="{{tabs}}" as="t" hint-placeholder-count="3">
-            <button type="button" onClick="{{t.pick}}" style="border: none; background: {{t.bg}}; color: {{t.fg}}; border-radius: 4px; font-family: inherit; font-size: 14px; font-weight: 700; padding: 10px 18px; min-height: 40px; cursor: pointer">{{t.label}}</button>
-          </sc-for>
-        </div>
-        <span style="font-size: 12px; font-weight: 700; color: #5C5C5C">1-4件 / {{fac}}施設</span>
+      <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 16px">
+        <span style="position: relative; display: inline-flex">
+          <select aria-label="表示順" onChange="{{setSort}}" style="appearance: none; -webkit-appearance: none; border: 1px solid #DDDDDD; border-radius: 4px; background: #FFFFFF; font-family: inherit; font-size: 14px; font-weight: 400; color: #333333; padding: 8px 32px 8px 10px; min-height: 38px; cursor: pointer">
+            <sc-for list="{{tabs}}" as="t" hint-placeholder-count="4"><option value="{{t.i}}" selected="{{t.on}}">{{t.label}}</option></sc-for>
+          </select>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#666666" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="position: absolute; right: 11px; top: 50%; margin-top: -6px; pointer-events: none"><path d="M6 9l6 6 6-6"></path></svg>
+        </span>
+        <span style="font-size: 12px; font-weight: 400; color: #333333">1-4件 / {{fac}}施設</span>
       </div>
 
       <sc-for list="{{jobs}}" as="j" hint-placeholder-count="4">
@@ -304,7 +305,7 @@ class Component extends DCLogic {
   }
   renderVals() {
     const st = this.state;
-    const tabs = ['おすすめ', '新着', '給与順'].map((label, i) => ({ label, pick: () => this.setState({ tab: i }), bg: st.tab === i ? '#3B4654' : 'transparent', fg: st.tab === i ? '#FFFFFF' : '#1A1A1A' }));
+    const tabs = ['おすすめ順', '更新日順', '給与が高い順', '残業が少ない順'].map((label, i) => ({ label, i: String(i), on: st.tab === i }));
     const raw = [
       { id: 1, type: '正社員', cat: '病院', title: '「聞きやすさ」で選ばれる内科病棟で、一緒に働く看護師を募集', org: 'みなと中央病院', area: '東京都港区', payLabel: '月収', pay: '276,500円〜', payNote: '夜勤4回を含む', img: 'images/sns3.jpg', photo: '病棟の廊下でポーズをとるスタッフ4名（動画サムネイル）', pts: 7, ot: 8, tr: 6.5, facts: ['教育担当つき', '2交代', '有休消化 9割'], likes: 128, posted: '2日前' },
       { id: 2, type: '正社員', cat: '回復期', title: '患者さんの「帰る」を支える回復期リハビリ病院で、日勤のみも可', org: 'さくら台リハビリ病院', area: '神奈川県横浜市', payLabel: '月収', pay: '262,000円〜', payNote: '日勤のみの場合', img: 'images/sns2.jpg', photo: '手を振るスタッフ一同（動画サムネイル）', pts: 9, ot: 5, tr: 8.0, facts: ['日勤のみOK', '託児所あり'], likes: 96, posted: '4日前' },
@@ -410,6 +411,7 @@ class Component extends DCLogic {
     return {
       areaChips, condChips, hasArea: areaChips.length > 0, hasCond: condChips.length > 0, noArea: !areaChips.length, noCond: !condChips.length, anySel: areaChips.length + condChips.length > 0,
       clearAll: () => this.setState({ areas: {}, lines: {}, name: '', c: { emp: {}, shift: {}, pay: null, pts: null, ot: null, tr: null, night: null, htype: {}, beds: {}, duty: {}, dept: {}, feat: {} } }),
+      setSort: (e) => this.setState({ tab: Number(e.target.value) }),
       tabs, jobs, count, fac, prefTitle, areaSummary, condSummary, condColor: condLabels.length ? '#333333' : '#8A857A',
       openArea: () => this.setState({ modal: 'area' }), openCond: () => this.setState({ modal: 'cond' }), openPref: () => this.setState({ modal: 'pref' }),
       modalOpen: !!m, isArea: m === 'area', isPref: m === 'pref', isCond: m === 'cond',
