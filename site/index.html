@@ -87,7 +87,7 @@ a{color:#1A1A1A}a:hover{color:#3A63F4}
 
       <sc-for list="{{jobs}}" as="j" hint-placeholder-count="4">
         <article style="background: #FFFFFF; border-radius: 8px; overflow: hidden; display: flex; flex-direction: column">
-          <div class="cardtop" style="display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 20px; padding: 20px 24px 0; align-items: start">
+          <div class="cardtop" style="display: grid; grid-template-columns: minmax(0, 1fr) 400px; gap: 20px; padding: 20px 24px 0; align-items: start">
             <div class="ctext" style="min-width: 0; display: flex; flex-direction: column; gap: 8px">
               <div style="display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 400; color: #666666; flex-wrap: wrap">
                 <span aria-hidden="true" style="width: 20px; height: 20px; border-radius: 4px; background: #DAD6CC; border: 1px solid #C9C4B8"></span>
@@ -104,9 +104,17 @@ a{color:#1A1A1A}a:hover{color:#3A63F4}
                 <span style="font-size: 12px; font-weight: 400; color: #666666">{{j.payNote}}</span>
               </div>
             </div>
-            <a href="job.html" aria-label="{{j.title}}" class="cover" style="display: block; aspect-ratio: 16 / 9; background: #3B4654; border-radius: 6px; overflow: hidden; text-decoration: none">
-              <img src="{{j.img}}" alt="{{j.photo}}" style="width: 100%; height: 100%; object-fit: cover; display: block">
-            </a>
+            <div class="cover" style="position: relative; aspect-ratio: 16 / 9; background: #3B4654; border-radius: 6px; overflow: hidden">
+              <a href="job.html" aria-label="{{j.title}}" style="display: block; width: 100%; height: 100%">
+                <img src="{{j.img}}" alt="{{j.photo}}" style="width: 100%; height: 100%; object-fit: cover; display: block">
+              </a>
+              <button type="button" onClick="{{j.prev}}" aria-label="前の写真" class="sl" style="position: absolute; left: 8px; top: 50%; margin-top: -16px; width: 32px; height: 32px; border-radius: 50%; border: none; background: rgba(255,255,255,0.88); cursor: pointer; display: flex; align-items: center; justify-content: center; padding: 0"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#333333" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"></path></svg></button>
+              <button type="button" onClick="{{j.next}}" aria-label="次の写真" class="sl" style="position: absolute; right: 8px; top: 50%; margin-top: -16px; width: 32px; height: 32px; border-radius: 50%; border: none; background: rgba(255,255,255,0.88); cursor: pointer; display: flex; align-items: center; justify-content: center; padding: 0"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#333333" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg></button>
+              <span style="position: absolute; left: 0; right: 0; bottom: 8px; display: flex; justify-content: center; gap: 6px; pointer-events: none">
+                <sc-for list="{{j.dots}}" as="d" hint-placeholder-count="3"><span style="width: 6px; height: 6px; border-radius: 50%; background: {{d.bg}}"></span></sc-for>
+              </span>
+              <span style="position: absolute; right: 8px; top: 8px; font-size: 11px; font-weight: 400; color: #FFFFFF; background: rgba(26,26,26,0.55); padding: 2px 8px; border-radius: 999px">{{j.pos}}</span>
+            </div>
           </div>
           <div class="cardbody" style="padding: 16px 24px 22px; display: flex; flex-direction: column; gap: 14px">
             <div style="display: flex; flex-wrap: wrap; gap: 8px">
@@ -123,8 +131,8 @@ a{color:#1A1A1A}a:hover{color:#3A63F4}
               </sc-for>
             </div>
             <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px; padding-top: 6px; border-top: 1px solid #EDEAE2">
-              <a href="job.html" class="cta" style="text-decoration: none; font-size: 14px; font-weight: 700; padding: 12px 20px; border-radius: 4px; background: #3B4654; color: #FFFFFF; min-height: 44px; box-sizing: border-box; display: flex; align-items: center">話を聞きに行きたい</a>
-              <button type="button" onClick="{{j.like}}" aria-pressed="{{j.liked}}" style="border: 1.5px solid {{j.likeBorder}}; background: {{j.likeBg}}; color: #1A1A1A; border-radius: 4px; font-family: inherit; font-size: 13px; font-weight: 700; padding: 10px 14px; min-height: 44px; display: flex; align-items: center; gap: 6px; cursor: pointer">
+              <a href="job.html" class="cta" style="text-decoration: none; font-size: 14px; font-weight: 400; padding: 10px 18px; border-radius: 4px; background: #FFFFFF; border: 1px solid #B9C0CC; color: #3B4654; min-height: 42px; box-sizing: border-box; display: flex; align-items: center">話を聞きに行きたい</a>
+              <button type="button" onClick="{{j.like}}" aria-pressed="{{j.liked}}" style="border: 1px solid {{j.likeBorder}}; background: {{j.likeBg}}; color: #3B4654; border-radius: 4px; font-family: inherit; font-size: 13px; font-weight: 400; padding: 10px 14px; min-height: 42px; display: flex; align-items: center; gap: 6px; cursor: pointer">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="{{j.likeFill}}" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-4.6-9.5-9C.8 8.6 2.9 4 7 4c2.2 0 3.6 1.2 5 3 1.4-1.8 2.8-3 5-3 4.1 0 6.2 4.6 4.5 8-2.5 4.4-9.5 9-9.5 9z"></path></svg>
                 気になる <span style="font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', Meiryo, sans-serif">{{j.likes}}</span>
               </button>
@@ -300,17 +308,17 @@ a{color:#1A1A1A}a:hover{color:#3A63F4}
 class Component extends DCLogic {
   constructor(p) {
     super(p);
-    this.state = { tab: 0, liked: {}, modal: (p && p.modal) || null, pref: '東京都', areaTab: 0, areas: (p && p.preset) ? { '東京都|東京23区|江東区': true, '東京都|東京23区|墨田区': true } : {}, lines: {}, exp: { '東京都|東京23区': true },
+    this.state = { tab: 0, liked: {}, slide: {}, modal: (p && p.modal) || null, pref: '東京都', areaTab: 0, areas: (p && p.preset) ? { '東京都|東京23区|江東区': true, '東京都|東京23区|墨田区': true } : {}, lines: {}, exp: { '東京都|東京23区': true },
       c: (p && p.preset) ? { emp: { 0: true }, shift: { 2: true }, pay: null, pts: 2, ot: 2, tr: null, night: null, htype: {}, beds: {}, duty: { 0: true }, dept: {}, feat: { 0: true } } : { emp: {}, shift: {}, pay: null, pts: null, ot: null, tr: null, night: null, htype: {}, beds: {}, duty: {}, dept: {}, feat: {} }, name: '' };
   }
   renderVals() {
     const st = this.state;
     const tabs = ['おすすめ順', '更新日順', '給与が高い順', '残業が少ない順'].map((label, i) => ({ label, i: String(i), on: st.tab === i }));
     const raw = [
-      { id: 1, type: '正社員', cat: '病院', title: '「聞きやすさ」で選ばれる内科病棟で、一緒に働く看護師を募集', org: 'みなと中央病院', area: '東京都港区', payLabel: '月収', pay: '276,500円〜', payNote: '夜勤4回を含む', img: 'images/sns3.jpg', photo: '病棟の廊下でポーズをとるスタッフ4名（動画サムネイル）', pts: 7, ot: 8, tr: 6.5, facts: ['教育担当つき', '2交代', '有休消化 9割'], likes: 128, posted: '2日前' },
-      { id: 2, type: '正社員', cat: '回復期', title: '患者さんの「帰る」を支える回復期リハビリ病院で、日勤のみも可', org: 'さくら台リハビリ病院', area: '神奈川県横浜市', payLabel: '月収', pay: '262,000円〜', payNote: '日勤のみの場合', img: 'images/sns2.jpg', photo: '手を振るスタッフ一同（動画サムネイル）', pts: 9, ot: 5, tr: 8.0, facts: ['日勤のみOK', '託児所あり'], likes: 96, posted: '4日前' },
-      { id: 3, type: '正社員', cat: '療養型', title: '急性期の経験を、じっくり向き合う看護に。療養病棟で看護師を募集', org: 'ひだまり記念病院', area: '千葉県船橋市', payLabel: '月収', pay: '258,000円〜', payNote: '夜勤4回を含む', img: 'images/care.jpg', photo: '病棟で患者と談笑するスタッフ（夕方の光）', pts: 13, ot: 3, tr: 12.5, facts: ['夜勤 月4回', '有休消化 9割', '急性期から転職多め'], likes: 54, posted: '1週間前' },
-      { id: 4, type: 'パート', cat: '病院', title: '週3日から。子育て中の看護師が半分を占める外来で働く', org: '江東第一病院', area: '東京都江東区', payLabel: '時給', pay: '1,900円〜', payNote: '週3日・16時まで', img: 'images/sns1.jpg', photo: 'ナース編・前職なんですか？（動画サムネイル）', pts: 0, ot: 0, tr: 4.0, facts: ['週3日〜', '16時まで'], likes: 73, posted: '1週間前' }
+      { id: 1, type: '正社員', cat: '病院', title: '「聞きやすさ」で選ばれる内科病棟で、一緒に働く看護師を募集', org: 'みなと中央病院', area: '東京都港区', payLabel: '月収', pay: '276,500円〜', payNote: '夜勤4回を含む', img: 'images/sns3.jpg', photo: '病棟の廊下でポーズをとるスタッフ4名（動画サムネイル）', gallery: [{ src: 'images/sns3.jpg', alt: '病棟の廊下でポーズをとるスタッフ4名（動画サムネイル）' }, { src: 'images/station.jpg', alt: 'ナースステーションの様子' }, { src: 'images/mentor.jpg', alt: '先輩看護師が新人に教えている様子' }], pts: 7, ot: 8, tr: 6.5, facts: ['教育担当つき', '2交代', '有休消化 9割'], likes: 128, posted: '2日前' },
+      { id: 2, type: '正社員', cat: '回復期', title: '患者さんの「帰る」を支える回復期リハビリ病院で、日勤のみも可', org: 'さくら台リハビリ病院', area: '神奈川県横浜市', payLabel: '月収', pay: '262,000円〜', payNote: '日勤のみの場合', img: 'images/sns2.jpg', photo: '手を振るスタッフ一同（動画サムネイル）', gallery: [{ src: 'images/sns2.jpg', alt: '手を振るスタッフ一同（動画サムネイル）' }, { src: 'images/rehab.jpg', alt: 'リハビリ室の様子' }, { src: 'images/director.jpg', alt: '看護部長のポートレート' }], pts: 9, ot: 5, tr: 8.0, facts: ['日勤のみOK', '託児所あり'], likes: 96, posted: '4日前' },
+      { id: 3, type: '正社員', cat: '療養型', title: '急性期の経験を、じっくり向き合う看護に。療養病棟で看護師を募集', org: 'ひだまり記念病院', area: '千葉県船橋市', payLabel: '月収', pay: '258,000円〜', payNote: '夜勤4回を含む', img: 'images/care.jpg', photo: '病棟で患者と談笑するスタッフ（夕方の光）', gallery: [{ src: 'images/care.jpg', alt: '病棟で患者と談笑するスタッフ（夕方の光）' }, { src: 'images/director2.jpg', alt: '施設長のポートレート' }, { src: 'images/mentor.jpg', alt: '先輩看護師が新人に教えている様子' }], pts: 13, ot: 3, tr: 12.5, facts: ['夜勤 月4回', '有休消化 9割', '急性期から転職多め'], likes: 54, posted: '1週間前' },
+      { id: 4, type: 'パート', cat: '病院', title: '週3日から。子育て中の看護師が半分を占める外来で働く', org: '江東第一病院', area: '東京都江東区', payLabel: '時給', pay: '1,900円〜', payNote: '週3日・16時まで', img: 'images/sns1.jpg', photo: 'ナース編・前職なんですか？（動画サムネイル）', gallery: [{ src: 'images/sns1.jpg', alt: 'ナース編・前職なんですか？（動画サムネイル）' }, { src: 'images/station.jpg', alt: 'ナースステーションの様子' }, { src: 'images/rehab.jpg', alt: 'リハビリ室の様子' }], pts: 0, ot: 0, tr: 4.0, facts: ['週3日〜', '16時まで'], likes: 73, posted: '1週間前' }
     ];
     const jobs = raw.map((j) => {
       const liked = !!st.liked[j.id];
@@ -319,7 +327,10 @@ class Component extends DCLogic {
         { label: '平均残業時間（月）', short: '残業（月）', value: j.ot + 'h', color: j.ot <= 18 ? '#1A1A1A' : '#D9486F' },
         { label: '離職率（年）', short: '離職率（年）', value: j.tr + '%', color: j.tr <= 11 ? '#1A1A1A' : '#D9486F' }
       ];
-      return Object.assign({}, j, { bars, liked, likes: j.likes + (liked ? 1 : 0), likeFill: liked ? '#FF8FB1' : 'none', likeBg: liked ? '#FFE3EC' : '#FFFFFF', likeBorder: liked ? '#FF8FB1' : '#D9D4C7', like: () => this.setState({ liked: Object.assign({}, st.liked, { [j.id]: !liked }) }) });
+      const gi = (st.slide && st.slide[j.id]) || 0, gn = j.gallery.length;
+      const go = (d) => this.setState({ slide: Object.assign({}, st.slide, { [j.id]: (gi + d + gn) % gn }) });
+      const g = j.gallery[gi];
+      return Object.assign({}, j, { img: g.src, photo: g.alt, prev: go.bind(null, -1), next: go.bind(null, 1), pos: (gi + 1) + ' / ' + gn, dots: j.gallery.map((x, k) => ({ bg: k === gi ? '#FFFFFF' : 'rgba(255,255,255,0.5)' })), bars, liked, likes: j.likes + (liked ? 1 : 0), likeFill: liked ? '#FF8FB1' : 'none', likeBg: liked ? '#FFE3EC' : '#FFFFFF', likeBorder: liked ? '#FF8FB1' : '#B9C0CC', like: () => this.setState({ liked: Object.assign({}, st.liked, { [j.id]: !liked }) }) });
     });
 
     // ---- Area data ----
