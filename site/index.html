@@ -149,7 +149,7 @@ a{color:#1A1A1A}a:hover{color:#3A63F4}
   <sc-if value="{{modalOpen}}" hint-placeholder-val="{{false}}">
     <div class="ov" role="dialog" aria-modal="true" aria-label="{{modalTitle}}" style="position: fixed; inset: 0; z-index: 90; display: flex; align-items: center; justify-content: center; padding: 24px; box-sizing: border-box">
       <div onClick="{{closeModal}}" style="position: absolute; inset: 0; background: rgba(26,26,26,0.45)"></div>
-      <div class="dlg" style="position: relative; width: 100%; max-width: 720px; max-height: calc(100vh - 48px); background: #FFFFFF; border-radius: 8px; display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 16px 48px rgba(26,26,26,0.2)">
+      <div class="dlg" style="position: relative; width: 100%; max-width: 720px; height: min(760px, calc(100vh - 48px)); background: #FFFFFF; border-radius: 8px; display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 16px 48px rgba(26,26,26,0.2)">
         <div class="dlghead" style="display: grid; grid-template-columns: 120px 1fr 120px; align-items: center; padding: 0 16px; min-height: 64px; border-bottom: 1px solid #EDEAE2">
           <span>
             <sc-if value="{{hasBack}}" hint-placeholder-val="{{false}}">
