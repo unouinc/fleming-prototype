@@ -113,7 +113,8 @@ a{color:#1A1A1A}a:hover{color:#3A63F4}
       <section id="members" style="background: #FFFFFF; border-radius: 8px; padding: 36px; display: flex; flex-direction: column; gap: 20px">
         <div style="display: flex; flex-direction: column; gap: 8px">
           <span style="font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', Meiryo, sans-serif; font-weight: 700; font-size: 12px; letter-spacing: 2px; color: #3A63F4">MEMBERS</span>
-          <h2 style="margin: 0; font-size: 22px; font-weight: 900">話を聞きに行くと会える人</h2>
+          <h2 style="margin: 0; font-size: 22px; font-weight: 900">話を聞きに行くと会える人 <span style="font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', Meiryo, sans-serif; font-size: 16px; font-weight: 700; color: #3A63F4">{{memberCount}}人</span></h2>
+          <span style="font-size: 13px; line-height: 1.7; color: #5C5C5C">応募の前に、この中から話したい人を選んで30分ほど話せます。見学でもオンラインでも。</span>
         </div>
         <div style="display: flex; gap: 8px; flex-wrap: wrap">
           <a href="members-a.html" style="text-decoration: none; font-size: 13px; font-weight: 700; padding: 10px 16px; border-radius: 4px; border: 2px solid #D9D4C7; min-height: 40px; box-sizing: border-box; display: flex; align-items: center">チームの構成を見る（組織図）</a>
@@ -121,12 +122,21 @@ a{color:#1A1A1A}a:hover{color:#3A63F4}
         </div>
         <div style="display: flex; flex-wrap: wrap; gap: 16px">
           <sc-for list="{{members}}" as="m" hint-placeholder-count="3">
-            <div style="flex: 1 1 220px; min-width: 0; display: flex; gap: 14px; align-items: flex-start">
-              <span aria-hidden="true" style="width: 56px; height: 56px; border-radius: 50%; background: #DAD6CC; color: #6B675E; border: 2px solid #D9D4C7; flex: 0 0 auto; display: flex; align-items: center; justify-content: center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"></circle><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"></path></svg></span>
-              <div style="display: flex; flex-direction: column; gap: 4px">
-                <span style="font-size: 15px; font-weight: 900">{{m.role}}</span>
-                <span style="font-size: 12px; font-weight: 700; color: #5C5C5C">{{m.meta}}</span>
-                <span style="font-size: 13px; line-height: 1.7">{{m.text}}</span>
+            <div style="flex: 1 1 220px; min-width: 0; border: 1px solid #E3E0D8; border-radius: 8px; padding: 18px; display: flex; flex-direction: column; gap: 12px">
+              <div style="display: flex; gap: 12px; align-items: center">
+                <span aria-hidden="true" style="width: 56px; height: 56px; border-radius: 50%; background: #DAD6CC; color: #6B675E; border: 2px solid #D9D4C7; flex: 0 0 auto; display: flex; align-items: center; justify-content: center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"></circle><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"></path></svg></span>
+                <div style="min-width: 0; display: flex; flex-direction: column; gap: 2px">
+                  <span style="font-size: 15px; font-weight: 700; color: #333333">{{m.name}}</span>
+                  <span style="font-size: 12px; font-weight: 400; color: #5C5C5C">{{m.role}}</span>
+                </div>
+              </div>
+              <div style="display: flex; gap: 6px; flex-wrap: wrap">
+                <sc-for list="{{m.tags}}" as="t" hint-placeholder-count="3"><span style="font-size: 12px; font-weight: 400; color: #333333; border: 1px solid #C9C4B8; padding: 2px 8px; border-radius: 4px">{{t}}</span></sc-for>
+              </div>
+              <span style="font-size: 13px; line-height: 1.7; color: #333333">{{m.text}}</span>
+              <div style="display: flex; flex-direction: column; gap: 2px; padding-top: 10px; border-top: 1px solid #EDEAE2">
+                <span style="font-size: 11px; font-weight: 700; color: #5C5C5C">こんな話ができます</span>
+                <span style="font-size: 13px; line-height: 1.7; color: #333333">{{m.ask}}</span>
               </div>
             </div>
           </sc-for>
@@ -293,10 +303,11 @@ class Component extends DCLogic {
         { text: '「人が足りないときは、本当に人を増やしてくれた。師長が現場の声を上に届けてくれる」', who: '看護師 9年目' },
         { text: '「正直、忙しい日はある。でもチームで受け持ちを調整するから、ひとりで抱えることはない」', who: '看護師 2年目' }
       ],
+      memberCount: 3,
       members: [
-        { role: '内科病棟 師長', meta: '看護師歴 [年数]年', text: 'まずは私がお話しします。見学は平日の午後ならいつでも。', color: '#FFD338' },
-        { role: '教育担当', meta: '看護師歴 [年数]年', text: '中途入職の3か月、横について一緒に動きます。', color: '#FF8FB1' },
-        { role: '看護師 4年目', meta: '中途入職', text: '去年入りました。転職の不安、同じ目線で答えます。', color: '#3A63F4' }
+        { name: '高橋 恵さん', role: '内科病棟 師長', tags: ['看護師歴 18年', '当院 12年目', '2児の母'], text: '大学病院の循環器内科から転職し、4年前から師長に。「聞きやすい病棟」を掲げ、受け持ち人数の見直しを進めてきました。', ask: '病棟の方針、夜勤の体制、子育てとの両立' },
+        { name: '森田 彩さん', role: '教育担当', tags: ['看護師歴 9年', '新卒から当院'], text: '中途で入った方の最初の3か月、横について一緒に動きます。前の病院とのやり方の違いは、遠慮なく聞いてほしいです。', ask: '入職後3か月の流れ、研修、電子カルテ' },
+        { name: '小林 真央さん', role: '看護師 4年目', tags: ['中途入職 2年目', '前職 急性期・外科'], text: '去年、急性期の外科病棟から転職しました。受け持ちが12人から7人になり、患者さんと話す時間が増えました。', ask: '転職の決め手、実際の残業、病棟の雰囲気' }
       ],
       fit: [
         { label: '受け持ち 7人以下', val: '7人', mark: '◎', bg: '#3A63F4', fg: '#FFFFFF' },
