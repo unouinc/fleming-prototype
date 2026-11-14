@@ -11,6 +11,8 @@
     var q = new URLSearchParams(location.search).get('live');
     if (q === '1') localStorage.setItem('nasuri_live', '1');
     if (q === '0') localStorage.removeItem('nasuri_live');
+    /* ログインメールのリンクから戻ってきたとき（URLに認証情報が付いている）は、必ず本番モードで受け取る */
+    if (/[#&?](access_token|refresh_token|error_code)=/.test(location.hash + location.search)) localStorage.setItem('nasuri_live', '1');
     if (localStorage.getItem('nasuri_live') === '1') live = true;
   } catch (e) {}
   var N = window.Nasuri = {
