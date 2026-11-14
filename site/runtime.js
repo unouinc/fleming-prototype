@@ -1,4 +1,4 @@
-/* Fleming prototype — tiny template runtime
+/* ナスリー prototype — tiny template runtime
    Supports: {{a.b}} holes in text and attributes, <sc-for list as>, <sc-if value>,
    onClick / onChange handlers, checked / aria-pressed from state. */
 (function () {
