@@ -13,18 +13,18 @@
 :root{
   --bg:#F5F5F7; --panel:#FFFFFF; --ink:#1D1D1F; --ink2:#6E6E73; --ink3:#86868B; --line:#E5E5EA;
   --land:#FFFFFF; --muni:#E3E3E8; --pref:#AEAEB2; --sea:#EEF1F5;
-  --top:#1D1D1F; --other:#A1A1A6; --hi:#E5484D; --ring:#1D1D1F; --sel:#F4A3A6;
+  --top:#1D1D1F; --other:#A1A1A6; --hi:#E5484D; --ring:#1D1D1F; --sel:#7FCF96; --contact:#F2C200; --contract:#E5484D;
  
   --sans:-apple-system,BlinkMacSystemFont,"SF Pro Text","Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP",sans-serif;
 }
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
   --bg:#111113; --panel:#1C1C1F; --ink:#F5F5F7; --ink2:#B3B3BA; --ink3:#A1A1A9; --line:#333338;
   --land:#232327; --muni:#34343A; --pref:#6E6E73; --sea:#16171B;
-  --top:#F5F5F7; --other:#6E6E73; --hi:#FF6369; --ring:#F5F5F7; --sel:#E87A80; color-scheme:dark}}
+  --top:#F5F5F7; --other:#6E6E73; --hi:#FF6369; --ring:#F5F5F7; --sel:#3FA75F; --contact:#E9B800; --contract:#FF5A60; color-scheme:dark}}
 :root[data-theme="dark"]{
   --bg:#111113; --panel:#1C1C1F; --ink:#F5F5F7; --ink2:#B3B3BA; --ink3:#A1A1A9; --line:#333338;
   --land:#232327; --muni:#34343A; --pref:#6E6E73; --sea:#16171B;
-  --top:#F5F5F7; --other:#6E6E73; --hi:#FF6369; --ring:#F5F5F7; --sel:#E87A80; color-scheme:dark}
+  --top:#F5F5F7; --other:#6E6E73; --hi:#FF6369; --ring:#F5F5F7; --sel:#3FA75F; --contact:#E9B800; --contract:#FF5A60; color-scheme:dark}
 *{box-sizing:border-box}
 body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:14px;line-height:1.55;-webkit-font-smoothing:antialiased}
 .wrap{max-width:1400px;margin:0 auto;padding-block:24px 40px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:16px}
@@ -42,6 +42,10 @@ svg:active{cursor:grabbing}
 .dot.top{fill:var(--top)}
 .dot.other{fill:var(--other)}
 .dot.sel{fill:var(--sel)}
+.dot.contact{fill:var(--contact)}
+.dot.contract{fill:var(--contract)}
+.status{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:12px;color:var(--ink2);background:var(--bg);border-radius:12px;padding:10px 12px}
+.status b{color:var(--ink);font-variant-numeric:tabular-nums}
 .dot.on{stroke:var(--ink)}
 .ring{fill:none;stroke:var(--ring);pointer-events:none}
 .ringlabel{fill:var(--ink2);font-size:11px;pointer-events:none;paint-order:stroke;stroke:var(--panel);stroke-width:3px}
@@ -76,7 +80,7 @@ button:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
 <body>
 <div class="wrap">
   <h1>関東 病院マップ</h1>
-  <p class="lead">営業リストの病院（関東1都6県・100〜399床、1,096件）を所在地に置きました。黒い点が上位150件です。エリアを押すと、そのエリアの病院が赤く表示されます。病院を押すと、直線距離5km・10km・20kmの円を出します。</p>
+  <p class="lead">営業リストの病院（関東1都6県・100〜399床、1,096件）を所在地に置きました。黒い点が上位150件です。黄色は接点を持った病院、赤は契約済みの病院です。エリアを押すと、優先エリアとして緑で表示します。病院を押すと、直線距離5km・10km・20kmの円を出します。</p>
   <div class="main">
     <div class="mapbox" id="mapbox">
       <svg id="map" viewBox="0 0 1000 820" role="img" aria-label="関東の病院の位置"></svg>
@@ -88,10 +92,11 @@ button:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
         <button type="button" id="showTop" aria-pressed="false">上位150のみ</button>
         <button type="button" id="showAll" aria-pressed="true">全1,096件</button>
       </div>
-      <div class="legend"><span><i style="background:var(--top)"></i>上位150</span><span><i style="background:var(--other)"></i>その他</span><span><i style="background:var(--sel)"></i>選んだエリア</span></div>
+      <div class="legend"><span><i style="background:var(--top)"></i>上位150</span><span><i style="background:var(--other)"></i>その他</span><span><i style="background:var(--contact)"></i>接点あり</span><span><i style="background:var(--contract)"></i>契約済み</span><span><i style="background:var(--sel)"></i>優先エリア（選択中）</span></div>
+      <div class="status" id="status"></div>
       <div class="picked" id="picked" hidden></div>
       <div style="display:flex;flex-direction:column;gap:8px;min-height:0">
-        <p class="lbl">エリア（押すとそのエリアの点が赤くなります）</p>
+        <p class="lbl">エリア（押すと優先エリアとして緑になります。複数選べます）</p>
         <div class="ahead"><span>エリア</span><span>上位</span><span>全体</span></div>
         <ul class="areas" id="areas"></ul>
       </div>
@@ -123,16 +128,22 @@ gm.selectAll('path').data(GEO.features).join('path').attr('class','muni').attr('
 gp.selectAll('path').data(PREFS.features).join('path').attr('class','pref').attr('d',path);
 
 const pts = H.map((h,i)=>{const p=px(h[8],h[9]);return {i,n:h[0],pref:h[1],city:h[2],area:h[3],beds:h[4],kind:h[5],score:h[6],rank:h[7],x:p[0],y:p[1]}});
-let showAll = true, selArea = null, picked = null, k = 1;
+let showAll = true, picked = null, k = 1;
+const selAreas = new Set();
+let ST = {updated:'', contacted:new Set(), contracted:new Set()};
+function status(d){return ST.contracted.has(d.n)||ST.contracted.has(d.code)?'contract':(ST.contacted.has(d.n)||ST.contacted.has(d.code)?'contact':'');}
+const STATUS_LABEL={contract:'契約済み',contact:'接点あり','':''};
 const dots = gd.selectAll('circle').data(pts.slice().sort((a,b)=>(a.rank?1:0)-(b.rank?1:0))).join('circle')
   .attr('class',d=>'dot '+(d.rank?'top':'other')).attr('cx',d=>d.x).attr('cy',d=>d.y);
-function r(d){return (d.rank?3.4:2.4)/Math.pow(k,0.8);}
+function r(d){return (d.rank||status(d)?3.4:2.4)/Math.pow(k,0.8);}
 function render(){
   gp.selectAll('path').style('stroke-width',(1.2/k)+'px');
   gm.selectAll('path').style('stroke-width',(0.6/k)+'px');
   dots.attr('r',d=>(picked&&d.i===picked.i)?r(d)*1.6:r(d))
     .attr('display',d=>(!showAll && !d.rank)?'none':null)
-    .classed('sel',d=>selArea && d.area===selArea)
+    .classed('sel',d=>!status(d) && selAreas.has(d.area))
+    .classed('contact',d=>status(d)==='contact')
+    .classed('contract',d=>status(d)==='contract')
     .classed('on',d=>picked && d.i===picked.i)
     .style('stroke-width',d=>(picked&&d.i===picked.i)?(2/Math.pow(k,0.8))+'px':(0.8/Math.pow(k,0.8))+'px');
   gr.selectAll('*').remove();
@@ -148,10 +159,10 @@ const zoom = d3.zoom().scaleExtent([1,24]).translateExtent([[0,0],[W,HH]]).on('z
 svg.call(zoom);
 d3.select('#zin').on('click',()=>svg.transition().duration(250).call(zoom.scaleBy,1.6));
 d3.select('#zout').on('click',()=>svg.transition().duration(250).call(zoom.scaleBy,1/1.6));
-d3.select('#zreset').on('click',()=>{selArea=null;picked=null;syncAreas();showPicked();svg.transition().duration(400).call(zoom.transform,d3.zoomIdentity);});
+d3.select('#zreset').on('click',()=>{picked=null;showPicked();render();svg.transition().duration(400).call(zoom.transform,d3.zoomIdentity);});
 
 const tip = document.getElementById('tip'), box = document.getElementById('mapbox');
-function rankText(d){return d.rank?('上位150（'+d.rank+'）'):'上位150外';}
+function rankText(d){return (d.rank?('上位150（'+d.rank+'）'):'上位150外')+(status(d)?'｜'+STATUS_LABEL[status(d)]:'');}
 dots.on('mouseenter',(e,d)=>{tip.innerHTML='';const b=document.createElement('b');b.textContent=d.n;tip.appendChild(b);
   const s1=document.createElement('span');s1.textContent=d.pref+d.city+'｜'+d.beds+'床｜'+d.kind;tip.appendChild(s1);tip.appendChild(document.createElement('br'));
   const s2=document.createElement('span');s2.textContent=d.area+'｜'+d.score+'点｜'+rankText(d);tip.appendChild(s2);tip.hidden=false;})
@@ -180,10 +191,18 @@ areaStats.forEach(([name,st])=>{
   const li=document.createElement('li'),b=document.createElement('button');b.type='button';b.dataset.a=name;b.setAttribute('aria-pressed','false');
   const a=document.createElement('span');a.textContent=name;const n1=document.createElement('span');n1.className='n1';n1.textContent=st.top;const n2=document.createElement('span');n2.className='n2';n2.textContent=st.all;
   b.append(a,n1,n2);b.addEventListener('click',()=>{
-    if(selArea===name){selArea=null;syncAreas();render();return;}
-    selArea=name;syncAreas();render();});
+    selAreas.has(name)?selAreas.delete(name):selAreas.add(name);syncAreas();render();});
   li.appendChild(b);ul.appendChild(li);});
-function syncAreas(){ul.querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.a===selArea?'true':'false'));}
+function syncAreas(){ul.querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',selAreas.has(b.dataset.a)?'true':'false'));}
+function order(){dots.sort((a,b)=>{const w=d=>status(d)==='contract'?3:status(d)==='contact'?2:d.rank?1:0;return w(a)-w(b);});}
+function showStatus(){const el=document.getElementById('status');el.textContent='';
+  const c1=pts.filter(d=>status(d)==='contact').length,c2=pts.filter(d=>status(d)==='contract').length;
+  const add=(label,n)=>{const sp=document.createElement('span');sp.append(label+' ');const b=document.createElement('b');b.textContent=n+'件';sp.appendChild(b);el.appendChild(sp);};
+  add('接点あり',c1);add('契約済み',c2);
+  const u=document.createElement('span');u.textContent=ST.updated?('更新 '+ST.updated):'状況データ未登録';el.appendChild(u);}
+fetch('status.json',{cache:'no-store'}).then(r=>r.ok?r.json():null).then(j=>{if(!j)return;
+  ST={updated:j.updated||'',contacted:new Set(j.contacted||[]),contracted:new Set(j.contracted||[])};order();showStatus();showPicked();render();}).catch(()=>{});
+showStatus();
 function setShow(all){showAll=all;document.getElementById('showAll').setAttribute('aria-pressed',all);document.getElementById('showTop').setAttribute('aria-pressed',!all);showPicked();render();}
 document.getElementById('showAll').addEventListener('click',()=>setShow(true));
 document.getElementById('showTop').addEventListener('click',()=>setShow(false));
