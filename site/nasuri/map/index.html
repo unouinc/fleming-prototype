@@ -80,7 +80,7 @@ button:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
 <body>
 <div class="wrap">
   <h1>関東 病院マップ</h1>
-  <p class="lead">営業リストの病院（関東1都6県・100〜399床、1,096件）を所在地に置きました。黒い点が上位150件です。黄色は接点を持った病院、赤は契約済みの病院です。エリアを押すと、優先エリアとして緑で表示します。病院を押すと、直線距離5km・10km・20kmの円を出します。</p>
+  <p class="lead">営業リストの病院（関東1都6県・100〜399床、1,096件）を所在地に置きました。黒い点が上位150件です。黄色は接点を持った病院、赤は契約済みの病院です。エリアを押すと、優先エリアとして緑で表示し、地図がそこへ寄ります。病院を押すと、直線距離5km・10km・20kmの円を出します。</p>
   <div class="main">
     <div class="mapbox" id="mapbox">
       <svg id="map" viewBox="0 0 1000 820" role="img" aria-label="関東の病院の位置"></svg>
@@ -96,7 +96,7 @@ button:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
       <div class="status" id="status"></div>
       <div class="picked" id="picked" hidden></div>
       <div style="display:flex;flex-direction:column;gap:8px;min-height:0">
-        <p class="lbl">エリア（押すと優先エリアとして緑になります。複数選べます）</p>
+        <p class="lbl">エリア（押すと緑になり、地図がそこへ寄ります。複数選べます）</p>
         <div class="ahead"><span>エリア</span><span>上位</span><span>全体</span></div>
         <ul class="areas" id="areas"></ul>
       </div>
@@ -159,7 +159,7 @@ const zoom = d3.zoom().scaleExtent([1,24]).translateExtent([[0,0],[W,HH]]).on('z
 svg.call(zoom);
 d3.select('#zin').on('click',()=>svg.transition().duration(250).call(zoom.scaleBy,1.6));
 d3.select('#zout').on('click',()=>svg.transition().duration(250).call(zoom.scaleBy,1/1.6));
-d3.select('#zreset').on('click',()=>{picked=null;showPicked();render();svg.transition().duration(400).call(zoom.transform,d3.zoomIdentity);});
+d3.select('#zreset').on('click',()=>{picked=null;selAreas.clear();syncAreas();showPicked();render();svg.transition().duration(400).call(zoom.transform,d3.zoomIdentity);});
 
 const tip = document.getElementById('tip'), box = document.getElementById('mapbox');
 function rankText(d){return (d.rank?('上位150（'+d.rank+'）'):'上位150外')+(status(d)?'｜'+STATUS_LABEL[status(d)]:'');}
@@ -191,8 +191,16 @@ areaStats.forEach(([name,st])=>{
   const li=document.createElement('li'),b=document.createElement('button');b.type='button';b.dataset.a=name;b.setAttribute('aria-pressed','false');
   const a=document.createElement('span');a.textContent=name;const n1=document.createElement('span');n1.className='n1';n1.textContent=st.top;const n2=document.createElement('span');n2.className='n2';n2.textContent=st.all;
   b.append(a,n1,n2);b.addEventListener('click',()=>{
-    selAreas.has(name)?selAreas.delete(name):selAreas.add(name);syncAreas();render();});
+    selAreas.has(name)?selAreas.delete(name):selAreas.add(name);syncAreas();render();fitAreas();});
   li.appendChild(b);ul.appendChild(li);});
+function fitAreas(){
+  if(!selAreas.size){svg.transition().duration(450).call(zoom.transform,d3.zoomIdentity);return;}
+  const v=pts.filter(d=>selAreas.has(d.area));
+  const [x0,x1]=d3.extent(v,d=>d.x),[y0,y1]=d3.extent(v,d=>d.y);
+  const dx=Math.max(x1-x0,40),dy=Math.max(y1-y0,40),cx=(x0+x1)/2,cy=(y0+y1)/2;
+  const kk=Math.max(1,Math.min(24,0.85/Math.max(dx/W,dy/HH)));
+  svg.transition().duration(500).call(zoom.transform,d3.zoomIdentity.translate(W/2-kk*cx,HH/2-kk*cy).scale(kk));
+}
 function syncAreas(){ul.querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',selAreas.has(b.dataset.a)?'true':'false'));}
 function order(){dots.sort((a,b)=>{const w=d=>status(d)==='contract'?3:status(d)==='contact'?2:d.rank?1:0;return w(a)-w(b);});}
 function showStatus(){const el=document.getElementById('status');el.textContent='';
