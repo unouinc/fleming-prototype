@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fleming 登録・ログイン</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&amp;family=Outfit:wght@600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#F6F5F1}
+a{color:#1A1A1A}a:hover{color:#3A63F4}
+input:focus-visible,button:focus-visible,a:focus-visible{outline:3px solid #3A63F4;outline-offset:2px}
+@media (max-width: 760px){
+  .hdr{padding:0 16px!important;height:56px!important}
+  .su-wrap{padding:20px 16px 48px!important}
+  .su-card{padding:24px 20px!important}
+  .su-title{font-size:22px!important}
+}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<template id="tpl">
+<div style="width: 100%; min-height: 100vh; background: #F6F5F1; color: #1A1A1A; font-family: 'Noto Sans JP', 'Hiragino Sans', sans-serif; font-weight: 500; letter-spacing: 0.01em; -webkit-font-smoothing: antialiased; display: flex; flex-direction: column">
+  <header style="background: #FFFFFF; border-bottom: 1px solid #E3E0D8">
+    <div class="hdr" style="max-width: 1360px; margin: 0 auto; padding: 0 32px; height: 64px; box-sizing: border-box; display: flex; align-items: center; gap: 28px">
+      <a href="index.html" style="display: flex; align-items: center; gap: 8px; text-decoration: none; flex: 0 0 auto">
+        <span style="width: 30px; height: 30px; border-radius: 50%; background: #3A63F4; display: flex; align-items: center; justify-content: center"><span style="width: 11px; height: 11px; border-radius: 50%; background: #FFD338"></span></span>
+        <span style="font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 22px; letter-spacing: -0.4px">Fleming</span>
+      </a>
+      <a href="index.html" style="margin-left: auto; font-size: 14px; font-weight: 700; text-decoration: none; min-height: 44px; display: flex; align-items: center">求人をさがす</a>
+    </div>
+  </header>
+  <main class="su-wrap" style="flex: 1 1 auto; padding: 48px 32px 80px; box-sizing: border-box; display: flex; justify-content: center; align-items: flex-start">
+    <div class="su-card" style="width: 100%; max-width: 520px; background: #FFFFFF; border: 1px solid #E3E0D8; border-radius: 12px; padding: 36px 36px 32px; box-sizing: border-box; display: flex; flex-direction: column; gap: 24px">
+      <div style="display: flex; gap: 6px" aria-hidden="true">
+        <sc-for list="{{dots}}" as="d" hint-placeholder-count="3"><span style="flex: 1; height: 4px; border-radius: 2px; background: {{d.bg}}"></span></sc-for>
+      </div>
+
+      <sc-if value="{{isEmail}}" hint-placeholder-val="{{true}}">
+        <div style="display: flex; flex-direction: column; gap: 10px">
+          <h1 class="su-title" style="margin: 0; font-size: 26px; font-weight: 900; line-height: 1.4">無料で登録・ログイン</h1>
+          <p style="margin: 0; font-size: 14px; line-height: 1.8; color: #3D3D3D">{{lead}}</p>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 8px">
+          <label for="su-email" style="font-size: 14px; font-weight: 700">メールアドレス</label>
+          <input id="su-email" type="email" inputmode="email" autocomplete="email" value="{{email}}" onInput="{{setEmail}}" placeholder="example@mail.com" style="font-family: inherit; font-size: 16px; padding: 13px 14px; border-radius: 8px; border: 1.5px solid #D9D4C7; background: #FFFFFF; color: #1A1A1A; min-width: 0; width: 100%; box-sizing: border-box">
+          <span style="font-size: 12px; line-height: 1.7; color: #5C5C5C">パスワードは不要です。届いたメールのリンクを押すだけで進めます。</span>
+        </div>
+        <label style="display: flex; gap: 10px; align-items: flex-start; font-size: 13px; line-height: 1.7; cursor: pointer">
+          <input id="su-agree" type="checkbox" checked="{{agree}}" onChange="{{toggleAgree}}" style="width: 20px; height: 20px; margin: 2px 0 0; flex: 0 0 auto; accent-color: #3A63F4">
+          <span><a href="terms.html" target="_blank" rel="noopener" style="color: #3A63F4">利用規約</a>と<a href="privacy.html" target="_blank" rel="noopener" style="color: #3A63F4">プライバシーポリシー</a>に同意します</span>
+        </label>
+        <sc-if value="{{err}}" hint-placeholder-val="{{false}}"><span role="alert" style="font-size: 13px; line-height: 1.6; color: #B3261E">{{err}}</span></sc-if>
+        <button type="button" onClick="{{sendLink}}" style="border: none; background: #3B4654; color: #FFFFFF; border-radius: 4px; font-family: inherit; font-size: 16px; font-weight: 700; padding: 14px; min-height: 52px; cursor: pointer; width: 100%">{{emailBtn}}</button>
+        <ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 6px; font-size: 13px; line-height: 1.7; color: #3D3D3D; border-top: 1px solid #EDEAE2; padding-top: 18px">
+          <li>・看護師の方は無料で使えます</li>
+          <li>・電話番号の登録はありません。電話はかかってきません</li>
+          <li>・気になる病院の人に、応募の前に話を聞けます</li>
+        </ul>
+      </sc-if>
+
+      <sc-if value="{{isSent}}" hint-placeholder-val="{{false}}">
+        <div style="display: flex; flex-direction: column; gap: 16px; align-items: center; text-align: center; padding: 8px 0">
+          <span aria-hidden="true" style="width: 64px; height: 64px; border-radius: 50%; background: #EEF2FF; color: #3A63F4; display: flex; align-items: center; justify-content: center"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="3"></rect><path d="M3 8l9 6 9-6"></path></svg></span>
+          <h1 class="su-title" style="margin: 0; font-size: 24px; font-weight: 900; line-height: 1.4">メールを送りました</h1>
+          <p style="margin: 0; font-size: 14px; line-height: 1.9; color: #3D3D3D"><span style="font-weight: 700; word-break: break-all">{{emailShown}}</span> に届いたメールのリンクを押すと、登録の続きに進みます。</p>
+          <p style="margin: 0; font-size: 12px; line-height: 1.8; color: #5C5C5C">数分たっても届かないときは、迷惑メールフォルダをご確認ください。<br>メールは、この端末・このブラウザで開いてください。</p>
+          <button type="button" onClick="{{backToEmail}}" style="border: 1px solid #B9C0CC; background: #FFFFFF; color: #1A1A1A; border-radius: 4px; font-family: inherit; font-size: 14px; padding: 12px 20px; min-height: 48px; cursor: pointer">メールアドレスを入れ直す</button>
+          <sc-if value="{{isProto}}" hint-placeholder-val="{{true}}"><button type="button" onClick="{{skipToProfile}}" style="border: none; background: none; color: #3A63F4; font-family: inherit; font-size: 13px; font-weight: 700; padding: 10px; min-height: 44px; cursor: pointer; text-decoration: underline">（試作用）リンクを押した後の画面へ</button></sc-if>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{isProfile}}" hint-placeholder-val="{{false}}">
+        <div style="display: flex; flex-direction: column; gap: 10px">
+          <h1 class="su-title" style="margin: 0; font-size: 26px; font-weight: 900; line-height: 1.4">プロフィールを登録</h1>
+          <p style="margin: 0; font-size: 14px; line-height: 1.8; color: #3D3D3D">話を聞きたい病院にだけ届く情報です。1分ほどで終わります。</p>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 8px">
+          <label for="su-name" style="font-size: 14px; font-weight: 700">お名前</label>
+          <input id="su-name" type="text" autocomplete="name" value="{{name}}" onInput="{{setName}}" placeholder="佐藤 美咲" style="font-family: inherit; font-size: 16px; padding: 13px 14px; border-radius: 8px; border: 1.5px solid #D9D4C7; background: #FFFFFF; color: #1A1A1A; min-width: 0; width: 100%; box-sizing: border-box">
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 8px">
+          <span id="su-lic-l" style="font-size: 14px; font-weight: 700">資格</span>
+          <div role="group" aria-labelledby="su-lic-l" style="display: flex; gap: 8px; flex-wrap: wrap">
+            <sc-for list="{{licenses}}" as="l" hint-placeholder-count="2"><button type="button" aria-pressed="{{l.on}}" onClick="{{l.pick}}" style="flex: 1 1 120px; border: 1.5px solid {{l.border}}; background: {{l.bg}}; color: #1A1A1A; border-radius: 8px; font-family: inherit; font-size: 15px; font-weight: 700; padding: 12px; min-height: 48px; cursor: pointer">{{l.label}}</button></sc-for>
+          </div>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 8px">
+          <label for="su-years" style="font-size: 14px; font-weight: 700">看護師としての経験年数</label>
+          <div style="display: flex; align-items: center; gap: 10px">
+            <input id="su-years" type="text" inputmode="numeric" value="{{years}}" onInput="{{setYears}}" placeholder="3" style="font-family: inherit; font-size: 16px; padding: 13px 14px; border-radius: 8px; border: 1.5px solid #D9D4C7; background: #FFFFFF; color: #1A1A1A; min-width: 0; width: 100%; box-sizing: border-box; max-width: 120px">
+            <span style="font-size: 15px">年目</span>
+          </div>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 8px">
+          <label for="su-station" style="font-size: 14px; font-weight: 700">最寄駅</label>
+          <input id="su-station" type="text" value="{{station}}" onInput="{{setStation}}" placeholder="上大岡" style="font-family: inherit; font-size: 16px; padding: 13px 14px; border-radius: 8px; border: 1.5px solid #D9D4C7; background: #FFFFFF; color: #1A1A1A; min-width: 0; width: 100%; box-sizing: border-box">
+          <span style="font-size: 12px; line-height: 1.7; color: #5C5C5C">通える範囲の病院をお知らせするために使います。</span>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 8px">
+          <label for="su-work" style="font-size: 14px; font-weight: 700">いまの職場<span style="font-weight: 500; color: #5C5C5C">（任意）</span></label>
+          <input id="su-work" type="text" value="{{workplace}}" onInput="{{setWorkplace}}" placeholder="急性期・内科病棟" style="font-family: inherit; font-size: 16px; padding: 13px 14px; border-radius: 8px; border: 1.5px solid #D9D4C7; background: #FFFFFF; color: #1A1A1A; min-width: 0; width: 100%; box-sizing: border-box">
+          <span style="font-size: 12px; line-height: 1.7; color: #5C5C5C">病院名は書かなくて大丈夫です。</span>
+        </div>
+        <sc-if value="{{err}}" hint-placeholder-val="{{false}}"><span role="alert" style="font-size: 13px; line-height: 1.6; color: #B3261E">{{err}}</span></sc-if>
+        <button type="button" onClick="{{saveProfile}}" style="border: none; background: #3B4654; color: #FFFFFF; border-radius: 4px; font-family: inherit; font-size: 16px; font-weight: 700; padding: 14px; min-height: 52px; cursor: pointer; width: 100%">{{profileBtn}}</button>
+      </sc-if>
+
+      <sc-if value="{{isDone}}" hint-placeholder-val="{{false}}">
+        <div style="display: flex; flex-direction: column; gap: 16px; align-items: center; text-align: center; padding: 8px 0">
+          <span aria-hidden="true" style="width: 64px; height: 64px; border-radius: 50%; background: #EEF2FF; color: #3A63F4; display: flex; align-items: center; justify-content: center"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg></span>
+          <h1 class="su-title" style="margin: 0; font-size: 24px; font-weight: 900; line-height: 1.4">登録が完了しました</h1>
+          <p style="margin: 0; font-size: 14px; line-height: 1.9; color: #3D3D3D">気になる病院を見つけたら、「話を聞きに行きたい」を押してください。</p>
+          <a href="index.html" style="width: 100%; text-decoration: none; background: #3B4654; color: #FFFFFF; border-radius: 4px; font-size: 16px; font-weight: 700; padding: 14px; min-height: 52px; box-sizing: border-box; display: flex; align-items: center; justify-content: center">求人をさがす</a>
+        </div>
+      </sc-if>
+    </div>
+  </main>
+</div>
+</template>
+<script src="config.js"></script>
+<script src="app.js"></script>
+<script src="runtime.js"></script>
+<script>
+class Component extends DCLogic {
+  constructor(p) {
+    super(p);
+    const demo = !!(p && p.step);
+    this.state = { step: (p && p.step) || 0, email: demo ? 'misaki@example.com' : '', agree: demo, busy: false, err: '', name: '', license: 0, years: '', station: '', workplace: '' };
+    this.N = (typeof window !== 'undefined' && window.Nasuri && window.Nasuri.enabled) ? window.Nasuri : null;
+    if (this.N) {
+      const sync = () => {
+        if (this.N.session && this.N.profile) this.finish();
+        else if (this.N.session) this.setState({ step: 2 });
+      };
+      if (this.N.ready) setTimeout(sync, 0); else window.addEventListener('nasuri:ready', sync);
+    }
+  }
+  finish() {
+    this.N.flushPending().then((url) => { if (url) location.href = url; else this.setState({ step: 3, busy: false }); })
+      .catch(() => this.setState({ step: 3, busy: false }));
+  }
+  renderVals() {
+    const st = this.state, N = this.N;
+    const licDefs = ['正看護師', '准看護師'];
+    const pending = !!(N && N.hasPending && N.hasPending());
+    const fail = () => this.setState({ busy: false, err: 'うまく送れませんでした。時間をおいて、もう一度お試しください。' });
+    return {
+      isEmail: st.step === 0, isSent: st.step === 1, isProfile: st.step === 2, isDone: st.step === 3, isProto: !N,
+      dots: [0, 1, 2].map((i) => ({ bg: Math.min(st.step, 2) >= i ? '#3A63F4' : '#E3E0D8' })),
+      lead: pending ? '「話を聞きたい」を送る前に、かんたんな登録をお願いします。登録が終わると、そのまま送信されます。' : 'メールアドレスだけで始められます。はじめての方も、登録済みの方もこちらから。',
+      email: st.email, emailShown: st.email || 'ご入力のメールアドレス', agree: st.agree, err: st.err || '',
+      setEmail: (e) => this.setState({ email: e.target.value }), toggleAgree: () => this.setState({ agree: !st.agree }),
+      emailBtn: st.busy ? '送信中…' : 'ログイン用のリンクを送る',
+      sendLink: () => {
+        if (st.busy) return;
+        const email = (st.email || '').trim();
+        if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) return this.setState({ err: 'メールアドレスを確認してください。' });
+        if (!st.agree) return this.setState({ err: '利用規約とプライバシーポリシーへの同意が必要です。' });
+        if (!N) return this.setState({ step: 1, err: '' });
+        this.setState({ busy: true, err: '' });
+        N.signIn(email).then(() => this.setState({ step: 1, busy: false })).catch(fail);
+      },
+      backToEmail: () => this.setState({ step: 0, err: '' }), skipToProfile: () => this.setState({ step: 2, err: '' }),
+      name: st.name, years: st.years, station: st.station, workplace: st.workplace,
+      setName: (e) => this.setState({ name: e.target.value }), setYears: (e) => this.setState({ years: e.target.value.replace(/[^0-9]/g, '').slice(0, 2) }),
+      setStation: (e) => this.setState({ station: e.target.value }), setWorkplace: (e) => this.setState({ workplace: e.target.value }),
+      licenses: licDefs.map((label, i) => ({ label, on: st.license === i, pick: () => this.setState({ license: i }), border: st.license === i ? '#3A63F4' : '#D9D4C7', bg: st.license === i ? '#F1F4FF' : '#FFFFFF' })),
+      profileBtn: st.busy ? '登録中…' : (pending ? '登録して「話を聞きたい」を送る' : '登録する'),
+      saveProfile: () => {
+        if (st.busy) return;
+        const name = st.name.trim(), station = st.station.trim().replace(/駅$/, ''), years = parseInt(st.years, 10);
+        if (!name) return this.setState({ err: 'お名前を入力してください。' });
+        if (!(years >= 1)) return this.setState({ err: '経験年数を数字で入力してください（1年目なら 1）。' });
+        if (!station) return this.setState({ err: '最寄駅を入力してください。' });
+        if (!N) return this.setState({ step: 3, err: '' });
+        this.setState({ busy: true, err: '' });
+        N.saveProfile({ name, license: licDefs[st.license], years, station, workplace: st.workplace.trim() }).then(() => this.finish()).catch(fail);
+      }
+    };
+  }
+}
+mount(Component, 'tpl', 'app');
+</script>
+</body>
+</html>

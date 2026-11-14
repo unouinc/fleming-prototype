@@ -46,3 +46,34 @@
 - 角丸 20〜24px、ボタンは pill 型
 
 元のデザインは Claude のデザインキャンバス「Fleming プロダクトUI（PC）」で管理しています。
+
+## 本番モード（登録と「話を聞きたい」を保存する）
+
+`site/config.js` が空のあいだは試作モードで、入力は保存されません。
+Supabase の接続情報を入れると、次の3つが実際に動きます。
+
+- メールのリンクでの登録・ログイン（`site/signup.html`）
+- プロフィール登録（名前・資格・経験年数・最寄駅・いまの職場）
+- 「話を聞きに行きたい」の保存と、運営の Slack への通知
+
+病院とのやりとりと日程調整は、運営がメールで仲介する前提です（アプリ内メッセージは未実装）。
+
+### セットアップ手順
+
+1. Supabase でプロジェクトを作る（リージョンは Tokyo）。
+2. SQL Editor に `supabase/schema.sql` を貼り付けて実行する。
+3. Slack で Incoming Webhook を作り、通知先チャンネルの URL を取得する。`schema.sql` 末尾の「5.」の1行を、URL を差し替えて実行する。
+4. Authentication → URL Configuration で、Site URL と Redirect URLs に公開サイトの URL（`https://.../signup.html`）を登録する。
+5. Authentication → Emails で、ログインメールの文面を日本語にする。Supabase 標準のメール送信は1時間あたりの通数がごく少ないので、公開前に独自の SMTP（Resend など）を設定する。
+6. Project Settings → API の Project URL と anon public キーを `site/config.js` に入れて push する。
+
+### 運営の見方
+
+- 登録者は `profiles`、送信内容は `talk_requests` テーブル（Supabase の Table Editor）で見られます。
+- `talk_requests.status` と `memo` は運営が手で更新します（未対応／病院に連絡済み／日程確定／見送り）。
+
+### 公開前に残っていること
+
+- `site/terms.html`、`site/privacy.html` は「準備中」の仮ページです。
+- 病院・人物・数字はすべてサンプルです。スカウト、メッセージ、プロフィールの各画面は本番モードでも試作表示のままです。
+- `tools/live-flow-test.js` は、Supabase を模擬して登録から送信までを通す確認用スクリプトです（Playwright が必要）。
