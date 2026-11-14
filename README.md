@@ -60,8 +60,8 @@ Supabase の接続情報を入れると、次の3つが実際に動きます。
 
 ### セットアップ手順
 
-1. Supabase でプロジェクトを作る（リージョンは Tokyo）。
-2. SQL Editor に `supabase/schema.sql` を貼り付けて実行する。
+1. Supabase のプロジェクト `nasuri`（unouinc／Tokyo）は作成済み。
+2. `supabase/schema.sql` は適用済み（作り直すときは SQL Editor に貼り付けて実行する）。
 3. Slack で Incoming Webhook を作り、通知先チャンネルの URL を取得する。`schema.sql` 末尾の「5.」の1行を、URL を差し替えて実行する。
 4. Authentication → URL Configuration で、Site URL と Redirect URLs に公開サイトの URL（`https://.../signup.html`）を登録する。
 5. Authentication → Emails で、ログインメールの文面を日本語にする。Supabase 標準のメール送信は1時間あたりの通数がごく少ないので、公開前に独自の SMTP（Resend など）を設定する。

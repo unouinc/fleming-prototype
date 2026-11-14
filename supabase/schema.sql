@@ -48,7 +48,7 @@ create policy "own talk select" on public.talk_requests for select to authentica
 create policy "own talk insert" on public.talk_requests for insert to authenticated with check (auth.uid() = user_id);
 
 -- 利用者が status / memo を書き換えられないよう、登録時は必ず初期値にする
-create or replace function public.talk_requests_defaults() returns trigger language plpgsql as $$
+create or replace function public.talk_requests_defaults() returns trigger language plpgsql set search_path = public as $$
 begin
   new.status := '未対応';
   new.memo := '';
@@ -61,7 +61,7 @@ create trigger talk_requests_defaults before insert on public.talk_requests
 
 -- 4. Slack 通知
 --    通知先URLを入れる設定表。ポリシーを作らないので、利用者からは読めません。
-create extension if not exists pg_net;
+create extension if not exists pg_net with schema extensions;
 create table if not exists public.app_config (key text primary key, value text not null);
 alter table public.app_config enable row level security;
 
@@ -87,6 +87,7 @@ begin
     E'\nメール: ' || coalesce(new.email, ''));
   return new;
 end $$;
+revoke all on function public.on_profile_created() from public, anon, authenticated;
 drop trigger if exists profile_created_notify on public.profiles;
 create trigger profile_created_notify after insert on public.profiles
   for each row execute function public.on_profile_created();
@@ -107,6 +108,7 @@ begin
     E'\n受付番号: ' || new.id);
   return new;
 end $$;
+revoke all on function public.on_talk_created() from public, anon, authenticated;
 drop trigger if exists talk_created_notify on public.talk_requests;
 create trigger talk_created_notify after insert on public.talk_requests
   for each row execute function public.on_talk_created();
