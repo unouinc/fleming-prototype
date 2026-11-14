@@ -36,7 +36,7 @@
   }
 
   N.signIn = function (email) {
-    return client.auth.signInWithOtp({ email: email, options: { emailRedirectTo: new URL('signup.html', location.href).href } }).then(ok);
+    return client.auth.signInWithOtp({ email: email, options: { emailRedirectTo: new URL('signup.html' + (cfg.liveByDefault ? '' : '?live=1'), location.href).href } }).then(ok);
   };
   N.signOut = function () { return client.auth.signOut().then(function () { N.session = null; N.profile = null; }); };
   N.saveProfile = function (p) {
