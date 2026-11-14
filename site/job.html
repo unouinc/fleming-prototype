@@ -17,6 +17,8 @@ a{color:#1A1A1A}a:hover{color:#3A63F4}
   .wrap-top{padding:12px 16px 0!important}
   .pagetitle{font-size:20px!important}
   .hero{height:240px!important;border-radius:20px}
+  .ov{padding:0!important}
+  .dlg{max-width:none!important;height:100%;max-height:none!important;border-radius:0!important}
   .tabbar{display:flex!important;position:fixed;left:0;right:0;bottom:0;z-index:50;background:#FFFFFF;border-top:1px solid #E3E0D8;padding:6px 0 calc(6px + env(safe-area-inset-bottom));justify-content:space-around}
 }
 </style>
@@ -200,7 +202,7 @@ a{color:#1A1A1A}a:hover{color:#3A63F4}
         </div>
         <sc-if value="{{applied}}" hint-placeholder-val="{{false}}">
           <div style="background: #EEF2FF; border-radius: 8px; padding: 16px; display: flex; flex-direction: column; gap: 6px">
-            <span style="font-size: 14px; font-weight: 900; color: #3A63F4">リクエストを送りました</span>
+            <span style="font-size: 14px; font-weight: 900; color: #3A63F4">「話を聞きたい」を送りました</span>
             <span style="font-size: 13px; line-height: 1.7">病院から返信があると、メッセージに届きます。目安は2〜3日です。</span>
             <a href="scouts.html" style="font-size: 13px; font-weight: 700; color: #3A63F4">メッセージを見る →</a>
           </div>
@@ -235,6 +237,108 @@ a{color:#1A1A1A}a:hover{color:#3A63F4}
       </div>
     </aside>
   </div>
+  <sc-if value="{{talkOpen}}" hint-placeholder-val="{{false}}">
+    <div class="ov" role="dialog" aria-modal="true" aria-label="話を聞きに行きたい" style="position: fixed; inset: 0; z-index: 90; display: flex; align-items: center; justify-content: center; padding: 24px; box-sizing: border-box">
+      <div onClick="{{closeTalk}}" style="position: absolute; inset: 0; background: rgba(26,26,26,0.45)"></div>
+      <div class="dlg" style="position: relative; width: 100%; max-width: 640px; max-height: calc(100vh - 48px); flex: 0 0 auto; background: #FFFFFF; border-radius: 8px; display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 16px 48px rgba(26,26,26,0.2)">
+        <div style="display: grid; grid-template-columns: 56px 1fr 56px; align-items: center; padding: 0 8px; min-height: 60px; border-bottom: 1px solid #EDEAE2">
+          <span></span>
+          <span style="text-align: center; font-size: 16px; font-weight: 700">{{talkTitle}}</span>
+          <span style="display: flex; justify-content: flex-end"><button type="button" onClick="{{closeTalk}}" aria-label="閉じる" style="width: 44px; height: 44px; border: none; background: transparent; cursor: pointer; display: flex; align-items: center; justify-content: center"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1A1A1A" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></button></span>
+        </div>
+
+        <sc-if value="{{isTalkForm}}" hint-placeholder-val="{{true}}">
+          <div id="talkbody" data-keep-scroll="1" style="flex: 1 1 auto; overflow: auto; padding: 20px 24px 24px; display: flex; flex-direction: column; gap: 24px">
+            <div style="display: flex; gap: 12px; align-items: center; background: #F6F5F1; border-radius: 8px; padding: 12px 14px">
+              <span aria-hidden="true" style="width: 40px; height: 40px; border-radius: 6px; background: #3A63F4; flex: 0 0 auto"></span>
+              <div style="display: flex; flex-direction: column; gap: 2px; min-width: 0">
+                <span style="font-size: 14px; font-weight: 700">みなと中央病院</span>
+                <span style="font-size: 12px; color: #5C5C5C">「聞きやすさ」で選ばれる内科病棟で、一緒に働く看護師を募集</span>
+              </div>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 10px">
+              <span style="font-size: 15px; font-weight: 700">いまの気持ちに近いものは？</span>
+              <sc-for list="{{feels}}" as="f" hint-placeholder-count="3">
+                <button type="button" onClick="{{f.pick}}" aria-pressed="{{f.on}}" style="text-align: left; border: 2px solid {{f.border}}; background: {{f.bg}}; border-radius: 8px; font-family: inherit; padding: 12px 16px; min-height: 52px; cursor: pointer; display: flex; align-items: center; gap: 12px">
+                  <span aria-hidden="true" style="width: 18px; height: 18px; border-radius: 50%; border: 2px solid {{f.dotBorder}}; background: {{f.dot}}; box-shadow: inset 0 0 0 3px #FFFFFF; flex: 0 0 auto"></span>
+                  <span style="display: flex; flex-direction: column; gap: 1px"><span style="font-size: 14px; font-weight: 700; color: #1A1A1A">{{f.label}}</span><span style="font-size: 12px; color: #5C5C5C">{{f.sub}}</span></span>
+                </button>
+              </sc-for>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 10px">
+              <span style="font-size: 15px; font-weight: 700">話したい人 <span style="font-size: 12px; font-weight: 400; color: #5C5C5C">複数選べます</span></span>
+              <sc-for list="{{whoList}}" as="w" hint-placeholder-count="3">
+                <button type="button" onClick="{{w.pick}}" aria-pressed="{{w.on}}" style="text-align: left; border: 2px solid {{w.border}}; background: {{w.bg}}; border-radius: 8px; font-family: inherit; padding: 10px 14px; min-height: 56px; cursor: pointer; display: flex; align-items: center; gap: 12px">
+                  <span aria-hidden="true" style="width: 36px; height: 36px; border-radius: 50%; background: #DAD6CC; color: #6B675E; flex: 0 0 auto; display: flex; align-items: center; justify-content: center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"></circle><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"></path></svg></span>
+                  <span style="display: flex; flex-direction: column; gap: 1px; flex: 1 1 auto; min-width: 0"><span style="font-size: 14px; font-weight: 700; color: #1A1A1A">{{w.name}}</span><span style="font-size: 12px; color: #5C5C5C">{{w.role}}｜{{w.ask}}</span></span>
+                  <span style="font-size: 12px; font-weight: 700; color: {{w.markColor}}; flex: 0 0 auto">{{w.mark}}</span>
+                </button>
+              </sc-for>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 10px">
+              <span style="font-size: 15px; font-weight: 700">聞きたいこと <span style="font-size: 12px; font-weight: 400; color: #5C5C5C">任意</span></span>
+              <div style="display: flex; gap: 8px; flex-wrap: wrap">
+                <sc-for list="{{askList}}" as="a" hint-placeholder-count="5">
+                  <button type="button" onClick="{{a.pick}}" aria-pressed="{{a.on}}" style="border: 1.5px solid {{a.border}}; background: {{a.bg}}; color: {{a.fg}}; border-radius: 999px; font-family: inherit; font-size: 13px; padding: 8px 14px; min-height: 36px; cursor: pointer">{{a.label}}</button>
+                </sc-for>
+              </div>
+              <input id="talknote" type="text" value="{{noteV}}" onInput="{{setNote}}" placeholder="ほかに聞きたいことがあれば" aria-label="ほかに聞きたいこと" style="font-family: inherit; font-size: 14px; padding: 12px 14px; border-radius: 8px; border: 1.5px solid #D9D4C7; background: #FFFFFF; color: #1A1A1A; min-width: 0">
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 10px">
+              <span style="font-size: 15px; font-weight: 700">話し方の希望</span>
+              <div style="display: flex; gap: 8px; flex-wrap: wrap">
+                <sc-for list="{{wayList}}" as="y" hint-placeholder-count="3">
+                  <button type="button" onClick="{{y.pick}}" aria-pressed="{{y.on}}" style="flex: 1 1 120px; border: 2px solid {{y.border}}; background: {{y.bg}}; color: #1A1A1A; border-radius: 8px; font-family: inherit; font-size: 14px; font-weight: 700; padding: 10px 12px; min-height: 44px; cursor: pointer">{{y.label}}</button>
+                </sc-for>
+              </div>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 10px; border-top: 1px solid #EDEAE2; padding-top: 20px">
+              <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 12px">
+                <span style="font-size: 15px; font-weight: 700">病院に届くプロフィール</span>
+                <a href="profile.html" style="font-size: 12px; font-weight: 700; color: #3A63F4; text-decoration: none">編集する</a>
+              </div>
+              <div style="display: flex; gap: 12px; align-items: center; border: 1px solid #E3E0D8; border-radius: 8px; padding: 12px 14px">
+                <span aria-hidden="true" style="width: 44px; height: 44px; border-radius: 50%; background: #DAD6CC; color: #6B675E; flex: 0 0 auto; display: flex; align-items: center; justify-content: center"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"></circle><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"></path></svg></span>
+                <div style="display: flex; flex-direction: column; gap: 2px; min-width: 0">
+                  <span style="font-size: 14px; font-weight: 700">佐藤 美咲</span>
+                  <span style="font-size: 12px; color: #5C5C5C">正看護師 3年目｜急性期・内科病棟｜最寄駅 上大岡</span>
+                </div>
+              </div>
+              <span style="font-size: 12px; line-height: 1.7; color: #5C5C5C">送信すると、お名前とプロフィールが病院に届きます。電話番号は届きません。やりとりはメッセージで行います。</span>
+            </div>
+          </div>
+          <div style="border-top: 1px solid #EDEAE2; padding: 14px 24px; display: flex; flex-direction: column; gap: 8px">
+            <button type="button" onClick="{{submitTalk}}" style="border: none; background: #3B4654; color: #FFFFFF; border-radius: 4px; font-family: inherit; font-size: 16px; font-weight: 700; padding: 14px; min-height: 52px; cursor: pointer">この内容で送る</button>
+            <span style="font-size: 12px; color: #5C5C5C; text-align: center">応募ではありません。話したあとで、応募するかを決められます。</span>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{isTalkDone}}" hint-placeholder-val="{{false}}">
+          <div style="flex: 1 1 auto; overflow: auto; padding: 36px 24px 28px; display: flex; flex-direction: column; gap: 20px; align-items: center; text-align: center">
+            <span aria-hidden="true" style="width: 64px; height: 64px; border-radius: 50%; background: #EEF2FF; color: #3A63F4; display: flex; align-items: center; justify-content: center"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg></span>
+            <div style="display: flex; flex-direction: column; gap: 8px">
+              <span style="font-size: 20px; font-weight: 700">「話を聞きたい」を送りました</span>
+              <span style="font-size: 14px; line-height: 1.8; color: #3D3D3D">みなと中央病院からの返信は、メッセージに届きます。<br>目安は2〜3日です。</span>
+            </div>
+            <div style="width: 100%; box-sizing: border-box; background: #F6F5F1; border-radius: 8px; padding: 16px 18px; display: flex; flex-direction: column; gap: 8px; text-align: left">
+              <sc-for list="{{talkSummary}}" as="r" hint-placeholder-count="4">
+                <div style="display: grid; grid-template-columns: 6.5em 1fr; gap: 12px; font-size: 13px; line-height: 1.7"><span style="color: #5C5C5C">{{r.k}}</span><span style="font-weight: 700">{{r.v}}</span></div>
+              </sc-for>
+            </div>
+            <div style="width: 100%; display: flex; flex-direction: column; gap: 10px">
+              <a href="scouts.html" style="text-decoration: none; background: #3B4654; color: #FFFFFF; border-radius: 4px; font-size: 16px; font-weight: 700; padding: 14px; min-height: 52px; box-sizing: border-box; display: flex; align-items: center; justify-content: center">メッセージを見る</a>
+              <button type="button" onClick="{{closeTalk}}" style="border: 1px solid #B9C0CC; background: #FFFFFF; color: #1A1A1A; border-radius: 4px; font-family: inherit; font-size: 14px; padding: 12px; min-height: 48px; cursor: pointer">求人ページに戻る</button>
+            </div>
+          </div>
+        </sc-if>
+      </div>
+    </div>
+  </sc-if>
   <nav class="tabbar" aria-label="モバイルナビゲーション">
     <a href="index.html" style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px; text-decoration: none; font-size: 10px; font-weight: 700; color: #8A857A; min-height: 44px; justify-content: center; position: relative"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-4-4"></path></svg>さがす</a>
     <a href="scouts.html" style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px; text-decoration: none; font-size: 10px; font-weight: 700; color: #8A857A; min-height: 44px; justify-content: center; position: relative"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"></rect><path d="M3 8l9 6 9-6"></path></svg><span style="position: absolute; top: 2px; left: calc(50% + 6px); background: #3A63F4; color: #FFFFFF; font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', Meiryo, sans-serif; font-size: 10px; padding: 1px 6px; border-radius: 999px">3</span>スカウト</a>
@@ -245,12 +349,35 @@ a{color:#1A1A1A}a:hover{color:#3A63F4}
 <script src="runtime.js"></script>
 <script>
 class Component extends DCLogic {
-  constructor(p) { super(p); this.state = { applied: false, liked: false }; }
+  constructor(p) {
+    super(p);
+    let talk = (p && p.talk) || 0;
+    try { if (!talk && typeof location !== 'undefined' && location.hash === '#talk') talk = 1; } catch (e) {}
+    this.state = { applied: talk === 2, liked: false, talk, feel: 1, who: { 0: true, 2: true }, asks: (p && p.talk) ? { 0: true, 1: true } : {}, way: 1, note: '' };
+  }
   renderVals() {
+    const st = this.state;
+    const feelDefs = [['今すぐ転職したい', '良い職場があれば、すぐにでも動きたい'], ['まずは話を聞いてみたい', '転職するかは、話してから考えたい'], ['少しだけ興味がある', '情報収集として聞いてみたい']];
+    const whoDefs = [['高橋 恵さん', '内科病棟 師長', '病棟の方針・夜勤の体制'], ['森田 彩さん', '教育担当', '入職後3か月の流れ'], ['小林 真央さん', '看護師 4年目', '転職の決め手・実際の残業']];
+    const askDefs = ['実際の残業', '夜勤の体制', '教育・フォロー', '人間関係・雰囲気', '子育てとの両立'];
+    const wayDefs = ['見学', 'オンライン', 'どちらでも'];
     const raw = [['人間関係', 88, 71, '#3A63F4'], ['教育', 82, 68, '#3A63F4'], ['業務量', 74, 62, '#3A63F4'], ['休みやすさ', 80, 66, '#3A63F4'], ['給与', 70, 69, '#FF8FB1'], ['経営への信頼', 76, 60, '#3A63F4']];
     return {
       applied: this.state.applied, notApplied: !this.state.applied,
-      apply: () => this.setState({ applied: true }),
+      apply: () => this.setState({ talk: 1 }),
+      talkOpen: st.talk > 0, isTalkForm: st.talk === 1, isTalkDone: st.talk === 2, talkTitle: st.talk === 2 ? '送信しました' : '話を聞きに行きたい',
+      closeTalk: () => this.setState({ talk: 0 }), submitTalk: () => this.setState({ talk: 2, applied: true }),
+      feels: feelDefs.map((f, i) => ({ label: f[0], sub: f[1], on: st.feel === i, pick: () => this.setState({ feel: i }), border: st.feel === i ? '#3A63F4' : '#E3E0D8', bg: st.feel === i ? '#F1F4FF' : '#FFFFFF', dot: st.feel === i ? '#3A63F4' : '#FFFFFF', dotBorder: st.feel === i ? '#3A63F4' : '#B9C0CC' })),
+      whoList: whoDefs.map((w, i) => ({ name: w[0], role: w[1], ask: w[2], on: !!st.who[i], pick: () => this.setState({ who: Object.assign({}, st.who, { [i]: !st.who[i] }) }), border: st.who[i] ? '#3A63F4' : '#E3E0D8', bg: st.who[i] ? '#F1F4FF' : '#FFFFFF', mark: st.who[i] ? '選択中' : '選ぶ', markColor: st.who[i] ? '#3A63F4' : '#5C5C5C' })),
+      askList: askDefs.map((label, i) => ({ label, on: !!st.asks[i], pick: () => this.setState({ asks: Object.assign({}, st.asks, { [i]: !st.asks[i] }) }), border: st.asks[i] ? '#3A63F4' : '#D9D4C7', bg: st.asks[i] ? '#3A63F4' : '#FFFFFF', fg: st.asks[i] ? '#FFFFFF' : '#1A1A1A' })),
+      wayList: wayDefs.map((label, i) => ({ label, on: st.way === i, pick: () => this.setState({ way: i }), border: st.way === i ? '#3A63F4' : '#E3E0D8', bg: st.way === i ? '#F1F4FF' : '#FFFFFF' })),
+      noteV: st.note || '', setNote: (e) => this.setState({ note: e.target.value }),
+      talkSummary: [
+        { k: '気持ち', v: feelDefs[st.feel][0] },
+        { k: '話したい人', v: whoDefs.filter((w, i) => st.who[i]).map((w) => w[0]).join('、') || 'おまかせ' },
+        { k: '聞きたいこと', v: askDefs.filter((a, i) => st.asks[i]).concat(st.note ? [st.note] : []).join('、') || '特になし' },
+        { k: '話し方', v: wayDefs[st.way] }
+      ],
       liked: this.state.liked, toggleLike: () => this.setState({ liked: !this.state.liked }),
       likeFill: this.state.liked ? '#FF8FB1' : 'none', likeBg: this.state.liked ? '#FFE3EC' : '#FFFFFF', likeBorder: this.state.liked ? '#FF8FB1' : '#1A1A1A',
       groups: [

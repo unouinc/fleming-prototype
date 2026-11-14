@@ -84,24 +84,40 @@ a{color:#1A1A1A}a:hover{color:#3A63F4}
         </div>
 
         <div style="padding: 24px; display: flex; flex-direction: column; gap: 18px; background: #FBFAF7; min-height: 420px">
-          <sc-for list="{{cur.messages}}" as="m" hint-placeholder-count="3">
+          <sc-if value="{{cur.hasEntry}}" hint-placeholder-val="{{true}}">
+            <div style="align-self: center; width: 100%; max-width: 520px; box-sizing: border-box; background: #EEF2FF; border-radius: 8px; padding: 16px 20px; display: flex; flex-direction: column; gap: 8px">
+              <span style="font-size: 13px; font-weight: 700; color: #3A63F4">「話を聞きたい」を送りました・{{cur.entryAt}}</span>
+              <sc-for list="{{cur.entry}}" as="r" hint-placeholder-count="4">
+                <div style="display: grid; grid-template-columns: 6.5em 1fr; gap: 12px; font-size: 13px; line-height: 1.7"><span style="color: #5C5C5C">{{r.k}}</span><span style="font-weight: 700">{{r.v}}</span></div>
+              </sc-for>
+            </div>
+          </sc-if>
+          <sc-for list="{{msgs}}" as="m" hint-placeholder-count="3">
             <div style="display: flex; flex-direction: column; gap: 6px; align-items: {{m.align}}">
               <span style="font-size: 11px; font-weight: 700; color: #5C5C5C">{{m.who}}・{{m.at}}</span>
               <div style="max-width: 78%; background: {{m.bg}}; color: {{m.fg}}; border-radius: {{m.radius}}; padding: 14px 18px; font-size: 14px; line-height: 1.8; white-space: pre-line">{{m.text}}</div>
             </div>
           </sc-for>
-          <sc-if value="{{cur.showOffer}}" hint-placeholder-val="{{true}}">
+          <sc-if value="{{offerOpen}}" hint-placeholder-val="{{true}}">
             <div style="align-self: flex-start; max-width: 78%; background: #FFFFFF; border: 2px solid #D9D4C7; border-radius: 8px; padding: 18px 20px; display: flex; flex-direction: column; gap: 12px">
               <span style="font-size: 12px; font-weight: 700; color: #3A63F4">病院からの提案</span>
-              <span style="font-size: 15px; font-weight: 900">見学 or オンラインで15分、話しませんか</span>
+              <span style="font-size: 15px; font-weight: 900">{{cur.offerTitle}}</span>
               <div style="display: flex; gap: 8px; flex-wrap: wrap">
                 <sc-for list="{{slots}}" as="s" hint-placeholder-count="3">
                   <button type="button" onClick="{{s.pick}}" aria-pressed="{{s.on}}" style="border: 1.5px solid {{s.border}}; background: {{s.bg}}; color: {{s.fg}}; border-radius: 4px; font-family: inherit; font-size: 13px; font-weight: 700; padding: 10px 14px; min-height: 40px; cursor: pointer">{{s.label}}</button>
                 </sc-for>
               </div>
               <sc-if value="{{picked}}" hint-placeholder-val="{{false}}">
-                <span style="font-size: 13px; font-weight: 700; color: #3A63F4">{{pickedLabel}} で希望を送ります。下の「送信」で確定です。</span>
+                <button type="button" onClick="{{confirmSlot}}" style="align-self: flex-start; border: none; background: #3B4654; color: #FFFFFF; border-radius: 4px; font-family: inherit; font-size: 14px; font-weight: 700; padding: 10px 18px; min-height: 44px; cursor: pointer">{{confirmLabel}}</button>
               </sc-if>
+            </div>
+          </sc-if>
+          <sc-if value="{{showConfirm}}" hint-placeholder-val="{{false}}">
+            <div style="align-self: center; width: 100%; max-width: 520px; box-sizing: border-box; background: #FFFFFF; border: 2px solid #3A63F4; border-radius: 8px; padding: 18px 20px; display: flex; flex-direction: column; gap: 10px">
+              <span style="font-size: 12px; font-weight: 700; color: #3A63F4">カジュアル面談が決まりました</span>
+              <span style="font-size: 18px; font-weight: 700">{{pickedLabel}}</span>
+              <span style="font-size: 13px; line-height: 1.7; color: #3D3D3D">{{cur.confirmNote}}</span>
+              <span style="font-size: 12px; color: #5C5C5C">日程の変更やキャンセルは、このメッセージで伝えられます。</span>
             </div>
           </sc-if>
         </div>
@@ -114,10 +130,10 @@ a{color:#1A1A1A}a:hover{color:#3A63F4}
           </div>
           <div style="display: flex; gap: 10px; align-items: flex-end">
             <label for="reply" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">返信</label>
-            <textarea id="reply" rows="2" placeholder="返信を書く（匿名のまま送れます）" style="flex: 1 1 auto; min-width: 0; font-family: inherit; font-size: 14px; font-weight: 500; padding: 12px 16px; border-radius: 8px; border: 1.5px solid #D9D4C7; resize: vertical; background: #FFFFFF; color: #1A1A1A"></textarea>
+            <textarea id="reply" rows="2" placeholder="返信を書く" style="flex: 1 1 auto; min-width: 0; font-family: inherit; font-size: 14px; font-weight: 500; padding: 12px 16px; border-radius: 8px; border: 1.5px solid #D9D4C7; resize: vertical; background: #FFFFFF; color: #1A1A1A"></textarea>
             <button type="button" style="border: none; background: #3B4654; color: #FFFFFF; border-radius: 4px; font-family: inherit; font-size: 14px; font-weight: 700; padding: 0 22px; min-height: 48px; cursor: pointer; flex: 0 0 auto">送信</button>
           </div>
-          <span style="font-size: 11px; color: #5C5C5C">本名と連絡先は、あなたが「話を聞きに行く」と決めるまで病院には届きません。</span>
+          <span style="font-size: 11px; color: #5C5C5C">スカウトへの返信は匿名のまま送れます。「話を聞きたい」を送った病院には、お名前とプロフィールが届いています。電話番号は届きません。</span>
         </form>
       </section>
     </div>
@@ -132,14 +148,21 @@ a{color:#1A1A1A}a:hover{color:#3A63F4}
 <script src="runtime.js"></script>
 <script>
 class Component extends DCLogic {
-  constructor(p) { super(p); this.state = { filter: 0, cur: 0, slot: -1 }; }
+  constructor(p) { super(p); this.state = { filter: 0, cur: 0, slot: (p && p.booked) ? 1 : -1, sent: !!(p && p.booked) }; }
   renderVals() {
     const filters = ['すべて', 'スカウト', '進行中'].map((label, i) => ({ label, pick: () => this.setState({ filter: i }), bg: this.state.filter === i ? '#3B4654' : 'transparent', fg: this.state.filter === i ? '#FFFFFF' : '#1A1A1A' }));
     const me = (text, at) => ({ who: 'あなた', at, text, align: 'flex-end', bg: '#3B4654', fg: '#FFFFFF', radius: '8px 8px 4px 8px' });
     const them = (who, text, at) => ({ who, at, text, align: 'flex-start', bg: '#FFFFFF', fg: '#1A1A1A', radius: '8px 8px 8px 4px' });
     const data = [
-      { org: 'みなと中央病院', from: '内科病棟 師長', color: '#3A63F4', kind: 'スカウト', kindColor: '#3A63F4', when: '1時間前', unread: true, preview: 'プロフィールを拝見しました。「受け持ち7人以下」「聞きやすい職場」というご希望、まさに…', showOffer: true,
-        messages: [them('内科病棟 師長', 'はじめまして。みなと中央病院 内科病棟の師長です。\nプロフィールを拝見しました。「受け持ち7人以下」「わからないことを聞きやすい職場」というご希望が、うちの病棟がこの3年で大事にしてきたことと重なっていて、ご連絡しました。\n\n応募ではなく、まずは見学やオンラインでの雑談からで大丈夫です。', '今日 10:12')] },
+      { org: 'みなと中央病院', from: '内科病棟 師長 高橋', color: '#3A63F4', kind: '進行中｜カジュアル面談', kindColor: '#5C5C5C', when: '1時間前', unread: true, preview: '「話を聞きたい」をありがとうございます。師長の高橋です。残業と夜勤の体制について…', showOffer: true,
+        hasEntry: true, entryAt: '昨日 21:40', entry: [{ k: '気持ち', v: 'まずは話を聞いてみたい' }, { k: '話したい人', v: '高橋 恵さん、小林 真央さん' }, { k: '聞きたいこと', v: '実際の残業、夜勤の体制' }, { k: '話し方', v: 'オンライン' }],
+        offerTitle: 'オンラインで30分、話しませんか', slotLabels: ['11/18（水）12:30 オンライン', '11/19（木）20:00 オンライン', '別の日程を相談'],
+        confirmNote: 'オンライン・30分ほど。高橋（師長）と小林（看護師4年目）がお話しします。参加用のURLは前日にこのメッセージへ届きます。',
+        messages: [them('内科病棟 師長 高橋', '佐藤さん、「話を聞きたい」をありがとうございます。みなと中央病院 内科病棟の師長、高橋です。\n残業と夜勤の体制について、実際のところを小林と一緒にお話しします。選考ではないので、気になることは何でも聞いてください。\n\n下の候補から、ご都合のよい日時を選んでいただけますか。', '今日 10:12')] },
+      { org: '青葉の森総合病院', from: '外科病棟 師長', color: '#18C29C', kind: 'スカウト', kindColor: '#3A63F4', when: '3時間前', unread: true, preview: 'プロフィールを拝見しました。「受け持ち7人以下」「聞きやすい職場」というご希望、まさに…', showOffer: true,
+        offerTitle: '見学 or オンラインで15分、話しませんか', slotLabels: ['11/17（火）15:00 見学', '11/20（金）20:00 オンライン', '別の日程を相談'],
+        confirmNote: '15分ほど。外科病棟の師長がお話しします。',
+        messages: [them('外科病棟 師長', 'はじめまして。青葉の森総合病院 外科病棟の師長です。\nプロフィールを拝見しました。「受け持ち7人以下」「わからないことを聞きやすい職場」というご希望が、うちの病棟が大事にしてきたことと重なっていて、ご連絡しました。\n\n応募ではなく、まずは見学やオンラインでの雑談からで大丈夫です。', '今日 8:05')] },
       { org: 'さくら台リハビリ病院', from: '看護部 採用担当', color: '#FFD338', kind: 'スカウト', kindColor: '#3A63F4', when: '昨日', unread: true, preview: '日勤のみの働き方に興味はありませんか？託児所もあり、子育て中の看護師が…', showOffer: false,
         messages: [them('看護部 採用担当', '日勤のみの働き方に興味はありませんか？託児所もあり、子育て中の看護師が多い職場です。', '昨日 18:40')] },
       { org: 'ひだまりの郷', from: '施設長', color: '#FF8FB1', kind: '進行中｜見学', kindColor: '#5C5C5C', when: '2日前', unread: false, preview: '11/8の見学、お待ちしています。当日は14時に正面玄関へ…', showOffer: false,
@@ -149,10 +172,13 @@ class Component extends DCLogic {
       { org: 'Fleming 運営', from: 'サポート', color: '#EDEAE2', kind: 'お知らせ', kindColor: '#5C5C5C', when: '1週間前', unread: false, preview: '募集ページの「数字で見る」について。担当患者数と残業時間は…', showOffer: false,
         messages: [them('サポート', '募集ページの「数字で見る」について。担当患者数と残業時間は、病院が申告した直近の実績をFlemingが確認のうえ掲載しています。', '1週間前')] }
     ];
-    const threads = data.map((t, i) => Object.assign({}, t, { active: this.state.cur === i, bg: this.state.cur === i ? '#F1F4FF' : '#FFFFFF', pick: () => this.setState({ cur: i, slot: -1 }) }));
-    const slotLabels = ['11/7（金）15:00 見学', '11/10（月）20:00 オンライン', '別の日程を相談'];
+    const threads = data.map((t, i) => Object.assign({}, t, { active: this.state.cur === i, bg: this.state.cur === i ? '#F1F4FF' : '#FFFFFF', pick: () => this.setState({ cur: i, slot: -1, sent: false }) }));
+    const st = this.state; const curT = data[st.cur]; const slotLabels = curT.slotLabels || [];
     const slots = slotLabels.map((label, i) => ({ label, on: this.state.slot === i, pick: () => this.setState({ slot: i }), bg: this.state.slot === i ? '#3A63F4' : '#FFFFFF', fg: this.state.slot === i ? '#FFFFFF' : '#1A1A1A', border: this.state.slot === i ? '#3A63F4' : '#D9D4C7' }));
-    return { filters, threads, cur: data[this.state.cur], slots, picked: this.state.slot >= 0, pickedLabel: this.state.slot >= 0 ? slotLabels[this.state.slot] : '',
+    const sentText = st.slot === 2 ? '別の日程を相談させてください。' : (slotLabels[st.slot] + ' でお願いします。');
+    const msgs = st.sent ? curT.messages.concat([me(sentText, 'たった今')]) : curT.messages;
+    return { filters, threads, cur: Object.assign({ hasEntry: false, entry: [], entryAt: '', offerTitle: '', confirmNote: '' }, curT), msgs, slots, offerOpen: !!curT.showOffer && !st.sent, picked: st.slot >= 0, pickedLabel: st.slot >= 0 ? slotLabels[st.slot] : '',
+      confirmSlot: () => this.setState({ sent: true }), confirmLabel: st.slot === 2 ? '相談を送る' : 'この日程で送る', showConfirm: st.sent && st.slot >= 0 && st.slot < 2,
       quick: ['興味があります。詳しく聞かせてください', '見学できる日を教えてください', '今回は見送ります'] };
   }
 }
