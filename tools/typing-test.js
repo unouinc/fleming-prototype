@@ -1,0 +1,23 @@
+const { chromium } = require('playwright');
+(async()=>{const b=await chromium.launch();const p=await b.newPage({viewport:{width:1280,height:900}});
+const errs=[];p.on('pageerror',e=>errs.push(e.message));
+const F='file://'+__dirname+'/../site/';
+await p.goto(F+'signup.html');
+await p.locator('#su-email').click();await p.keyboard.type('abc@example.com',{delay:15});
+// insert in the middle
+for(let i=0;i<11;i++) await p.keyboard.press('ArrowLeft'); await p.keyboard.type('X');
+console.log('email',await p.locator('#su-email').inputValue(),'same node focus',await p.evaluate(()=>document.activeElement.id));
+await p.locator('#su-agree').check();await p.locator('button',{hasText:'ログイン用のリンクを送る'}).click();
+await p.locator('text=試作用').click();
+await p.locator('#su-name').click();await p.keyboard.type('やまだ はなこ',{delay:15});
+await p.locator('#su-years').click();await p.keyboard.type('1a2',{delay:15});
+await p.locator('#su-station').click();await p.keyboard.type('yokohama',{delay:15});
+await p.locator('button',{hasText:'准看護師'}).click();
+console.log('name',await p.locator('#su-name').inputValue(),'years',await p.locator('#su-years').inputValue(),'station',await p.locator('#su-station').inputValue(),'lic',await p.locator('button[aria-pressed="true"]').innerText());
+await p.locator('button',{hasText:'登録する'}).click();console.log('done',await p.locator('text=登録が完了しました').count());
+await p.goto(F+'job.html#talk');await p.locator('#talknote').click();await p.keyboard.type('hello world',{delay:15});
+await p.locator('[aria-modal="true"] button',{hasText:/^夜勤の体制$/}).click();
+console.log('note',await p.locator('#talknote').inputValue());
+await p.goto(F+'index.html');await p.locator('#q').first().click().catch(()=>{});await p.keyboard.type('minato',{delay:15});
+console.log('q',await p.locator('#q').first().inputValue().catch(e=>'n/a'),errs);
+await b.close();})();

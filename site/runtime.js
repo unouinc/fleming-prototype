@@ -63,7 +63,7 @@
       if (/^on[A-Z]/.test(name) || /^on[a-z]+$/.test(name) && name !== 'on') {
         var ev = name.slice(2).toLowerCase();
         var fn = interpolate(val, scope);
-        if (typeof fn === 'function') el.addEventListener(ev, fn);
+        if (typeof fn === 'function') { (el.__h || (el.__h = {}))[ev] = fn; el.addEventListener(ev, dispatch); }
         continue;
       }
       var r = val.indexOf('{{') >= 0 ? interpolate(val, scope) : val;
@@ -74,6 +74,33 @@
     }
     renderNodes(node.childNodes, scope, el);
     out.appendChild(el);
+  }
+
+  function dispatch(e) { var h = this.__h && this.__h[e.type]; if (h) h.call(this, e); }
+
+  /* 既存のDOMを作り直さず、差分だけ反映する。入力中の欄がそのまま残るので、
+     カーソル位置と日本語変換（IME）が途切れない。 */
+  function morph(oldP, newP) {
+    var olds = Array.prototype.slice.call(oldP.childNodes);
+    var news = Array.prototype.slice.call(newP.childNodes);
+    for (var i = 0; i < news.length; i++) {
+      var o = olds[i], n = news[i];
+      if (!o) { oldP.appendChild(n); continue; }
+      if (o.nodeType !== n.nodeType || (n.nodeType === 1 && (o.tagName !== n.tagName || o.id !== n.id || o.namespaceURI !== n.namespaceURI))) { oldP.replaceChild(n, o); continue; }
+      if (n.nodeType !== 1) { if (o.nodeValue !== n.nodeValue) o.nodeValue = n.nodeValue; continue; }
+      var a, k;
+      for (k = o.attributes.length - 1; k >= 0; k--) { a = o.attributes[k]; if (!n.hasAttribute(a.name)) o.removeAttribute(a.name); }
+      for (k = 0; k < n.attributes.length; k++) { a = n.attributes[k]; if (o.getAttribute(a.name) !== a.value) o.setAttribute(a.name, a.value); }
+      if (o.tagName === 'INPUT' || o.tagName === 'TEXTAREA') {
+        if (o.type === 'checkbox' || o.type === 'radio') { if (o.checked !== n.checked) o.checked = n.checked; }
+        else if (o.value !== n.value) o.value = n.value;
+      }
+      var nh = n.__h || {}, oh = o.__h || {};
+      for (var ev in nh) if (!(ev in oh)) o.addEventListener(ev, dispatch);
+      o.__h = nh;
+      morph(o, n);
+    }
+    for (var j = olds.length - 1; j >= news.length; j--) oldP.removeChild(olds[j]);
   }
 
   function DCLogic(props) { this.props = props || {}; this.state = {}; }
@@ -92,15 +119,8 @@
       var vals = inst.renderVals();
       var frag = document.createDocumentFragment();
       renderNodes(tpl.content.childNodes, vals, frag);
-      var y = window.scrollY;
-      var keep = {}; Array.prototype.forEach.call(root.querySelectorAll('[data-keep-scroll][id]'), function (k) { keep[k.id] = k.scrollTop; });
-      var ae = document.activeElement, fid = ae && ae.id, pos = ae && ae.selectionStart;
-      root.innerHTML = '';
-      root.appendChild(frag);
-      window.scrollTo(0, y);
-      Object.keys(keep).forEach(function (id) { var k = document.getElementById(id); if (k) k.scrollTop = keep[id]; });
+      morph(root, frag);
       document.body.style.overflow = root.querySelector('[aria-modal="true"]') ? 'hidden' : '';
-      if (fid) { var el2 = document.getElementById(fid); if (el2) { el2.focus(); try { if (pos != null) el2.setSelectionRange(pos, pos); } catch (e) {} } }
     };
     inst.__render();
   };
