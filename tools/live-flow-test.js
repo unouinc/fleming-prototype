@@ -15,7 +15,7 @@ window.supabase={createClient(){
 (async()=>{const b=await chromium.launch();
 for (const [w,h,tag] of [[1440,900,'pc'],[390,844,'sp']]){
  const ctx=await b.newContext({viewport:{width:w,height:h}});
- await ctx.route('**/config.js',r=>r.fulfill({contentType:'text/javascript',body:"window.NASURI_CONFIG={supabaseUrl:'https://x.supabase.co',supabaseAnonKey:'k'};"}));
+ await ctx.route('**/config.js',r=>r.fulfill({contentType:'text/javascript',body:"window.NASURI_CONFIG={supabaseUrl:'https://x.supabase.co',supabaseAnonKey:'k',liveByDefault:true};"}));
  await ctx.route('https://cdn.jsdelivr.net/**',r=>r.fulfill({contentType:'text/javascript',body:MOCK}));
  const p=await ctx.newPage();const errs=[];p.on('pageerror',e=>errs.push(e.message));
  const U='http://localhost:8765/';

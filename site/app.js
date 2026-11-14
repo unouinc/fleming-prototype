@@ -1,4 +1,4 @@
-/* 本番モードの接続層。config.js が空なら何もしません（試作モード）。
+/* 本番モードの接続層。config.js で有効になっていなければ何もしません（試作モード）。
    画面側は window.Nasuri を見て、登録・ログイン・「話を聞きたい」の保存を行います。 */
 (function () {
   'use strict';
@@ -6,8 +6,15 @@
   var PENDING = 'nasuri_pending_talk', LAST = 'nasuri_last_talk';
   var SDK = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js';
   var client = null;
+  var live = !!cfg.liveByDefault;
+  try {
+    var q = new URLSearchParams(location.search).get('live');
+    if (q === '1') localStorage.setItem('nasuri_live', '1');
+    if (q === '0') localStorage.removeItem('nasuri_live');
+    if (localStorage.getItem('nasuri_live') === '1') live = true;
+  } catch (e) {}
   var N = window.Nasuri = {
-    enabled: !!(cfg.supabaseUrl && cfg.supabaseAnonKey),
+    enabled: live && !!(cfg.supabaseUrl && cfg.supabaseAnonKey),
     ready: false, session: null, profile: null
   };
   if (!N.enabled) return;
