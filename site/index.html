@@ -5,15 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Fleming 募集をさがす</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&amp;family=Outfit:wght@600;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
 <style>
-body{margin:0;background:#F6F5F1}
-a{color:#1A1A1A}a:hover{color:#3A63F4}
+body{margin:0;background:#F5F5F7}
+a{color:#1D1D1F}a:hover{color:#6E6E73}
 .m-only{display:none}
 @keyframes fadein{from{opacity:.4}to{opacity:1}}
 .cover .sl{opacity:0;transition:opacity .2s}.cover:hover .sl,.cover .sl:focus-visible{opacity:1}
 .tabbar{display:none}
-.arealist::-webkit-scrollbar{width:6px}.arealist::-webkit-scrollbar-thumb{background:#D9D4C7;border-radius:3px}
+.arealist::-webkit-scrollbar{width:6px}.arealist::-webkit-scrollbar-thumb{background:#D2D2D7;border-radius:3px}
 @media (max-width: 760px){
   .pc-only{display:none!important}
   .cover .sl{opacity:.85!important}
@@ -35,33 +35,33 @@ a{color:#1A1A1A}a:hover{color:#3A63F4}
   .statl{font-size:10px!important}
   .statv{font-size:17px!important}
   .cta{flex:1 1 auto!important;justify-content:center}
-  .tabbar{display:flex!important;position:fixed;left:0;right:0;bottom:0;z-index:50;background:#FFFFFF;border-top:1px solid #E3E0D8;padding:6px 0 calc(6px + env(safe-area-inset-bottom));justify-content:space-around}
+  .tabbar{display:flex!important;position:fixed;left:0;right:0;bottom:0;z-index:50;background:#FFFFFF;border-top:1px solid #E5E5EA;padding:6px 0 calc(6px + env(safe-area-inset-bottom));justify-content:space-around}
 }
 </style>
 </head>
 <body>
 <div id="app"></div>
 <template id="tpl">
-<div style="width: 100%; min-height: 100vh; background: #F6F5F1; color: #1A1A1A; font-family: 'Noto Sans JP', 'Hiragino Sans', sans-serif; font-weight: 500; letter-spacing: 0.01em; -webkit-font-smoothing: antialiased; display: flex; flex-direction: column">
+<div style="width: 100%; min-height: 100vh; background: #F5F5F7; color: #1D1D1F; font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', sans-serif; font-weight: 500; letter-spacing: 0.01em; -webkit-font-smoothing: antialiased; display: flex; flex-direction: column">
 
   <!-- App bar -->
-  <header style="background: #FFFFFF; border-bottom: 1px solid #E3E0D8">
+  <header style="background: #FFFFFF; border-bottom: 1px solid #E5E5EA">
     <div class="hdr" style="max-width: 1360px; margin: 0 auto; padding: 0 32px; height: 64px; box-sizing: border-box; display: flex; align-items: center; gap: 28px">
       <a href="index.html" style="display: flex; align-items: center; gap: 8px; text-decoration: none; flex: 0 0 auto">
-        <span style="width: 30px; height: 30px; border-radius: 50%; background: #3A63F4; display: flex; align-items: center; justify-content: center"><span style="width: 11px; height: 11px; border-radius: 50%; background: #FFD338"></span></span>
-        <span style="font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 22px; letter-spacing: -0.4px">Fleming</span>
+        <span style="width: 30px; height: 30px; border-radius: 9px; background: #1D1D1F; display: flex; align-items: center; justify-content: center"><span style="width: 10px; height: 10px; border-radius: 50%; background: #FFFFFF"></span></span>
+        <span style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Inter', 'Helvetica Neue', sans-serif; font-weight: 600; font-size: 22px; letter-spacing: -0.4px">Fleming</span>
       </a>
-      <form class="pc-only" aria-label="募集を検索" style="flex: 1 1 320px; min-width: 0; max-width: 480px; display: flex; align-items: center; gap: 10px; background: #F6F5F1; border-radius: 8px; padding: 0 16px; height: 42px; box-sizing: border-box">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#5C5C5C" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-4-4"></path></svg>
+      <form class="pc-only" aria-label="募集を検索" style="flex: 1 1 320px; min-width: 0; max-width: 480px; display: flex; align-items: center; gap: 10px; background: #F5F5F7; border-radius: 8px; padding: 0 16px; height: 42px; box-sizing: border-box">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6E6E73" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-4-4"></path></svg>
         <label for="q" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">キーワード</label>
-        <input id="q" type="search" value="{{qv}}" onInput="{{setQ}}" placeholder="病院名、エリア、「残業少なめ」など" style="flex: 1 1 auto; min-width: 0; border: none; background: transparent; font-family: inherit; font-size: 14px; font-weight: 700; color: #1A1A1A; outline: none">
+        <input id="q" type="search" value="{{qv}}" onInput="{{setQ}}" placeholder="病院名、エリア、「残業少なめ」など" style="flex: 1 1 auto; min-width: 0; border: none; background: transparent; font-family: inherit; font-size: 14px; font-weight: 700; color: #1D1D1F; outline: none">
       </form>
       <nav class="pc-only" aria-label="グローバル" style="margin-left: auto; display: flex; align-items: center; gap: 4px; font-size: 14px; font-weight: 700">
-        <a href="index.html" aria-current="page" style="text-decoration: none; padding: 10px 14px; border-radius: 4px; background: #3B4654; color: #FFFFFF; min-height: 44px; box-sizing: border-box; display: flex; align-items: center">さがす</a>
-        <a href="scouts.html" style="text-decoration: none; padding: 10px 14px; border-radius: 4px; min-height: 44px; box-sizing: border-box; display: flex; align-items: center; gap: 8px">スカウト<span style="background: #3A63F4; color: #FFFFFF; font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', Meiryo, sans-serif; font-size: 12px; padding: 2px 8px; border-radius: 999px">3</span></a>
-        <a href="profile.html" aria-label="マイプロフィール" style="margin-left: 8px; width: 40px; height: 40px; border-radius: 50%; background: #DAD6CC; color: #6B675E; display: flex; align-items: center; justify-content: center; text-decoration: none; font-size: 14px; font-weight: 900"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"></circle><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"></path></svg></a>
+        <a href="index.html" aria-current="page" style="text-decoration: none; padding: 10px 14px; border-radius: 999px; background: #1D1D1F; color: #FFFFFF; min-height: 44px; box-sizing: border-box; display: flex; align-items: center">さがす</a>
+        <a href="scouts.html" style="text-decoration: none; padding: 10px 14px; border-radius: 999px; min-height: 44px; box-sizing: border-box; display: flex; align-items: center; gap: 8px">スカウト<span style="background: #1D1D1F; color: #FFFFFF; font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', Meiryo, sans-serif; font-size: 12px; padding: 2px 8px; border-radius: 999px">3</span></a>
+        <a href="profile.html" aria-label="マイプロフィール" style="margin-left: 8px; width: 40px; height: 40px; border-radius: 50%; background: #E8E8ED; color: #86868B; display: flex; align-items: center; justify-content: center; text-decoration: none; font-size: 14px; font-weight: 700"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"></circle><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"></path></svg></a>
       </nav>
-      <button type="button" class="m-only" onClick="{{openCond}}" aria-label="検索条件" style="margin-left: auto; width: 40px; height: 40px; border-radius: 50%; border: none; background: #F6F5F1; align-items: center; justify-content: center; cursor: pointer"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1A1A1A" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-4-4"></path></svg></button>
+      <button type="button" class="m-only" onClick="{{openCond}}" aria-label="検索条件" style="margin-left: auto; width: 40px; height: 40px; border-radius: 50%; border: none; background: #F5F5F7; align-items: center; justify-content: center; cursor: pointer"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1D1D1F" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-4-4"></path></svg></button>
     </div>
   </header>
 
@@ -73,159 +73,159 @@ a{color:#1A1A1A}a:hover{color:#3A63F4}
     <main style="flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; gap: 16px">
       <div style="display: flex; flex-direction: column; gap: 6px">
         <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap">
-          <h1 style="margin: 0; font-size: 22px; font-weight: 700; color: #333333">{{prefTitle}}<span style="font-size: 15px; font-weight: 700"> の病院の看護師求人</span></h1>
-          <span style="font-size: 12px; font-weight: 400; color: #666666">2026/11/10更新</span>
+          <h1 style="margin: 0; font-size: 22px; font-weight: 700; color: #1D1D1F">{{prefTitle}}<span style="font-size: 15px; font-weight: 700"> の病院の看護師求人</span></h1>
+          <span style="font-size: 12px; font-weight: 400; color: #6E6E73">2026/11/10更新</span>
         </div>
-        <span style="font-size: 13px; font-weight: 400; color: #666666">全 <span style="font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', Meiryo, sans-serif; font-size: 24px; font-weight: 700; color: #333333">{{count}}</span> 件（{{fac}}施設）</span>
+        <span style="font-size: 13px; font-weight: 400; color: #6E6E73">全 <span style="font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', Meiryo, sans-serif; font-size: 24px; font-weight: 700; color: #1D1D1F">{{count}}</span> 件（{{fac}}施設）</span>
       </div>
       <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 16px">
         <span style="position: relative; display: inline-flex">
-          <select aria-label="表示順" onChange="{{setSort}}" style="appearance: none; -webkit-appearance: none; border: 1px solid #DDDDDD; border-radius: 4px; background: #FFFFFF; font-family: inherit; font-size: 14px; font-weight: 400; color: #333333; padding: 8px 32px 8px 10px; min-height: 38px; cursor: pointer">
+          <select aria-label="表示順" onChange="{{setSort}}" style="appearance: none; -webkit-appearance: none; border: 1px solid #E5E5EA; border-radius: 6px; background: #FFFFFF; font-family: inherit; font-size: 14px; font-weight: 400; color: #1D1D1F; padding: 8px 32px 8px 10px; min-height: 38px; cursor: pointer">
             <sc-for list="{{tabs}}" as="t" hint-placeholder-count="4"><option value="{{t.i}}" selected="{{t.on}}">{{t.label}}</option></sc-for>
           </select>
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#666666" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="position: absolute; right: 11px; top: 50%; margin-top: -6px; pointer-events: none"><path d="M6 9l6 6 6-6"></path></svg>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#6E6E73" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="position: absolute; right: 11px; top: 50%; margin-top: -6px; pointer-events: none"><path d="M6 9l6 6 6-6"></path></svg>
         </span>
-        <span style="font-size: 12px; font-weight: 400; color: #333333">1-4件 / {{fac}}施設</span>
+        <span style="font-size: 12px; font-weight: 400; color: #1D1D1F">1-4件 / {{fac}}施設</span>
       </div>
 
       <sc-for list="{{jobs}}" as="j" hint-placeholder-count="4">
-        <article style="background: #FFFFFF; border-radius: 8px; overflow: hidden; display: flex; flex-direction: column">
+        <article style="background: #FFFFFF; border-radius: 14px; overflow: hidden; display: flex; flex-direction: column">
           <div class="cardtop" style="display: grid; grid-template-columns: minmax(0, 1fr) 400px; gap: 20px; padding: 20px 24px 0; align-items: start">
             <div class="ctext" style="min-width: 0; display: flex; flex-direction: column; gap: 8px">
-              <div style="display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 400; color: #666666; flex-wrap: wrap">
-                <span aria-hidden="true" style="width: 20px; height: 20px; border-radius: 4px; background: #DAD6CC; border: 1px solid #C9C4B8"></span>
+              <div style="display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 400; color: #6E6E73; flex-wrap: wrap">
+                <span aria-hidden="true" style="width: 20px; height: 20px; border-radius: 6px; background: #E8E8ED; border: 1px solid #D2D2D7"></span>
                 <span>{{j.org}}</span><span>·</span><span>{{j.area}}</span>
               </div>
               <div style="display: flex; gap: 6px; flex-wrap: wrap">
-                <span style="font-size: 12px; font-weight: 400; color: #333333; border: 1px solid #C9C4B8; padding: 2px 8px; border-radius: 4px">{{j.type}}</span>
-                <span style="font-size: 12px; font-weight: 400; color: #333333; border: 1px solid #C9C4B8; padding: 2px 8px; border-radius: 4px">{{j.cat}}</span>
+                <span style="font-size: 12px; font-weight: 400; color: #1D1D1F; border: 1px solid #D2D2D7; padding: 2px 8px; border-radius: 6px">{{j.type}}</span>
+                <span style="font-size: 12px; font-weight: 400; color: #1D1D1F; border: 1px solid #D2D2D7; padding: 2px 8px; border-radius: 6px">{{j.cat}}</span>
               </div>
-              <a href="job.html" class="ctitle" style="text-decoration: none; font-size: 18px; font-weight: 500; line-height: 1.6; color: #333333">{{j.title}}</a>
+              <a href="job.html" class="ctitle" style="text-decoration: none; font-size: 18px; font-weight: 500; line-height: 1.6; color: #1D1D1F">{{j.title}}</a>
               <div style="display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; margin-top: 4px">
-                <span style="font-size: 12px; font-weight: 400; color: #666666">{{j.payLabel}}</span>
-                <span style="font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', Meiryo, sans-serif; font-weight: 700; font-size: 20px; color: #333333">{{j.pay}}</span>
-                <span style="font-size: 12px; font-weight: 400; color: #666666">{{j.payNote}}</span>
+                <span style="font-size: 12px; font-weight: 400; color: #6E6E73">{{j.payLabel}}</span>
+                <span style="font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', Meiryo, sans-serif; font-weight: 700; font-size: 20px; color: #1D1D1F">{{j.pay}}</span>
+                <span style="font-size: 12px; font-weight: 400; color: #6E6E73">{{j.payNote}}</span>
               </div>
             </div>
-            <div class="cover" style="position: relative; aspect-ratio: 16 / 9; background: #3B4654; border-radius: 6px; overflow: hidden">
+            <div class="cover" style="position: relative; aspect-ratio: 16 / 9; background: #1D1D1F; border-radius: 10px; overflow: hidden">
               <a href="job.html" aria-label="{{j.title}}" style="display: block; width: 100%; height: 100%">
                 <img src="{{j.img}}" alt="{{j.photo}}" style="width: 100%; height: 100%; object-fit: cover; display: block; animation: fadein .5s ease">
               </a>
-              <button type="button" onClick="{{j.prev}}" aria-label="前の写真" class="sl" style="position: absolute; left: 8px; top: 50%; margin-top: -14px; width: 28px; height: 28px; border-radius: 50%; border: none; background: rgba(26,26,26,0.28); cursor: pointer; display: flex; align-items: center; justify-content: center; padding: 0"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"></path></svg></button>
-              <button type="button" onClick="{{j.next}}" aria-label="次の写真" class="sl" style="position: absolute; right: 8px; top: 50%; margin-top: -14px; width: 28px; height: 28px; border-radius: 50%; border: none; background: rgba(26,26,26,0.28); cursor: pointer; display: flex; align-items: center; justify-content: center; padding: 0"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg></button>
+              <button type="button" onClick="{{j.prev}}" aria-label="前の写真" class="sl" style="position: absolute; left: 8px; top: 50%; margin-top: -14px; width: 28px; height: 28px; border-radius: 50%; border: none; background: rgba(29,29,31,0.28); cursor: pointer; display: flex; align-items: center; justify-content: center; padding: 0"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"></path></svg></button>
+              <button type="button" onClick="{{j.next}}" aria-label="次の写真" class="sl" style="position: absolute; right: 8px; top: 50%; margin-top: -14px; width: 28px; height: 28px; border-radius: 50%; border: none; background: rgba(29,29,31,0.28); cursor: pointer; display: flex; align-items: center; justify-content: center; padding: 0"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg></button>
               <span style="position: absolute; left: 0; right: 0; bottom: 8px; display: flex; justify-content: center; gap: 6px; pointer-events: none">
                 <sc-for list="{{j.dots}}" as="d" hint-placeholder-count="3"><span style="width: 6px; height: 6px; border-radius: 50%; background: {{d.bg}}"></span></sc-for>
               </span>
-              <span style="position: absolute; left: 8px; bottom: 8px; display: inline-flex; align-items: center; gap: 5px; font-size: 12px; font-weight: 400; color: #333333; background: rgba(255,255,255,0.94); padding: 4px 10px 4px 8px; border-radius: 999px; pointer-events: none"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#3A63F4" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"></path></svg>話を聞ける人 <span style="font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', Meiryo, sans-serif; font-weight: 700">{{j.talk}}</span>人</span>
-              <span style="position: absolute; right: 8px; top: 8px; font-size: 11px; font-weight: 400; color: #FFFFFF; background: rgba(26,26,26,0.55); padding: 2px 8px; border-radius: 999px">{{j.pos}}</span>
+              <span style="position: absolute; left: 8px; bottom: 8px; display: inline-flex; align-items: center; gap: 5px; font-size: 12px; font-weight: 400; color: #1D1D1F; background: rgba(255,255,255,0.94); padding: 4px 10px 4px 8px; border-radius: 999px; pointer-events: none"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1D1D1F" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"></path></svg>話を聞ける人 <span style="font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', Meiryo, sans-serif; font-weight: 700">{{j.talk}}</span>人</span>
+              <span style="position: absolute; right: 8px; top: 8px; font-size: 11px; font-weight: 400; color: #FFFFFF; background: rgba(29,29,31,0.55); padding: 2px 8px; border-radius: 999px">{{j.pos}}</span>
             </div>
           </div>
           <div class="cardbody" style="padding: 16px 24px 22px; display: flex; flex-direction: column; gap: 14px">
             <div style="display: flex; flex-wrap: wrap; gap: 8px">
               <sc-for list="{{j.bars}}" as="b" hint-placeholder-count="3">
-                <div class="stat" style="flex: 1 1 150px; min-width: 0; display: flex; flex-direction: column; gap: 2px; background: #F6F5F1; border-radius: 6px; padding: 10px 14px">
-                  <span class="statl pc-only" style="font-size: 11px; font-weight: 700; color: #5C5C5C">{{b.label}}</span><span class="statl m-only" style="font-size: 11px; font-weight: 700; color: #5C5C5C">{{b.short}}</span>
+                <div class="stat" style="flex: 1 1 150px; min-width: 0; display: flex; flex-direction: column; gap: 2px; background: #F5F5F7; border-radius: 10px; padding: 10px 14px">
+                  <span class="statl pc-only" style="font-size: 11px; font-weight: 700; color: #6E6E73">{{b.label}}</span><span class="statl m-only" style="font-size: 11px; font-weight: 700; color: #6E6E73">{{b.short}}</span>
                   <span class="statv" style="font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', Meiryo, sans-serif; font-weight: 700; font-size: 20px; line-height: 1.2; color: {{b.color}}">{{b.value}}</span>
                 </div>
               </sc-for>
             </div>
             <div style="display: flex; gap: 6px; flex-wrap: wrap">
               <sc-for list="{{j.facts}}" as="f" hint-placeholder-count="3">
-                <span style="font-size: 12px; font-weight: 400; color: #333333; border: 1px solid #C9C4B8; padding: 2px 8px; border-radius: 4px">{{f}}</span>
+                <span style="font-size: 12px; font-weight: 400; color: #1D1D1F; border: 1px solid #D2D2D7; padding: 2px 8px; border-radius: 6px">{{f}}</span>
               </sc-for>
             </div>
-            <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px; padding-top: 6px; border-top: 1px solid #EDEAE2">
-              <a href="job.html#talk" class="cta" style="text-decoration: none; font-size: 14px; font-weight: 400; padding: 10px 18px; border-radius: 4px; background: #FFFFFF; border: 1px solid #B9C0CC; color: #3B4654; min-height: 42px; box-sizing: border-box; display: flex; align-items: center; gap: 10px">話を聞きに行きたい<span style="font-size: 12px; color: #666666; padding-left: 10px; border-left: 1px solid #D5D9E0; white-space: nowrap">話せる人 <span style="font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', Meiryo, sans-serif; font-weight: 700; color: #333333">{{j.talk}}</span>人</span></a>
-              <button type="button" onClick="{{j.like}}" aria-pressed="{{j.liked}}" style="border: 1px solid {{j.likeBorder}}; background: {{j.likeBg}}; color: #3B4654; border-radius: 4px; font-family: inherit; font-size: 13px; font-weight: 400; padding: 10px 14px; min-height: 42px; display: flex; align-items: center; gap: 6px; cursor: pointer">
+            <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px; padding-top: 6px; border-top: 1px solid #E5E5EA">
+              <a href="job.html#talk" class="cta" style="text-decoration: none; font-size: 14px; font-weight: 400; padding: 10px 18px; border-radius: 999px; background: #FFFFFF; border: 1px solid #D2D2D7; color: #1D1D1F; min-height: 42px; box-sizing: border-box; display: flex; align-items: center; gap: 10px">話を聞きに行きたい<span style="font-size: 12px; color: #6E6E73; padding-left: 10px; border-left: 1px solid #E5E5EA; white-space: nowrap">話せる人 <span style="font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', Meiryo, sans-serif; font-weight: 700; color: #1D1D1F">{{j.talk}}</span>人</span></a>
+              <button type="button" onClick="{{j.like}}" aria-pressed="{{j.liked}}" style="border: 1px solid {{j.likeBorder}}; background: {{j.likeBg}}; color: #1D1D1F; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 400; padding: 10px 14px; min-height: 42px; display: flex; align-items: center; gap: 6px; cursor: pointer">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="{{j.likeFill}}" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-4.6-9.5-9C.8 8.6 2.9 4 7 4c2.2 0 3.6 1.2 5 3 1.4-1.8 2.8-3 5-3 4.1 0 6.2 4.6 4.5 8-2.5 4.4-9.5 9-9.5 9z"></path></svg>
                 気になる <span style="font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', Meiryo, sans-serif">{{j.likes}}</span>
               </button>
-              <span style="margin-left: auto; font-size: 12px; font-weight: 700; color: #5C5C5C">{{j.posted}}</span>
+              <span style="margin-left: auto; font-size: 12px; font-weight: 700; color: #6E6E73">{{j.posted}}</span>
             </div>
           </div>
         </article>
       </sc-for>
-      <a href="profile.html" style="display: flex; align-items: center; gap: 16px; background: #FFD338; border-radius: 8px; padding: 16px 20px; text-decoration: none; color: #1A1A1A"><span style="font-size: 12px; font-weight: 900; background: #FFFFFF; padding: 4px 10px; border-radius: 999px; flex: 0 0 auto">紹介で5万円</span><span style="flex: 1 1 auto; font-size: 14px; font-weight: 700; line-height: 1.6">同期や元同僚に、そのまま送れる紹介文があります</span><span style="font-size: 14px; font-weight: 700">›</span></a>
-      <button type="button" style="align-self: center; border: 2px solid #D9D4C7; background: #FFFFFF; border-radius: 4px; font-family: inherit; font-size: 14px; font-weight: 700; padding: 12px 28px; min-height: 48px; cursor: pointer">もっと見る</button>
+      <a href="profile.html" style="display: flex; align-items: center; gap: 16px; background: #FFFFFF; border: 1px solid #E5E5EA; border-radius: 14px; padding: 16px 20px; text-decoration: none; color: #1D1D1F"><span style="font-size: 12px; font-weight: 700; background: #FFFFFF; padding: 4px 10px; border-radius: 999px; flex: 0 0 auto">紹介で5万円</span><span style="flex: 1 1 auto; font-size: 14px; font-weight: 700; line-height: 1.6">同期や元同僚に、そのまま送れる紹介文があります</span><span style="font-size: 14px; font-weight: 700">›</span></a>
+      <button type="button" style="align-self: center; border: 2px solid #D2D2D7; background: #FFFFFF; border-radius: 999px; font-family: inherit; font-size: 14px; font-weight: 700; padding: 12px 28px; min-height: 48px; cursor: pointer">もっと見る</button>
     </main>
 
     <!-- Right: search conditions -->
     <aside class="side" aria-label="検索条件" style="flex: 0 0 300px; width: 300px; position: sticky; top: 88px; display: flex; flex-direction: column; gap: 10px">
       <div style="display: flex; align-items: center; justify-content: space-between">
-        <span style="font-size: 14px; font-weight: 700; color: #333333">検索条件</span>
-        <sc-if value="{{anySel}}" hint-placeholder-val="{{false}}"><button type="button" onClick="{{clearAll}}" style="border: none; background: transparent; font-family: inherit; font-size: 13px; font-weight: 400; color: #3A63F4; cursor: pointer; min-height: 32px; padding: 0">すべてクリア</button></sc-if>
+        <span style="font-size: 14px; font-weight: 700; color: #1D1D1F">検索条件</span>
+        <sc-if value="{{anySel}}" hint-placeholder-val="{{false}}"><button type="button" onClick="{{clearAll}}" style="border: none; background: transparent; font-family: inherit; font-size: 13px; font-weight: 400; color: #1D1D1F; cursor: pointer; min-height: 32px; padding: 0">すべてクリア</button></sc-if>
       </div>
-      <div style="background: #FFFFFF; border: 1px solid #D9D4C7; border-radius: 8px; overflow: hidden; display: flex; flex-direction: column">
-          <div style="border-bottom: 1px solid #EDEAE2">
+      <div style="background: #FFFFFF; border: 1px solid #D2D2D7; border-radius: 14px; overflow: hidden; display: flex; flex-direction: column">
+          <div style="border-bottom: 1px solid #E5E5EA">
             <sc-if value="{{hasArea}}" hint-placeholder-val="{{false}}">
               <div style="padding: 14px 16px 16px; display: flex; flex-direction: column; gap: 10px">
                 <div style="display: flex; align-items: center; gap: 8px">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="#3A63F4" aria-hidden="true" style="flex: 0 0 auto"><path d="M12 2c-3.9 0-7 3.1-7 7 0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5z"></path></svg>
-                  <span style="flex: 1 1 auto; font-size: 14px; font-weight: 700; color: #333333">{{prefTitle}}</span>
-                  <button type="button" onClick="{{openArea}}" style="border: none; background: transparent; font-family: inherit; font-size: 13px; font-weight: 400; color: #3A63F4; cursor: pointer; min-height: 32px; padding: 0">変更</button>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="#1D1D1F" aria-hidden="true" style="flex: 0 0 auto"><path d="M12 2c-3.9 0-7 3.1-7 7 0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5z"></path></svg>
+                  <span style="flex: 1 1 auto; font-size: 14px; font-weight: 700; color: #1D1D1F">{{prefTitle}}</span>
+                  <button type="button" onClick="{{openArea}}" style="border: none; background: transparent; font-family: inherit; font-size: 13px; font-weight: 400; color: #1D1D1F; cursor: pointer; min-height: 32px; padding: 0">変更</button>
                 </div>
                 <div style="display: flex; flex-wrap: wrap; gap: 6px">
-                  <sc-for list="{{areaChips}}" as="c" hint-placeholder-count="3"><span style="display: inline-flex; align-items: center; gap: 2px; background: #F3F4F8; border: 1px solid #E1E4EC; border-radius: 999px; padding: 0 4px 0 12px; min-height: 32px; font-size: 13px; font-weight: 400; color: #333333">{{c.label}}<button type="button" onClick="{{c.remove}}" aria-label="{{c.label}}を外す" style="width: 28px; height: 28px; border: none; background: transparent; cursor: pointer; display: flex; align-items: center; justify-content: center; padding: 0"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#8A857A" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></button></span></sc-for>
+                  <sc-for list="{{areaChips}}" as="c" hint-placeholder-count="3"><span style="display: inline-flex; align-items: center; gap: 2px; background: #F5F5F7; border: 1px solid #E5E5EA; border-radius: 999px; padding: 0 4px 0 12px; min-height: 32px; font-size: 13px; font-weight: 400; color: #1D1D1F">{{c.label}}<button type="button" onClick="{{c.remove}}" aria-label="{{c.label}}を外す" style="width: 28px; height: 28px; border: none; background: transparent; cursor: pointer; display: flex; align-items: center; justify-content: center; padding: 0"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#86868B" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></button></span></sc-for>
                 </div>
               </div>
             </sc-if>
             <sc-if value="{{noArea}}" hint-placeholder-val="{{true}}">
               <button type="button" onClick="{{openArea}}" style="width: 100%; display: flex; align-items: center; gap: 12px; border: none; background: #FFFFFF; font-family: inherit; text-align: left; padding: 0 16px; min-height: 56px; cursor: pointer">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="#3A63F4" aria-hidden="true" style="flex: 0 0 auto"><path d="M12 2c-3.9 0-7 3.1-7 7 0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5z"></path></svg>
-                <span style="flex: 1 1 auto; min-width: 0; font-size: 15px; font-weight: 400; color: #333333">{{prefTitle}}（すべて）</span>
-                <span style="flex: 0 0 auto; font-size: 13px; font-weight: 400; color: #3A63F4">変更</span>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="#1D1D1F" aria-hidden="true" style="flex: 0 0 auto"><path d="M12 2c-3.9 0-7 3.1-7 7 0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5z"></path></svg>
+                <span style="flex: 1 1 auto; min-width: 0; font-size: 15px; font-weight: 400; color: #1D1D1F">{{prefTitle}}（すべて）</span>
+                <span style="flex: 0 0 auto; font-size: 13px; font-weight: 400; color: #1D1D1F">変更</span>
               </button>
             </sc-if>
           </div>
-          <div style="border-bottom: 1px solid #EDEAE2">
+          <div style="border-bottom: 1px solid #E5E5EA">
             <sc-if value="{{hasCond}}" hint-placeholder-val="{{false}}">
               <div style="padding: 14px 16px 16px; display: flex; flex-direction: column; gap: 10px">
                 <div style="display: flex; align-items: center; gap: 8px">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3A63F4" stroke-width="2.2" stroke-linecap="round" aria-hidden="true" style="flex: 0 0 auto"><path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12"></path><circle cx="16" cy="6" r="2"></circle><circle cx="10" cy="12" r="2"></circle><circle cx="18" cy="18" r="2"></circle></svg>
-                  <span style="flex: 1 1 auto; font-size: 14px; font-weight: 700; color: #333333">こだわり条件</span>
-                  <button type="button" onClick="{{openCond}}" style="border: none; background: transparent; font-family: inherit; font-size: 13px; font-weight: 400; color: #3A63F4; cursor: pointer; min-height: 32px; padding: 0">変更</button>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1D1D1F" stroke-width="2.2" stroke-linecap="round" aria-hidden="true" style="flex: 0 0 auto"><path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12"></path><circle cx="16" cy="6" r="2"></circle><circle cx="10" cy="12" r="2"></circle><circle cx="18" cy="18" r="2"></circle></svg>
+                  <span style="flex: 1 1 auto; font-size: 14px; font-weight: 700; color: #1D1D1F">こだわり条件</span>
+                  <button type="button" onClick="{{openCond}}" style="border: none; background: transparent; font-family: inherit; font-size: 13px; font-weight: 400; color: #1D1D1F; cursor: pointer; min-height: 32px; padding: 0">変更</button>
                 </div>
                 <div style="display: flex; flex-wrap: wrap; gap: 6px">
-                  <sc-for list="{{condChips}}" as="c" hint-placeholder-count="3"><span style="display: inline-flex; align-items: center; gap: 2px; background: #F3F4F8; border: 1px solid #E1E4EC; border-radius: 999px; padding: 0 4px 0 12px; min-height: 32px; font-size: 13px; font-weight: 400; color: #333333">{{c.label}}<button type="button" onClick="{{c.remove}}" aria-label="{{c.label}}を外す" style="width: 28px; height: 28px; border: none; background: transparent; cursor: pointer; display: flex; align-items: center; justify-content: center; padding: 0"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#8A857A" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></button></span></sc-for>
+                  <sc-for list="{{condChips}}" as="c" hint-placeholder-count="3"><span style="display: inline-flex; align-items: center; gap: 2px; background: #F5F5F7; border: 1px solid #E5E5EA; border-radius: 999px; padding: 0 4px 0 12px; min-height: 32px; font-size: 13px; font-weight: 400; color: #1D1D1F">{{c.label}}<button type="button" onClick="{{c.remove}}" aria-label="{{c.label}}を外す" style="width: 28px; height: 28px; border: none; background: transparent; cursor: pointer; display: flex; align-items: center; justify-content: center; padding: 0"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#86868B" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></button></span></sc-for>
                 </div>
               </div>
             </sc-if>
             <sc-if value="{{noCond}}" hint-placeholder-val="{{true}}">
               <button type="button" onClick="{{openCond}}" style="width: 100%; display: flex; align-items: center; gap: 12px; border: none; background: #FFFFFF; font-family: inherit; text-align: left; padding: 0 16px; min-height: 56px; cursor: pointer">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3A63F4" stroke-width="2.2" stroke-linecap="round" aria-hidden="true" style="flex: 0 0 auto"><path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12"></path><circle cx="16" cy="6" r="2"></circle><circle cx="10" cy="12" r="2"></circle><circle cx="18" cy="18" r="2"></circle></svg>
-                <span style="flex: 1 1 auto; min-width: 0; font-size: 15px; font-weight: 400; color: #8A857A; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">働き方、担当患者数、残業など</span>
-                <span style="flex: 0 0 auto; font-size: 13px; font-weight: 400; color: #3A63F4">選択</span>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1D1D1F" stroke-width="2.2" stroke-linecap="round" aria-hidden="true" style="flex: 0 0 auto"><path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12"></path><circle cx="16" cy="6" r="2"></circle><circle cx="10" cy="12" r="2"></circle><circle cx="18" cy="18" r="2"></circle></svg>
+                <span style="flex: 1 1 auto; min-width: 0; font-size: 15px; font-weight: 400; color: #86868B; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">働き方、担当患者数、残業など</span>
+                <span style="flex: 0 0 auto; font-size: 13px; font-weight: 400; color: #1D1D1F">選択</span>
               </button>
             </sc-if>
           </div>
       </div>
-      <a href="#" style="align-self: flex-end; font-size: 13px; font-weight: 400; color: #3A63F4; text-decoration: none">条件の保存・新着求人のお知らせ設定 ›</a>
+      <a href="#" style="align-self: flex-end; font-size: 13px; font-weight: 400; color: #1D1D1F; text-decoration: none">条件の保存・新着求人のお知らせ設定 ›</a>
     </aside>
 
   </div>
   <sc-if value="{{modalOpen}}" hint-placeholder-val="{{false}}">
     <div class="ov" role="dialog" aria-modal="true" aria-label="{{modalTitle}}" style="position: fixed; inset: 0; z-index: 90; display: flex; align-items: center; justify-content: center; padding: 24px; box-sizing: border-box">
-      <div onClick="{{closeModal}}" style="position: absolute; inset: 0; background: rgba(26,26,26,0.45)"></div>
-      <div class="dlg" style="position: relative; width: 100%; max-width: 720px; height: 760px; max-height: calc(100vh - 48px); flex: 0 0 auto; background: #FFFFFF; border-radius: 8px; display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 16px 48px rgba(26,26,26,0.2)">
-        <div class="dlghead" style="display: grid; grid-template-columns: 120px 1fr 120px; align-items: center; padding: 0 16px; min-height: 64px; border-bottom: 1px solid #EDEAE2">
+      <div onClick="{{closeModal}}" style="position: absolute; inset: 0; background: rgba(29,29,31,0.45)"></div>
+      <div class="dlg" style="position: relative; width: 100%; max-width: 720px; height: 760px; max-height: calc(100vh - 48px); flex: 0 0 auto; background: #FFFFFF; border-radius: 14px; display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 16px 48px rgba(29,29,31,0.2)">
+        <div class="dlghead" style="display: grid; grid-template-columns: 120px 1fr 120px; align-items: center; padding: 0 16px; min-height: 64px; border-bottom: 1px solid #E5E5EA">
           <span>
             <sc-if value="{{hasBack}}" hint-placeholder-val="{{false}}">
-              <button type="button" onClick="{{goBack}}" style="display: flex; align-items: center; gap: 6px; border: none; background: transparent; font-family: inherit; font-size: 13px; font-weight: 700; color: #1A1A1A; cursor: pointer; min-height: 44px; text-align: left; line-height: 1.3"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#3A63F4" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"></path></svg>{{backLabel}}</button>
+              <button type="button" onClick="{{goBack}}" style="display: flex; align-items: center; gap: 6px; border: none; background: transparent; font-family: inherit; font-size: 13px; font-weight: 700; color: #1D1D1F; cursor: pointer; min-height: 44px; text-align: left; line-height: 1.3"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1D1D1F" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"></path></svg>{{backLabel}}</button>
             </sc-if>
           </span>
           <span class="dlgtitle" style="text-align: center; font-size: 17px; font-weight: 700">{{modalTitle}}</span>
-          <span style="display: flex; justify-content: flex-end"><button type="button" onClick="{{closeModal}}" aria-label="閉じる" style="width: 44px; height: 44px; border: none; background: transparent; cursor: pointer; display: flex; align-items: center; justify-content: center"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1A1A1A" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></button></span>
+          <span style="display: flex; justify-content: flex-end"><button type="button" onClick="{{closeModal}}" aria-label="閉じる" style="width: 44px; height: 44px; border: none; background: transparent; cursor: pointer; display: flex; align-items: center; justify-content: center"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1D1D1F" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></button></span>
         </div>
-        <div id="dlgbody" data-keep-scroll="1" style="flex: 1 1 auto; overflow: auto; background: #F6F5F1">
+        <div id="dlgbody" data-keep-scroll="1" style="flex: 1 1 auto; overflow: auto; background: #F5F5F7">
 
           <sc-if value="{{isPref}}" hint-placeholder-val="{{false}}">
             <div style="padding: 20px; display: flex; flex-direction: column; gap: 8px">
-              <span style="font-size: 13px; font-weight: 400; color: #666666">関東の都県から選んでください</span>
+              <span style="font-size: 13px; font-weight: 400; color: #6E6E73">関東の都県から選んでください</span>
               <sc-for list="{{prefList}}" as="p" hint-placeholder-count="7">
-                <button type="button" onClick="{{p.pick}}" style="display: flex; align-items: center; gap: 12px; border: 1px solid {{p.border}}; background: #FFFFFF; border-radius: 6px; font-family: inherit; text-align: left; padding: 0 16px; min-height: 52px; cursor: pointer">
-                  <span style="flex: 1 1 auto; font-size: 15px; font-weight: 400; color: #333333">{{p.label}}</span>
-                  <span style="font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', Meiryo, sans-serif; font-size: 12px; font-weight: 500; background: #EEF2FF; color: #3A63F4; padding: 2px 8px; border-radius: 999px">{{p.n}}</span>
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#8A857A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg>
+                <button type="button" onClick="{{p.pick}}" style="display: flex; align-items: center; gap: 12px; border: 1px solid {{p.border}}; background: #FFFFFF; border-radius: 999px; font-family: inherit; text-align: left; padding: 0 16px; min-height: 52px; cursor: pointer">
+                  <span style="flex: 1 1 auto; font-size: 15px; font-weight: 400; color: #1D1D1F">{{p.label}}</span>
+                  <span style="font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', Meiryo, sans-serif; font-size: 12px; font-weight: 500; background: #F5F5F7; color: #1D1D1F; padding: 2px 8px; border-radius: 999px">{{p.n}}</span>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#86868B" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg>
                 </button>
               </sc-for>
             </div>
@@ -234,24 +234,24 @@ a{color:#1A1A1A}a:hover{color:#3A63F4}
           <sc-if value="{{isArea}}" hint-placeholder-val="{{false}}">
             <div style="padding: 20px 20px 0; display: flex; flex-direction: column; gap: 8px">
               <span style="font-size: 13px; font-weight: 700">選択中の都道府県</span>
-              <button type="button" onClick="{{openPref}}" style="display: flex; align-items: center; justify-content: space-between; border: 1px solid #D9D4C7; background: #FFFFFF; border-radius: 6px; font-family: inherit; padding: 0 16px; min-height: 48px; cursor: pointer"><span style="font-size: 15px; font-weight: 400; color: #333333">{{prefTitle}}</span><span style="font-size: 13px; font-weight: 400; color: #3A63F4">変更 ›</span></button>
+              <button type="button" onClick="{{openPref}}" style="display: flex; align-items: center; justify-content: space-between; border: 1px solid #D2D2D7; background: #FFFFFF; border-radius: 999px; font-family: inherit; padding: 0 16px; min-height: 48px; cursor: pointer"><span style="font-size: 15px; font-weight: 400; color: #1D1D1F">{{prefTitle}}</span><span style="font-size: 13px; font-weight: 400; color: #1D1D1F">変更 ›</span></button>
             </div>
-            <div role="tablist" style="display: flex; justify-content: center; gap: 8px; margin-top: 16px; border-bottom: 1px solid #E3E0D8">
+            <div role="tablist" style="display: flex; justify-content: center; gap: 8px; margin-top: 16px; border-bottom: 1px solid #E5E5EA">
               <sc-for list="{{areaTabs}}" as="t" hint-placeholder-count="2">
                 <button type="button" role="tab" aria-selected="{{t.on}}" onClick="{{t.pick}}" style="border: none; border-bottom: 3px solid {{t.line}}; margin-bottom: -1px; background: transparent; font-family: inherit; font-size: 15px; font-weight: {{t.fw}}; color: {{t.fg}}; padding: 0 16px; min-height: 48px; cursor: pointer">{{t.label}}</button>
               </sc-for>
             </div>
             <ul style="list-style: none; margin: 0; padding: 0; background: #FFFFFF">
               <sc-for list="{{areaRows}}" as="r" hint-placeholder-count="8">
-                <li style="display: flex; align-items: center; gap: 12px; padding: 0 20px 0 {{r.indent}}; min-height: 48px; border-bottom: 1px solid #F1EFE9; background: {{r.bg}}">
+                <li style="display: flex; align-items: center; gap: 12px; padding: 0 20px 0 {{r.indent}}; min-height: 48px; border-bottom: 1px solid #F5F5F7; background: {{r.bg}}">
                   <label style="flex: 1 1 auto; display: flex; align-items: center; gap: 12px; cursor: pointer; min-height: 48px">
-                    <input type="checkbox" checked="{{r.on}}" onChange="{{r.toggle}}" style="width: 20px; height: 20px; accent-color: #3A63F4; margin: 0; flex: 0 0 auto">
-                    <span style="font-size: 15px; font-weight: {{r.weight}}; color: #333333">{{r.label}}</span>
-                    <span style="font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', Meiryo, sans-serif; font-size: 12px; font-weight: 500; background: #EEF2FF; color: #3A63F4; padding: 2px 8px; border-radius: 999px">{{r.n}}</span>
-                    <span style="font-size: 12px; font-weight: 400; color: #3A63F4">{{r.partial}}</span>
+                    <input type="checkbox" checked="{{r.on}}" onChange="{{r.toggle}}" style="width: 20px; height: 20px; accent-color: #1D1D1F; margin: 0; flex: 0 0 auto">
+                    <span style="font-size: 15px; font-weight: {{r.weight}}; color: #1D1D1F">{{r.label}}</span>
+                    <span style="font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', Meiryo, sans-serif; font-size: 12px; font-weight: 500; background: #F5F5F7; color: #1D1D1F; padding: 2px 8px; border-radius: 999px">{{r.n}}</span>
+                    <span style="font-size: 12px; font-weight: 400; color: #1D1D1F">{{r.partial}}</span>
                   </label>
                   <sc-if value="{{r.isGroup}}" hint-placeholder-val="{{false}}">
-                    <button type="button" onClick="{{r.expand}}" aria-expanded="{{r.open}}" aria-label="{{r.label}}を開く" style="width: 40px; height: 40px; border: none; background: transparent; cursor: pointer; display: flex; align-items: center; justify-content: center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3A63F4" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="transform: {{r.caret}}"><path d="M6 9l6 6 6-6"></path></svg></button>
+                    <button type="button" onClick="{{r.expand}}" aria-expanded="{{r.open}}" aria-label="{{r.label}}を開く" style="width: 40px; height: 40px; border: none; background: transparent; cursor: pointer; display: flex; align-items: center; justify-content: center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1D1D1F" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="transform: {{r.caret}}"><path d="M6 9l6 6 6-6"></path></svg></button>
                   </sc-if>
                 </li>
               </sc-for>
@@ -261,23 +261,23 @@ a{color:#1A1A1A}a:hover{color:#3A63F4}
           <sc-if value="{{isCond}}" hint-placeholder-val="{{false}}">
             <div style="padding: 16px 20px 24px; display: flex; flex-direction: column; gap: 12px">
               <div style="display: flex; justify-content: space-between; align-items: center; gap: 12px">
-                <span style="font-size: 12px; font-weight: 400; color: #666666">Flemingは病院の正看護師求人だけを掲載しています</span>
-                <button type="button" onClick="{{clearCond}}" style="border: none; background: transparent; font-family: inherit; font-size: 13px; font-weight: 400; color: #3A63F4; cursor: pointer; min-height: 36px">すべて解除</button>
+                <span style="font-size: 12px; font-weight: 400; color: #6E6E73">Flemingは病院の正看護師求人だけを掲載しています</span>
+                <button type="button" onClick="{{clearCond}}" style="border: none; background: transparent; font-family: inherit; font-size: 13px; font-weight: 400; color: #1D1D1F; cursor: pointer; min-height: 36px">すべて解除</button>
               </div>
               <sc-for list="{{condSections}}" as="sec" hint-placeholder-count="6">
-                <div style="background: #FFFFFF; border-radius: 8px; padding: 18px 18px 14px; display: flex; flex-direction: column; gap: 10px">
+                <div style="background: #FFFFFF; border-radius: 14px; padding: 18px 18px 14px; display: flex; flex-direction: column; gap: 10px">
                   <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap">
                     <span style="font-size: 15px; font-weight: 700">{{sec.title}}</span>
-                    <sc-if value="{{sec.badge}}" hint-placeholder-val="{{false}}"><span style="font-size: 11px; font-weight: 700; background: #FFD338; padding: 2px 8px; border-radius: 999px">{{sec.badge}}</span></sc-if>
-                    <span style="font-size: 12px; font-weight: 400; color: #666666">{{sec.note}}</span>
+                    <sc-if value="{{sec.badge}}" hint-placeholder-val="{{false}}"><span style="font-size: 11px; font-weight: 700; background: #E8E8ED; padding: 2px 8px; border-radius: 999px">{{sec.badge}}</span></sc-if>
+                    <span style="font-size: 12px; font-weight: 400; color: #6E6E73">{{sec.note}}</span>
                   </div>
                   <sc-for list="{{sec.groups}}" as="g" hint-placeholder-count="1">
                     <div style="display: flex; flex-direction: column; gap: 4px">
-                      <sc-if value="{{g.title}}" hint-placeholder-val="{{false}}"><span style="font-size: 13px; font-weight: 700; color: #555555; padding-top: 4px">{{g.title}}</span></sc-if>
+                      <sc-if value="{{g.title}}" hint-placeholder-val="{{false}}"><span style="font-size: 13px; font-weight: 700; color: #6E6E73; padding-top: 4px">{{g.title}}</span></sc-if>
                       <div class="optgrid" style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); column-gap: 12px">
                         <sc-for list="{{g.options}}" as="o" hint-placeholder-count="4">
-                          <label style="display: flex; align-items: center; gap: 10px; min-height: 40px; cursor: pointer; font-size: 14px; font-weight: 400; color: #333333">
-                            <input type="{{g.type}}" name="{{g.name}}" checked="{{o.on}}" onClick="{{o.toggle}}" style="width: 20px; height: 20px; accent-color: #3A63F4; margin: 0; flex: 0 0 auto">
+                          <label style="display: flex; align-items: center; gap: 10px; min-height: 40px; cursor: pointer; font-size: 14px; font-weight: 400; color: #1D1D1F">
+                            <input type="{{g.type}}" name="{{g.name}}" checked="{{o.on}}" onClick="{{o.toggle}}" style="width: 20px; height: 20px; accent-color: #1D1D1F; margin: 0; flex: 0 0 auto">
                             <span>{{o.label}}</span>
                           </label>
                         </sc-for>
@@ -286,24 +286,24 @@ a{color:#1A1A1A}a:hover{color:#3A63F4}
                   </sc-for>
                 </div>
               </sc-for>
-              <div style="background: #FFFFFF; border-radius: 8px; padding: 18px; display: flex; flex-direction: column; gap: 10px">
+              <div style="background: #FFFFFF; border-radius: 14px; padding: 18px; display: flex; flex-direction: column; gap: 10px">
                 <span style="font-size: 15px; font-weight: 700">病院名</span>
-                <input id="condname" type="search" value="{{nameQ}}" onInput="{{setName}}" placeholder="例：みなと中央病院" style="border: 1px solid #D9D4C7; border-radius: 6px; font-family: inherit; font-size: 15px; font-weight: 400; padding: 0 14px; min-height: 46px; color: #1A1A1A; outline: none">
+                <input id="condname" type="search" value="{{nameQ}}" onInput="{{setName}}" placeholder="例：みなと中央病院" style="border: 1px solid #D2D2D7; border-radius: 10px; font-family: inherit; font-size: 15px; font-weight: 400; padding: 0 14px; min-height: 46px; color: #1D1D1F; outline: none">
               </div>
             </div>
           </sc-if>
         </div>
-        <div style="border-top: 1px solid #EDEAE2; padding: 14px 20px 16px; display: flex; flex-direction: column; align-items: center; gap: 8px; background: #FFFFFF">
-          <button type="button" onClick="{{closeModal}}" style="width: 100%; max-width: 360px; border: none; background: #3B4654; color: #FFFFFF; border-radius: 6px; font-family: inherit; font-size: 17px; font-weight: 700; min-height: 52px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px">検索する<span style="font-size: 13px; font-weight: 700">全 <span style="font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', Meiryo, sans-serif; font-size: 18px">{{count}}</span> 件（{{fac}}施設）</span></button>
-          <button type="button" onClick="{{switchModal}}" style="border: none; background: transparent; font-family: inherit; font-size: 14px; font-weight: 400; color: #3A63F4; cursor: pointer; min-height: 36px; display: flex; align-items: center; gap: 6px"><svg width="16" height="16" viewBox="0 0 24 24" fill="#3A63F4" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><path d="M12 7v10M7 12h10" stroke="#FFFFFF" stroke-width="2.4" stroke-linecap="round"></path></svg>{{switchLabel}}</button>
+        <div style="border-top: 1px solid #E5E5EA; padding: 14px 20px 16px; display: flex; flex-direction: column; align-items: center; gap: 8px; background: #FFFFFF">
+          <button type="button" onClick="{{closeModal}}" style="width: 100%; max-width: 360px; border: none; background: #1D1D1F; color: #FFFFFF; border-radius: 999px; font-family: inherit; font-size: 17px; font-weight: 700; min-height: 52px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px">検索する<span style="font-size: 13px; font-weight: 700">全 <span style="font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', Meiryo, sans-serif; font-size: 18px">{{count}}</span> 件（{{fac}}施設）</span></button>
+          <button type="button" onClick="{{switchModal}}" style="border: none; background: transparent; font-family: inherit; font-size: 14px; font-weight: 400; color: #1D1D1F; cursor: pointer; min-height: 36px; display: flex; align-items: center; gap: 6px"><svg width="16" height="16" viewBox="0 0 24 24" fill="#1D1D1F" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><path d="M12 7v10M7 12h10" stroke="#FFFFFF" stroke-width="2.4" stroke-linecap="round"></path></svg>{{switchLabel}}</button>
         </div>
       </div>
     </div>
   </sc-if>
   <nav class="tabbar" aria-label="モバイルナビゲーション">
-    <a href="index.html" aria-current="page" style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px; text-decoration: none; font-size: 10px; font-weight: 700; color: #1A1A1A; min-height: 44px; justify-content: center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-4-4"></path></svg>さがす</a>
-    <a href="scouts.html" style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px; text-decoration: none; font-size: 10px; font-weight: 700; color: #8A857A; min-height: 44px; justify-content: center; position: relative"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"></rect><path d="M3 8l9 6 9-6"></path></svg><span style="position: absolute; top: 2px; left: calc(50% + 6px); background: #3A63F4; color: #FFFFFF; font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', Meiryo, sans-serif; font-size: 10px; padding: 1px 6px; border-radius: 999px">3</span>スカウト</a>
-    <a href="profile.html" style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px; text-decoration: none; font-size: 10px; font-weight: 700; color: #8A857A; min-height: 44px; justify-content: center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"></circle><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"></path></svg>プロフィール</a>
+    <a href="index.html" aria-current="page" style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px; text-decoration: none; font-size: 10px; font-weight: 700; color: #1D1D1F; min-height: 44px; justify-content: center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-4-4"></path></svg>さがす</a>
+    <a href="scouts.html" style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px; text-decoration: none; font-size: 10px; font-weight: 700; color: #86868B; min-height: 44px; justify-content: center; position: relative"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"></rect><path d="M3 8l9 6 9-6"></path></svg><span style="position: absolute; top: 2px; left: calc(50% + 6px); background: #1D1D1F; color: #FFFFFF; font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', Meiryo, sans-serif; font-size: 10px; padding: 1px 6px; border-radius: 999px">3</span>スカウト</a>
+    <a href="profile.html" style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px; text-decoration: none; font-size: 10px; font-weight: 700; color: #86868B; min-height: 44px; justify-content: center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"></circle><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"></path></svg>プロフィール</a>
   </nav>
 </div>
 </template>
@@ -337,14 +337,14 @@ class Component extends DCLogic {
     const jobs = raw.map((j) => {
       const liked = !!st.liked[j.id];
       const bars = [
-        { label: '1人あたりの担当患者数', short: '担当患者数', value: j.pts ? j.pts + '人' : '外来', color: j.pts <= 10 ? '#1A1A1A' : '#D9486F' },
-        { label: '平均残業時間（月）', short: '残業（月）', value: j.ot + 'h', color: j.ot <= 18 ? '#1A1A1A' : '#D9486F' },
-        { label: '離職率（年）', short: '離職率（年）', value: j.tr + '%', color: j.tr <= 11 ? '#1A1A1A' : '#D9486F' }
+        { label: '1人あたりの担当患者数', short: '担当患者数', value: j.pts ? j.pts + '人' : '外来', color: j.pts <= 10 ? '#1D1D1F' : '#1D1D1F' },
+        { label: '平均残業時間（月）', short: '残業（月）', value: j.ot + 'h', color: j.ot <= 18 ? '#1D1D1F' : '#1D1D1F' },
+        { label: '離職率（年）', short: '離職率（年）', value: j.tr + '%', color: j.tr <= 11 ? '#1D1D1F' : '#1D1D1F' }
       ];
       const gi = (st.slide && st.slide[j.id]) || 0, gn = j.gallery.length;
       const go = (d) => (this.manualAt = Date.now(), this.setState({ slide: Object.assign({}, st.slide, { [j.id]: (gi + d + gn) % gn }) }));
       const g = j.gallery[gi];
-      return Object.assign({}, j, { img: g.src, photo: g.alt, prev: go.bind(null, -1), next: go.bind(null, 1), pos: (gi + 1) + ' / ' + gn, dots: j.gallery.map((x, k) => ({ bg: k === gi ? '#FFFFFF' : 'rgba(255,255,255,0.5)' })), bars, liked, likes: j.likes + (liked ? 1 : 0), likeFill: liked ? '#FF8FB1' : 'none', likeBg: liked ? '#FFE3EC' : '#FFFFFF', likeBorder: liked ? '#FF8FB1' : '#B9C0CC', like: () => this.setState({ liked: Object.assign({}, st.liked, { [j.id]: !liked }) }) });
+      return Object.assign({}, j, { img: g.src, photo: g.alt, prev: go.bind(null, -1), next: go.bind(null, 1), pos: (gi + 1) + ' / ' + gn, dots: j.gallery.map((x, k) => ({ bg: k === gi ? '#FFFFFF' : 'rgba(255,255,255,0.5)' })), bars, liked, likes: j.likes + (liked ? 1 : 0), likeFill: liked ? '#1D1D1F' : 'none', likeBg: liked ? '#F5F5F7' : '#FFFFFF', likeBorder: liked ? '#1D1D1F' : '#D2D2D7', like: () => this.setState({ liked: Object.assign({}, st.liked, { [j.id]: !liked }) }) });
     });
 
     // ---- Area data ----
@@ -382,14 +382,14 @@ class Component extends DCLogic {
           toggle: () => { const p = {}; keys.forEach((k) => { p[k] = !all; }); setAreas(p); },
           expand: () => this.setState({ exp: Object.assign({}, exp, { [gk]: !open }) }) });
         if (open) items.forEach((it, i) => { const k = keys[i]; const on = !!areas[k];
-          areaRows.push({ isGroup: false, label: it, n: num(it, i), on, partial: '', weight: 400, indent: '52px', bg: '#FAFAF7', open: false, caret: 'none', toggle: () => setAreas({ [k]: !on }), expand: () => {} }); });
+          areaRows.push({ isGroup: false, label: it, n: num(it, i), on, partial: '', weight: 400, indent: '52px', bg: '#F5F5F7', open: false, caret: 'none', toggle: () => setAreas({ [k]: !on }), expand: () => {} }); });
       });
     } else {
       LINES[st.pref].forEach((ln, i) => { const k = st.pref + '|' + ln; const on = !!lines[k];
         areaRows.push({ isGroup: false, label: ln, n: num(ln, i), on, partial: '', weight: 400, indent: '20px', bg: '#FFFFFF', open: false, caret: 'none', toggle: () => this.setState({ lines: Object.assign({}, lines, { [k]: !on }) }), expand: () => {} }); });
     }
     const PREF_N = { '東京都': 1180, '神奈川県': 642, '埼玉県': 588, '千葉県': 517, '茨城県': 233, '栃木県': 141, '群馬県': 166 };
-    const prefList = Object.keys(AREAS).map((p) => ({ label: p, n: PREF_N[p], border: p === st.pref ? '#3A63F4' : '#D9D4C7', pick: () => this.setState({ pref: p, modal: 'area' }) }));
+    const prefList = Object.keys(AREAS).map((p) => ({ label: p, n: PREF_N[p], border: p === st.pref ? '#1D1D1F' : '#D2D2D7', pick: () => this.setState({ pref: p, modal: 'area' }) }));
     const selAreas = Object.keys(areas).filter((k) => areas[k]).map((k) => { const [p, g, it] = k.split('|'); return label(p, g, it); });
     const selLines = Object.keys(lines).filter((k) => lines[k]).map((k) => k.split('|')[1]);
     const areaSel = selAreas.concat(selLines);
@@ -438,7 +438,7 @@ class Component extends DCLogic {
       clearAll: () => this.setState({ areas: {}, lines: {}, name: '', c: { emp: {}, shift: {}, pay: null, pts: null, ot: null, tr: null, night: null, htype: {}, beds: {}, duty: {}, dept: {}, feat: {} } }),
       qv: st.q || '', setQ: (e) => this.setState({ q: e.target.value }),
       setSort: (e) => this.setState({ tab: Number(e.target.value) }),
-      tabs, jobs, count, fac, prefTitle, areaSummary, condSummary, condColor: condLabels.length ? '#333333' : '#8A857A',
+      tabs, jobs, count, fac, prefTitle, areaSummary, condSummary, condColor: condLabels.length ? '#1D1D1F' : '#86868B',
       openArea: () => this.setState({ modal: 'area' }), openCond: () => this.setState({ modal: 'cond' }), openPref: () => this.setState({ modal: 'pref' }),
       modalOpen: !!m, isArea: m === 'area', isPref: m === 'pref', isCond: m === 'cond',
       modalTitle: m === 'cond' ? 'こだわり条件を選択' : m === 'pref' ? '都道府県を選択' : '市区町村・路線選択',
@@ -446,7 +446,7 @@ class Component extends DCLogic {
       closeModal: close,
       switchLabel: m === 'cond' ? 'エリア条件の追加・変更' : 'こだわり条件の追加・変更', switchModal: () => this.setState({ modal: m === 'cond' ? 'area' : 'cond' }),
       prefList, areaRows,
-      areaTabs: ['市区町村', '路線・駅'].map((label, i) => ({ label, on: st.areaTab === i, line: st.areaTab === i ? '#3B4654' : 'transparent', fg: st.areaTab === i ? '#333333' : '#8A857A', fw: st.areaTab === i ? 700 : 400, pick: () => this.setState({ areaTab: i }) })),
+      areaTabs: ['市区町村', '路線・駅'].map((label, i) => ({ label, on: st.areaTab === i, line: st.areaTab === i ? '#1D1D1F' : 'transparent', fg: st.areaTab === i ? '#1D1D1F' : '#86868B', fw: st.areaTab === i ? 700 : 400, pick: () => this.setState({ areaTab: i }) })),
       condSections, clearCond: () => this.setState({ c: { emp: {}, shift: {}, pay: null, pts: null, ot: null, tr: null, night: null, htype: {}, beds: {}, duty: {}, dept: {}, feat: {} }, name: '' }),
       nameQ: st.name, setName: (e) => this.setState({ name: e.target.value })
     };
