@@ -76,3 +76,12 @@
 - `site/terms.html`、`site/privacy.html` は「準備中」の仮ページです。
 - 病院・人物・数字はすべてサンプルです。スカウト、メッセージ、プロフィールの各画面は本番モードでも試作表示のままです。
 - `tools/live-flow-test.js` は、Supabase を模擬して登録から送信までを通す確認用スクリプトです（Playwright が必要）。
+
+## 管理画面（運営者向け）
+
+`site/admin.html`（公開URL：`/fleming-prototype/admin.html`）。登録済みの運営者だけがメールのリンクでログインできます。
+
+- 申し込み：ステータス（未対応／病院に連絡済み／日程確定／見送り）での絞り込み、検索、ステータスと運営メモの更新、CSV書き出し
+- 登録者：一覧、検索、行を押すとその人の申し込みを表示
+- 運営者の追加：Supabase の SQL Editor で `insert into public.admins (email, note) values ('name@example.com', '担当者名');`
+- 権限：運営者は全員分を読め、申し込みのステータスとメモだけ更新できます（`supabase/schema.sql` の「管理画面」の節）。一般の利用者は自分の行しか読めません。

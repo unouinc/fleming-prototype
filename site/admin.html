@@ -1,0 +1,352 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>ナスリー 管理画面</title>
+<style>
+:root{--ink:#1D1D1F;--ink2:#424245;--ink3:#6E6E73;--line:#E5E5EA;--line2:#D2D2D7;--bg:#F5F5F7;--card:#FFFFFF;--err:#B3261E;--ok:#1E7B34}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Hiragino Sans','Hiragino Kaku Gothic ProN','Noto Sans JP',sans-serif;font-size:14px;line-height:1.7;-webkit-font-smoothing:antialiased}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
+header{background:var(--card);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5}
+.hdr{max-width:1200px;margin:0 auto;padding:0 24px;height:60px;display:flex;align-items:center;gap:16px}
+.brand{display:flex;flex-direction:column;line-height:1.2}
+.brand small{font-size:10px;color:var(--ink3)}
+.brand b{font-size:18px}
+.who{margin-left:auto;display:flex;align-items:center;gap:12px;font-size:13px;color:var(--ink3);min-width:0}
+.who span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.btn{border:1px solid var(--line2);background:var(--card);border-radius:999px;padding:8px 16px;min-height:40px;font-weight:600;font-size:13px}
+.btn.primary{background:var(--ink);border-color:var(--ink);color:#fff}
+.btn:disabled{opacity:.5;cursor:default}
+main{max-width:1200px;margin:0 auto;padding:24px 24px 64px}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:28px}
+.login{max-width:440px;margin:48px auto}
+.login h1{font-size:22px;margin:0 0 8px}
+.login p{color:var(--ink2);margin:0 0 20px}
+.field{display:flex;flex-direction:column;gap:6px;margin-bottom:16px}
+.field label{font-weight:700}
+.input{border:1.5px solid var(--line2);border-radius:12px;padding:11px 12px;font-size:16px;width:100%;background:#fff}
+.msg{font-size:13px;margin-top:12px}
+.msg.err{color:var(--err)}
+.tabs{display:flex;gap:4px;background:#E8E8ED;border-radius:999px;padding:4px;width:max-content;max-width:100%;margin-bottom:20px}
+.tab{border:none;background:none;border-radius:999px;padding:8px 18px;font-weight:700;color:var(--ink3);min-height:40px}
+.tab[aria-selected=true]{background:#fff;color:var(--ink);box-shadow:0 1px 2px rgba(0,0,0,.08)}
+.count{display:inline-block;min-width:20px;padding:0 6px;margin-left:6px;border-radius:999px;background:var(--ink);color:#fff;font-size:11px;line-height:20px;text-align:center}
+.toolbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:16px}
+.chip{border:1px solid var(--line2);background:#fff;border-radius:999px;padding:6px 14px;font-size:13px;font-weight:600;min-height:36px}
+.chip[aria-pressed=true]{background:var(--ink);border-color:var(--ink);color:#fff}
+.search{margin-left:auto;min-width:220px;flex:0 1 280px;border:1px solid var(--line2);border-radius:999px;padding:8px 14px;background:#fff}
+.summary{color:var(--ink3);font-size:13px;margin:0 0 12px}
+.list{display:flex;flex-direction:column;gap:12px}
+.req{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px;display:grid;grid-template-columns:minmax(0,1.6fr) minmax(260px,1fr);gap:20px}
+.req h3{margin:0;font-size:16px}
+.meta{color:var(--ink3);font-size:12px}
+.badge{display:inline-block;border-radius:999px;padding:2px 10px;font-size:12px;font-weight:700;background:#E8E8ED;color:var(--ink)}
+.badge.s0{background:#1D1D1F;color:#fff}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:baseline;margin-top:6px}
+dl{display:grid;grid-template-columns:7.5em minmax(0,1fr);gap:4px 12px;margin:12px 0 0}
+dt{color:var(--ink3)}
+dd{margin:0;word-break:break-word}
+.side{display:flex;flex-direction:column;gap:10px;border-left:1px solid var(--line);padding-left:20px}
+.side select,.side textarea{border:1.5px solid var(--line2);border-radius:12px;padding:9px 10px;background:#fff;width:100%}
+.side textarea{min-height:92px;resize:vertical}
+.saveline{display:flex;align-items:center;gap:10px}
+.saved{font-size:12px;color:var(--ok)}
+.saved.err{color:var(--err)}
+table{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden}
+th,td{text-align:left;padding:12px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:12px;color:var(--ink3);font-weight:600;background:#FAFAFC}
+tr.person{cursor:pointer}
+tr.person:hover td{background:#FAFAFC}
+tr.detail td{background:#FAFAFC}
+.empty{padding:40px;text-align:center;color:var(--ink3);background:var(--card);border:1px dashed var(--line2);border-radius:16px}
+.copy{border:none;background:none;padding:0 4px;color:var(--ink3);text-decoration:underline;font-size:12px}
+.hidden{display:none!important}
+@media (max-width:820px){
+  .hdr{padding:0 16px}
+  main{padding:16px 16px 48px}
+  .req{grid-template-columns:1fr;padding:16px}
+  .side{border-left:none;border-top:1px solid var(--line);padding:16px 0 0}
+  .search{margin-left:0;flex:1 1 100%}
+  .who span{display:none}
+  .tablewrap{overflow-x:auto}
+  table{min-width:640px}
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="hdr">
+    <div class="brand"><small>運営者向け</small><b>ナスリー 管理画面</b></div>
+    <div class="who hidden" id="who"><span id="whoEmail"></span><button class="btn" id="logout" type="button">ログアウト</button></div>
+  </div>
+</header>
+<main>
+  <section id="loading" class="panel login"><p>読み込み中…</p></section>
+
+  <section id="login" class="panel login hidden" aria-labelledby="loginTitle">
+    <h1 id="loginTitle">運営者ログイン</h1>
+    <p>登録済みの運営者のメールアドレスに、ログイン用のリンクを送ります。</p>
+    <form id="loginForm">
+      <div class="field">
+        <label for="email">メールアドレス</label>
+        <input id="email" class="input" type="email" autocomplete="email" required placeholder="name@unou.design">
+      </div>
+      <button class="btn primary" id="loginBtn" type="submit" style="width:100%;min-height:48px">ログイン用のリンクを送る</button>
+    </form>
+    <p class="msg" id="loginMsg" role="status"></p>
+  </section>
+
+  <section id="denied" class="panel login hidden">
+    <h1>権限がありません</h1>
+    <p>このアカウント（<span id="deniedEmail"></span>）には管理画面の権限がありません。運営者として追加するには、担当者に連絡してください。</p>
+    <button class="btn" type="button" id="deniedLogout">別のアカウントでログイン</button>
+  </section>
+
+  <section id="app" class="hidden">
+    <div class="tabs" role="tablist">
+      <button class="tab" role="tab" id="tabReq" aria-selected="true" aria-controls="viewReq">申し込み<span class="count" id="openCount">0</span></button>
+      <button class="tab" role="tab" id="tabPeople" aria-selected="false" aria-controls="viewPeople">登録者<span class="count" id="peopleCount" style="background:#86868B">0</span></button>
+    </div>
+
+    <div id="viewReq" role="tabpanel" aria-labelledby="tabReq">
+      <div class="toolbar">
+        <div id="statusChips" style="display:flex;gap:8px;flex-wrap:wrap"></div>
+        <input class="search" id="reqSearch" type="search" placeholder="病院名・名前・最寄駅で絞り込む" aria-label="申し込みを絞り込む">
+        <button class="btn" type="button" id="reload">更新</button>
+        <button class="btn" type="button" id="csv">CSVで書き出す</button>
+      </div>
+      <p class="summary" id="reqSummary"></p>
+      <div class="list" id="reqList"></div>
+    </div>
+
+    <div id="viewPeople" role="tabpanel" aria-labelledby="tabPeople" class="hidden">
+      <div class="toolbar">
+        <input class="search" id="peopleSearch" type="search" placeholder="名前・最寄駅・職場で絞り込む" aria-label="登録者を絞り込む" style="margin-left:0">
+      </div>
+      <p class="summary" id="peopleSummary"></p>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>名前</th><th>資格</th><th>経験</th><th>最寄駅</th><th>いまの職場</th><th>申し込み</th><th>登録日</th></tr></thead>
+          <tbody id="peopleBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script src="config.js"></script>
+<script>
+(function () {
+  'use strict';
+  var STATUSES = ['未対応', '病院に連絡済み', '日程確定', '見送り'];
+  var cfg = window.NASURI_CONFIG || {};
+  var $ = function (id) { return document.getElementById(id); };
+  var state = { session: null, talks: [], people: [], byId: {}, filter: '未対応', q: '', pq: '', open: null };
+  var client;
+
+  function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+  function fmt(ts) {
+    if (!ts) return '';
+    var d = new Date(ts);
+    var p = function (n) { return (n < 10 ? '0' : '') + n; };
+    return d.getFullYear() + '/' + p(d.getMonth() + 1) + '/' + p(d.getDate()) + ' ' + p(d.getHours()) + ':' + p(d.getMinutes());
+  }
+  function list(a) { return (a && a.length) ? a.map(esc).join('、') : '—'; }
+  function show(id) { ['loading', 'login', 'denied', 'app'].forEach(function (k) { $(k).classList.toggle('hidden', k !== id); }); }
+
+  function start() {
+    if (!window.supabase || !cfg.supabaseUrl) { $('loading').innerHTML = '<p>接続設定を読み込めませんでした。</p>'; return; }
+    client = window.supabase.createClient(cfg.supabaseUrl, cfg.supabaseAnonKey);
+    var hashErr = /error_code=/.test(location.hash);
+    if (hashErr) { try { history.replaceState(null, '', location.pathname); } catch (e) {} }
+    client.auth.getSession().then(function (r) {
+      state.session = r.data && r.data.session;
+      if (!state.session) {
+        show('login');
+        if (hashErr) msg('ログイン用のリンクの有効期限が切れているか、すでに使われています。もう一度送ってください。', true);
+        return;
+      }
+      $('who').classList.remove('hidden');
+      $('whoEmail').textContent = state.session.user.email;
+      return client.rpc('is_admin').then(function (res) {
+        if (res.error || !res.data) { $('deniedEmail').textContent = state.session.user.email; show('denied'); return; }
+        show('app');
+        load();
+      });
+    });
+  }
+
+  function msg(t, err) { var m = $('loginMsg'); m.textContent = t; m.className = 'msg' + (err ? ' err' : ''); }
+
+  $('loginForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var email = $('email').value.trim();
+    if (!email) return;
+    $('loginBtn').disabled = true; msg('送信中…');
+    client.auth.signInWithOtp({ email: email, options: { shouldCreateUser: false, emailRedirectTo: new URL('admin.html', location.href).href } })
+      .then(function (r) {
+        $('loginBtn').disabled = false;
+        if (r.error) {
+          var t = r.error.status === 429 ? '短い時間に送りすぎました。しばらくおいてから、もう一度お試しください。'
+            : /signups not allowed|not found|Signups/i.test(r.error.message || '') ? 'このメールアドレスは登録されていません。'
+            : 'うまく送れませんでした。時間をおいて、もう一度お試しください。';
+          msg(t, true); return;
+        }
+        msg('メールを送りました。届いたリンクを押すと、管理画面が開きます。');
+      });
+  });
+  function logout() { client.auth.signOut().then(function () { location.href = 'admin.html'; }); }
+  $('logout').addEventListener('click', logout);
+  $('deniedLogout').addEventListener('click', logout);
+
+  function load() {
+    $('reqSummary').textContent = '読み込み中…';
+    Promise.all([
+      client.from('talk_requests').select('*').order('created_at', { ascending: false }),
+      client.from('profiles').select('*').order('created_at', { ascending: false })
+    ]).then(function (res) {
+      if (res[0].error || res[1].error) { $('reqSummary').textContent = '読み込めませんでした。もう一度「更新」を押してください。'; return; }
+      state.talks = res[0].data || [];
+      state.people = res[1].data || [];
+      state.byId = {};
+      state.people.forEach(function (p) { state.byId[p.id] = p; });
+      renderChips(); renderReqs(); renderPeople();
+    });
+  }
+
+  function renderChips() {
+    var counts = { 'すべて': state.talks.length };
+    STATUSES.forEach(function (s) { counts[s] = state.talks.filter(function (t) { return t.status === s; }).length; });
+    $('openCount').textContent = counts['未対応'];
+    $('peopleCount').textContent = state.people.length;
+    $('statusChips').innerHTML = ['すべて'].concat(STATUSES).map(function (s) {
+      return '<button type="button" class="chip" data-s="' + esc(s) + '" aria-pressed="' + (state.filter === s) + '">' + esc(s) + '（' + counts[s] + '）</button>';
+    }).join('');
+  }
+  $('statusChips').addEventListener('click', function (e) {
+    var b = e.target.closest('[data-s]'); if (!b) return;
+    state.filter = b.getAttribute('data-s'); renderChips(); renderReqs();
+  });
+  $('reqSearch').addEventListener('input', function (e) { state.q = e.target.value.trim(); renderReqs(); });
+  $('peopleSearch').addEventListener('input', function (e) { state.pq = e.target.value.trim(); renderPeople(); });
+  $('reload').addEventListener('click', load);
+
+  function matches(q, fields) { if (!q) return true; q = q.toLowerCase(); return fields.some(function (f) { return String(f || '').toLowerCase().indexOf(q) >= 0; }); }
+
+  function visibleTalks() {
+    return state.talks.filter(function (t) {
+      var p = state.byId[t.user_id] || {};
+      return (state.filter === 'すべて' || t.status === state.filter) && matches(state.q, [t.hospital, t.job, p.name, p.station, p.email]);
+    });
+  }
+
+  function reqCard(t) {
+    var p = state.byId[t.user_id] || {};
+    var opts = STATUSES.map(function (s) { return '<option' + (s === t.status ? ' selected' : '') + '>' + esc(s) + '</option>'; }).join('');
+    return '<article class="req" data-id="' + t.id + '">' +
+      '<div>' +
+        '<div class="row"><span class="badge' + (t.status === '未対応' ? ' s0' : '') + '">' + esc(t.status) + '</span><span class="meta">' + fmt(t.created_at) + '・No.' + t.id + '</span></div>' +
+        '<h3 style="margin-top:8px">' + esc(t.hospital) + (t.job ? '<span class="meta" style="font-size:13px;font-weight:500">　' + esc(t.job) + '</span>' : '') + '</h3>' +
+        '<dl>' +
+          '<dt>看護師</dt><dd><b>' + esc(p.name || '（プロフィール未登録）') + '</b>' + (p.name ? '　' + esc(p.license) + '・' + esc(p.years) + '年目・' + esc(p.station) + '駅' : '') + '</dd>' +
+          '<dt>メール</dt><dd>' + esc(p.email || '—') + (p.email ? ' <button type="button" class="copy" data-copy="' + esc(p.email) + '">コピー</button>' : '') + '</dd>' +
+          '<dt>いまの職場</dt><dd>' + esc(p.workplace || '—') + '</dd>' +
+          '<dt>気持ち</dt><dd>' + esc(t.feeling) + '</dd>' +
+          '<dt>話したい人</dt><dd>' + list(t.people) + '</dd>' +
+          '<dt>聞きたいこと</dt><dd>' + list(t.topics) + '</dd>' +
+          '<dt>希望の方法</dt><dd>' + esc(t.way) + '</dd>' +
+          '<dt>ひとこと</dt><dd>' + (t.note ? esc(t.note) : '—') + '</dd>' +
+        '</dl>' +
+      '</div>' +
+      '<div class="side">' +
+        '<label for="st' + t.id + '"><b>ステータス</b></label>' +
+        '<select id="st' + t.id + '" data-f="status">' + opts + '</select>' +
+        '<label for="mm' + t.id + '"><b>運営メモ</b></label>' +
+        '<textarea id="mm' + t.id + '" data-f="memo" placeholder="病院とのやりとり、日程など">' + esc(t.memo) + '</textarea>' +
+        '<div class="saveline"><button type="button" class="btn primary" data-save="' + t.id + '">保存</button><span class="saved" aria-live="polite"></span></div>' +
+      '</div>' +
+    '</article>';
+  }
+
+  function renderReqs() {
+    var v = visibleTalks();
+    $('reqSummary').textContent = state.talks.length ? v.length + '件を表示中（全' + state.talks.length + '件）' : '';
+    $('reqList').innerHTML = v.length ? v.map(reqCard).join('') : '<div class="empty">' + (state.talks.length ? '条件に合う申し込みはありません。' : 'まだ申し込みはありません。') + '</div>';
+  }
+
+  $('reqList').addEventListener('click', function (e) {
+    var c = e.target.closest('[data-copy]');
+    if (c) { try { navigator.clipboard.writeText(c.getAttribute('data-copy')); c.textContent = 'コピーしました'; } catch (x) {} return; }
+    var b = e.target.closest('[data-save]'); if (!b) return;
+    var card = b.closest('.req'), id = Number(b.getAttribute('data-save'));
+    var status = card.querySelector('[data-f=status]').value, memo = card.querySelector('[data-f=memo]').value;
+    var note = card.querySelector('.saved');
+    b.disabled = true; note.className = 'saved'; note.textContent = '保存中…';
+    client.from('talk_requests').update({ status: status, memo: memo }).eq('id', id).select().single().then(function (r) {
+      b.disabled = false;
+      if (r.error) { note.className = 'saved err'; note.textContent = '保存できませんでした'; return; }
+      state.talks = state.talks.map(function (t) { return t.id === id ? r.data : t; });
+      note.textContent = '保存しました';
+      renderChips();
+      card.querySelector('.badge').textContent = status;
+      card.querySelector('.badge').className = 'badge' + (status === '未対応' ? ' s0' : '');
+    });
+  });
+
+  function renderPeople() {
+    var v = state.people.filter(function (p) { return matches(state.pq, [p.name, p.station, p.workplace, p.email]); });
+    $('peopleSummary').textContent = state.people.length ? v.length + '人を表示中（全' + state.people.length + '人）' : '';
+    if (!v.length) { $('peopleBody').innerHTML = '<tr><td colspan="7" style="text-align:center;color:#6E6E73;padding:32px">' + (state.people.length ? '条件に合う登録者はいません。' : 'まだ登録者はいません。') + '</td></tr>'; return; }
+    $('peopleBody').innerHTML = v.map(function (p) {
+      var mine = state.talks.filter(function (t) { return t.user_id === p.id; });
+      var row = '<tr class="person" tabindex="0" data-pid="' + esc(p.id) + '" aria-expanded="' + (state.open === p.id) + '">' +
+        '<td><b>' + esc(p.name) + '</b><div class="meta">' + esc(p.email) + '</div></td><td>' + esc(p.license) + '</td><td>' + esc(p.years) + '年目</td><td>' + esc(p.station) + '</td><td>' + esc(p.workplace || '—') + '</td><td>' + mine.length + '件</td><td>' + fmt(p.created_at) + '</td></tr>';
+      if (state.open === p.id) {
+        row += '<tr class="detail"><td colspan="7">' + (mine.length ? mine.map(function (t) {
+          return '<div style="padding:6px 0"><span class="badge' + (t.status === '未対応' ? ' s0' : '') + '">' + esc(t.status) + '</span>　<b>' + esc(t.hospital) + '</b>　<span class="meta">' + fmt(t.created_at) + '・' + esc(t.feeling) + '・' + esc(t.way) + '</span>' + (t.memo ? '<div class="meta">メモ：' + esc(t.memo) + '</div>' : '') + '</div>';
+        }).join('') : '<span class="meta">まだ申し込みはありません。</span>') + '</td></tr>';
+      }
+      return row;
+    }).join('');
+  }
+  function togglePerson(e) {
+    var tr = e.target.closest('tr.person'); if (!tr) return;
+    if (e.type === 'keydown' && e.key !== 'Enter' && e.key !== ' ') return;
+    if (e.type === 'keydown') e.preventDefault();
+    var id = tr.getAttribute('data-pid'); state.open = state.open === id ? null : id; renderPeople();
+  }
+  $('peopleBody').addEventListener('click', togglePerson);
+  $('peopleBody').addEventListener('keydown', togglePerson);
+
+  function selectTab(which) {
+    var req = which === 'req';
+    $('tabReq').setAttribute('aria-selected', req); $('tabPeople').setAttribute('aria-selected', !req);
+    $('viewReq').classList.toggle('hidden', !req); $('viewPeople').classList.toggle('hidden', req);
+  }
+  $('tabReq').addEventListener('click', function () { selectTab('req'); });
+  $('tabPeople').addEventListener('click', function () { selectTab('people'); });
+
+  $('csv').addEventListener('click', function () {
+    var head = ['No', '申込日時', 'ステータス', '病院', '求人', '名前', 'メール', '資格', '経験年数', '最寄駅', 'いまの職場', '気持ち', '話したい人', '聞きたいこと', '希望の方法', 'ひとこと', '運営メモ'];
+    var rows = visibleTalks().map(function (t) {
+      var p = state.byId[t.user_id] || {};
+      return [t.id, fmt(t.created_at), t.status, t.hospital, t.job, p.name, p.email, p.license, p.years, p.station, p.workplace, t.feeling, (t.people || []).join('、'), (t.topics || []).join('、'), t.way, t.note, t.memo];
+    });
+    var csv = [head].concat(rows).map(function (r) { return r.map(function (v) { return '"' + String(v == null ? '' : v).replace(/"/g, '""') + '"'; }).join(','); }).join('\r\n');
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(new Blob(['﻿' + csv], { type: 'text/csv' }));
+    a.download = 'nasuri-requests-' + new Date().toISOString().slice(0, 10) + '.csv';
+    document.body.appendChild(a); a.click(); a.remove();
+  });
+
+  start();
+})();
+</script>
+</body>
+</html>

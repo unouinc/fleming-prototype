@@ -116,3 +116,35 @@ create trigger talk_created_notify after insert on public.talk_requests
 -- 5. Slack の通知先URLを登録（URLを差し替えて、この1行だけ別に実行してください）
 -- insert into public.app_config (key, value) values ('slack_webhook_url', 'https://hooks.slack.com/services/XXXX/XXXX/XXXX')
 --   on conflict (key) do update set value = excluded.value;
+
+-- ===== 管理画面（2026-11-15 追加） =====
+-- 運営者（管理画面を使える人）の一覧。メールアドレスで判定する
+create table if not exists public.admins (
+  email text primary key,
+  note text default '',
+  created_at timestamptz not null default now()
+);
+alter table public.admins enable row level security;  -- 直接は誰も読めない（is_admin() 経由で判定）
+-- 運営者の追加例： insert into public.admins (email, note) values ('name@example.com', '担当者名');
+
+create or replace function public.is_admin() returns boolean
+language sql stable security definer set search_path = public as $$
+  select exists (select 1 from public.admins a where lower(a.email) = lower(coalesce(auth.jwt() ->> 'email', '')));
+$$;
+revoke all on function public.is_admin() from public;
+revoke execute on function public.is_admin() from anon;
+grant execute on function public.is_admin() to authenticated;
+
+-- 運営者は全員分を読め、申し込みのステータスとメモだけ更新できる
+drop policy if exists "admin profile select" on public.profiles;
+create policy "admin profile select" on public.profiles for select to authenticated using (public.is_admin());
+drop policy if exists "admin talk select" on public.talk_requests;
+create policy "admin talk select" on public.talk_requests for select to authenticated using (public.is_admin());
+drop policy if exists "admin talk update" on public.talk_requests;
+create policy "admin talk update" on public.talk_requests for update to authenticated using (public.is_admin()) with check (public.is_admin());
+revoke update on public.talk_requests from authenticated, anon;
+grant update (status, memo) on public.talk_requests to authenticated;
+
+alter table public.talk_requests drop constraint if exists talk_requests_status_check;
+alter table public.talk_requests add constraint talk_requests_status_check
+  check (status in ('未対応', '病院に連絡済み', '日程確定', '見送り'));
