@@ -189,7 +189,7 @@ tr.detail td{background:#FAFAFC}
     var email = $('email').value.trim();
     if (!email) return;
     $('loginBtn').disabled = true; msg('送信中…');
-    client.auth.signInWithOtp({ email: email, options: { shouldCreateUser: false, emailRedirectTo: new URL('admin.html', location.href).href } })
+    client.auth.signInWithOtp({ email: email, options: { emailRedirectTo: new URL('admin.html', location.href).href } })
       .then(function (r) {
         $('loginBtn').disabled = false;
         if (r.error) {
