@@ -64,6 +64,15 @@
     if (!path) return Promise.resolve(null);
     return client.storage.from('avatars').createSignedUrl(path, 3600).then(function (r) { return r.error ? null : r.data.signedUrl; });
   };
+  /* ログイン前・登録途中の画面に出すボタン */
+  function btn(label, primary, go) { return { label: label, bg: primary ? '#1D1D1F' : '#FFFFFF', fg: primary ? '#FFFFFF' : '#1D1D1F', go: go }; }
+  N.authButtons = function () {
+    return [btn('新規登録', true, function () { location.href = 'signup.html'; }), btn('ログイン', false, function () { location.href = 'signup.html#login'; })];
+  };
+  N.resumeButtons = function () {
+    return [btn('登録を続ける', true, function () { location.href = 'signup.html'; }),
+      btn('別のアカウントでログイン', false, function () { N.signOut().then(function () { location.href = 'signup.html#login'; }); })];
+  };
   N.isComplete = function () { return !!(N.session && N.profile && N.profile.avatar_path); };
   N.saveProfile = function (p) {
     var row = Object.assign({ id: N.session.user.id, email: N.session.user.email }, p);

@@ -44,7 +44,9 @@ a{color:#1D1D1F}a:hover{color:#6E6E73}
       <div style="background: #FFFFFF; border-radius: 14px; padding: 56px 24px; display: flex; flex-direction: column; align-items: center; gap: 12px; text-align: center">
         <span style="font-size: 18px; font-weight: 700">{{gateTitle}}</span>
         <span style="max-width: 460px; font-size: 14px; line-height: 1.8; color: #6E6E73">{{gateText}}</span>
-        <sc-if value="{{gateCta}}" hint-placeholder-val="{{true}}"><a href="signup.html" style="margin-top: 8px; text-decoration: none; background: #1D1D1F; color: #FFFFFF; border-radius: 999px; font-size: 14px; font-weight: 700; padding: 12px 22px; min-height: 44px; box-sizing: border-box; display: inline-flex; align-items: center">{{gateCta}}</a></sc-if>
+        <div style="margin-top: 8px; display: flex; flex-wrap: wrap; gap: 10px; justify-content: center">
+          <sc-for list="{{gateBtns}}" as="b" hint-placeholder-count="2"><button type="button" onClick="{{b.go}}" style="border: 2px solid #1D1D1F; background: {{b.bg}}; color: {{b.fg}}; border-radius: 999px; font-family: inherit; font-size: 14px; font-weight: 700; padding: 0 24px; min-height: 48px; min-width: 160px; cursor: pointer">{{b.label}}</button></sc-for>
+        </div>
       </div>
     </div>
   </sc-if>
@@ -225,7 +227,6 @@ class Component extends DCLogic {
     if (this.live) {
       const go = () => {
         if (!N.session) return this.setState({ loading: false });
-        if (!N.isComplete()) { location.replace('signup.html'); return; }
         Promise.all([N.loadThreads().catch(() => []), N.profile ? N.avatarUrl(N.profile.avatar_path).catch(() => null) : null])
           .then(([threads, avatar]) => this.setState({ loading: false, threads, avatar: avatar || '' }));
       };
@@ -240,7 +241,7 @@ class Component extends DCLogic {
     ];
     const moods = moodsRaw.map((m, i) => ({ label: m[0], desc: m[1], on: this.state.mood === i, pick: () => this.setState({ mood: i }), bg: this.state.mood === i ? '#1D1D1F' : '#FFFFFF', fg: this.state.mood === i ? '#FFFFFF' : '#1D1D1F', border: this.state.mood === i ? '#1D1D1F' : '#D2D2D7' }));
     if (this.live) return this.liveVals(moods);
-    const base = { live: false, demo: true, gate: false, showMain: true, gateTitle: '', gateText: '', gateCta: '', name: '山田 花子', sub: '看護師 4年目｜急性期・内科｜東京都', hasAvatar: false, noAvatar: true, avatar: '', edit: () => {}, info: [] };
+    const base = { live: false, demo: true, gate: false, showMain: true, gateTitle: '', gateText: '', gateBtns: [], name: '山田 花子', sub: '看護師 4年目｜急性期・内科｜東京都', hasAvatar: false, noAvatar: true, avatar: '', edit: () => {}, info: [] };
     return Object.assign(base, {
       pct: 60, pctW: '60%', moods,
       priorities: [
@@ -272,10 +273,10 @@ class Component extends DCLogic {
   }
   liveVals(moods) {
     const N = window.Nasuri, st = this.state, pr = N.profile;
-    const empty = { live: true, demo: false, moods, priorities: [], wishes: [], exp: [], skills: [], stats: [], log: [], info: [], pct: 0, pctW: '0%', name: '', sub: '', hasAvatar: false, noAvatar: true, avatar: '', edit: () => {} };
+    const empty = { gateBtns: [], live: true, demo: false, moods, priorities: [], wishes: [], exp: [], skills: [], stats: [], log: [], info: [], pct: 0, pctW: '0%', name: '', sub: '', hasAvatar: false, noAvatar: true, avatar: '', edit: () => {} };
     if (st.loading) return Object.assign(empty, { gate: true, showMain: false, gateTitle: '読み込み中…', gateText: '', gateCta: '' });
-    if (!N.session) return Object.assign(empty, { gate: true, showMain: false, gateTitle: 'ログインすると、プロフィールが表示されます', gateText: '登録した名前や最寄駅、病院とのやりとりをここで確認できます。', gateCta: 'ログイン・新規登録' });
-    if (!pr) return Object.assign(empty, { gate: true, showMain: false, gateTitle: 'プロフィールの登録がまだです', gateText: '名前・資格・最寄駅などを登録すると、病院に「話を聞きたい」を送れるようになります。', gateCta: 'プロフィールを登録する' });
+    if (!N.session) return Object.assign(empty, { gate: true, showMain: false, gateTitle: 'ログインすると、プロフィールが表示されます', gateText: '登録した名前や最寄駅、病院とのやりとりをここで確認できます。', gateBtns: N.authButtons() });
+    if (!N.isComplete()) return Object.assign(empty, { gate: true, showMain: false, gateTitle: '登録が途中です', gateText: '名前・資格・最寄駅・顔写真を登録すると、プロフィールが表示され、病院に「話を聞きたい」を送れるようになります。', gateBtns: N.resumeButtons() });
     const fields = [pr.name, pr.license, pr.years, pr.station, pr.workplace, pr.avatar_path];
     const pct = Math.round(fields.filter((x) => x !== null && x !== undefined && String(x).trim() !== '').length / fields.length * 100);
     const threads = st.threads || [];

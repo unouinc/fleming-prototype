@@ -39,7 +39,7 @@ input:focus-visible,button:focus-visible,a:focus-visible{outline:3px solid #1D1D
 
       <sc-if value="{{isEmail}}" hint-placeholder-val="{{true}}">
         <div style="display: flex; flex-direction: column; gap: 10px">
-          <h1 class="su-title" style="margin: 0; font-size: 26px; font-weight: 700; line-height: 1.4">無料で登録・ログイン</h1>
+          <h1 class="su-title" style="margin: 0; font-size: 26px; font-weight: 700; line-height: 1.4">{{suTitle}}</h1>
           <p style="margin: 0; font-size: 14px; line-height: 1.8; color: #424245">{{lead}}</p>
         </div>
         <div style="display: flex; flex-direction: column; gap: 8px">
@@ -47,12 +47,14 @@ input:focus-visible,button:focus-visible,a:focus-visible{outline:3px solid #1D1D
           <input id="su-email" type="email" inputmode="email" autocomplete="email" value="{{email}}" onInput="{{setEmail}}" placeholder="example@mail.com" style="font-family: inherit; font-size: 16px; padding: 13px 14px; border-radius: 14px; border: 1.5px solid #D2D2D7; background: #FFFFFF; color: #1D1D1F; min-width: 0; width: 100%; box-sizing: border-box">
           <span style="font-size: 12px; line-height: 1.7; color: #6E6E73">パスワードは不要です。届いたメールのリンクを押すだけで進めます。</span>
         </div>
-        <label style="display: flex; gap: 10px; align-items: flex-start; font-size: 13px; line-height: 1.7; cursor: pointer">
+        <sc-if value="{{showAgree}}" hint-placeholder-val="{{true}}"><label style="display: flex; gap: 10px; align-items: flex-start; font-size: 13px; line-height: 1.7; cursor: pointer">
           <input id="su-agree" type="checkbox" checked="{{agree}}" onChange="{{toggleAgree}}" style="width: 20px; height: 20px; margin: 2px 0 0; flex: 0 0 auto; accent-color: #1D1D1F">
           <span><a href="terms.html" target="_blank" rel="noopener" style="color: #1D1D1F">利用規約</a>と<a href="privacy.html" target="_blank" rel="noopener" style="color: #1D1D1F">プライバシーポリシー</a>に同意します</span>
-        </label>
+        </label></sc-if>
         <sc-if value="{{err}}" hint-placeholder-val="{{false}}"><span role="alert" style="font-size: 13px; line-height: 1.6; color: #B3261E">{{err}}</span></sc-if>
         <button type="button" onClick="{{sendLink}}" style="border: none; background: #1D1D1F; color: #FFFFFF; border-radius: 999px; font-family: inherit; font-size: 16px; font-weight: 700; padding: 14px; min-height: 52px; cursor: pointer; width: 100%">{{emailBtn}}</button>
+        <sc-if value="{{isLogin}}" hint-placeholder-val="{{false}}"><span style="font-size: 12px; line-height: 1.7; color: #6E6E73">ログインすると、<a href="terms.html" target="_blank" rel="noopener" style="color: #1D1D1F">利用規約</a>と<a href="privacy.html" target="_blank" rel="noopener" style="color: #1D1D1F">プライバシーポリシー</a>に同意したものとみなします。</span></sc-if>
+        <button type="button" onClick="{{switchMode}}" style="align-self: center; border: none; background: transparent; font-family: inherit; font-size: 14px; font-weight: 700; color: #1D1D1F; text-decoration: underline; cursor: pointer; min-height: 44px">{{switchLabel}}</button>
         <ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 6px; font-size: 13px; line-height: 1.7; color: #424245; border-top: 1px solid #E5E5EA; padding-top: 18px">
           <li>・看護師の方は無料で使えます</li>
           <li>・電話番号の登録はありません。電話はかかってきません</li>
@@ -137,7 +139,7 @@ class Component extends DCLogic {
   constructor(p) {
     super(p);
     const demo = !!(p && p.step);
-    this.state = { step: (p && p.step) || 0, email: demo ? 'misaki@example.com' : '', agree: demo, busy: false, err: '', name: '', license: 0, years: '', station: '', workplace: '', photo: '', needPhoto: false };
+    this.state = { mode: (typeof location !== 'undefined' && /login/.test(location.hash)) ? 'login' : 'signup', step: (p && p.step) || 0, email: demo ? 'misaki@example.com' : '', agree: demo, busy: false, err: '', name: '', license: 0, years: '', station: '', workplace: '', photo: '', needPhoto: false };
     this.N = (typeof window !== 'undefined' && window.Nasuri && window.Nasuri.enabled) ? window.Nasuri : null;
     if (this.N && typeof location !== 'undefined' && /error_code=/.test(location.hash)) {
       this.state.err = /expired|invalid|not_found/.test(location.hash) ? 'ログイン用のリンクの有効期限が切れているか、すでに使われています。もう一度リンクを送ってください。' : 'ログインできませんでした。もう一度リンクを送ってください。';
@@ -167,17 +169,20 @@ class Component extends DCLogic {
     const pending = !!(N && N.hasPending && N.hasPending());
     const fail = (e) => this.setState({ busy: false, err: (e && (e.status === 429 || /rate limit/i.test(e.message || ''))) ? '短い時間にメールを送りすぎたため、いまは送れません。1時間ほどおいてから、もう一度お試しください。' : 'うまく送れませんでした。時間をおいて、もう一度お試しください。' });
     return {
+      suTitle: st.mode === 'login' ? 'ログイン' : '無料で新規登録', isLogin: st.mode === 'login', showAgree: st.mode !== 'login',
+      switchLabel: st.mode === 'login' ? 'はじめての方は、新規登録' : 'すでに登録済みの方は、ログイン',
+      switchMode: () => this.setState({ mode: st.mode === 'login' ? 'signup' : 'login', err: '' }),
       isEmail: st.step === 0, isSent: st.step === 1, isProfile: st.step === 2, isDone: st.step === 3, isProto: !N,
       dots: [0, 1, 2].map((i) => ({ bg: Math.min(st.step, 2) >= i ? '#1D1D1F' : '#E5E5EA' })),
-      lead: pending ? '「話を聞きたい」を送る前に、かんたんな登録をお願いします。登録が終わると、そのまま送信されます。' : 'メールアドレスだけで始められます。はじめての方も、登録済みの方もこちらから。',
+      lead: pending ? '「話を聞きたい」を送る前に、かんたんな登録をお願いします。登録が終わると、そのまま送信されます。' : st.mode === 'login' ? '登録したメールアドレスを入れてください。ログイン用のリンクをお送りします。' : 'メールアドレスだけで始められます。届いたメールのリンクから、プロフィールの登録に進みます。',
       email: st.email, emailShown: st.email || 'ご入力のメールアドレス', agree: st.agree, err: st.err || '',
       setEmail: (e) => this.setState({ email: e.target.value }), toggleAgree: () => this.setState({ agree: !st.agree }),
-      emailBtn: st.busy ? '送信中…' : 'ログイン用のリンクを送る',
+      emailBtn: st.busy ? '送信中…' : st.mode === 'login' ? 'ログイン用のリンクを送る' : '登録用のリンクを送る',
       sendLink: () => {
         if (st.busy) return;
         const email = (st.email || '').trim();
         if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) return this.setState({ err: 'メールアドレスを確認してください。' });
-        if (!st.agree) return this.setState({ err: '利用規約とプライバシーポリシーへの同意が必要です。' });
+        if (st.mode !== 'login' && !st.agree) return this.setState({ err: '利用規約とプライバシーポリシーへの同意が必要です。' });
         if (!N) return this.setState({ step: 1, err: '' });
         this.setState({ busy: true, err: '' });
         N.signIn(email).then(() => this.setState({ step: 1, busy: false })).catch(fail);
