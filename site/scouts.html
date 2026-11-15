@@ -169,6 +169,7 @@ class Component extends DCLogic {
   load(first) {
     const N = window.Nasuri;
     if (!N.session) { this.setState({ loading: false, threads: [] }); return; }
+    if (!N.isComplete()) { location.replace('signup.html'); return; }
     N.loadThreads().then((threads) => {
       let cur = this.state.cur;
       if (first) { const want = Number((location.hash.match(/talk=(\d+)/) || [])[1]); const k = threads.findIndex((x) => x.id === want); if (k >= 0) cur = k; }
