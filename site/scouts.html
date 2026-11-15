@@ -16,6 +16,8 @@ a{color:#1D1D1F}a:hover{color:#6E6E73}
   .wrap{padding:12px 16px 96px!important;gap:16px!important}
   .pagetitle{font-size:20px!important}
   .hero{height:240px!important}
+  .th-title{font-size:16px!important}
+  .th-img{transform:scale(.8);transform-origin:left center}
   .tabbar{display:flex!important;position:fixed;left:0;right:0;bottom:0;z-index:50;background:#FFFFFF;border-top:1px solid #E5E5EA;padding:6px 0 calc(6px + env(safe-area-inset-bottom));justify-content:space-around}
 }
 </style>
@@ -77,30 +79,35 @@ a{color:#1D1D1F}a:hover{color:#6E6E73}
 
       <!-- Thread detail -->
       <section aria-label="メッセージ" style="flex: 999 1 560px; min-width: 0; background: #FFFFFF; border-radius: 14px; display: flex; flex-direction: column; overflow: hidden">
-        <div style="padding: 20px 24px; border-bottom: 1px solid #E5E5EA; display: flex; flex-wrap: wrap; align-items: center; gap: 16px">
-          <span aria-hidden="true" style="width: 48px; height: 48px; border-radius: 10px; background: {{cur.color}}; flex: 0 0 auto"></span>
-          <div style="display: flex; flex-direction: column; gap: 2px; flex: 1 1 200px; min-width: 0">
-            <span style="font-size: 17px; font-weight: 700">{{cur.org}}</span>
-            <span style="font-size: 12px; font-weight: 700; color: #6E6E73">{{cur.from}}</span>
-          </div>
-          <a href="job.html" style="text-decoration: none; display: flex; align-items: center; gap: 10px; background: #F5F5F7; border-radius: 999px; padding: 8px 8px 8px 16px; min-height: 44px; box-sizing: border-box">
-            <span style="font-size: 12px; font-weight: 700; background: #FFFFFF; border-radius: 999px; padding: 6px 12px">職場ページ →</span>
+        <div style="padding: 24px 28px; border-bottom: 1px solid #E5E5EA; display: flex; align-items: center; gap: 24px">
+          <a class="th-img" href="job.html" aria-label="{{cur.org}}の職場ページ" style="position: relative; flex: 0 0 auto; width: 88px; height: 88px; display: block">
+            <sc-if value="{{cur.hasImg}}" hint-placeholder-val="{{true}}"><img src="{{cur.img}}" alt="" style="width: 88px; height: 88px; object-fit: cover; border-radius: 10px; display: block"></sc-if>
+            <sc-if value="{{cur.noImg}}" hint-placeholder-val="{{false}}"><span style="width: 88px; height: 88px; border-radius: 10px; background: #E8E8ED; display: block"></span></sc-if>
+            <span aria-hidden="true" style="position: absolute; right: -10px; bottom: -10px; width: 40px; height: 40px; border-radius: 50%; background: #FFFFFF; border: 1px solid #E5E5EA; box-sizing: border-box; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700; color: #1D1D1F">{{cur.initial}}</span>
           </a>
+          <div style="display: flex; flex-direction: column; gap: 4px; min-width: 0; flex: 1 1 auto">
+            <span style="font-size: 13px; font-weight: 500; color: #424245">{{cur.status}}</span>
+            <a class="th-title" href="job.html" style="text-decoration: none; font-size: 20px; font-weight: 700; line-height: 1.45; color: #1D1D1F">{{cur.title}}</a>
+            <span style="font-size: 14px; font-weight: 700; color: #86868B">{{cur.org}}</span>
+          </div>
         </div>
 
-        <div style="padding: 24px; display: flex; flex-direction: column; gap: 18px; background: #F5F5F7; min-height: 420px">
+        <div style="padding: 28px; display: flex; flex-direction: column; gap: 28px; background: #FFFFFF; min-height: 420px">
           <sc-if value="{{cur.hasEntry}}" hint-placeholder-val="{{true}}">
-            <div style="align-self: center; width: 100%; max-width: 520px; box-sizing: border-box; background: #F5F5F7; border-radius: 14px; padding: 16px 20px; display: flex; flex-direction: column; gap: 8px">
-              <span style="font-size: 13px; font-weight: 700; color: #1D1D1F">「話を聞きたい」を送りました・{{cur.entryAt}}</span>
-              <sc-for list="{{cur.entry}}" as="r" hint-placeholder-count="4">
-                <div style="display: grid; grid-template-columns: 6.5em 1fr; gap: 12px; font-size: 13px; line-height: 1.7"><span style="color: #6E6E73">{{r.k}}</span><span style="font-weight: 700">{{r.v}}</span></div>
-              </sc-for>
+            <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 6px">
+              <span style="background: #1D1D1F; color: #FFFFFF; border-radius: 999px; padding: 12px 22px; font-size: 15px; font-weight: 700">{{cur.feeling}}</span>
+              <span style="font-size: 12px; color: #6E6E73; text-align: right">{{cur.entryNote}}</span>
+              <span style="font-size: 12px; color: #86868B">{{cur.entryAt}}</span>
             </div>
           </sc-if>
           <sc-for list="{{msgs}}" as="m" hint-placeholder-count="3">
-            <div style="display: flex; flex-direction: column; gap: 6px; align-items: {{m.align}}">
-              <span style="font-size: 11px; font-weight: 700; color: #6E6E73">{{m.who}}・{{m.at}}</span>
-              <div style="max-width: 78%; background: {{m.bg}}; color: {{m.fg}}; border-radius: {{m.radius}}; padding: 14px 18px; font-size: 14px; line-height: 1.8; white-space: pre-line">{{m.text}}</div>
+            <div style="display: flex; gap: 12px; align-items: flex-start; justify-content: {{m.justify}}">
+              <sc-if value="{{m.isThem}}" hint-placeholder-val="{{true}}"><span aria-hidden="true" style="width: 40px; height: 40px; border-radius: 50%; background: #F5F5F7; border: 1px solid #E5E5EA; box-sizing: border-box; flex: 0 0 auto; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700">{{m.initial}}</span></sc-if>
+              <div style="display: flex; flex-direction: column; gap: 6px; align-items: {{m.align}}; max-width: 72%; min-width: 0">
+                <sc-if value="{{m.isThem}}" hint-placeholder-val="{{true}}"><span style="font-size: 13px; font-weight: 700; color: #1D1D1F">{{m.who}}</span></sc-if>
+                <div style="background: {{m.bg}}; color: {{m.fg}}; border-radius: {{m.radius}}; padding: 16px 20px; font-size: 15px; line-height: 1.9; white-space: pre-line; overflow-wrap: anywhere">{{m.text}}</div>
+                <span style="font-size: 11px; color: #86868B">{{m.at}}</span>
+              </div>
             </div>
           </sc-for>
           <sc-if value="{{offerOpen}}" hint-placeholder-val="{{true}}">
@@ -127,19 +134,14 @@ a{color:#1D1D1F}a:hover{color:#6E6E73}
           </sc-if>
         </div>
 
-        <form aria-label="返信" style="padding: 16px 24px 20px; border-top: 1px solid #E5E5EA; display: flex; flex-direction: column; gap: 10px">
-          <div style="display: flex; gap: 6px; flex-wrap: wrap">
-            <sc-for list="{{quick}}" as="q" hint-placeholder-count="3">
-              <button type="button" onClick="{{q.pick}}" style="border: 1.5px solid #D2D2D7; background: #FFFFFF; border-radius: 999px; font-family: inherit; font-size: 12px; font-weight: 700; padding: 8px 12px; min-height: 36px; cursor: pointer">{{q.label}}</button>
-            </sc-for>
-          </div>
-          <div style="display: flex; gap: 10px; align-items: flex-end">
-            <label for="reply" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">返信</label>
-            <textarea id="reply" rows="2" maxlength="2000" value="{{draft}}" onInput="{{setDraft}}" placeholder="返信を書く" style="flex: 1 1 auto; min-width: 0; font-family: inherit; font-size: 14px; font-weight: 500; padding: 12px 16px; border-radius: 14px; border: 1.5px solid #D2D2D7; resize: vertical; background: #FFFFFF; color: #1D1D1F"></textarea>
-            <button type="button" style="border: none; background: #1D1D1F; color: #FFFFFF; border-radius: 999px; font-family: inherit; font-size: 14px; font-weight: 700; padding: 0 22px; min-height: 48px; cursor: pointer; flex: 0 0 auto" onClick="{{send}}">{{sendLabel}}</button>
+        <form aria-label="返信" style="padding: 12px 24px 20px; display: flex; flex-direction: column; gap: 8px">
+          <div style="position: relative; background: #F5F5F7; border-radius: 22px; padding: 14px 68px 14px 22px">
+            <label for="reply" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">メッセージ</label>
+            <textarea id="reply" rows="3" maxlength="2000" value="{{draft}}" onInput="{{setDraft}}" placeholder="メッセージを入力" style="width: 100%; box-sizing: border-box; border: none; outline: none; background: transparent; resize: vertical; font-family: inherit; font-size: 15px; font-weight: 500; line-height: 1.7; color: #1D1D1F; padding: 0"></textarea>
+            <button type="button" onClick="{{send}}" aria-label="{{sendLabel}}" style="position: absolute; right: 12px; bottom: 12px; width: 44px; height: 44px; border-radius: 50%; border: none; background: {{sendBg}}; color: #FFFFFF; cursor: pointer; display: flex; align-items: center; justify-content: center"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.4 20.4l17.45-7.48a1 1 0 000-1.84L3.4 3.6a.99.99 0 00-1.39.91L2 9.12c0 .5.37.93.87.99L17 12 2.87 13.88c-.5.07-.87.5-.87 1l.01 4.61c0 .71.73 1.2 1.39.91z"></path></svg></button>
           </div>
           <sc-if value="{{hasErr}}" hint-placeholder-val="{{false}}"><span role="alert" style="font-size: 12px; font-weight: 700; color: #C4314B">{{err}}</span></sc-if>
-          <span style="font-size: 11px; color: #6E6E73">「話を聞きたい」を送った病院には、お名前とプロフィールが届いています。電話番号は届きません。</span>
+          <span style="font-size: 11px; color: #6E6E73">「話を聞きたい」を送った病院には、お名前とプロフィールが届いています。メールアドレスと電話番号は届きません。</span>
         </form>
       </section>
     </div>
@@ -194,10 +196,25 @@ class Component extends DCLogic {
       this.setState({ sending: false, draft: '', threads });
     }).catch(() => this.setState({ sending: false, err: '送信できませんでした。もう一度お試しください。' }));
   }
+  decorate(c) {
+    const TITLES = { 'みなと中央病院': '「聞きやすさ」で選ばれる内科病棟で、一緒に働く看護師を募集' };
+    const IMGS = { 'みなと中央病院': 'images/sns3.jpg' };
+    const ent = c.entry || [];
+    const get = (k) => (ent.find((r) => r.k === k) || {}).v || '';
+    const img = c.img || IMGS[c.org] || '';
+    return Object.assign({}, c, {
+      status: c.hasEntry ? '「話を聞きたい」を送りました' : (c.kind || 'メッセージ'),
+      title: c.title || TITLES[c.org] || c.org || '',
+      initial: (c.org || '').slice(0, 1),
+      feeling: get('気持ち') || 'まずは話を聞いてみたい',
+      entryNote: ent.filter((r) => r.k !== '気持ち').map((r) => r.k + '：' + r.v).join('　'),
+      img, hasImg: !!img, noImg: !img
+    });
+  }
   renderVals() {
     const filters = ['すべて', 'スカウト', '進行中'].map((label, i) => ({ label, pick: () => this.setState({ filter: i }), bg: this.state.filter === i ? '#1D1D1F' : 'transparent', fg: this.state.filter === i ? '#FFFFFF' : '#1D1D1F' }));
-    const me = (text, at) => ({ who: 'あなた', at, text, align: 'flex-end', bg: '#1D1D1F', fg: '#FFFFFF', radius: '8px 8px 4px 8px' });
-    const them = (who, text, at) => ({ who, at, text, align: 'flex-start', bg: '#FFFFFF', fg: '#1D1D1F', radius: '8px 8px 8px 4px' });
+    const me = (text, at) => ({ who: 'あなた', at, text, align: 'flex-end', justify: 'flex-end', isThem: false, initial: '', bg: '#1D1D1F', fg: '#FFFFFF', radius: '18px 18px 4px 18px' });
+    const them = (who, text, at) => ({ who, at, text, align: 'flex-start', justify: 'flex-start', isThem: true, initial: (who || '').slice(0, 1), bg: '#F5F5F7', fg: '#1D1D1F', radius: '4px 18px 18px 18px' });
     const st = this.state;
     const quick = ['興味があります。詳しく聞かせてください', '見学できる日を教えてください', 'オンラインで話せる日を教えてください'];
     if (this.live) return this.liveVals(filters, me, them, quick);
@@ -225,7 +242,7 @@ class Component extends DCLogic {
     const slots = slotLabels.map((label, i) => ({ label, on: this.state.slot === i, pick: () => this.setState({ slot: i }), bg: this.state.slot === i ? '#1D1D1F' : '#FFFFFF', fg: this.state.slot === i ? '#FFFFFF' : '#1D1D1F', border: this.state.slot === i ? '#1D1D1F' : '#D2D2D7' }));
     const sentText = st.slot === 2 ? '別の日程を相談させてください。' : (slotLabels[st.slot] + ' でお願いします。');
     const msgs = st.sent ? curT.messages.concat([me(sentText, 'たった今')]) : curT.messages;
-    return { filters, threads, cur: Object.assign({ hasEntry: false, entry: [], entryAt: '', offerTitle: '', confirmNote: '' }, curT), msgs, slots, offerOpen: !!curT.showOffer && !st.sent, picked: st.slot >= 0, pickedLabel: st.slot >= 0 ? slotLabels[st.slot] : '',
+    return { filters, threads, cur: this.decorate(Object.assign({ hasEntry: false, entry: [], entryAt: '', offerTitle: '', confirmNote: '' }, curT)), sendBg: '#1D1D1F', msgs, slots, offerOpen: !!curT.showOffer && !st.sent, picked: st.slot >= 0, pickedLabel: st.slot >= 0 ? slotLabels[st.slot] : '',
       confirmSlot: () => this.setState({ sent: true }), confirmLabel: st.slot === 2 ? '相談を送る' : 'この日程で送る', showConfirm: st.sent && st.slot >= 0 && st.slot < 2,
       quick: quick.map((q) => ({ label: q, pick: () => {} })), hasThreads: true, noThreads: false, emptyTitle: '', emptyText: '', emptyBtns: [], draft: '', setDraft: () => {}, send: () => {}, sendLabel: '送信', canSend: true, err: '', hasErr: false };
   }
@@ -260,15 +277,15 @@ class Component extends DCLogic {
     else if (!N.isComplete()) { emptyTitle = '登録が途中です'; emptyText = '名前・資格・最寄駅・顔写真を登録すると、病院とメッセージでやりとりできるようになります。'; emptyBtns = N.resumeButtons(); }
     else if (!threads.length) { emptyTitle = st.filter === 1 ? 'スカウトはまだありません' : 'まだメッセージはありません'; emptyText = '気になる病院に「話を聞きたい」を送ると、その病院とここでやりとりできます。返信が届いたらメールでお知らせします。'; }
     const list = (a) => (a && a.length ? a.join('、') : '');
-    const cur = t ? { org: t.hospital, from: (t.messages.filter((m) => m.sender === 'hospital').slice(-1)[0] || {}).sender_name || '病院の担当者と運営がお返事します', color: '#E8E8ED', hasEntry: true, entryAt: stamp(t.created_at),
+    const cur = this.decorate(t ? { title: t.job || '', org: t.hospital, from: (t.messages.filter((m) => m.sender === 'hospital').slice(-1)[0] || {}).sender_name || '病院の担当者と運営がお返事します', color: '#E8E8ED', hasEntry: true, entryAt: stamp(t.created_at),
       entry: [{ k: '気持ち', v: t.feeling || '' }, { k: '話したい人', v: list(t.people) || 'おまかせ' }, { k: '話し方', v: t.way || '' }],
-      offerTitle: '', confirmNote: '' } : { org: '', from: '', color: '#E8E8ED', hasEntry: false, entry: [], entryAt: '', offerTitle: '', confirmNote: '' };
+      offerTitle: '', confirmNote: '' } : { org: '', from: '', color: '#E8E8ED', hasEntry: false, entry: [], entryAt: '', offerTitle: '', confirmNote: '' });
     const msgs = t ? t.messages.map((m) => m.sender === 'nurse' ? me(m.body, stamp(m.created_at)) : them(m.sender_name || t.hospital, m.body, stamp(m.created_at))) : [];
     const body = (st.draft || '').trim();
     return { filters, threads, cur, msgs, slots: [], offerOpen: false, picked: false, pickedLabel: '', confirmSlot: () => {}, confirmLabel: '', showConfirm: false,
       quick: quick.map((q) => ({ label: q, pick: () => this.setState({ draft: q }) })),
       hasThreads: !!threads.length && !st.loading && N.isComplete(), noThreads: !threads.length || st.loading || !N.isComplete(), emptyTitle, emptyText, emptyBtns,
-      draft: st.draft, setDraft: (e) => this.setState({ draft: e.target.value }), send: () => this.send(), sendLabel: st.sending ? '送信中…' : '送信', canSend: !!body && !st.sending, err: st.err, hasErr: !!st.err };
+      draft: st.draft, setDraft: (e) => this.setState({ draft: e.target.value }), send: () => this.send(), sendLabel: st.sending ? '送信中…' : '送信', sendBg: body && !st.sending ? '#1D1D1F' : '#C7C7CC', canSend: !!body && !st.sending, err: st.err, hasErr: !!st.err };
   }
 }
 mount(Component, 'tpl', 'app');
