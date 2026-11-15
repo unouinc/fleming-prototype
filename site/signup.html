@@ -129,6 +129,10 @@ class Component extends DCLogic {
     const demo = !!(p && p.step);
     this.state = { step: (p && p.step) || 0, email: demo ? 'misaki@example.com' : '', agree: demo, busy: false, err: '', name: '', license: 0, years: '', station: '', workplace: '' };
     this.N = (typeof window !== 'undefined' && window.Nasuri && window.Nasuri.enabled) ? window.Nasuri : null;
+    if (this.N && typeof location !== 'undefined' && /error_code=/.test(location.hash)) {
+      this.state.err = /expired|invalid|not_found/.test(location.hash) ? 'ログイン用のリンクの有効期限が切れているか、すでに使われています。もう一度リンクを送ってください。' : 'ログインできませんでした。もう一度リンクを送ってください。';
+      try { history.replaceState(null, '', location.pathname + location.search); } catch (e) {}
+    }
     if (this.N) {
       const sync = () => {
         if (this.N.session && this.N.profile) this.finish();
@@ -145,7 +149,7 @@ class Component extends DCLogic {
     const st = this.state, N = this.N;
     const licDefs = ['正看護師', '准看護師'];
     const pending = !!(N && N.hasPending && N.hasPending());
-    const fail = () => this.setState({ busy: false, err: 'うまく送れませんでした。時間をおいて、もう一度お試しください。' });
+    const fail = (e) => this.setState({ busy: false, err: (e && (e.status === 429 || /rate limit/i.test(e.message || ''))) ? '短い時間にメールを送りすぎたため、いまは送れません。1時間ほどおいてから、もう一度お試しください。' : 'うまく送れませんでした。時間をおいて、もう一度お試しください。' });
     return {
       isEmail: st.step === 0, isSent: st.step === 1, isProfile: st.step === 2, isDone: st.step === 3, isProto: !N,
       dots: [0, 1, 2].map((i) => ({ bg: Math.min(st.step, 2) >= i ? '#1D1D1F' : '#E5E5EA' })),
