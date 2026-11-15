@@ -49,6 +49,14 @@ a{color:#1D1D1F}a:hover{color:#6E6E73}
       </div>
     </div>
 
+    <sc-if value="{{noThreads}}" hint-placeholder-val="{{false}}">
+      <div style="background: #FFFFFF; border-radius: 14px; padding: 56px 24px; display: flex; flex-direction: column; align-items: center; gap: 12px; text-align: center">
+        <span style="font-size: 18px; font-weight: 700; color: #1D1D1F">{{emptyTitle}}</span>
+        <span style="max-width: 460px; font-size: 14px; line-height: 1.8; color: #6E6E73">{{emptyText}}</span>
+        <sc-if value="{{hasCta}}" hint-placeholder-val="{{true}}"><a href="{{emptyHref}}" style="margin-top: 8px; text-decoration: none; background: #1D1D1F; color: #FFFFFF; border-radius: 999px; font-size: 14px; font-weight: 700; padding: 12px 22px; min-height: 44px; box-sizing: border-box; display: inline-flex; align-items: center">{{emptyCta}}</a></sc-if>
+      </div>
+    </sc-if>
+    <sc-if value="{{hasThreads}}" hint-placeholder-val="{{true}}">
     <div style="display: flex; flex-wrap: wrap; gap: 20px; align-items: flex-start">
       <!-- Thread list -->
       <nav aria-label="スレッド" style="flex: 1 1 360px; min-width: 300px; max-width: 460px; background: #FFFFFF; border-radius: 14px; overflow: hidden; display: flex; flex-direction: column">
@@ -122,21 +130,23 @@ a{color:#1D1D1F}a:hover{color:#6E6E73}
           </sc-if>
         </div>
 
-        <form class="pc-only" aria-label="返信" style="padding: 16px 24px 20px; border-top: 1px solid #E5E5EA; display: flex; flex-direction: column; gap: 10px">
+        <form aria-label="返信" style="padding: 16px 24px 20px; border-top: 1px solid #E5E5EA; display: flex; flex-direction: column; gap: 10px">
           <div style="display: flex; gap: 6px; flex-wrap: wrap">
             <sc-for list="{{quick}}" as="q" hint-placeholder-count="3">
-              <button type="button" style="border: 1.5px solid #D2D2D7; background: #FFFFFF; border-radius: 999px; font-family: inherit; font-size: 12px; font-weight: 700; padding: 8px 12px; min-height: 36px; cursor: pointer">{{q}}</button>
+              <button type="button" onClick="{{q.pick}}" style="border: 1.5px solid #D2D2D7; background: #FFFFFF; border-radius: 999px; font-family: inherit; font-size: 12px; font-weight: 700; padding: 8px 12px; min-height: 36px; cursor: pointer">{{q.label}}</button>
             </sc-for>
           </div>
           <div style="display: flex; gap: 10px; align-items: flex-end">
             <label for="reply" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">返信</label>
-            <textarea id="reply" rows="2" placeholder="返信を書く" style="flex: 1 1 auto; min-width: 0; font-family: inherit; font-size: 14px; font-weight: 500; padding: 12px 16px; border-radius: 14px; border: 1.5px solid #D2D2D7; resize: vertical; background: #FFFFFF; color: #1D1D1F"></textarea>
-            <button type="button" style="border: none; background: #1D1D1F; color: #FFFFFF; border-radius: 999px; font-family: inherit; font-size: 14px; font-weight: 700; padding: 0 22px; min-height: 48px; cursor: pointer; flex: 0 0 auto">送信</button>
+            <textarea id="reply" rows="2" maxlength="2000" value="{{draft}}" onInput="{{setDraft}}" placeholder="返信を書く" style="flex: 1 1 auto; min-width: 0; font-family: inherit; font-size: 14px; font-weight: 500; padding: 12px 16px; border-radius: 14px; border: 1.5px solid #D2D2D7; resize: vertical; background: #FFFFFF; color: #1D1D1F"></textarea>
+            <button type="button" style="border: none; background: #1D1D1F; color: #FFFFFF; border-radius: 999px; font-family: inherit; font-size: 14px; font-weight: 700; padding: 0 22px; min-height: 48px; cursor: pointer; flex: 0 0 auto" onClick="{{send}}">{{sendLabel}}</button>
           </div>
+          <sc-if value="{{hasErr}}" hint-placeholder-val="{{false}}"><span role="alert" style="font-size: 12px; font-weight: 700; color: #C4314B">{{err}}</span></sc-if>
           <span style="font-size: 11px; color: #6E6E73">スカウトへの返信は匿名のまま送れます。「話を聞きたい」を送った病院には、お名前とプロフィールが届いています。電話番号は届きません。</span>
         </form>
       </section>
     </div>
+    </sc-if>
   </div>
   <nav class="tabbar" aria-label="モバイルナビゲーション">
     <a href="index.html" style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px; text-decoration: none; font-size: 10px; font-weight: 700; color: #86868B; min-height: 44px; justify-content: center; position: relative"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-4-4"></path></svg>さがす</a>
@@ -150,11 +160,50 @@ a{color:#1D1D1F}a:hover{color:#6E6E73}
 <script src="runtime.js"></script>
 <script>
 class Component extends DCLogic {
-  constructor(p) { super(p); this.state = { filter: 0, cur: 0, slot: (p && p.booked) ? 1 : -1, sent: !!(p && p.booked) }; }
+  constructor(p) {
+    super(p);
+    const N = window.Nasuri;
+    this.live = !!(N && N.enabled);
+    this.state = { filter: 0, cur: 0, slot: (p && p.booked) ? 1 : -1, sent: !!(p && p.booked), loading: this.live, threads: [], draft: '', sending: false, err: '' };
+    if (this.live) {
+      const go = () => this.load(true);
+      if (N.ready) setTimeout(go, 0); else window.addEventListener('nasuri:ready', go);
+      setInterval(() => { if (!document.hidden && N.session) this.load(false); }, 20000);
+    }
+  }
+  load(first) {
+    const N = window.Nasuri;
+    if (!N.session) { this.setState({ loading: false, threads: [] }); return; }
+    N.loadThreads().then((threads) => {
+      let cur = this.state.cur;
+      if (first) { const want = Number((location.hash.match(/talk=(\d+)/) || [])[1]); const k = threads.findIndex((x) => x.id === want); if (k >= 0) cur = k; }
+      if (cur >= threads.length) cur = 0;
+      const t = threads[cur];
+      if (t && t.messages.some((m) => m.sender === 'hospital' && !m.read_at)) {
+        N.markRead(t.id);
+        threads = threads.map((x) => x.id === t.id ? Object.assign({}, x, { messages: x.messages.map((m) => m.sender === 'hospital' && !m.read_at ? Object.assign({}, m, { read_at: new Date().toISOString() }) : m) }) : x);
+      }
+      this.setState({ loading: false, threads, cur });
+    }).catch(() => this.setState({ loading: false, err: '読み込めませんでした。時間をおいて開き直してください。' }));
+  }
+  send() {
+    const N = window.Nasuri, st = this.state, t = st.threads[st.cur];
+    const body = (st.draft || '').trim();
+    if (!t || !body || st.sending) return;
+    if (body.length > 2000) { this.setState({ err: '2000文字以内で送ってください。' }); return; }
+    this.setState({ sending: true, err: '' });
+    N.sendMessage(t.id, body).then((m) => {
+      const threads = this.state.threads.map((x) => x.id === t.id ? Object.assign({}, x, { messages: x.messages.concat([m]) }) : x);
+      this.setState({ sending: false, draft: '', threads });
+    }).catch(() => this.setState({ sending: false, err: '送信できませんでした。もう一度お試しください。' }));
+  }
   renderVals() {
     const filters = ['すべて', 'スカウト', '進行中'].map((label, i) => ({ label, pick: () => this.setState({ filter: i }), bg: this.state.filter === i ? '#1D1D1F' : 'transparent', fg: this.state.filter === i ? '#FFFFFF' : '#1D1D1F' }));
     const me = (text, at) => ({ who: 'あなた', at, text, align: 'flex-end', bg: '#1D1D1F', fg: '#FFFFFF', radius: '8px 8px 4px 8px' });
     const them = (who, text, at) => ({ who, at, text, align: 'flex-start', bg: '#FFFFFF', fg: '#1D1D1F', radius: '8px 8px 8px 4px' });
+    const st = this.state;
+    const quick = ['興味があります。詳しく聞かせてください', '見学できる日を教えてください', 'オンラインで話せる日を教えてください'];
+    if (this.live) return this.liveVals(filters, me, them, quick);
     const data = [
       { org: 'みなと中央病院', from: '内科病棟 師長 高橋', color: '#E8E8ED', kind: '進行中｜カジュアル面談', kindColor: '#6E6E73', when: '1時間前', unread: true, preview: '「話を聞きたい」をありがとうございます。師長の高橋です。残業と夜勤の体制について…', showOffer: true,
         hasEntry: true, entryAt: '昨日 21:40', entry: [{ k: '気持ち', v: 'まずは話を聞いてみたい' }, { k: '話したい人', v: '高橋 恵さん、小林 真央さん' }, { k: '聞きたいこと', v: '実際の残業、夜勤の体制' }, { k: '話し方', v: 'オンライン' }],
@@ -175,13 +224,53 @@ class Component extends DCLogic {
         messages: [them('サポート', '募集ページの「数字で見る」について。担当患者数と残業時間は、病院が申告した直近の実績をナスリーが確認のうえ掲載しています。', '1週間前')] }
     ];
     const threads = data.map((t, i) => Object.assign({}, t, { active: this.state.cur === i, bg: this.state.cur === i ? '#F5F5F7' : '#FFFFFF', pick: () => this.setState({ cur: i, slot: -1, sent: false }) }));
-    const st = this.state; const curT = data[st.cur]; const slotLabels = curT.slotLabels || [];
+    const curT = data[st.cur]; const slotLabels = curT.slotLabels || [];
     const slots = slotLabels.map((label, i) => ({ label, on: this.state.slot === i, pick: () => this.setState({ slot: i }), bg: this.state.slot === i ? '#1D1D1F' : '#FFFFFF', fg: this.state.slot === i ? '#FFFFFF' : '#1D1D1F', border: this.state.slot === i ? '#1D1D1F' : '#D2D2D7' }));
     const sentText = st.slot === 2 ? '別の日程を相談させてください。' : (slotLabels[st.slot] + ' でお願いします。');
     const msgs = st.sent ? curT.messages.concat([me(sentText, 'たった今')]) : curT.messages;
     return { filters, threads, cur: Object.assign({ hasEntry: false, entry: [], entryAt: '', offerTitle: '', confirmNote: '' }, curT), msgs, slots, offerOpen: !!curT.showOffer && !st.sent, picked: st.slot >= 0, pickedLabel: st.slot >= 0 ? slotLabels[st.slot] : '',
       confirmSlot: () => this.setState({ sent: true }), confirmLabel: st.slot === 2 ? '相談を送る' : 'この日程で送る', showConfirm: st.sent && st.slot >= 0 && st.slot < 2,
-      quick: ['興味があります。詳しく聞かせてください', '見学できる日を教えてください', '今回は見送ります'] };
+      quick: quick.map((q) => ({ label: q, pick: () => {} })), hasThreads: true, noThreads: false, emptyTitle: '', emptyText: '', emptyHref: 'index.html', emptyCta: '', draft: '', setDraft: () => {}, send: () => {}, sendLabel: '送信', canSend: true, err: '', hasErr: false };
+  }
+  liveVals(filters, me, them, quick) {
+    const N = window.Nasuri, st = this.state;
+    const pad = (n) => (n < 10 ? '0' : '') + n;
+    const when = (ts) => {
+      const d = new Date(ts), diff = (Date.now() - d) / 1000;
+      if (diff < 60) return 'たった今';
+      if (diff < 3600) return Math.floor(diff / 60) + '分前';
+      if (diff < 86400) return Math.floor(diff / 3600) + '時間前';
+      if (diff < 86400 * 7) return Math.floor(diff / 86400) + '日前';
+      return (d.getMonth() + 1) + '/' + d.getDate();
+    };
+    const stamp = (ts) => { const d = new Date(ts); return (d.getMonth() + 1) + '/' + d.getDate() + ' ' + pad(d.getHours()) + ':' + pad(d.getMinutes()); };
+    const all = st.threads;
+    const shown = st.filter === 1 ? [] : all;
+    const threads = shown.map((t) => {
+      const last = t.messages[t.messages.length - 1];
+      const hosp = t.messages.filter((m) => m.sender === 'hospital');
+      const i = all.indexOf(t);
+      return { org: t.hospital, when: when(last ? last.created_at : t.created_at), color: '#E8E8ED',
+        kind: hosp.length ? 'カジュアル面談の相談' : '「話を聞きたい」を送りました', kindColor: hosp.length ? '#1D1D1F' : '#6E6E73',
+        preview: last ? (last.sender === 'nurse' ? 'あなた：' : '') + last.body : '病院からの返信をお待ちください。日程の調整はナスリー運営がお手伝いします。',
+        unread: hosp.some((m) => !m.read_at), active: st.cur === i, bg: st.cur === i ? '#F5F5F7' : '#FFFFFF',
+        pick: () => { this.setState({ cur: i, err: '' }); if (t.messages.some((m) => m.sender === 'hospital' && !m.read_at)) { N.markRead(t.id); const threads = all.map((x) => x.id === t.id ? Object.assign({}, x, { messages: x.messages.map((m) => m.sender === 'hospital' && !m.read_at ? Object.assign({}, m, { read_at: new Date().toISOString() }) : m) }) : x); this.setState({ threads }); } } };
+    });
+    const t = all[st.cur];
+    let emptyTitle = '', emptyText = '', emptyHref = 'index.html', emptyCta = '病院をさがす';
+    if (st.loading) { emptyTitle = '読み込み中…'; emptyCta = ''; }
+    else if (!N.session) { emptyTitle = 'ログインすると、病院とのメッセージが見られます'; emptyText = '気になる病院に「話を聞きたい」を送ると、その病院とここでやりとりできます。'; emptyHref = 'signup.html'; emptyCta = 'ログイン・新規登録'; }
+    else if (!threads.length) { emptyTitle = st.filter === 1 ? 'スカウトはまだありません' : 'まだメッセージはありません'; emptyText = '気になる病院に「話を聞きたい」を送ると、その病院とここでやりとりできます。返信が届いたらメールでお知らせします。'; }
+    const list = (a) => (a && a.length ? a.join('、') : '');
+    const cur = t ? { org: t.hospital, from: (t.messages.filter((m) => m.sender === 'hospital').slice(-1)[0] || {}).sender_name || '病院の担当者と運営がお返事します', color: '#E8E8ED', hasEntry: true, entryAt: stamp(t.created_at),
+      entry: [{ k: '気持ち', v: t.feeling || '' }, { k: '話したい人', v: list(t.people) || 'おまかせ' }, { k: '聞きたいこと', v: list((t.topics || []).concat(t.note ? [t.note] : [])) || '特になし' }, { k: '話し方', v: t.way || '' }],
+      offerTitle: '', confirmNote: '' } : { org: '', from: '', color: '#E8E8ED', hasEntry: false, entry: [], entryAt: '', offerTitle: '', confirmNote: '' };
+    const msgs = t ? t.messages.map((m) => m.sender === 'nurse' ? me(m.body, stamp(m.created_at)) : them(m.sender_name || t.hospital, m.body, stamp(m.created_at))) : [];
+    const body = (st.draft || '').trim();
+    return { filters, threads, cur, msgs, slots: [], offerOpen: false, picked: false, pickedLabel: '', confirmSlot: () => {}, confirmLabel: '', showConfirm: false,
+      quick: quick.map((q) => ({ label: q, pick: () => this.setState({ draft: q }) })),
+      hasThreads: !!threads.length && !st.loading, noThreads: !threads.length || st.loading, emptyTitle, emptyText, emptyHref, emptyCta, hasCta: !!emptyCta,
+      draft: st.draft, setDraft: (e) => this.setState({ draft: e.target.value }), send: () => this.send(), sendLabel: st.sending ? '送信中…' : '送信', canSend: !!body && !st.sending, err: st.err, hasErr: !!st.err };
   }
 }
 mount(Component, 'tpl', 'app');

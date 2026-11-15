@@ -55,6 +55,14 @@ dd{margin:0;word-break:break-word}
 .side select,.side textarea{border:1.5px solid var(--line2);border-radius:12px;padding:9px 10px;background:#fff;width:100%}
 .side textarea{min-height:92px;resize:vertical}
 .saveline{display:flex;align-items:center;gap:10px}
+.msgs{display:flex;flex-direction:column;gap:10px;margin:12px 0;max-height:420px;overflow:auto;background:#F5F5F7;border-radius:12px;padding:12px}
+.msg-row{display:flex;flex-direction:column;gap:4px;align-items:flex-start}
+.msg-row.mine{align-items:flex-end}
+.msg-row .bubble{max-width:80%;background:#fff;border-radius:10px;padding:10px 14px;font-size:14px;line-height:1.7;white-space:pre-wrap}
+.msg-row.mine .bubble{background:#1D1D1F;color:#fff}
+.reply{display:flex;flex-direction:column;gap:6px}
+.reply textarea{min-height:90px;border:1.5px solid var(--line2);border-radius:12px;padding:9px 10px;background:#fff;width:100%;box-sizing:border-box;resize:vertical}
+.sent.err{color:#C4314B}
 .saved{font-size:12px;color:var(--ok)}
 .saved.err{color:var(--err)}
 table{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden}
@@ -116,7 +124,7 @@ tr.detail td{background:#FAFAFC}
 
   <section id="app" class="hidden">
     <div class="tabs" role="tablist">
-      <button class="tab" role="tab" id="tabReq" aria-selected="true" aria-controls="viewReq">申し込み<span class="count" id="openCount">0</span></button>
+      <button class="tab" role="tab" id="tabReq" aria-selected="true" aria-controls="viewReq">申し込み<span class="count" id="openCount">0</span><span class="count hidden" id="msgCount" title="看護師からの未読メッセージ" style="background:#C4314B">0</span></button>
       <button class="tab" role="tab" id="tabPeople" aria-selected="false" aria-controls="viewPeople">登録者<span class="count" id="peopleCount" style="background:#86868B">0</span></button>
       <button class="tab" role="tab" id="tabHosp" aria-selected="false" aria-controls="viewHosp">病院<span class="count" id="hospCount" style="background:#86868B">0</span></button>
     </div>
@@ -182,7 +190,7 @@ tr.detail td{background:#FAFAFC}
   var HSTAT = ['未接触', '接点あり', '商談中', '契約済み', '見送り'];
   var cfg = window.NASURI_CONFIG || {};
   var $ = function (id) { return document.getElementById(id); };
-  var state = { session: null, talks: [], people: [], byId: {}, filter: '未対応', q: '', pq: '', open: null,
+  var state = { session: null, talks: [], people: [], byId: {}, msgs: {}, filter: '未対応', q: '', pq: '', open: null,
     hospitals: [], hFilter: '契約済み', hq: '', harea: '', hopen: null, avatars: {} };
   var client;
 
@@ -246,12 +254,15 @@ tr.detail td{background:#FAFAFC}
     Promise.all([
       client.from('talk_requests').select('*').order('created_at', { ascending: false }),
       client.from('profiles').select('*').order('created_at', { ascending: false }),
-      client.from('hospitals').select('*').order('code', { ascending: true })
+      client.from('hospitals').select('*').order('code', { ascending: true }),
+      client.from('messages').select('*').order('created_at', { ascending: true })
     ]).then(function (res) {
       if (res[0].error || res[1].error) { $('reqSummary').textContent = '読み込めませんでした。もう一度「更新」を押してください。'; return; }
       state.talks = res[0].data || [];
       state.people = res[1].data || [];
       state.hospitals = (res[2] && !res[2].error && res[2].data) || [];
+      state.msgs = {};
+      ((res[3] && !res[3].error && res[3].data) || []).forEach(function (m) { (state.msgs[m.talk_id] = state.msgs[m.talk_id] || []).push(m); });
       state.byId = {};
       state.people.forEach(function (p) { state.byId[p.id] = p; });
       renderChips(); renderReqs(); renderPeople(); renderHospArea(); renderHosp();
@@ -279,6 +290,8 @@ tr.detail td{background:#FAFAFC}
     var counts = { 'すべて': state.talks.length };
     STATUSES.forEach(function (s) { counts[s] = state.talks.filter(function (t) { return t.status === s; }).length; });
     $('openCount').textContent = counts['未対応'];
+    var unreadAll = state.talks.reduce(function (a, t) { return a + unreadOf(t); }, 0);
+    $('msgCount').textContent = unreadAll; $('msgCount').classList.toggle('hidden', !unreadAll);
     $('peopleCount').textContent = state.people.length;
     $('statusChips').innerHTML = ['すべて'].concat(STATUSES).map(function (s) {
       return '<button type="button" class="chip" data-s="' + esc(s) + '" aria-pressed="' + (state.filter === s) + '">' + esc(s) + '（' + counts[s] + '）</button>';
@@ -326,7 +339,30 @@ tr.detail td{background:#FAFAFC}
         '<textarea id="mm' + t.id + '" data-f="memo" placeholder="病院とのやりとり、日程など">' + esc(t.memo) + '</textarea>' +
         '<div class="saveline"><button type="button" class="btn primary" data-save="' + t.id + '">保存</button><span class="saved" aria-live="polite"></span></div>' +
       '</div>' +
+      thread(t, p) +
     '</article>';
+  }
+
+  /* メッセージ：看護師とのやりとり。運営が病院として返信する（代理送信） */
+  function unreadOf(t) { return (state.msgs[t.id] || []).filter(function (m) { return m.sender === 'nurse' && !m.read_at; }).length; }
+  function thread(t, p) {
+    var ms = state.msgs[t.id] || [], un = unreadOf(t);
+    var last = ms.filter(function (m) { return m.sender === 'hospital'; }).slice(-1)[0];
+    return '<div class="thread" style="grid-column:1/-1;border-top:1px solid var(--line);padding-top:16px">' +
+      '<div class="row" style="justify-content:space-between"><b>メッセージ（' + ms.length + '件）</b>' +
+        (un ? '<span><span class="badge s0">看護師から未読 ' + un + '件</span> <button type="button" class="copy" data-read="' + t.id + '">既読にする</button></span>' : '') + '</div>' +
+      '<div class="msgs">' + (ms.length ? ms.map(function (m) {
+        var mine = m.sender === 'hospital';
+        return '<div class="msg-row' + (mine ? ' mine' : '') + '"><span class="meta">' + esc(mine ? m.sender_name : (p.name || '看護師')) + '・' + fmt(m.created_at) + (mine ? (m.read_at ? '・既読' : '・未読') : '') + '</span><div class="bubble">' + esc(m.body) + '</div></div>';
+      }).join('') : '<p class="meta" style="margin:8px 0">まだやりとりはありません。最初の返信を送ると、看護師にメールで知らせます。</p>') + '</div>' +
+      '<div class="reply">' +
+        '<label for="rn' + t.id + '" class="meta">差出人として表示する名前</label>' +
+        '<input id="rn' + t.id + '" class="input" data-f="rname" value="' + esc(last ? last.sender_name : t.hospital + ' 看護部') + '">' +
+        '<label for="rb' + t.id + '" class="meta">本文（看護師に病院からのメッセージとして届きます）</label>' +
+        '<textarea id="rb' + t.id + '" data-f="rbody" maxlength="2000" placeholder="例：「話を聞きたい」をありがとうございます。来週、オンラインで30分ほどお話しできますか。"></textarea>' +
+        '<div class="saveline"><button type="button" class="btn primary" data-send="' + t.id + '">送信</button><span class="sent" aria-live="polite"></span></div>' +
+      '</div>' +
+    '</div>';
   }
 
   function renderReqs() {
@@ -338,6 +374,22 @@ tr.detail td{background:#FAFAFC}
   $('reqList').addEventListener('click', function (e) {
     var c = e.target.closest('[data-copy]');
     if (c) { try { navigator.clipboard.writeText(c.getAttribute('data-copy')); c.textContent = 'コピーしました'; } catch (x) {} return; }
+    var rd = e.target.closest('[data-read]');
+    if (rd) { var rid = Number(rd.getAttribute('data-read')); client.rpc('mark_read', { p_talk: rid }).then(function () { (state.msgs[rid] || []).forEach(function (m) { if (m.sender === 'nurse') m.read_at = m.read_at || new Date().toISOString(); }); renderChips(); renderReqs(); }); return; }
+    var sd = e.target.closest('[data-send]');
+    if (sd) {
+      var tid = Number(sd.getAttribute('data-send')), box = sd.closest('.thread');
+      var name = box.querySelector('[data-f=rname]').value.trim(), body = box.querySelector('[data-f=rbody]').value.trim(), out = box.querySelector('.sent');
+      if (!body) { out.className = 'sent err'; out.textContent = '本文を入れてください'; return; }
+      sd.disabled = true; out.className = 'sent'; out.textContent = '送信中…';
+      client.from('messages').insert({ talk_id: tid, sender_name: name, body: body }).select().single().then(function (r) {
+        sd.disabled = false;
+        if (r.error) { out.className = 'sent err'; out.textContent = '送信できませんでした'; return; }
+        (state.msgs[tid] = state.msgs[tid] || []).push(r.data);
+        client.rpc('mark_read', { p_talk: tid }).then(function () { (state.msgs[tid] || []).forEach(function (m) { if (m.sender === 'nurse') m.read_at = m.read_at || new Date().toISOString(); }); renderChips(); renderReqs(); });
+      });
+      return;
+    }
     var b = e.target.closest('[data-save]'); if (!b) return;
     var card = b.closest('.req'), id = Number(b.getAttribute('data-save'));
     var status = card.querySelector('[data-f=status]').value, memo = card.querySelector('[data-f=memo]').value;

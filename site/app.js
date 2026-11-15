@@ -86,12 +86,47 @@
   };
   N.lastState = function () { return read(sessionStorage, LAST); };
 
+  /* メッセージ：自分の「話を聞きたい」ごとのやりとり（読めるのは本人と運営だけ） */
+  N.loadThreads = function () {
+    if (!N.session) return Promise.resolve([]);
+    return Promise.all([
+      client.from('talk_requests').select('*').eq('user_id', N.session.user.id).order('created_at', { ascending: false }).then(ok),
+      client.from('messages').select('*').order('created_at', { ascending: true }).then(ok)
+    ]).then(function (r) {
+      var by = {};
+      (r[1] || []).forEach(function (m) { (by[m.talk_id] = by[m.talk_id] || []).push(m); });
+      return (r[0] || []).map(function (t) { return Object.assign({}, t, { messages: by[t.id] || [] }); });
+    });
+  };
+  N.sendMessage = function (talkId, body) {
+    return client.from('messages').insert({ talk_id: talkId, body: body }).select().single().then(ok);
+  };
+  N.markRead = function (talkId) {
+    return client.rpc('mark_read', { p_talk: talkId }).then(function () { refreshBadge(); });
+  };
+  /* ナビの未読バッジ。画面の描き直しで消えないよう、CSSで数字を出す */
+  var badgeStyle = null;
+  function setBadge(n) {
+    if (!badgeStyle) { badgeStyle = document.createElement('style'); document.head.appendChild(badgeStyle); }
+    var sel = 'a[href="scouts.html"] > span';
+    badgeStyle.textContent = n > 0
+      ? sel + '{font-size:0!important;min-width:8px;text-align:center}' + sel + '::after{content:"' + (n > 99 ? '99+' : n) + '";font-size:11px}'
+      : sel + '{display:none!important}';
+  }
+  function refreshBadge() {
+    if (!N.session) { setBadge(0); return; }
+    client.rpc('unread_count').then(function (r) { setBadge(r.error ? 0 : (r.data || 0)); });
+  }
+  N.refreshBadge = refreshBadge;
+
+  setBadge(0);
   function start() {
-    client = window.supabase.createClient(cfg.supabaseUrl, cfg.supabaseAnonKey);
+    client =window.supabase.createClient(cfg.supabaseUrl, cfg.supabaseAnonKey);
     client.auth.getSession().then(function (res) {
       N.session = (res.data && res.data.session) || null;
       return loadProfile();
     }).catch(function () {}).then(function () {
+      refreshBadge();
       N.ready = true;
       window.dispatchEvent(new Event('nasuri:ready'));
     });

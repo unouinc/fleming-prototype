@@ -72,6 +72,8 @@
       if (r === true) { el.setAttribute(name, /^aria-/.test(name) ? 'true' : ''); continue; }
       el.setAttribute(name, String(r));
     }
+    /* textarea は value 属性では中身が入らないので、値として入れる */
+    if (el.tagName === 'TEXTAREA' && el.hasAttribute('value')) el.value = el.getAttribute('value');
     renderNodes(node.childNodes, scope, el);
     out.appendChild(el);
   }
