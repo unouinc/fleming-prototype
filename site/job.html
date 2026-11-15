@@ -279,16 +279,6 @@ a{color:#1D1D1F}a:hover{color:#6E6E73}
             </div>
 
             <div style="display: flex; flex-direction: column; gap: 10px">
-              <span style="font-size: 15px; font-weight: 700">聞きたいこと <span style="font-size: 12px; font-weight: 400; color: #6E6E73">任意</span></span>
-              <div style="display: flex; gap: 8px; flex-wrap: wrap">
-                <sc-for list="{{askList}}" as="a" hint-placeholder-count="5">
-                  <button type="button" onClick="{{a.pick}}" aria-pressed="{{a.on}}" style="border: 1.5px solid {{a.border}}; background: {{a.bg}}; color: {{a.fg}}; border-radius: 999px; font-family: inherit; font-size: 13px; padding: 8px 14px; min-height: 36px; cursor: pointer">{{a.label}}</button>
-                </sc-for>
-              </div>
-              <input id="talknote" type="text" value="{{noteV}}" onInput="{{setNote}}" placeholder="ほかに聞きたいことがあれば" aria-label="ほかに聞きたいこと" style="font-family: inherit; font-size: 14px; padding: 12px 14px; border-radius: 14px; border: 1.5px solid #D2D2D7; background: #FFFFFF; color: #1D1D1F; min-width: 0">
-            </div>
-
-            <div style="display: flex; flex-direction: column; gap: 10px">
               <span style="font-size: 15px; font-weight: 700">話し方の希望</span>
               <div style="display: flex; gap: 8px; flex-wrap: wrap">
                 <sc-for list="{{wayList}}" as="y" hint-placeholder-count="3">
@@ -297,20 +287,6 @@ a{color:#1D1D1F}a:hover{color:#6E6E73}
               </div>
             </div>
 
-            <div style="display: flex; flex-direction: column; gap: 10px; border-top: 1px solid #E5E5EA; padding-top: 20px">
-              <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 12px">
-                <span style="font-size: 15px; font-weight: 700">病院に届くプロフィール</span>
-                <a href="profile.html" style="font-size: 12px; font-weight: 700; color: #1D1D1F; text-decoration: none">編集する</a>
-              </div>
-              <div style="display: flex; gap: 12px; align-items: center; border: 1px solid #E5E5EA; border-radius: 14px; padding: 12px 14px">
-                <span aria-hidden="true" style="width: 44px; height: 44px; border-radius: 50%; background: #E8E8ED; color: #86868B; flex: 0 0 auto; display: flex; align-items: center; justify-content: center"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"></circle><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"></path></svg></span>
-                <div style="display: flex; flex-direction: column; gap: 2px; min-width: 0">
-                  <span style="font-size: 14px; font-weight: 700">{{meName}}</span>
-                  <span style="font-size: 12px; color: #6E6E73">{{meLine}}</span>
-                </div>
-              </div>
-              <span style="font-size: 12px; line-height: 1.7; color: #6E6E73">{{sendNote}}</span>
-            </div>
           </div>
           <div style="border-top: 1px solid #E5E5EA; padding: 14px 24px; display: flex; flex-direction: column; gap: 8px">
             <sc-if value="{{sendErr}}" hint-placeholder-val="{{false}}"><span role="alert" style="font-size: 13px; line-height: 1.6; color: #B3261E">{{sendErr}}</span></sc-if>
@@ -375,7 +351,7 @@ class Component extends DCLogic {
       N.sendTalk({
         hospital: 'みなと中央病院', job: '内科病棟 正看護師', feeling: feelDefs[st.feel][0],
         people: whoDefs.filter((w, i) => st.who[i]).map((w) => w[0]),
-        topics: askDefs.filter((a, i) => st.asks[i]), note: st.note || '', way: wayDefs[st.way]
+        topics: [], note: '', way: wayDefs[st.way]
       }, { feel: st.feel, who: st.who, asks: st.asks, way: st.way, note: st.note }).then((r) => {
         if (r === 'sent') this.setState({ busy: false, talk: 2, applied: true });
       }).catch(() => this.setState({ busy: false, err: '送信できませんでした。通信環境を確認して、もう一度お試しください。' }));
@@ -400,7 +376,6 @@ class Component extends DCLogic {
       talkSummary: [
         { k: '気持ち', v: feelDefs[st.feel][0] },
         { k: '話したい人', v: whoDefs.filter((w, i) => st.who[i]).map((w) => w[0]).join('、') || 'おまかせ' },
-        { k: '聞きたいこと', v: askDefs.filter((a, i) => st.asks[i]).concat(st.note ? [st.note] : []).join('、') || '特になし' },
         { k: '話し方', v: wayDefs[st.way] }
       ],
       liked: this.state.liked, toggleLike: () => this.setState({ liked: !this.state.liked }),
