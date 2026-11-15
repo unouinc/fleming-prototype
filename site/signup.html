@@ -74,11 +74,21 @@ input:focus-visible,button:focus-visible,a:focus-visible{outline:3px solid #1D1D
       <sc-if value="{{isProfile}}" hint-placeholder-val="{{false}}">
         <div style="display: flex; flex-direction: column; gap: 10px">
           <h1 class="su-title" style="margin: 0; font-size: 26px; font-weight: 700; line-height: 1.4">プロフィールを登録</h1>
-          <p style="margin: 0; font-size: 14px; line-height: 1.8; color: #424245">話を聞きたい病院にだけ届く情報です。1分ほどで終わります。</p>
+          <p style="margin: 0; font-size: 14px; line-height: 1.8; color: #424245">{{profileLead}}</p>
         </div>
         <div style="display: flex; flex-direction: column; gap: 8px">
           <label for="su-name" style="font-size: 14px; font-weight: 700">お名前</label>
           <input id="su-name" type="text" autocomplete="name" value="{{name}}" onInput="{{setName}}" placeholder="佐藤 美咲" style="font-family: inherit; font-size: 16px; padding: 13px 14px; border-radius: 14px; border: 1.5px solid #D2D2D7; background: #FFFFFF; color: #1D1D1F; min-width: 0; width: 100%; box-sizing: border-box">
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 8px">
+          <span id="su-photo-l" style="font-size: 14px; font-weight: 700">顔写真</span>
+          <div style="display: flex; align-items: center; gap: 16px">
+            <sc-if value="{{photo}}" hint-placeholder-val="{{false}}"><img src="{{photo}}" alt="選んだ写真" style="width: 72px; height: 72px; border-radius: 50%; object-fit: cover; flex: 0 0 auto; background: #F5F5F7"></sc-if>
+            <sc-if value="{{noPhoto}}" hint-placeholder-val="{{true}}"><span aria-hidden="true" style="width: 72px; height: 72px; border-radius: 50%; background: #F5F5F7; border: 1.5px dashed #D2D2D7; box-sizing: border-box; flex: 0 0 auto; display: flex; align-items: center; justify-content: center; color: #86868B"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8.5" r="3.5"></circle><path d="M5 20c1.2-3.6 4-5.5 7-5.5s5.8 1.9 7 5.5"></path></svg></span></sc-if>
+            <label for="su-photo" style="border: 1px solid #D2D2D7; background: #FFFFFF; color: #1D1D1F; border-radius: 999px; font-size: 14px; font-weight: 700; padding: 10px 18px; min-height: 44px; box-sizing: border-box; display: flex; align-items: center; cursor: pointer">{{photoBtn}}</label>
+            <input id="su-photo" type="file" accept="image/jpeg,image/png,image/webp,image/heic,image/heif" aria-labelledby="su-photo-l" onChange="{{pickPhoto}}" style="position: absolute; width: 1px; height: 1px; opacity: 0; overflow: hidden">
+          </div>
+          <span style="font-size: 12px; line-height: 1.7; color: #6E6E73">話を聞きたい病院の人にだけ見えます。顔がわかる、明るい写真がおすすめです。</span>
         </div>
         <div style="display: flex; flex-direction: column; gap: 8px">
           <span id="su-lic-l" style="font-size: 14px; font-weight: 700">資格</span>
@@ -127,7 +137,7 @@ class Component extends DCLogic {
   constructor(p) {
     super(p);
     const demo = !!(p && p.step);
-    this.state = { step: (p && p.step) || 0, email: demo ? 'misaki@example.com' : '', agree: demo, busy: false, err: '', name: '', license: 0, years: '', station: '', workplace: '' };
+    this.state = { step: (p && p.step) || 0, email: demo ? 'misaki@example.com' : '', agree: demo, busy: false, err: '', name: '', license: 0, years: '', station: '', workplace: '', photo: '', needPhoto: false };
     this.N = (typeof window !== 'undefined' && window.Nasuri && window.Nasuri.enabled) ? window.Nasuri : null;
     if (this.N && typeof location !== 'undefined' && /error_code=/.test(location.hash)) {
       this.state.err = /expired|invalid|not_found/.test(location.hash) ? 'ログイン用のリンクの有効期限が切れているか、すでに使われています。もう一度リンクを送ってください。' : 'ログインできませんでした。もう一度リンクを送ってください。';
@@ -135,7 +145,9 @@ class Component extends DCLogic {
     }
     if (this.N) {
       const sync = () => {
-        if (this.N.session && this.N.profile) this.finish();
+        const pr = this.N.profile;
+        if (this.N.session && pr && pr.avatar_path) this.finish();
+        else if (this.N.session && pr) this.setState({ step: 2, needPhoto: true, name: pr.name || '', license: pr.license === '准看護師' ? 1 : 0, years: pr.years ? String(pr.years) : '', station: pr.station || '', workplace: pr.workplace || '' });
         else if (this.N.session) this.setState({ step: 2 });
       };
       if (this.N.ready) setTimeout(sync, 0); else window.addEventListener('nasuri:ready', sync);
@@ -167,6 +179,16 @@ class Component extends DCLogic {
         N.signIn(email).then(() => this.setState({ step: 1, busy: false })).catch(fail);
       },
       backToEmail: () => this.setState({ step: 0, err: '' }), skipToProfile: () => this.setState({ step: 2, err: '' }),
+      photo: st.photo, noPhoto: !st.photo, photoBtn: st.photo ? '写真を選び直す' : '写真を選ぶ',
+      profileLead: st.needPhoto ? '顔写真の登録をお願いします。写真を選んで「登録する」を押すと、登録が完了します。' : '話を聞きたい病院にだけ届く情報です。1分ほどで終わります。',
+      pickPhoto: (e) => {
+        const f = e.target.files && e.target.files[0];
+        if (!f) return;
+        if (!/^image\//.test(f.type) && !/\.(heic|heif)$/i.test(f.name)) return this.setState({ err: '画像ファイルを選んでください。' });
+        if (f.size > 20 * 1024 * 1024) return this.setState({ err: '写真のサイズが大きすぎます（20MBまで）。' });
+        this.photoFile = f;
+        this.setState({ photo: URL.createObjectURL(f), err: '' });
+      },
       name: st.name, years: st.years, station: st.station, workplace: st.workplace,
       setName: (e) => this.setState({ name: e.target.value }), setYears: (e) => this.setState({ years: e.target.value.replace(/[^0-9]/g, '').slice(0, 2) }),
       setStation: (e) => this.setState({ station: e.target.value }), setWorkplace: (e) => this.setState({ workplace: e.target.value }),
@@ -178,9 +200,13 @@ class Component extends DCLogic {
         if (!name) return this.setState({ err: 'お名前を入力してください。' });
         if (!(years >= 1)) return this.setState({ err: '経験年数を数字で入力してください（1年目なら 1）。' });
         if (!station) return this.setState({ err: '最寄駅を入力してください。' });
+        if (!st.photo || !this.photoFile) return this.setState({ err: '顔写真を選んでください。' });
         if (!N) return this.setState({ step: 3, err: '' });
         this.setState({ busy: true, err: '' });
-        N.saveProfile({ name, license: licDefs[st.license], years, station, workplace: st.workplace.trim() }).then(() => this.finish()).catch(fail);
+        Promise.resolve().then(() => N.uploadAvatar(this.photoFile))
+          .then((avatar_path) => N.saveProfile({ name, license: licDefs[st.license], years, station, workplace: st.workplace.trim(), avatar_path }))
+          .then(() => this.finish())
+          .catch(() => this.setState({ busy: false, err: '写真をアップロードできませんでした。別の写真を選ぶか、時間をおいてもう一度お試しください。' }));
       }
     };
   }

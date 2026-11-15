@@ -41,13 +41,32 @@
     return client.auth.signInWithOtp({ email: email, options: { emailRedirectTo: new URL('signup.html' + (cfg.liveByDefault ? '' : '?live=1'), location.href).href } }).then(ok);
   };
   N.signOut = function () { return client.auth.signOut().then(function () { N.session = null; N.profile = null; }); };
+  /* 顔写真：端末側で縮小し（最大640px・JPEG）、位置情報などを含まない画像にしてから、本人専用のフォルダに保存する */
+  N.uploadAvatar = function (file) {
+    return new Promise(function (resolve, reject) {
+      var img = new Image(), url = URL.createObjectURL(file);
+      img.onload = function () {
+        var max = 640, w = img.naturalWidth, h = img.naturalHeight, r = Math.min(1, max / Math.max(w, h));
+        var c = document.createElement('canvas'); c.width = Math.round(w * r); c.height = Math.round(h * r);
+        c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
+        URL.revokeObjectURL(url);
+        c.toBlob(function (blob) { blob ? resolve(blob) : reject(new Error('画像を変換できませんでした')); }, 'image/jpeg', 0.85);
+      };
+      img.onerror = function () { URL.revokeObjectURL(url); reject(new Error('画像を読み込めませんでした')); };
+      img.src = url;
+    }).then(function (blob) {
+      var path = N.session.user.id + '/avatar-' + Date.now() + '.jpg';
+      return client.storage.from('avatars').upload(path, blob, { contentType: 'image/jpeg', upsert: true }).then(ok).then(function () { return path; });
+    });
+  };
+  N.isComplete = function () { return !!(N.session && N.profile && N.profile.avatar_path); };
   N.saveProfile = function (p) {
     var row = Object.assign({ id: N.session.user.id, email: N.session.user.email }, p);
     return client.from('profiles').upsert(row).select().single().then(ok).then(function (d) { N.profile = d; });
   };
   /* 送信。未ログイン・未登録なら内容を控えて登録画面へ送り、'redirect' を返す */
   N.sendTalk = function (payload, ui) {
-    if (!N.session || !N.profile) {
+    if (!N.isComplete()) {
       write(localStorage, PENDING, { payload: payload, ui: ui, back: page() });
       location.href = 'signup.html';
       return Promise.resolve('redirect');
@@ -58,7 +77,7 @@
   /* 登録が済んだあと、控えておいた「話を聞きたい」を送る。戻り先URL（なければ null）を返す */
   N.flushPending = function () {
     var p = read(localStorage, PENDING);
-    if (!p || !N.session || !N.profile) return Promise.resolve(null);
+    if (!p || !N.isComplete()) return Promise.resolve(null);
     return insertTalk(p.payload).then(function () {
       drop(localStorage, PENDING);
       write(sessionStorage, LAST, p.ui || {});

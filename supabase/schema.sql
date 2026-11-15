@@ -148,3 +148,39 @@ grant update (status, memo) on public.talk_requests to authenticated;
 alter table public.talk_requests drop constraint if exists talk_requests_status_check;
 alter table public.talk_requests add constraint talk_requests_status_check
   check (status in ('未対応', '病院に連絡済み', '日程確定', '見送り'));
+
+-- ===== 病院の管理と顔写真（2026-11-15 追加） =====
+create table if not exists public.hospitals (
+  id bigint generated always as identity primary key,
+  code text unique,
+  name text not null,
+  pref text default '', area text default '', city text default '', address text default '',
+  beds int, score int, phone text default '',
+  status text not null default '未接触' check (status in ('未接触', '接点あり', '商談中', '契約済み', '見送り')),
+  plan text default '', contract_start date, contact_name text default '', contact_email text default '', memo text default '',
+  created_at timestamptz not null default now(), updated_at timestamptz not null default now()
+);
+alter table public.hospitals enable row level security;
+drop policy if exists "admin hospitals all" on public.hospitals;
+create policy "admin hospitals all" on public.hospitals for all to authenticated using (public.is_admin()) with check (public.is_admin());
+create or replace function public.touch_updated_at() returns trigger language plpgsql set search_path = public as $$
+begin new.updated_at := now(); return new; end $$;
+drop trigger if exists hospitals_touch on public.hospitals;
+create trigger hospitals_touch before update on public.hospitals for each row execute function public.touch_updated_at();
+-- 初期データ：supabase/seed_hospitals_top300.json（営業リスト上位300件）
+
+alter table public.profiles add column if not exists avatar_path text;
+insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
+values ('avatars', 'avatars', false, 2097152, array['image/jpeg', 'image/png', 'image/webp'])
+on conflict (id) do update set public = false, file_size_limit = excluded.file_size_limit, allowed_mime_types = excluded.allowed_mime_types;
+-- 写真は本人のフォルダ（<ユーザーID>/...）だけ読み書きでき、運営者は全員分を読める
+drop policy if exists "avatar own insert" on storage.objects;
+drop policy if exists "avatar own update" on storage.objects;
+drop policy if exists "avatar own select" on storage.objects;
+drop policy if exists "avatar own delete" on storage.objects;
+drop policy if exists "avatar admin select" on storage.objects;
+create policy "avatar own insert" on storage.objects for insert to authenticated with check (bucket_id = 'avatars' and (storage.foldername(name))[1] = auth.uid()::text);
+create policy "avatar own update" on storage.objects for update to authenticated using (bucket_id = 'avatars' and (storage.foldername(name))[1] = auth.uid()::text) with check (bucket_id = 'avatars' and (storage.foldername(name))[1] = auth.uid()::text);
+create policy "avatar own select" on storage.objects for select to authenticated using (bucket_id = 'avatars' and (storage.foldername(name))[1] = auth.uid()::text);
+create policy "avatar own delete" on storage.objects for delete to authenticated using (bucket_id = 'avatars' and (storage.foldername(name))[1] = auth.uid()::text);
+create policy "avatar admin select" on storage.objects for select to authenticated using (bucket_id = 'avatars' and public.is_admin());
