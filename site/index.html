@@ -73,7 +73,7 @@ a{color:#1D1D1F}a:hover{color:#6E6E73}
     <main style="flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; gap: 16px">
       <div style="display: flex; flex-direction: column; gap: 6px">
         <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap">
-          <h1 style="margin: 0; font-size: 22px; font-weight: 700; color: #1D1D1F">{{prefTitle}}<span style="font-size: 15px; font-weight: 700"> の病院の看護師求人</span></h1>
+          <h1 style="margin: 0; font-size: 22px; font-weight: 700; color: #1D1D1F">{{headTitle}}<span style="font-size: 15px; font-weight: 700"> の病院の看護師求人</span></h1>
           <span style="font-size: 12px; font-weight: 400; color: #6E6E73">2026/11/10更新</span>
         </div>
         <span style="font-size: 13px; font-weight: 400; color: #6E6E73">全 <span style="font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', Meiryo, sans-serif; font-size: 24px; font-weight: 700; color: #1D1D1F">{{count}}</span> 件（{{fac}}施設）</span>
@@ -427,6 +427,8 @@ class Component extends DCLogic {
     const count = 1;
     const fac = 1;
     const prefTitle = st.pref;
+    const headWords = (areaSel.length ? areaSel : [st.pref]).concat(condChips.map((x) => x.label));
+    const headTitle = headWords.length ? headWords.slice(0, 4).join('・') + (headWords.length > 4 ? ' ほか' + (headWords.length - 4) + '件' : '') : st.pref;
 
     const m = st.modal;
     const close = () => this.setState({ modal: null });
@@ -435,7 +437,7 @@ class Component extends DCLogic {
       clearAll: () => this.setState({ areas: {}, lines: {}, name: '', c: { emp: {}, shift: {}, pay: null, pts: null, ot: null, tr: null, night: null, htype: {}, beds: {}, duty: {}, dept: {}, feat: {} } }),
       qv: st.q || '', setQ: (e) => this.setState({ q: e.target.value }),
       setSort: (e) => this.setState({ tab: Number(e.target.value) }),
-      tabs, jobs, count, fac, prefTitle, areaSummary, condSummary, condColor: condLabels.length ? '#1D1D1F' : '#86868B',
+      tabs, jobs, count, fac, prefTitle, headTitle, areaSummary, condSummary, condColor: condLabels.length ? '#1D1D1F' : '#86868B',
       openArea: () => this.setState({ modal: 'area' }), openCond: () => this.setState({ modal: 'cond' }), openPref: () => this.setState({ modal: 'pref' }),
       modalOpen: !!m, isArea: m === 'area', isPref: m === 'pref', isCond: m === 'cond',
       modalTitle: m === 'cond' ? 'こだわり条件を選択' : m === 'pref' ? '都道府県を選択' : '市区町村・路線選択',
