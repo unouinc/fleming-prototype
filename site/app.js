@@ -59,6 +59,11 @@
       return client.storage.from('avatars').upload(path, blob, { contentType: 'image/jpeg', upsert: true }).then(ok).then(function () { return path; });
     });
   };
+  /* 自分の顔写真を表示するための、1時間だけ有効なURL */
+  N.avatarUrl = function (path) {
+    if (!path) return Promise.resolve(null);
+    return client.storage.from('avatars').createSignedUrl(path, 3600).then(function (r) { return r.error ? null : r.data.signedUrl; });
+  };
   N.isComplete = function () { return !!(N.session && N.profile && N.profile.avatar_path); };
   N.saveProfile = function (p) {
     var row = Object.assign({ id: N.session.user.id, email: N.session.user.email }, p);

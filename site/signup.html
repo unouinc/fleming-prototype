@@ -146,7 +146,11 @@ class Component extends DCLogic {
     if (this.N) {
       const sync = () => {
         const pr = this.N.profile;
-        if (this.N.session && pr && pr.avatar_path) this.finish();
+        if (this.N.session && pr && pr.avatar_path && /edit/.test(location.hash)) {
+          this.setState({ step: 2, editing: true, name: pr.name || '', license: pr.license === '准看護師' ? 1 : 0, years: pr.years ? String(pr.years) : '', station: pr.station || '', workplace: pr.workplace || '' });
+          this.N.avatarUrl(pr.avatar_path).then((u) => { if (u && !this.photoFile) this.setState({ photo: u }); });
+        }
+        else if (this.N.session && pr && pr.avatar_path) this.finish();
         else if (this.N.session && pr) this.setState({ step: 2, needPhoto: true, name: pr.name || '', license: pr.license === '准看護師' ? 1 : 0, years: pr.years ? String(pr.years) : '', station: pr.station || '', workplace: pr.workplace || '' });
         else if (this.N.session) this.setState({ step: 2 });
       };
@@ -180,7 +184,7 @@ class Component extends DCLogic {
       },
       backToEmail: () => this.setState({ step: 0, err: '' }), skipToProfile: () => this.setState({ step: 2, err: '' }),
       photo: st.photo, noPhoto: !st.photo, photoBtn: st.photo ? '写真を選び直す' : '写真を選ぶ',
-      profileLead: st.needPhoto ? '顔写真の登録をお願いします。写真を選んで「登録する」を押すと、登録が完了します。' : '話を聞きたい病院にだけ届く情報です。1分ほどで終わります。',
+      profileLead: st.editing ? '登録した内容を変更できます。写真を変えるときだけ、新しい写真を選んでください。' : st.needPhoto ? '顔写真の登録をお願いします。写真を選んで「登録する」を押すと、登録が完了します。' : '話を聞きたい病院にだけ届く情報です。1分ほどで終わります。',
       pickPhoto: (e) => {
         const f = e.target.files && e.target.files[0];
         if (!f) return;
@@ -193,19 +197,19 @@ class Component extends DCLogic {
       setName: (e) => this.setState({ name: e.target.value }), setYears: (e) => this.setState({ years: e.target.value.replace(/[^0-9]/g, '').slice(0, 2) }),
       setStation: (e) => this.setState({ station: e.target.value }), setWorkplace: (e) => this.setState({ workplace: e.target.value }),
       licenses: licDefs.map((label, i) => ({ label, on: st.license === i, pick: () => this.setState({ license: i }), border: st.license === i ? '#1D1D1F' : '#D2D2D7', bg: st.license === i ? '#F5F5F7' : '#FFFFFF' })),
-      profileBtn: st.busy ? '登録中…' : (pending ? '登録して「話を聞きたい」を送る' : '登録する'),
+      profileBtn: st.busy ? '保存中…' : st.editing ? '変更を保存する' : (pending ? '登録して「話を聞きたい」を送る' : '登録する'),
       saveProfile: () => {
         if (st.busy) return;
         const name = st.name.trim(), station = st.station.trim().replace(/駅$/, ''), years = parseInt(st.years, 10);
         if (!name) return this.setState({ err: 'お名前を入力してください。' });
         if (!(years >= 1)) return this.setState({ err: '経験年数を数字で入力してください（1年目なら 1）。' });
         if (!station) return this.setState({ err: '最寄駅を入力してください。' });
-        if (!st.photo || !this.photoFile) return this.setState({ err: '顔写真を選んでください。' });
+        if (!st.photo || (!this.photoFile && !st.editing)) return this.setState({ err: '顔写真を選んでください。' });
         if (!N) return this.setState({ step: 3, err: '' });
         this.setState({ busy: true, err: '' });
-        Promise.resolve().then(() => N.uploadAvatar(this.photoFile))
+        Promise.resolve().then(() => this.photoFile ? N.uploadAvatar(this.photoFile) : N.profile.avatar_path)
           .then((avatar_path) => N.saveProfile({ name, license: licDefs[st.license], years, station, workplace: st.workplace.trim(), avatar_path }))
-          .then(() => this.finish())
+          .then(() => { if (st.editing) location.href = 'profile.html'; else this.finish(); })
           .catch(() => this.setState({ busy: false, err: '写真をアップロードできませんでした。別の写真を選ぶか、時間をおいてもう一度お試しください。' }));
       }
     };

@@ -39,23 +39,35 @@ a{color:#1D1D1F}a:hover{color:#6E6E73}
     </div>
   </header>
 
+  <sc-if value="{{gate}}" hint-placeholder-val="{{false}}">
+    <div class="wrap" style="max-width: 720px; width: 100%; margin: 0 auto; padding: 48px 32px 64px; box-sizing: border-box">
+      <div style="background: #FFFFFF; border-radius: 14px; padding: 56px 24px; display: flex; flex-direction: column; align-items: center; gap: 12px; text-align: center">
+        <span style="font-size: 18px; font-weight: 700">{{gateTitle}}</span>
+        <span style="max-width: 460px; font-size: 14px; line-height: 1.8; color: #6E6E73">{{gateText}}</span>
+        <sc-if value="{{gateCta}}" hint-placeholder-val="{{true}}"><a href="signup.html" style="margin-top: 8px; text-decoration: none; background: #1D1D1F; color: #FFFFFF; border-radius: 999px; font-size: 14px; font-weight: 700; padding: 12px 22px; min-height: 44px; box-sizing: border-box; display: inline-flex; align-items: center">{{gateCta}}</a></sc-if>
+      </div>
+    </div>
+  </sc-if>
+  <sc-if value="{{showMain}}" hint-placeholder-val="{{true}}">
   <div class="wrap" style="max-width: 1360px; width: 100%; margin: 0 auto; padding: 28px 32px 64px; box-sizing: border-box; display: flex; flex-wrap: wrap; gap: 24px; align-items: flex-start">
 
     <!-- Left: identity + status -->
     <aside style="flex: 0 1 320px; min-width: 260px; display: flex; flex-direction: column; gap: 16px">
       <div style="background: #FFFFFF; border-radius: 14px; padding: 28px; display: flex; flex-direction: column; align-items: center; gap: 14px; text-align: center">
-        <span style="width: 96px; height: 96px; border-radius: 50%; background: #E8E8ED; color: #86868B; display: flex; align-items: center; justify-content: center"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"></circle><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"></path></svg></span>
+        <sc-if value="{{hasAvatar}}" hint-placeholder-val="{{false}}"><img src="{{avatar}}" alt="あなたの顔写真" style="width: 96px; height: 96px; border-radius: 50%; object-fit: cover; display: block"></sc-if>
+        <sc-if value="{{noAvatar}}" hint-placeholder-val="{{true}}"><span style="width: 96px; height: 96px; border-radius: 50%; background: #E8E8ED; color: #86868B; display: flex; align-items: center; justify-content: center"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"></circle><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"></path></svg></span></sc-if>
         <div style="display: flex; flex-direction: column; gap: 4px">
-          <span style="font-size: 20px; font-weight: 700">山田 花子</span>
-          <span style="font-size: 13px; font-weight: 700; color: #6E6E73">看護師 4年目｜急性期・内科｜東京都</span>
+          <span style="font-size: 20px; font-weight: 700">{{name}}</span>
+          <span style="font-size: 13px; font-weight: 700; color: #6E6E73">{{sub}}</span>
         </div>
         <div style="width: 100%; display: flex; flex-direction: column; gap: 6px">
           <div style="display: flex; justify-content: space-between; font-size: 12px; font-weight: 700"><span>プロフィールの充実度</span><span style="font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', Meiryo, sans-serif">{{pct}}%</span></div>
           <div style="height: 8px; background: #E5E5EA; border-radius: 999px; overflow: hidden"><div style="height: 8px; width: {{pctW}}; background: #1D1D1F; border-radius: 999px"></div></div>
         </div>
-        <button type="button" style="width: 100%; border: 2px solid #D2D2D7; background: #FFFFFF; border-radius: 999px; font-family: inherit; font-size: 14px; font-weight: 700; padding: 12px; min-height: 44px; cursor: pointer">基本情報を編集</button>
+        <button type="button" onClick="{{edit}}" style="width: 100%; border: 2px solid #D2D2D7; background: #FFFFFF; border-radius: 999px; font-family: inherit; font-size: 14px; font-weight: 700; padding: 12px; min-height: 44px; cursor: pointer">基本情報を編集</button>
       </div>
 
+      <sc-if value="{{demo}}" hint-placeholder-val="{{true}}">
       <div style="background: #FFFFFF; border-radius: 14px; padding: 24px; display: flex; flex-direction: column; gap: 14px">
         <span style="font-size: 14px; font-weight: 700">いまの気持ち</span>
         <span style="font-size: 12px; line-height: 1.7; color: #6E6E73">病院に見えるのはこの状態だけ。本名や連絡先は、あなたが決めるまで届きません。</span>
@@ -81,15 +93,36 @@ a{color:#1D1D1F}a:hover{color:#6E6E73}
           <span>転職が決まった人 <span style="font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', Meiryo, sans-serif; font-size: 16px">1</span>人</span>
         </div>
       </div>
+      </sc-if>
     </aside>
 
     <!-- Main -->
     <main style="flex: 999 1 560px; min-width: 0; display: flex; flex-direction: column; gap: 20px">
       <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px">
         <h1 class="pagetitle" style="margin: 0; font-size: 26px; font-weight: 700">マイプロフィール</h1>
-        <a href="#" style="text-decoration: none; font-size: 13px; font-weight: 700; color: #1D1D1F">病院からどう見えるかを確認 →</a>
+        <sc-if value="{{demo}}" hint-placeholder-val="{{true}}"><a href="#" style="text-decoration: none; font-size: 13px; font-weight: 700; color: #1D1D1F">病院からどう見えるかを確認 →</a></sc-if>
       </div>
 
+      <sc-if value="{{live}}" hint-placeholder-val="{{false}}">
+      <section style="background: #FFFFFF; border-radius: 14px; padding: 28px; display: flex; flex-direction: column; gap: 16px">
+        <div style="display: flex; justify-content: space-between; align-items: center; gap: 12px">
+          <div style="display: flex; flex-direction: column; gap: 4px">
+            <h2 style="margin: 0; font-size: 18px; font-weight: 700">登録した情報</h2>
+            <span style="font-size: 12px; color: #6E6E73">「話を聞きたい」を送った病院にだけ届きます。メールアドレスは病院には届きません。</span>
+          </div>
+          <a href="signup.html#edit" style="flex: 0 0 auto; white-space: nowrap; text-decoration: none; border: 2px solid #D2D2D7; border-radius: 999px; font-size: 13px; font-weight: 700; padding: 8px 16px; min-height: 40px; box-sizing: border-box; display: flex; align-items: center">編集</a>
+        </div>
+        <dl style="margin: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px">
+          <sc-for list="{{info}}" as="w" hint-placeholder-count="5">
+            <div style="background: #F5F5F7; border-radius: 12px; padding: 14px 16px; display: flex; flex-direction: column; gap: 4px; min-width: 0">
+              <dt style="font-size: 12px; font-weight: 700; color: #6E6E73">{{w.k}}</dt>
+              <dd style="margin: 0; font-size: 15px; font-weight: 700; color: #1D1D1F; overflow-wrap: anywhere">{{w.v}}</dd>
+            </div>
+          </sc-for>
+        </dl>
+      </section>
+      </sc-if>
+      <sc-if value="{{demo}}" hint-placeholder-val="{{true}}">
       <!-- Wishes -->
       <section style="background: #FFFFFF; border-radius: 14px; padding: 28px; display: flex; flex-direction: column; gap: 20px">
         <div style="display: flex; justify-content: space-between; align-items: center; gap: 12px">
@@ -145,6 +178,7 @@ a{color:#1D1D1F}a:hover{color:#6E6E73}
           </sc-for>
         </div>
       </section>
+      </sc-if>
 
       <!-- Activity -->
       <section style="background: #FFFFFF; border-radius: 14px; padding: 28px; display: flex; flex-direction: column; gap: 16px">
@@ -167,9 +201,10 @@ a{color:#1D1D1F}a:hover{color:#6E6E73}
           </sc-for>
         </div>
       </section>
-      <p style="margin: 0; font-size: 12px; color: #6E6E73">※名前・経歴・数値はプロトタイプ用のサンプルです</p>
+      <sc-if value="{{demo}}" hint-placeholder-val="{{true}}"><p style="margin: 0; font-size: 12px; color: #6E6E73">※名前・経歴・数値はプロトタイプ用のサンプルです</p></sc-if>
     </main>
   </div>
+  </sc-if>
   <nav class="tabbar" aria-label="モバイルナビゲーション">
     <a href="index.html" style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px; text-decoration: none; font-size: 10px; font-weight: 700; color: #86868B; min-height: 44px; justify-content: center; position: relative"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-4-4"></path></svg>さがす</a>
     <a href="scouts.html" style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px; text-decoration: none; font-size: 10px; font-weight: 700; color: #86868B; min-height: 44px; justify-content: center; position: relative"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"></rect><path d="M3 8l9 6 9-6"></path></svg><span style="position: absolute; top: 2px; left: calc(50% + 6px); background: #1D1D1F; color: #FFFFFF; font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', Meiryo, sans-serif; font-size: 10px; padding: 1px 6px; border-radius: 999px">3</span>スカウト</a>
@@ -182,7 +217,20 @@ a{color:#1D1D1F}a:hover{color:#6E6E73}
 <script src="runtime.js"></script>
 <script>
 class Component extends DCLogic {
-  constructor(p) { super(p); this.state = { mood: 1 }; }
+  constructor(p) {
+    super(p);
+    const N = window.Nasuri;
+    this.live = !!(N && N.enabled);
+    this.state = { mood: 1, loading: this.live, threads: [], avatar: '' };
+    if (this.live) {
+      const go = () => {
+        if (!N.session) return this.setState({ loading: false });
+        Promise.all([N.loadThreads().catch(() => []), N.profile ? N.avatarUrl(N.profile.avatar_path).catch(() => null) : null])
+          .then(([threads, avatar]) => this.setState({ loading: false, threads, avatar: avatar || '' }));
+      };
+      if (N.ready) setTimeout(go, 0); else window.addEventListener('nasuri:ready', go);
+    }
+  }
   renderVals() {
     const moodsRaw = [
       ['すぐにでも転職したい', '条件が合えば、1〜2か月で動けます'],
@@ -190,7 +238,9 @@ class Component extends DCLogic {
       ['いまは情報収集だけ', 'スカウトは止めて、募集だけ見たい']
     ];
     const moods = moodsRaw.map((m, i) => ({ label: m[0], desc: m[1], on: this.state.mood === i, pick: () => this.setState({ mood: i }), bg: this.state.mood === i ? '#1D1D1F' : '#FFFFFF', fg: this.state.mood === i ? '#FFFFFF' : '#1D1D1F', border: this.state.mood === i ? '#1D1D1F' : '#D2D2D7' }));
-    return {
+    if (this.live) return this.liveVals(moods);
+    const base = { live: false, demo: true, gate: false, showMain: true, gateTitle: '', gateText: '', gateCta: '', name: '山田 花子', sub: '看護師 4年目｜急性期・内科｜東京都', hasAvatar: false, noAvatar: true, avatar: '', edit: () => {}, info: [] };
+    return Object.assign(base, {
       pct: 60, pctW: '60%', moods,
       priorities: [
         { n: 1, label: '人間関係・聞きやすさ', bg: '#1D1D1F', fg: '#FFFFFF' },
@@ -217,7 +267,46 @@ class Component extends DCLogic {
         { text: 'ひだまりの郷の見学（11/8）が確定しました', when: '2日前', color: '#1D1D1F' },
         { text: '紹介した[名前]さんが登録しました', when: '1週間前', color: '#D2D2D7' }
       ]
-    };
+    });
+  }
+  liveVals(moods) {
+    const N = window.Nasuri, st = this.state, pr = N.profile;
+    const empty = { live: true, demo: false, moods, priorities: [], wishes: [], exp: [], skills: [], stats: [], log: [], info: [], pct: 0, pctW: '0%', name: '', sub: '', hasAvatar: false, noAvatar: true, avatar: '', edit: () => {} };
+    if (st.loading) return Object.assign(empty, { gate: true, showMain: false, gateTitle: '読み込み中…', gateText: '', gateCta: '' });
+    if (!N.session) return Object.assign(empty, { gate: true, showMain: false, gateTitle: 'ログインすると、プロフィールが表示されます', gateText: '登録した名前や最寄駅、病院とのやりとりをここで確認できます。', gateCta: 'ログイン・新規登録' });
+    if (!pr) return Object.assign(empty, { gate: true, showMain: false, gateTitle: 'プロフィールの登録がまだです', gateText: '名前・資格・最寄駅などを登録すると、病院に「話を聞きたい」を送れるようになります。', gateCta: 'プロフィールを登録する' });
+    const fields = [pr.name, pr.license, pr.years, pr.station, pr.workplace, pr.avatar_path];
+    const pct = Math.round(fields.filter((x) => x !== null && x !== undefined && String(x).trim() !== '').length / fields.length * 100);
+    const threads = st.threads || [];
+    const pad = (n) => (n < 10 ? '0' : '') + n;
+    const when = (ts) => { const d = new Date(ts), s = (Date.now() - d) / 1000; return s < 3600 ? Math.max(1, Math.floor(s / 60)) + '分前' : s < 86400 ? Math.floor(s / 3600) + '時間前' : s < 86400 * 7 ? Math.floor(s / 86400) + '日前' : (d.getMonth() + 1) + '/' + d.getDate(); };
+    const unread = threads.reduce((a, t) => a + t.messages.filter((m) => m.sender === 'hospital' && !m.read_at).length, 0);
+    const replied = threads.filter((t) => t.messages.some((m) => m.sender === 'hospital')).length;
+    const events = [];
+    threads.forEach((t) => {
+      events.push({ ts: t.created_at, text: t.hospital + 'に「話を聞きたい」を送りました' });
+      t.messages.filter((m) => m.sender === 'hospital').forEach((m) => events.push({ ts: m.created_at, text: t.hospital + 'からメッセージが届きました' }));
+    });
+    events.sort((a, b) => (a.ts < b.ts ? 1 : -1));
+    const log = events.slice(0, 5).map((e) => ({ text: e.text, when: when(e.ts), color: '#1D1D1F' }));
+    if (!log.length) log.push({ text: 'まだ動きはありません。気になる病院に「話を聞きたい」を送ってみましょう。', when: '', color: '#D2D2D7' });
+    return Object.assign(empty, {
+      gate: false, showMain: true, gateTitle: '', gateText: '', gateCta: '',
+      name: pr.name || '（名前未登録）',
+      sub: [(pr.license || '看護師') + (pr.years ? ' ' + pr.years + '年目' : ''), pr.station ? pr.station + '駅' : ''].filter(Boolean).join('｜'),
+      hasAvatar: !!st.avatar, noAvatar: !st.avatar, avatar: st.avatar,
+      pct, pctW: pct + '%', edit: () => { location.href = 'signup.html#edit'; },
+      info: [
+        { k: '名前', v: pr.name || '—' }, { k: '資格', v: pr.license || '—' }, { k: '経験年数', v: pr.years ? pr.years + '年目' : '—' },
+        { k: '最寄駅', v: pr.station ? pr.station + '駅' : '—' }, { k: 'いまの職場', v: pr.workplace || '—' }, { k: 'メールアドレス（病院には届きません）', v: pr.email || (N.session.user && N.session.user.email) || '—' }
+      ],
+      stats: [
+        { label: '「話を聞きたい」を送った', n: threads.length, href: 'scouts.html' },
+        { label: '病院から返信があった', n: replied, href: 'scouts.html' },
+        { label: '未読のメッセージ', n: unread, href: 'scouts.html' }
+      ],
+      log
+    });
   }
 }
 mount(Component, 'tpl', 'app');

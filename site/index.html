@@ -145,7 +145,6 @@ a{color:#1D1D1F}a:hover{color:#6E6E73}
           </div>
         </article>
       </sc-for>
-      <a href="profile.html" style="display: flex; align-items: center; gap: 16px; background: #FFFFFF; border: 1px solid #E5E5EA; border-radius: 14px; padding: 16px 20px; text-decoration: none; color: #1D1D1F"><span style="font-size: 12px; font-weight: 700; background: #FFFFFF; padding: 4px 10px; border-radius: 999px; flex: 0 0 auto">紹介で5万円</span><span style="flex: 1 1 auto; font-size: 14px; font-weight: 700; line-height: 1.6">同期や元同僚に、そのまま送れる紹介文があります</span><span style="font-size: 14px; font-weight: 700">›</span></a>
       <button type="button" style="align-self: center; border: 2px solid #D2D2D7; background: #FFFFFF; border-radius: 999px; font-family: inherit; font-size: 14px; font-weight: 700; padding: 12px 28px; min-height: 48px; cursor: pointer">もっと見る</button>
     </main>
 
@@ -329,7 +328,7 @@ class Component extends DCLogic {
     const st = this.state;
     const tabs = ['おすすめ順', '更新日順', '給与が高い順', '残業が少ない順'].map((label, i) => ({ label, i: String(i), on: st.tab === i }));
     const raw = [
-      { id: 1, talk: 3, type: '正社員', cat: '病院', title: '「聞きやすさ」で選ばれる内科病棟で、一緒に働く看護師を募集', org: 'みなと中央病院', area: '東京都港区', payLabel: '月収', pay: '276,500円〜', payNote: '夜勤4回を含む', img: 'images/sns3.jpg', photo: '病棟の廊下でポーズをとるスタッフ4名（動画サムネイル）', gallery: [{ src: 'images/sns3.jpg', alt: '病棟の廊下でポーズをとるスタッフ4名（動画サムネイル）' }, { src: 'images/station.jpg', alt: 'ナースステーションの様子' }, { src: 'images/mentor.jpg', alt: '先輩看護師が新人に教えている様子' }], pts: 7, ot: 8, tr: 6.5, facts: ['教育担当つき', '2交代', '有休消化 9割'], likes: 128, posted: '2日前' }
+      { id: 1, talk: 3, type: '正社員', cat: '病院', title: '「聞きやすさ」で選ばれる内科病棟で、一緒に働く看護師を募集', org: 'みなと中央病院', area: '東京都港区', payLabel: '月収', pay: '276,500円〜', payNote: '夜勤4回を含む', img: 'images/sns3.jpg', photo: '病棟の廊下でポーズをとるスタッフ4名（動画サムネイル）', gallery: [{ src: 'images/sns3.jpg', alt: '病棟の廊下でポーズをとるスタッフ4名（動画サムネイル）' }, { src: 'images/station.jpg', alt: 'ナースステーションの様子' }, { src: 'images/mentor.jpg', alt: '先輩看護師が新人に教えている様子' }], pts: 7, ot: 8, tr: 6.5, facts: ['教育担当つき', '2交代', '有休消化 9割'], likes: 0, posted: '2日前' }
     ];
     const jobs = raw.map((j) => {
       const liked = !!st.liked[j.id];
@@ -362,7 +361,7 @@ class Component extends DCLogic {
       '千葉県': ['JR総武線','JR常磐線','京成本線','東武野田線','新京成線'],
       '茨城県': ['JR常磐線','つくばエクスプレス'], '栃木県': ['JR宇都宮線','東武宇都宮線'], '群馬県': ['JR高崎線','JR両毛線']
     };
-    const num = (s, i) => ((s.length * 37 + i * 53) % 160) + 4;
+    const num = (s) => (s === '港区' || s === 'JR山手線' ? 1 : 0);
     const areas = st.areas, lines = st.lines, exp = st.exp;
     const setAreas = (patch) => this.setState({ areas: Object.assign({}, areas, patch) });
     const label = (pref, g, it) => (/市$/.test(g) && /区$/.test(it) ? g + it : it);
@@ -385,7 +384,7 @@ class Component extends DCLogic {
       LINES[st.pref].forEach((ln, i) => { const k = st.pref + '|' + ln; const on = !!lines[k];
         areaRows.push({ isGroup: false, label: ln, n: num(ln, i), on, partial: '', weight: 400, indent: '20px', bg: '#FFFFFF', open: false, caret: 'none', toggle: () => this.setState({ lines: Object.assign({}, lines, { [k]: !on }) }), expand: () => {} }); });
     }
-    const PREF_N = { '東京都': 1180, '神奈川県': 642, '埼玉県': 588, '千葉県': 517, '茨城県': 233, '栃木県': 141, '群馬県': 166 };
+    const PREF_N = { '東京都': 1, '神奈川県': 0, '埼玉県': 0, '千葉県': 0, '茨城県': 0, '栃木県': 0, '群馬県': 0 };
     const prefList = Object.keys(AREAS).map((p) => ({ label: p, n: PREF_N[p], border: p === st.pref ? '#1D1D1F' : '#D2D2D7', pick: () => this.setState({ pref: p, modal: 'area' }) }));
     const selAreas = Object.keys(areas).filter((k) => areas[k]).map((k) => { const [p, g, it] = k.split('|'); return label(p, g, it); });
     const selLines = Object.keys(lines).filter((k) => lines[k]).map((k) => k.split('|')[1]);
