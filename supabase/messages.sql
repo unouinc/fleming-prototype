@@ -73,7 +73,7 @@ $$;
 revoke all on function public.unread_count() from public;
 grant execute on function public.unread_count() to authenticated;
 
--- 通知：看護師→運営は Slack、病院→看護師はメール（Resend の APIキーが app_config にあるときだけ）
+-- 通知：看護師→運営は Slack、病院→看護師はメール（Resend の APIキーが Vault にあるときだけ）
 create or replace function public.on_message_created()
 returns trigger language plpgsql security definer set search_path = public as $$
 declare t public.talk_requests; p public.profiles; k text; site text;
@@ -84,7 +84,8 @@ begin
     perform public.notify_slack('【メッセージ】' || t.hospital || '｜' || coalesce(nullif(p.name, ''), '看護師') ||
       E'\n' || left(new.body, 300) || E'\n受付番号: ' || t.id || '（管理画面の申し込みから返信できます）');
   else
-    select value into k from public.app_config where key = 'resend_api_key';
+    -- APIキーは暗号化された保管庫（Vault）から読む。Supabase の Vault に resend_api_key という名前で登録する
+    select decrypted_secret into k from vault.decrypted_secrets where name = 'resend_api_key' limit 1;
     select value into site from public.app_config where key = 'site_url';
     if coalesce(k, '') <> '' and coalesce(p.email, '') <> '' then
       perform net.http_post(
