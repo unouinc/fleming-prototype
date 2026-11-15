@@ -97,7 +97,7 @@ button:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
       <div class="status" id="status"></div>
       <div class="picked" id="picked" hidden></div>
       <div style="display:flex;flex-direction:column;gap:8px;min-height:0">
-        <p class="lbl">エリア（押すと緑になり、地図がそこへ寄ります。複数選べます）</p>
+        <p class="lbl">エリア（押すと緑になり、地図がそこへ寄ります。選べるのは1つです。もう一度押すと解除します）</p>
         <div class="ahead"><span>エリア</span><span>上位</span><span>全体</span></div>
         <ul class="areas" id="areas"></ul>
       </div>
@@ -192,7 +192,7 @@ areaStats.forEach(([name,st])=>{
   const li=document.createElement('li'),b=document.createElement('button');b.type='button';b.dataset.a=name;b.setAttribute('aria-pressed','false');
   const a=document.createElement('span');a.textContent=name;const n1=document.createElement('span');n1.className='n1';n1.textContent=st.top;const n2=document.createElement('span');n2.className='n2';n2.textContent=st.all;
   b.append(a,n1,n2);b.addEventListener('click',()=>{
-    selAreas.has(name)?selAreas.delete(name):selAreas.add(name);syncAreas();render();fitAreas();});
+    const was=selAreas.has(name);selAreas.clear();if(!was)selAreas.add(name);syncAreas();render();fitAreas();});
   li.appendChild(b);ul.appendChild(li);});
 function fitAreas(){
   if(!selAreas.size){svg.transition().duration(450).call(zoom.transform,d3.zoomIdentity);return;}
