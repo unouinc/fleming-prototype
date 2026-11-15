@@ -16,6 +16,16 @@ input:focus-visible,button:focus-visible,a:focus-visible{outline:3px solid #1D1D
   .su-card{padding:24px 20px!important}
   .su-title{font-size:22px!important}
 }
+.tabbar{display:none}
+@media (max-width: 760px){
+  .pc-only{display:none!important}
+  .hdr{padding:0 16px!important;height:56px!important}
+  .su-wrap{padding-bottom:110px!important}
+  .wrap{padding:12px 16px 96px!important;gap:16px!important}
+  .pagetitle{font-size:20px!important}
+  .hero{height:240px!important}
+  .tabbar{display:flex!important;position:fixed;left:0;right:0;bottom:0;z-index:50;background:#FFFFFF;border-top:1px solid #E5E5EA;padding:6px 0 calc(6px + env(safe-area-inset-bottom));justify-content:space-around}
+}
 </style>
 </head>
 <body>
@@ -28,7 +38,11 @@ input:focus-visible,button:focus-visible,a:focus-visible{outline:3px solid #1D1D
         <span class="brand-concept" style="font-size: 10px; font-weight: 500; color: #6E6E73; letter-spacing: 0.02em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">職場がみえる 看護師のための転職プラットフォーム</span>
         <span style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', sans-serif; font-weight: 700; font-size: 21px; letter-spacing: 0.02em; color: #1D1D1F">ナスリー</span>
       </a>
-      <a href="index.html" style="margin-left: auto; font-size: 14px; font-weight: 700; text-decoration: none; min-height: 44px; display: flex; align-items: center">求人をさがす</a>
+      <nav class="pc-only" aria-label="グローバル" style="margin-left: auto; display: flex; align-items: center; gap: 4px; font-size: 14px; font-weight: 700">
+        <a href="index.html" style="text-decoration: none; padding: 10px 14px; border-radius: 999px; min-height: 44px; box-sizing: border-box; display: flex; align-items: center; gap: 6px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-4-4"></path></svg>さがす</a>
+        <a href="scouts.html" style="text-decoration: none; padding: 10px 14px; border-radius: 999px; min-height: 44px; box-sizing: border-box; display: flex; align-items: center; gap: 6px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"></rect><path d="M3 8l9 6 9-6"></path></svg>メッセージ<span style="background: #1D1D1F; color: #FFFFFF; font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', Meiryo, sans-serif; font-size: 12px; padding: 2px 8px; border-radius: 999px">3</span></a>
+        <a href="profile.html" aria-label="マイプロフィール" style="margin-left: 8px; width: 40px; height: 40px; border-radius: 50%; background: #E8E8ED; color: #86868B; display: flex; align-items: center; justify-content: center; text-decoration: none; font-size: 14px; font-weight: 700"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"></circle><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"></path></svg></a>
+      </nav>
     </div>
   </header>
   <main class="su-wrap" style="flex: 1 1 auto; padding: 48px 32px 80px; box-sizing: border-box; display: flex; justify-content: center; align-items: flex-start">
@@ -44,7 +58,7 @@ input:focus-visible,button:focus-visible,a:focus-visible{outline:3px solid #1D1D
         </div>
         <div style="display: flex; flex-direction: column; gap: 8px">
           <label for="su-email" style="font-size: 14px; font-weight: 700">メールアドレス</label>
-          <input id="su-email" type="email" inputmode="email" autocomplete="email" value="{{email}}" onInput="{{setEmail}}" placeholder="example@mail.com" style="font-family: inherit; font-size: 16px; padding: 13px 14px; border-radius: 14px; border: 1.5px solid #D2D2D7; background: #FFFFFF; color: #1D1D1F; min-width: 0; width: 100%; box-sizing: border-box">
+          <input id="su-email" type="email" inputmode="email" autocomplete="email" value="{{email}}" onInput="{{setEmail}}" placeholder="例：nurse@example.com" style="font-family: inherit; font-size: 16px; padding: 13px 14px; border-radius: 14px; border: 1.5px solid #D2D2D7; background: #FFFFFF; color: #1D1D1F; min-width: 0; width: 100%; box-sizing: border-box">
           <span style="font-size: 12px; line-height: 1.7; color: #6E6E73">パスワードは不要です。届いたメールのリンクを押すだけで進めます。</span>
         </div>
         <sc-if value="{{showAgree}}" hint-placeholder-val="{{true}}"><label style="display: flex; gap: 10px; align-items: flex-start; font-size: 13px; line-height: 1.7; cursor: pointer">
@@ -80,7 +94,7 @@ input:focus-visible,button:focus-visible,a:focus-visible{outline:3px solid #1D1D
         </div>
         <div style="display: flex; flex-direction: column; gap: 8px">
           <label for="su-name" style="font-size: 14px; font-weight: 700">お名前</label>
-          <input id="su-name" type="text" autocomplete="name" value="{{name}}" onInput="{{setName}}" placeholder="佐藤 美咲" style="font-family: inherit; font-size: 16px; padding: 13px 14px; border-radius: 14px; border: 1.5px solid #D2D2D7; background: #FFFFFF; color: #1D1D1F; min-width: 0; width: 100%; box-sizing: border-box">
+          <input id="su-name" type="text" autocomplete="name" value="{{name}}" onInput="{{setName}}" placeholder="例：山田 花子" style="font-family: inherit; font-size: 16px; padding: 13px 14px; border-radius: 14px; border: 1.5px solid #D2D2D7; background: #FFFFFF; color: #1D1D1F; min-width: 0; width: 100%; box-sizing: border-box">
         </div>
         <div style="display: flex; flex-direction: column; gap: 8px">
           <span id="su-photo-l" style="font-size: 14px; font-weight: 700">顔写真</span>
@@ -101,18 +115,18 @@ input:focus-visible,button:focus-visible,a:focus-visible{outline:3px solid #1D1D
         <div style="display: flex; flex-direction: column; gap: 8px">
           <label for="su-years" style="font-size: 14px; font-weight: 700">看護師としての経験年数</label>
           <div style="display: flex; align-items: center; gap: 10px">
-            <input id="su-years" type="text" inputmode="numeric" value="{{years}}" onInput="{{setYears}}" placeholder="3" style="font-family: inherit; font-size: 16px; padding: 13px 14px; border-radius: 14px; border: 1.5px solid #D2D2D7; background: #FFFFFF; color: #1D1D1F; min-width: 0; width: 100%; box-sizing: border-box; max-width: 120px">
+            <input id="su-years" type="text" inputmode="numeric" value="{{years}}" onInput="{{setYears}}" placeholder="例：3" style="font-family: inherit; font-size: 16px; padding: 13px 14px; border-radius: 14px; border: 1.5px solid #D2D2D7; background: #FFFFFF; color: #1D1D1F; min-width: 0; width: 100%; box-sizing: border-box; max-width: 120px">
             <span style="font-size: 15px">年目</span>
           </div>
         </div>
         <div style="display: flex; flex-direction: column; gap: 8px">
           <label for="su-station" style="font-size: 14px; font-weight: 700">最寄駅</label>
-          <input id="su-station" type="text" value="{{station}}" onInput="{{setStation}}" placeholder="上大岡" style="font-family: inherit; font-size: 16px; padding: 13px 14px; border-radius: 14px; border: 1.5px solid #D2D2D7; background: #FFFFFF; color: #1D1D1F; min-width: 0; width: 100%; box-sizing: border-box">
+          <input id="su-station" type="text" value="{{station}}" onInput="{{setStation}}" placeholder="例：上大岡" style="font-family: inherit; font-size: 16px; padding: 13px 14px; border-radius: 14px; border: 1.5px solid #D2D2D7; background: #FFFFFF; color: #1D1D1F; min-width: 0; width: 100%; box-sizing: border-box">
           <span style="font-size: 12px; line-height: 1.7; color: #6E6E73">通える範囲の病院をお知らせするために使います。</span>
         </div>
         <div style="display: flex; flex-direction: column; gap: 8px">
           <label for="su-work" style="font-size: 14px; font-weight: 700">いまの職場<span style="font-weight: 500; color: #6E6E73">（任意）</span></label>
-          <input id="su-work" type="text" value="{{workplace}}" onInput="{{setWorkplace}}" placeholder="急性期・内科病棟" style="font-family: inherit; font-size: 16px; padding: 13px 14px; border-radius: 14px; border: 1.5px solid #D2D2D7; background: #FFFFFF; color: #1D1D1F; min-width: 0; width: 100%; box-sizing: border-box">
+          <input id="su-work" type="text" value="{{workplace}}" onInput="{{setWorkplace}}" placeholder="例：急性期・内科病棟" style="font-family: inherit; font-size: 16px; padding: 13px 14px; border-radius: 14px; border: 1.5px solid #D2D2D7; background: #FFFFFF; color: #1D1D1F; min-width: 0; width: 100%; box-sizing: border-box">
           <span style="font-size: 12px; line-height: 1.7; color: #6E6E73">病院名は書かなくて大丈夫です。</span>
         </div>
         <sc-if value="{{err}}" hint-placeholder-val="{{false}}"><span role="alert" style="font-size: 13px; line-height: 1.6; color: #B3261E">{{err}}</span></sc-if>
@@ -129,6 +143,11 @@ input:focus-visible,button:focus-visible,a:focus-visible{outline:3px solid #1D1D
       </sc-if>
     </div>
   </main>
+  <nav class="tabbar" aria-label="モバイルナビゲーション">
+    <a href="index.html" style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px; text-decoration: none; font-size: 10px; font-weight: 700; color: #86868B; min-height: 44px; justify-content: center; position: relative"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-4-4"></path></svg>さがす</a>
+    <a href="scouts.html" style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px; text-decoration: none; font-size: 10px; font-weight: 700; color: #86868B; min-height: 44px; justify-content: center; position: relative"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"></rect><path d="M3 8l9 6 9-6"></path></svg><span style="position: absolute; top: 2px; left: calc(50% + 6px); background: #1D1D1F; color: #FFFFFF; font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', Meiryo, sans-serif; font-size: 10px; padding: 1px 6px; border-radius: 999px">3</span>メッセージ</a>
+    <a href="profile.html" style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px; text-decoration: none; font-size: 10px; font-weight: 700; color: #86868B; min-height: 44px; justify-content: center; position: relative"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"></circle><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"></path></svg>プロフィール</a>
+  </nav>
 </div>
 </template>
 <script src="config.js"></script>
