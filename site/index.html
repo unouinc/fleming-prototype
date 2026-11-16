@@ -309,6 +309,7 @@ a{color:#1D1D1F}a:hover{color:#6E6E73}
 </template>
 <script src="config.js"></script>
 <script src="app.js"></script>
+<script src="geo.js"></script>
 <script src="runtime.js"></script>
 <script>
 class Component extends DCLogic {
@@ -344,51 +345,44 @@ class Component extends DCLogic {
       return Object.assign({}, j, { img: g.src, photo: g.alt, prev: go.bind(null, -1), next: go.bind(null, 1), pos: (gi + 1) + ' / ' + gn, dots: j.gallery.map((x, k) => ({ bg: k === gi ? '#FFFFFF' : 'rgba(255,255,255,0.5)' })), bars, liked, likes: j.likes + (liked ? 1 : 0), likeFill: liked ? '#1D1D1F' : 'none', likeBg: liked ? '#F5F5F7' : '#FFFFFF', likeBorder: liked ? '#1D1D1F' : '#D2D2D7', like: () => this.setState({ liked: Object.assign({}, st.liked, { [j.id]: !liked }) }) });
     });
 
-    // ---- Area data ----
-    const W23 = ['千代田区','中央区','港区','新宿区','文京区','台東区','墨田区','江東区','品川区','目黒区','大田区','世田谷区','渋谷区','中野区','杉並区','豊島区','北区','荒川区','板橋区','練馬区','足立区','葛飾区','江戸川区'];
-    const AREAS = {
-      '東京都': [['東京23区', W23], ['多摩地域', ['八王子市','立川市','武蔵野市','三鷹市','府中市','調布市','町田市','小金井市','日野市','国分寺市','西東京市']]],
-      '神奈川県': [['横浜市', ['鶴見区','神奈川区','西区','中区','南区','保土ケ谷区','磯子区','金沢区','港北区','戸塚区','港南区','旭区','緑区','瀬谷区','栄区','泉区','青葉区','都筑区']], ['川崎市', ['川崎区','幸区','中原区','高津区','多摩区','宮前区','麻生区']], ['その他の市', ['相模原市','横須賀市','藤沢市','鎌倉市','茅ヶ崎市','平塚市','厚木市','大和市','海老名市','小田原市']]],
-      '埼玉県': [['さいたま市', ['西区','北区','大宮区','見沼区','中央区','桜区','浦和区','南区','緑区','岩槻区']], ['その他の市', ['川口市','川越市','所沢市','越谷市','草加市','春日部市','上尾市','熊谷市','新座市','久喜市']]],
-      '千葉県': [['千葉市', ['中央区','花見川区','稲毛区','若葉区','緑区','美浜区']], ['その他の市', ['船橋市','市川市','松戸市','柏市','市原市','流山市','八千代市','習志野市','浦安市','我孫子市']]],
-      '茨城県': [['主な市', ['水戸市','つくば市','日立市','土浦市','取手市','守谷市']]],
-      '栃木県': [['主な市', ['宇都宮市','小山市','栃木市','足利市','佐野市']]],
-      '群馬県': [['主な市', ['前橋市','高崎市','太田市','伊勢崎市','桐生市']]]
-    };
-    const LINES = {
-      '東京都': ['JR山手線','JR中央線','JR総武線','東京メトロ東西線','東京メトロ半蔵門線','都営新宿線','都営大江戸線','京王線','小田急線','東急東横線'],
-      '神奈川県': ['JR東海道線','JR横須賀線','京急本線','相鉄線','東急田園都市線','横浜市営地下鉄ブルーライン'],
-      '埼玉県': ['JR京浜東北線','JR埼京線','東武東上線','東武伊勢崎線','西武池袋線'],
-      '千葉県': ['JR総武線','JR常磐線','京成本線','東武野田線','新京成線'],
-      '茨城県': ['JR常磐線','つくばエクスプレス'], '栃木県': ['JR宇都宮線','東武宇都宮線'], '群馬県': ['JR高崎線','JR両毛線']
-    };
-    const num = (s) => (s === '港区' || s === 'JR山手線' ? 1 : 0);
+    // ---- Area data（市区町村・路線・駅は geo.js。看護roo!と同じ並び） ----
+    const GEO = window.NASURI_GEO || {};
+    const HOSP = { city: { '東京都|東京23区|港区': 1 }, station: { '浜松町': 1, '大門': 1 } }; // 掲載病院の所在地（テスト病院）
     const areas = st.areas, lines = st.lines, exp = st.exp;
     const setAreas = (patch) => this.setState({ areas: Object.assign({}, areas, patch) });
-    const label = (pref, g, it) => (/市$/.test(g) && /区$/.test(it) ? g + it : it);
-    const groups = AREAS[st.pref];
+    const setLines = (patch) => this.setState({ lines: Object.assign({}, lines, patch) });
+    const label = (pref, g, it) => (!it ? g : /市$/.test(g) ? g + it : it);
+    const geo = GEO[st.pref] || { cities: [], lines: [] };
     const areaRows = [];
+    const groupRows = (items, keyOf, sel, setSel, gLabel, gk, nOf, childLabel) => {
+      const keys = items.map(keyOf);
+      const nSel = keys.filter((k) => sel[k]).length;
+      const all = nSel === items.length;
+      const open = !!exp[gk];
+      areaRows.push({ isGroup: true, label: gLabel, n: items.reduce((a, it) => a + nOf(it), 0), on: all, partial: !all && nSel ? nSel + '件選択中' : '', weight: 700, indent: '20px', bg: '#FFFFFF', open, caret: open ? 'rotate(180deg)' : 'none',
+        toggle: () => { const p = {}; keys.forEach((k) => { p[k] = !all; }); setSel(p); },
+        expand: () => this.setState({ exp: Object.assign({}, exp, { [gk]: !open }) }) });
+      if (open) items.forEach((it, i) => { const k = keys[i]; const on = !!sel[k];
+        areaRows.push({ isGroup: false, label: childLabel(it), n: nOf(it), on, partial: '', weight: 400, indent: '52px', bg: '#F5F5F7', open: false, caret: 'none', toggle: () => setSel({ [k]: !on }), expand: () => {} }); });
+    };
     if (st.areaTab === 0) {
-      groups.forEach(([g, items], gi) => {
-        const keys = items.map((it) => st.pref + '|' + g + '|' + it);
-        const nSel = keys.filter((k) => areas[k]).length;
-        const all = nSel === items.length;
-        const gk = st.pref + '|' + g;
-        const open = !!exp[gk];
-        areaRows.push({ isGroup: true, label: g, n: items.reduce((a, it, i) => a + num(it, i), 0), on: all, partial: !all && nSel ? nSel + '件選択中' : '', weight: 700, indent: '20px', bg: '#FFFFFF', open, caret: open ? 'rotate(180deg)' : 'none',
-          toggle: () => { const p = {}; keys.forEach((k) => { p[k] = !all; }); setAreas(p); },
-          expand: () => this.setState({ exp: Object.assign({}, exp, { [gk]: !open }) }) });
-        if (open) items.forEach((it, i) => { const k = keys[i]; const on = !!areas[k];
-          areaRows.push({ isGroup: false, label: it, n: num(it, i), on, partial: '', weight: 400, indent: '52px', bg: '#F5F5F7', open: false, caret: 'none', toggle: () => setAreas({ [k]: !on }), expand: () => {} }); });
+      geo.cities.forEach(([g, items]) => {
+        if (items) { groupRows(items, (it) => st.pref + '|' + g + '|' + it, areas, setAreas, g, st.pref + '|' + g, (it) => HOSP.city[st.pref + '|' + g + '|' + it] || 0, (it) => it); return; }
+        const k = st.pref + '|' + g + '|'; const on = !!areas[k];
+        areaRows.push({ isGroup: false, label: g, n: HOSP.city[k] || 0, on, partial: '', weight: 700, indent: '20px', bg: '#FFFFFF', open: false, caret: 'none', toggle: () => setAreas({ [k]: !on }), expand: () => {} });
       });
     } else {
-      LINES[st.pref].forEach((ln, i) => { const k = st.pref + '|' + ln; const on = !!lines[k];
-        areaRows.push({ isGroup: false, label: ln, n: num(ln, i), on, partial: '', weight: 400, indent: '20px', bg: '#FFFFFF', open: false, caret: 'none', toggle: () => this.setState({ lines: Object.assign({}, lines, { [k]: !on }) }), expand: () => {} }); });
+      geo.lines.forEach(([ln, sts]) => groupRows(sts, (s) => st.pref + '|' + ln + '|' + s, lines, setLines, ln, 'L|' + st.pref + '|' + ln, (s) => HOSP.station[s] || 0, (s) => s + '駅'));
     }
     const PREF_N = { '東京都': 1, '神奈川県': 0, '埼玉県': 0, '千葉県': 0, '茨城県': 0, '栃木県': 0, '群馬県': 0 };
-    const prefList = Object.keys(AREAS).map((p) => ({ label: p, n: PREF_N[p], border: p === st.pref ? '#1D1D1F' : '#D2D2D7', pick: () => this.setState({ pref: p, modal: 'area' }) }));
+    const prefList = Object.keys(GEO).map((p) => ({ label: p, n: PREF_N[p], border: p === st.pref ? '#1D1D1F' : '#D2D2D7', pick: () => this.setState({ pref: p, modal: 'area' }) }));
     const selAreas = Object.keys(areas).filter((k) => areas[k]).map((k) => { const [p, g, it] = k.split('|'); return label(p, g, it); });
-    const selLines = Object.keys(lines).filter((k) => lines[k]).map((k) => k.split('|')[1]);
+    const lineSel = (() => { const out = []; geo.lines && Object.keys(GEO).forEach((p) => (GEO[p].lines || []).forEach(([ln, sts]) => {
+      const ks = sts.map((s) => p + '|' + ln + '|' + s); const on = ks.filter((k) => lines[k]);
+      if (!on.length) return;
+      if (on.length === ks.length) out.push({ label: ln, keys: ks }); else on.forEach((k) => out.push({ label: k.split('|')[2] + '駅', keys: [k] }));
+    })); return out; })();
+    const selLines = lineSel.map((x) => x.label);
     const areaSel = selAreas.concat(selLines);
     const areaSummary = areaSel.length ? areaSel.join('、') : st.pref + '（すべて）';
 
@@ -414,7 +408,7 @@ class Component extends DCLogic {
       { title: '職場の特徴', badge: '', note: '', groups: [multi('feat', '', ['中途にも教育担当', '師長インタビューあり', '託児所あり', '寮あり', '電子カルテあり', '駅徒歩5分以内', '車通勤可', '4週8休以上', '年間休日120日以上', 'ブランク可'])] }
     ];
     const areaChips = Object.keys(areas).filter((k) => areas[k]).map((k) => { const [p, g, it] = k.split('|'); return { label: label(p, g, it), remove: () => setAreas({ [k]: false }) }; })
-      .concat(Object.keys(lines).filter((k) => lines[k]).map((k) => ({ label: k.split('|')[1], remove: () => this.setState({ lines: Object.assign({}, lines, { [k]: false }) }) })));
+      .concat(lineSel.map((x) => ({ label: x.label, remove: () => { const p = {}; x.keys.forEach((k) => { p[k] = false; }); setLines(p); } })));
     const SHORT = { '月給': '月給', '1人あたりの担当患者数（日勤）': '担当患者数', '平均残業時間（月）': '残業', '離職率（年）': '離職率', '夜勤回数（月）': '夜勤' };
     const condChips = [];
     condSections.forEach((s) => s.groups.forEach((g) => g.options.forEach((o) => { if (o.on) condChips.push({ label: g.type === 'radio' ? ((SHORT[g.title] || g.title) + ' ' + o.label) : o.label, remove: o.toggle }); })));
