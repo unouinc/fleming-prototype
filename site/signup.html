@@ -98,14 +98,14 @@ input:focus-visible,button:focus-visible,a:focus-visible{outline:3px solid #1D1D
           <input id="su-name" type="text" autocomplete="name" value="{{name}}" onInput="{{setName}}" placeholder="例：山田 花子" style="font-family: inherit; font-size: 16px; padding: 13px 14px; border-radius: 14px; border: 1.5px solid #D2D2D7; background: #FFFFFF; color: #1D1D1F; min-width: 0; width: 100%; box-sizing: border-box">
         </div>
         <div style="display: flex; flex-direction: column; gap: 8px">
-          <span id="su-photo-l" style="font-size: 14px; font-weight: 700">顔写真</span>
+          <span id="su-photo-l" style="font-size: 14px; font-weight: 700">顔写真<span style="font-weight: 400; color: #6E6E73">（任意）</span></span>
           <div style="display: flex; align-items: center; gap: 16px">
             <sc-if value="{{photo}}" hint-placeholder-val="{{false}}"><img src="{{photo}}" alt="選んだ写真" style="width: 72px; height: 72px; border-radius: 50%; object-fit: cover; flex: 0 0 auto; background: #F5F5F7"></sc-if>
             <sc-if value="{{noPhoto}}" hint-placeholder-val="{{true}}"><span aria-hidden="true" style="width: 72px; height: 72px; border-radius: 50%; background: #F5F5F7; border: 1.5px dashed #D2D2D7; box-sizing: border-box; flex: 0 0 auto; display: flex; align-items: center; justify-content: center; color: #86868B"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8.5" r="3.5"></circle><path d="M5 20c1.2-3.6 4-5.5 7-5.5s5.8 1.9 7 5.5"></path></svg></span></sc-if>
             <label for="su-photo" style="border: 1px solid #D2D2D7; background: #FFFFFF; color: #1D1D1F; border-radius: 999px; font-size: 14px; font-weight: 700; padding: 10px 18px; min-height: 44px; box-sizing: border-box; display: flex; align-items: center; cursor: pointer">{{photoBtn}}</label>
             <input id="su-photo" type="file" accept="image/jpeg,image/png,image/webp,image/heic,image/heif" aria-labelledby="su-photo-l" onChange="{{pickPhoto}}" style="position: absolute; width: 1px; height: 1px; opacity: 0; overflow: hidden">
           </div>
-          <span style="font-size: 12px; line-height: 1.7; color: #6E6E73">話を聞きたい病院の人にだけ見えます。顔がわかる、明るい写真がおすすめです。</span>
+          <span style="font-size: 12px; line-height: 1.7; color: #6E6E73">話を聞きたい病院の人にだけ見えます。登録しなくても使えます。写真があると、病院の人が安心してお話しできます。</span>
         </div>
         <div style="display: flex; flex-direction: column; gap: 8px">
           <span id="su-lic-l" style="font-size: 14px; font-weight: 700">資格</span>
@@ -168,12 +168,12 @@ class Component extends DCLogic {
     if (this.N) {
       const sync = () => {
         const pr = this.N.profile;
-        if (this.N.session && pr && pr.avatar_path && /edit/.test(location.hash)) {
+        if (this.N.session && pr && pr.name && pr.station && /edit/.test(location.hash)) {
           this.setState({ step: 2, editing: true, name: pr.name || '', license: pr.license === '准看護師' ? 1 : 0, years: pr.years ? String(pr.years) : '', station: pr.station || '', workplace: pr.workplace || '' });
-          this.N.avatarUrl(pr.avatar_path).then((u) => { if (u && !this.photoFile) this.setState({ photo: u }); });
+          if (pr.avatar_path) this.N.avatarUrl(pr.avatar_path).then((u) => { if (u && !this.photoFile) this.setState({ photo: u }); });
         }
-        else if (this.N.session && pr && pr.avatar_path) this.finish();
-        else if (this.N.session && pr) this.setState({ step: 2, needPhoto: true, name: pr.name || '', license: pr.license === '准看護師' ? 1 : 0, years: pr.years ? String(pr.years) : '', station: pr.station || '', workplace: pr.workplace || '' });
+        else if (this.N.session && pr && pr.name && pr.station) this.finish();
+        else if (this.N.session && pr) this.setState({ step: 2, name: pr.name || '', license: pr.license === '准看護師' ? 1 : 0, years: pr.years ? String(pr.years) : '', station: pr.station || '', workplace: pr.workplace || '' });
         else if (this.N.session) this.setState({ step: 2 });
       };
       if (this.N.ready) setTimeout(sync, 0); else window.addEventListener('nasuri:ready', sync);
@@ -209,7 +209,7 @@ class Component extends DCLogic {
       },
       backToEmail: () => this.setState({ step: 0, err: '' }), skipToProfile: () => this.setState({ step: 2, err: '' }),
       photo: st.photo, noPhoto: !st.photo, photoBtn: st.photo ? '写真を選び直す' : '写真を選ぶ',
-      profileLead: st.editing ? '登録した内容を変更できます。写真を変えるときだけ、新しい写真を選んでください。' : st.needPhoto ? '顔写真の登録をお願いします。写真を選んで「登録する」を押すと、登録が完了します。' : '話を聞きたい病院にだけ届く情報です。1分ほどで終わります。',
+      profileLead: st.editing ? '登録した内容を変更できます。写真を変えるときだけ、新しい写真を選んでください。' : '話を聞きたい病院にだけ届く情報です。1分ほどで終わります。',
       pickPhoto: (e) => {
         const f = e.target.files && e.target.files[0];
         if (!f) return;
@@ -229,13 +229,12 @@ class Component extends DCLogic {
         if (!name) return this.setState({ err: 'お名前を入力してください。' });
         if (!(years >= 1)) return this.setState({ err: '経験年数を数字で入力してください（1年目なら 1）。' });
         if (!station) return this.setState({ err: '最寄駅を入力してください。' });
-        if (!st.photo || (!this.photoFile && !st.editing)) return this.setState({ err: '顔写真を選んでください。' });
         if (!N) return this.setState({ step: 3, err: '' });
         this.setState({ busy: true, err: '' });
-        Promise.resolve().then(() => this.photoFile ? N.uploadAvatar(this.photoFile) : N.profile.avatar_path)
+        Promise.resolve().then(() => this.photoFile ? N.uploadAvatar(this.photoFile) : ((N.profile && N.profile.avatar_path) || null))
           .then((avatar_path) => N.saveProfile({ name, license: licDefs[st.license], years, station, workplace: st.workplace.trim(), avatar_path }))
           .then(() => { if (st.editing) location.href = 'profile.html'; else this.finish(); })
-          .catch(() => this.setState({ busy: false, err: '写真をアップロードできませんでした。別の写真を選ぶか、時間をおいてもう一度お試しください。' }));
+          .catch(() => this.setState({ busy: false, err: this.photoFile ? '写真をアップロードできませんでした。別の写真を選ぶか、写真なしで登録してください。' : '登録できませんでした。時間をおいてもう一度お試しください。' }));
       }
     };
   }

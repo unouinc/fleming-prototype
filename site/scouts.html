@@ -275,7 +275,7 @@ class Component extends DCLogic {
     let emptyTitle = '', emptyText = '', emptyBtns = [{ label: '病院をさがす', bg: '#1D1D1F', fg: '#FFFFFF', go: () => { location.href = 'index.html'; } }];
     if (st.loading) { emptyTitle = '読み込み中…'; emptyBtns = []; }
     else if (!N.session) { emptyTitle = 'ログインすると、病院とのメッセージが見られます'; emptyText = '気になる病院に「話を聞きたい」を送ると、その病院とここでやりとりできます。'; emptyBtns = N.authButtons(); }
-    else if (!N.isComplete()) { emptyTitle = '登録が途中です'; emptyText = '名前・資格・最寄駅・顔写真を登録すると、病院とメッセージでやりとりできるようになります。'; emptyBtns = N.resumeButtons(); }
+    else if (!N.isComplete()) { emptyTitle = '登録が途中です'; emptyText = '名前・資格・最寄駅を登録すると、病院とメッセージでやりとりできるようになります。'; emptyBtns = N.resumeButtons(); }
     else if (!threads.length) { emptyTitle = st.filter === 1 ? 'スカウトはまだありません' : 'まだメッセージはありません'; emptyText = '気になる病院に「話を聞きたい」を送ると、その病院とここでやりとりできます。返信が届いたらメールでお知らせします。'; }
     const list = (a) => (a && a.length ? a.join('、') : '');
     const cur = this.decorate(t ? { title: t.job || '', org: t.hospital, from: (t.messages.filter((m) => m.sender === 'hospital').slice(-1)[0] || {}).sender_name || '病院の担当者と運営がお返事します', color: '#E8E8ED', hasEntry: true, entryAt: stamp(t.created_at),

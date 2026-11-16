@@ -277,7 +277,7 @@ class Component extends DCLogic {
     const empty = { gateBtns: [], live: true, demo: false, moods, priorities: [], wishes: [], exp: [], skills: [], stats: [], log: [], info: [], pct: 0, pctW: '0%', name: '', sub: '', hasAvatar: false, noAvatar: true, avatar: '', edit: () => {} };
     if (st.loading) return Object.assign(empty, { gate: true, showMain: false, gateTitle: '読み込み中…', gateText: '', gateCta: '' });
     if (!N.session) return Object.assign(empty, { gate: true, showMain: false, gateTitle: 'ログインすると、プロフィールが表示されます', gateText: '登録した名前や最寄駅、病院とのやりとりをここで確認できます。', gateBtns: N.authButtons() });
-    if (!N.isComplete()) return Object.assign(empty, { gate: true, showMain: false, gateTitle: '登録が途中です', gateText: '名前・資格・最寄駅・顔写真を登録すると、プロフィールが表示され、病院に「話を聞きたい」を送れるようになります。', gateBtns: N.resumeButtons() });
+    if (!N.isComplete()) return Object.assign(empty, { gate: true, showMain: false, gateTitle: '登録が途中です', gateText: '名前・資格・最寄駅を登録すると、プロフィールが表示され、病院に「話を聞きたい」を送れるようになります。', gateBtns: N.resumeButtons() });
     const fields = [pr.name, pr.license, pr.years, pr.station, pr.workplace, pr.avatar_path];
     const pct = Math.round(fields.filter((x) => x !== null && x !== undefined && String(x).trim() !== '').length / fields.length * 100);
     const threads = st.threads || [];

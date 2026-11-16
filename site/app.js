@@ -73,7 +73,8 @@
     return [btn('登録を続ける', true, function () { location.href = 'signup.html'; }),
       btn('別のアカウントでログイン', false, function () { N.signOut().then(function () { location.href = 'signup.html#login'; }); })];
   };
-  N.isComplete = function () { return !!(N.session && N.profile && N.profile.avatar_path); };
+  /* 登録完了の条件：名前と最寄駅（顔写真は任意） */
+  N.isComplete = function () { return !!(N.session && N.profile && N.profile.name && N.profile.station); };
   N.saveProfile = function (p) {
     var row = Object.assign({ id: N.session.user.id, email: N.session.user.email }, p);
     return client.from('profiles').upsert(row).select().single().then(ok).then(function (d) { N.profile = d; });
