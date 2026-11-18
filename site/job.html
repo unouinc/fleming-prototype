@@ -231,72 +231,59 @@ a{color:#1D1D1F}a:hover{color:#6E6E73}
 
       <!-- People -->
       <sc-if value="{{isPeople}}">
-      <section style="background: #FFFFFF; border-radius: 14px; padding: 36px; display: flex; flex-direction: column; gap: 32px">
+      <!-- Head nurse -->
+      <section id="people" style="background: #FFFFFF; border-radius: 14px; padding: 36px; display: flex; flex-direction: column; gap: 20px">
         <div style="display: flex; flex-direction: column; gap: 8px">
           <span style="font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', Meiryo, sans-serif; font-weight: 700; font-size: 12px; letter-spacing: 2px; color: #1D1D1F">PEOPLE</span>
-          <h2 style="margin: 0; font-size: 22px; font-weight: 700">働く人の声</h2>
+          <h2 style="margin: 0; font-size: 22px; font-weight: 700">この病棟の看護師長</h2>
         </div>
-        <div style="display: flex; flex-direction: column; gap: 14px; background: #F5F5F7; border-radius: 14px; padding: 20px">
-          <sc-for list="{{peopleBars}}" as="b" hint-placeholder-count="2">
-            <div style="display: flex; flex-direction: column; gap: 6px">
-              <div style="display: flex; justify-content: space-between; align-items: baseline; font-size: 13px; font-weight: 700">
-                <span>{{b.label}}</span>
-                <span style="display: flex; gap: 10px; align-items: baseline"><span style="font-size: 11px; color: #6E6E73">エリア平均 {{b.avg}}</span><span style="font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', Meiryo, sans-serif; font-size: 20px">{{b.value}}</span></span>
-              </div>
-              <div style="height: 12px; background: #E5E5EA; border-radius: 999px; position: relative; overflow: hidden">
-                <div style="position: absolute; left: 0; top: 0; height: 12px; border-radius: 999px; background: {{b.color}}; width: {{b.w}}"></div>
-                <div style="position: absolute; top: 0; height: 12px; width: 3px; background: #1D1D1F; left: {{b.avgPos}}"></div>
-              </div>
-              <span style="font-size: 11px; color: #6E6E73">{{b.note}}</span>
+        <div style="display: flex; flex-wrap: wrap; gap: 20px; background: #F5F5F7; border-radius: 14px; padding: 22px">
+          <span aria-hidden="true" style="width: 88px; height: 88px; border-radius: 50%; background: #E8E8ED; color: #86868B; border: 2px solid #D2D2D7; flex: 0 0 auto; display: flex; align-items: center; justify-content: center"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"></circle><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"></path></svg></span>
+          <div style="flex: 1 1 300px; min-width: 0; display: flex; flex-direction: column; gap: 10px">
+            <div style="display: flex; flex-direction: column; gap: 2px">
+              <span style="font-size: 12px; font-weight: 700; color: #6E6E73">{{head.role}}</span>
+              <span style="font-size: 20px; font-weight: 700">{{head.name}}</span>
             </div>
-          </sc-for>
-        </div>
-        <div style="display: flex; flex-direction: column; gap: 10px">
-          <span style="font-size: 14px; font-weight: 700">年次ごとの声</span>
-          <div style="display: flex; flex-wrap: wrap; gap: 12px">
-            <sc-for list="{{voices}}" as="v" hint-placeholder-count="4">
-              <div style="flex: 1 1 220px; min-width: 0; background: #F5F5F7; border-radius: 14px; padding: 16px 18px; display: flex; flex-direction: column; gap: 8px">
-                <span style="align-self: flex-start; font-size: 12px; font-weight: 700; color: #FFFFFF; background: #1D1D1F; padding: 2px 10px; border-radius: 999px">{{v.year}}</span>
-                <span style="font-size: 14px; line-height: 1.8">{{v.text}}</span>
-                <span style="font-size: 12px; color: #6E6E73">{{v.who}}</span>
-              </div>
-            </sc-for>
+            <div style="display: flex; gap: 6px; flex-wrap: wrap">
+              <sc-for list="{{head.tags}}" as="t" hint-placeholder-count="3"><span style="font-size: 12px; font-weight: 400; color: #1D1D1F; background: #FFFFFF; border: 1px solid #D2D2D7; padding: 2px 8px; border-radius: 6px">{{t}}</span></sc-for>
+            </div>
+            <span style="font-size: 14px; line-height: 1.8; color: #1D1D1F">{{head.text}}</span>
+            <div style="display: flex; flex-direction: column; gap: 2px; padding-top: 10px; border-top: 1px solid #E5E5EA">
+              <span style="font-size: 11px; font-weight: 700; color: #6E6E73">こんな話ができます</span>
+              <span style="font-size: 13px; line-height: 1.7; color: #1D1D1F">{{head.ask}}</span>
+            </div>
           </div>
-        </div>
-      </section>
-      <!-- Members -->
-      <section id="members" style="background: #FFFFFF; border-radius: 14px; padding: 36px; display: flex; flex-direction: column; gap: 20px">
-        <div style="display: flex; flex-direction: column; gap: 8px">
-          <span style="font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', Meiryo, sans-serif; font-weight: 700; font-size: 12px; letter-spacing: 2px; color: #1D1D1F">MEMBERS</span>
-          <h2 style="margin: 0; font-size: 22px; font-weight: 700">話を聞きに行くと会える人 <span style="font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', Meiryo, sans-serif; font-size: 16px; font-weight: 700; color: #1D1D1F">{{memberCount}}人</span></h2>
-          <span style="font-size: 13px; line-height: 1.7; color: #6E6E73">応募の前に、この中から話したい人を選んで30分ほど話せます。見学でもオンラインでも。</span>
         </div>
         <div style="display: flex; gap: 8px; flex-wrap: wrap">
           <a href="members-a.html" style="text-decoration: none; font-size: 13px; font-weight: 700; padding: 10px 16px; border-radius: 999px; border: 2px solid #D2D2D7; min-height: 40px; box-sizing: border-box; display: flex; align-items: center">チームの構成を見る（組織図）</a>
-          <a href="interview.html" style="text-decoration: none; font-size: 13px; font-weight: 700; padding: 10px 16px; border-radius: 999px; border: 2px solid #D2D2D7; min-height: 40px; box-sizing: border-box; display: flex; align-items: center">施設長インタビューを読む</a>
           <a href="members-b.html" style="text-decoration: none; font-size: 13px; font-weight: 700; padding: 10px 16px; border-radius: 999px; border: 2px solid #D2D2D7; min-height: 40px; box-sizing: border-box; display: flex; align-items: center">数字で見るメンバー・師長の紹介</a>
         </div>
-        <div style="display: flex; flex-wrap: wrap; gap: 16px">
-          <sc-for list="{{members}}" as="m" hint-placeholder-count="3">
-            <div style="flex: 1 1 220px; min-width: 0; border: 1px solid #E5E5EA; border-radius: 14px; padding: 18px; display: flex; flex-direction: column; gap: 12px">
-              <div style="display: flex; gap: 12px; align-items: center">
-                <span aria-hidden="true" style="width: 56px; height: 56px; border-radius: 50%; background: #E8E8ED; color: #86868B; border: 2px solid #D2D2D7; flex: 0 0 auto; display: flex; align-items: center; justify-content: center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"></circle><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"></path></svg></span>
-                <div style="min-width: 0; display: flex; flex-direction: column; gap: 2px">
-                  <span style="font-size: 15px; font-weight: 700; color: #1D1D1F">{{m.name}}</span>
-                  <span style="font-size: 12px; font-weight: 400; color: #6E6E73">{{m.role}}</span>
-                </div>
-              </div>
-              <div style="display: flex; gap: 6px; flex-wrap: wrap">
-                <sc-for list="{{m.tags}}" as="t" hint-placeholder-count="3"><span style="font-size: 12px; font-weight: 400; color: #1D1D1F; border: 1px solid #D2D2D7; padding: 2px 8px; border-radius: 6px">{{t}}</span></sc-for>
-              </div>
-              <span style="font-size: 13px; line-height: 1.7; color: #1D1D1F">{{m.text}}</span>
-              <div style="display: flex; flex-direction: column; gap: 2px; padding-top: 10px; border-top: 1px solid #E5E5EA">
-                <span style="font-size: 11px; font-weight: 700; color: #6E6E73">こんな話ができます</span>
-                <span style="font-size: 13px; line-height: 1.7; color: #1D1D1F">{{m.ask}}</span>
-              </div>
-            </div>
-          </sc-for>
+      </section>
+      <!-- Articles -->
+      <section style="background: #FFFFFF; border-radius: 14px; padding: 36px; display: flex; flex-direction: column; gap: 20px">
+        <div style="display: flex; flex-direction: column; gap: 8px">
+          <span style="font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', Meiryo, sans-serif; font-weight: 700; font-size: 12px; letter-spacing: 2px; color: #1D1D1F">STORIES</span>
+          <h2 style="margin: 0; font-size: 22px; font-weight: 700">働く人の声 <span style="font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', Meiryo, sans-serif; font-size: 16px; font-weight: 700; color: #1D1D1F">{{articleCount}}本</span></h2>
         </div>
+        <sc-if value="{{hasArticles}}">
+          <div style="display: flex; flex-direction: column">
+            <sc-for list="{{articles}}" as="ar" hint-placeholder-count="5">
+              <a href="{{ar.href}}" style="text-decoration: none; color: #1D1D1F; display: flex; gap: 16px; align-items: center; padding: 16px 0; border-bottom: 1px solid #E5E5EA; min-height: 44px">
+                <span aria-hidden="true" style="width: 52px; height: 52px; border-radius: 50%; background: #E8E8ED; color: #86868B; border: 2px solid #D2D2D7; flex: 0 0 auto; display: flex; align-items: center; justify-content: center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"></circle><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"></path></svg></span>
+                <span style="flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; gap: 8px">
+                  <span style="font-size: 15px; font-weight: 700; line-height: 1.6">{{ar.title}}</span>
+                  <span style="display: flex; gap: 6px; flex-wrap: wrap">
+                    <sc-for list="{{ar.labels}}" as="l" hint-placeholder-count="2"><span style="font-size: 12px; font-weight: 700; color: #1D1D1F; background: #F5F5F7; padding: 2px 10px; border-radius: 999px">{{l}}</span></sc-for>
+                  </span>
+                </span>
+                <span aria-hidden="true" style="flex: 0 0 auto; color: #86868B; font-size: 18px">›</span>
+              </a>
+            </sc-for>
+          </div>
+        </sc-if>
+        <sc-if value="{{noArticles}}" hint-placeholder-val="{{false}}">
+          <span style="font-size: 13px; color: #6E6E73">記事はまだありません。</span>
+        </sc-if>
       </section>
       </sc-if>
 
@@ -545,11 +532,18 @@ class Component extends DCLogic {
       axes: raw.map((r) => ({ label: r[0], v: r[1], avg: r[2], w: r[1] + '%', avgPos: r[2] + '%', color: r[3] })),
       bars: [
         { label: '1人あたりの担当患者数（日勤）', value: '7人', avg: '10人', w: (7 / 30 * 100) + '%', avgPos: (10 / 30 * 100) + '%', color: '#1D1D1F', note: '内科病棟の平均。目盛りは最大30人' },
-        { label: '平均残業時間（月）', value: '8h', avg: '18h', w: (8 / 40 * 100) + '%', avgPos: (18 / 40 * 100) + '%', color: '#1D1D1F', note: '直近6か月の実績。目盛りは最大40時間' }
-      ],
-      peopleBars: [
+        { label: '平均残業時間（月）', value: '8h', avg: '18h', w: (8 / 40 * 100) + '%', avgPos: (18 / 40 * 100) + '%', color: '#1D1D1F', note: '直近6か月の実績。目盛りは最大40時間' },
         { label: '離職率（年）', value: '6.5%', avg: '11%', w: (6.5 / 30 * 100) + '%', avgPos: (11 / 30 * 100) + '%', color: '#1D1D1F', note: '昨年度、看護師24名中 2名が退職（産休・育休は含まない）。目盛りは最大30%' }
       ],
+      get head() { return this.members[0]; },
+      // 病院側で追加・削除できる記事。表示はアイコン・タイトル・ラベル（年次・科）のみ
+      get articles() {
+        return [{ title: '「忙しさはなくせない。でも、ひとりで抱える忙しさはなくせる」', labels: ['施設長'], href: 'interview.html' }]
+          .concat(this.voices.map((v) => ({ title: v.text, labels: [v.year, '内科病棟'], href: 'interview.html' })));
+      },
+      get articleCount() { return this.articles.length; },
+      get hasArticles() { return this.articles.length > 0; },
+      get noArticles() { return this.articles.length === 0; },
       voices: [
         { year: '1年目', text: '「最初の3か月は先輩が横についてくれて、夜勤に入る前に一緒に練習できた。聞けば必ず答えてもらえる」', who: '新卒入職' },
         { year: '3年目', text: '「正直、忙しい日はある。でもチームで受け持ちを調整するから、ひとりで抱えることはない」', who: '新卒入職' },
