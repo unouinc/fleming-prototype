@@ -107,6 +107,9 @@ a{color:#1D1D1F}a:hover{color:#6E6E73}
                 <span style="font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', Meiryo, sans-serif; font-weight: 700; font-size: 20px; color: #1D1D1F">{{j.pay}}</span>
                 <span style="font-size: 12px; font-weight: 400; color: #6E6E73">{{j.payNote}}</span>
               </div>
+              <div style="display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 13px; color: #424245">
+                <sc-for list="{{j.work}}" as="w" hint-placeholder-count="4"><span><span style="color: #6E6E73">{{w.k}}</span> <span style="font-weight: 700; color: #1D1D1F">{{w.v}}</span></span></sc-for>
+              </div>
             </div>
             <div class="cover" style="position: relative; aspect-ratio: 16 / 9; background: #1D1D1F; border-radius: 10px; overflow: hidden">
               <a href="job.html" aria-label="{{j.title}}" style="display: block; width: 100%; height: 100%">
@@ -330,7 +333,7 @@ class Component extends DCLogic {
     const st = this.state;
     const tabs = ['おすすめ順', '更新日順', '給与が高い順', '残業が少ない順'].map((label, i) => ({ label, i: String(i), on: st.tab === i }));
     const raw = [
-      { id: 1, talk: 3, type: '正社員', cat: '病院', title: '「聞きやすさ」で選ばれる内科病棟で、一緒に働く看護師を募集', org: 'みなと中央病院', area: '東京都港区', payLabel: '月収', pay: '276,500円〜', payNote: '夜勤4回を含む', img: 'images/sns3.jpg', photo: '病棟の廊下でポーズをとるスタッフ4名（動画サムネイル）', gallery: [{ src: 'images/sns3.jpg', alt: '病棟の廊下でポーズをとるスタッフ4名（動画サムネイル）' }, { src: 'images/station.jpg', alt: 'ナースステーションの様子' }, { src: 'images/mentor.jpg', alt: '先輩看護師が新人に教えている様子' }], pts: 7, ot: 8, tr: 6.5, facts: ['教育担当つき', '2交代', '有休消化 9割'], likes: 0, posted: '2日前' }
+      { id: 1, talk: 3, type: '正社員', cat: '病院', title: '「聞きやすさ」で選ばれる内科病棟で、一緒に働く看護師を募集', org: 'みなと中央病院', area: '東京都港区', payLabel: '月収', pay: '276,500円〜', payNote: '夜勤手当4回分を含む目安', work: [{ k: '配属', v: '内科病棟' }, { k: '年間休日', v: '120日' }, { k: '勤務', v: '2交代（夜勤月4回）' }, { k: '土日祝', v: 'シフト制' }], img: 'images/sns3.jpg', photo: '病棟の廊下でポーズをとるスタッフ4名（動画サムネイル）', gallery: [{ src: 'images/sns3.jpg', alt: '病棟の廊下でポーズをとるスタッフ4名（動画サムネイル）' }, { src: 'images/station.jpg', alt: 'ナースステーションの様子' }, { src: 'images/mentor.jpg', alt: '先輩看護師が新人に教えている様子' }], pts: 7, ot: 8, tr: 6.5, facts: ['教育担当つき', '2交代', '有休消化 9割'], likes: 0, posted: '2日前' }
     ];
     const jobs = raw.map((j) => {
       const liked = !!st.liked[j.id];
@@ -405,7 +408,7 @@ class Component extends DCLogic {
         multi('beds', '病床数', ['199床以下', '200〜399床', '400床以上']) ] },
       { title: '担当業務', badge: '', note: '', groups: [multi('duty', '', ['病棟', '外来', 'オペ室', '救急外来', 'ICU系', '透析', '内視鏡'])] },
       { title: '診療科', badge: '', note: '', groups: [multi('dept', '', ['内科', '外科', '整形外科', '脳神経外科', '循環器', '消化器', '呼吸器', '小児科', '産婦人科', '精神科', 'リハビリテーション科', '緩和ケア'])] },
-      { title: '職場の特徴', badge: '', note: '', groups: [multi('feat', '', ['中途にも教育担当', '師長インタビューあり', '託児所あり', '寮あり', '電子カルテあり', '駅徒歩5分以内', '車通勤可', '4週8休以上', '年間休日120日以上', 'ブランク可'])] }
+      { title: '職場の特徴', badge: '', note: '', groups: [multi('feat', '', ['中途にも教育担当', '師長インタビューあり', '託児所あり', '寮あり', '電子カルテあり', '駅徒歩5分以内', '車通勤可', '4週8休以上', '年間休日120日以上', '土日祝休み', 'ブランク可'])] }
     ];
     const areaChips = Object.keys(areas).filter((k) => areas[k]).map((k) => { const [p, g, it] = k.split('|'); return { label: label(p, g, it), remove: () => setAreas({ [k]: false }) }; })
       .concat(lineSel.map((x) => ({ label: x.label, remove: () => { const p = {}; x.keys.forEach((k) => { p[k] = false; }); setLines(p); } })));
