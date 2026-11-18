@@ -84,13 +84,11 @@ a{color:#1D1D1F}a:hover{color:#6E6E73}
       </div>
 
       <!-- Tabs -->
-      <nav aria-label="ページ内" style="display: flex; gap: 4px; border-bottom: 2px solid #E5E5EA; font-size: 14px; font-weight: 700">
-        <a href="#about" style="text-decoration: none; padding: 12px 16px; border-bottom: 3px solid #1D1D1F; margin-bottom: -2px; min-height: 44px; box-sizing: border-box; display: flex; align-items: center">施設概要</a>
-        <a href="#work" style="text-decoration: none; padding: 12px 16px; color: #6E6E73; min-height: 44px; box-sizing: border-box; display: flex; align-items: center">働き方</a>
-        <a href="members-a.html" style="text-decoration: none; padding: 12px 16px; color: #6E6E73; min-height: 44px; box-sizing: border-box; display: flex; align-items: center">メンバー</a>
-        <a href="interview.html" style="text-decoration: none; padding: 12px 16px; color: #6E6E73; min-height: 44px; box-sizing: border-box; display: flex; align-items: center">インタビュー</a>
+      <nav aria-label="ページ内" role="tablist" style="display: flex; gap: 4px; border-bottom: 2px solid #E5E5EA; font-size: 14px; font-weight: 700; overflow-x: auto">
+        <sc-for list="{{tabs}}" as="t" hint-placeholder-count="4"><button type="button" role="tab" aria-selected="{{t.on}}" onClick="{{t.pick}}" style="border: none; background: none; font-family: inherit; font-size: 14px; font-weight: 700; padding: 12px 8px; border-bottom: 3px solid {{t.line}}; margin-bottom: -2px; min-height: 44px; color: {{t.fg}}; cursor: pointer; white-space: nowrap; flex: 1 1 0; text-align: center">{{t.label}}</button></sc-for>
       </nav>
 
+      <sc-if value="{{isAbout}}">
       <!-- About -->
       <section id="about" style="background: #FFFFFF; border-radius: 14px; padding: 36px; display: flex; flex-direction: column; gap: 32px">
         <div style="display: flex; flex-direction: column; gap: 8px">
@@ -98,7 +96,25 @@ a{color:#1D1D1F}a:hover{color:#6E6E73}
           <h2 style="margin: 0; font-size: 22px; font-weight: 700">施設概要</h2>
         </div>
         <p style="margin: 0; font-size: 15px; line-height: 2; color: #424245">港区にある[病床数]床の急性期病院。内科病棟では、高齢の患者さんの急性期治療から退院支援までを担当します。看護師は[人数]名、中途入職が半数以上で、ブランクから復帰したメンバーもいます。</p>
-        <sc-for list="{{groups}}" as="g" hint-placeholder-count="8">
+        <div style="display: flex; flex-direction: column; gap: 10px">
+          <span style="font-size: 14px; font-weight: 700">ひと目でわかる数字 <span style="font-size: 12px; font-weight: 700; color: #6E6E73">病院の申告値｜2026年10月更新</span></span>
+        <div style="display: flex; flex-direction: column; gap: 14px; background: #F5F5F7; border-radius: 14px; padding: 20px">
+          <sc-for list="{{bars}}" as="b" hint-placeholder-count="2">
+            <div style="display: flex; flex-direction: column; gap: 6px">
+              <div style="display: flex; justify-content: space-between; align-items: baseline; font-size: 13px; font-weight: 700">
+                <span>{{b.label}}</span>
+                <span style="display: flex; gap: 10px; align-items: baseline"><span style="font-size: 11px; color: #6E6E73">エリア平均 {{b.avg}}</span><span style="font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', Meiryo, sans-serif; font-size: 20px">{{b.value}}</span></span>
+              </div>
+              <div style="height: 12px; background: #E5E5EA; border-radius: 999px; position: relative; overflow: hidden">
+                <div style="position: absolute; left: 0; top: 0; height: 12px; border-radius: 999px; background: {{b.color}}; width: {{b.w}}"></div>
+                <div style="position: absolute; top: 0; height: 12px; width: 3px; background: #1D1D1F; left: {{b.avgPos}}"></div>
+              </div>
+              <span style="font-size: 11px; color: #6E6E73">{{b.note}}</span>
+            </div>
+          </sc-for>
+        </div>
+        </div>
+        <sc-for list="{{aboutGroups}}" as="g" hint-placeholder-count="8">
           <div style="display: flex; flex-direction: column; gap: 4px">
             <h3 style="margin: 0 0 8px; font-size: 16px; font-weight: 700; padding-bottom: 10px; border-bottom: 2px solid #1D1D1F">{{g.title}}</h3>
             <dl style="margin: 0; display: flex; flex-direction: column">
@@ -112,8 +128,33 @@ a{color:#1D1D1F}a:hover{color:#6E6E73}
           </div>
         </sc-for>
       </section>
+      </sc-if>
 
+      <!-- Pay -->
+      <sc-if value="{{isPay}}">
+      <section style="background: #FFFFFF; border-radius: 14px; padding: 36px; display: flex; flex-direction: column; gap: 32px">
+        <div style="display: flex; flex-direction: column; gap: 8px">
+          <span style="font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', Meiryo, sans-serif; font-weight: 700; font-size: 12px; letter-spacing: 2px; color: #1D1D1F">SALARY</span>
+          <h2 style="margin: 0; font-size: 22px; font-weight: 700">給与・手当</h2>
+        </div>
+        <sc-for list="{{payGroups}}" as="g" hint-placeholder-count="8">
+          <div style="display: flex; flex-direction: column; gap: 4px">
+            <h3 style="margin: 0 0 8px; font-size: 16px; font-weight: 700; padding-bottom: 10px; border-bottom: 2px solid #1D1D1F">{{g.title}}</h3>
+            <dl style="margin: 0; display: flex; flex-direction: column">
+              <sc-for list="{{g.rows}}" as="r" hint-placeholder-count="4">
+                <div style="display: flex; gap: 16px; padding: 12px 0; border-bottom: 1px solid #E5E5EA">
+                  <dt style="flex: 0 0 150px; font-size: 13px; font-weight: 700; color: #6E6E73; padding-top: 2px">{{r.k}}</dt>
+                  <dd style="margin: 0; flex: 1 1 auto; min-width: 0; font-size: 14px; font-weight: 700; line-height: 1.7; white-space: pre-line">{{r.v}}</dd>
+                </div>
+              </sc-for>
+            </dl>
+          </div>
+        </sc-for>
+      </section>
+      </sc-if>
 
+      <!-- Work -->
+      <sc-if value="{{isWork}}">
       <!-- Work -->
       <section id="work" style="background: #FFFFFF; border-radius: 14px; padding: 36px; display: flex; flex-direction: column; gap: 28px">
         <div style="display: flex; flex-direction: column; gap: 8px">
@@ -172,8 +213,57 @@ a{color:#1D1D1F}a:hover{color:#6E6E73}
             </sc-for>
           </ol>
         </div>
+        <sc-for list="{{workGroups}}" as="g" hint-placeholder-count="8">
+          <div style="display: flex; flex-direction: column; gap: 4px">
+            <h3 style="margin: 0 0 8px; font-size: 16px; font-weight: 700; padding-bottom: 10px; border-bottom: 2px solid #1D1D1F">{{g.title}}</h3>
+            <dl style="margin: 0; display: flex; flex-direction: column">
+              <sc-for list="{{g.rows}}" as="r" hint-placeholder-count="4">
+                <div style="display: flex; gap: 16px; padding: 12px 0; border-bottom: 1px solid #E5E5EA">
+                  <dt style="flex: 0 0 150px; font-size: 13px; font-weight: 700; color: #6E6E73; padding-top: 2px">{{r.k}}</dt>
+                  <dd style="margin: 0; flex: 1 1 auto; min-width: 0; font-size: 14px; font-weight: 700; line-height: 1.7; white-space: pre-line">{{r.v}}</dd>
+                </div>
+              </sc-for>
+            </dl>
+          </div>
+        </sc-for>
       </section>
+      </sc-if>
 
+      <!-- People -->
+      <sc-if value="{{isPeople}}">
+      <section style="background: #FFFFFF; border-radius: 14px; padding: 36px; display: flex; flex-direction: column; gap: 32px">
+        <div style="display: flex; flex-direction: column; gap: 8px">
+          <span style="font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', Meiryo, sans-serif; font-weight: 700; font-size: 12px; letter-spacing: 2px; color: #1D1D1F">PEOPLE</span>
+          <h2 style="margin: 0; font-size: 22px; font-weight: 700">働く人の声</h2>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 14px; background: #F5F5F7; border-radius: 14px; padding: 20px">
+          <sc-for list="{{peopleBars}}" as="b" hint-placeholder-count="2">
+            <div style="display: flex; flex-direction: column; gap: 6px">
+              <div style="display: flex; justify-content: space-between; align-items: baseline; font-size: 13px; font-weight: 700">
+                <span>{{b.label}}</span>
+                <span style="display: flex; gap: 10px; align-items: baseline"><span style="font-size: 11px; color: #6E6E73">エリア平均 {{b.avg}}</span><span style="font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', Meiryo, sans-serif; font-size: 20px">{{b.value}}</span></span>
+              </div>
+              <div style="height: 12px; background: #E5E5EA; border-radius: 999px; position: relative; overflow: hidden">
+                <div style="position: absolute; left: 0; top: 0; height: 12px; border-radius: 999px; background: {{b.color}}; width: {{b.w}}"></div>
+                <div style="position: absolute; top: 0; height: 12px; width: 3px; background: #1D1D1F; left: {{b.avgPos}}"></div>
+              </div>
+              <span style="font-size: 11px; color: #6E6E73">{{b.note}}</span>
+            </div>
+          </sc-for>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 10px">
+          <span style="font-size: 14px; font-weight: 700">年次ごとの声</span>
+          <div style="display: flex; flex-wrap: wrap; gap: 12px">
+            <sc-for list="{{voices}}" as="v" hint-placeholder-count="4">
+              <div style="flex: 1 1 220px; min-width: 0; background: #F5F5F7; border-radius: 14px; padding: 16px 18px; display: flex; flex-direction: column; gap: 8px">
+                <span style="align-self: flex-start; font-size: 12px; font-weight: 700; color: #FFFFFF; background: #1D1D1F; padding: 2px 10px; border-radius: 999px">{{v.year}}</span>
+                <span style="font-size: 14px; line-height: 1.8">{{v.text}}</span>
+                <span style="font-size: 12px; color: #6E6E73">{{v.who}}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </section>
       <!-- Members -->
       <section id="members" style="background: #FFFFFF; border-radius: 14px; padding: 36px; display: flex; flex-direction: column; gap: 20px">
         <div style="display: flex; flex-direction: column; gap: 8px">
@@ -183,6 +273,7 @@ a{color:#1D1D1F}a:hover{color:#6E6E73}
         </div>
         <div style="display: flex; gap: 8px; flex-wrap: wrap">
           <a href="members-a.html" style="text-decoration: none; font-size: 13px; font-weight: 700; padding: 10px 16px; border-radius: 999px; border: 2px solid #D2D2D7; min-height: 40px; box-sizing: border-box; display: flex; align-items: center">チームの構成を見る（組織図）</a>
+          <a href="interview.html" style="text-decoration: none; font-size: 13px; font-weight: 700; padding: 10px 16px; border-radius: 999px; border: 2px solid #D2D2D7; min-height: 40px; box-sizing: border-box; display: flex; align-items: center">施設長インタビューを読む</a>
           <a href="members-b.html" style="text-decoration: none; font-size: 13px; font-weight: 700; padding: 10px 16px; border-radius: 999px; border: 2px solid #D2D2D7; min-height: 40px; box-sizing: border-box; display: flex; align-items: center">数字で見るメンバー・師長の紹介</a>
         </div>
         <div style="display: flex; flex-wrap: wrap; gap: 16px">
@@ -207,53 +298,7 @@ a{color:#1D1D1F}a:hover{color:#6E6E73}
           </sc-for>
         </div>
       </section>
-
-      <!-- Numbers -->
-      <section id="numbers" style="background: #FFFFFF; border-radius: 14px; padding: 36px; display: flex; flex-direction: column; gap: 24px">
-        <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 12px">
-          <div style="display: flex; flex-direction: column; gap: 8px">
-            <span style="font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', Meiryo, sans-serif; font-weight: 700; font-size: 12px; letter-spacing: 2px; color: #1D1D1F">NUMBERS</span>
-            <h2 style="margin: 0; font-size: 22px; font-weight: 700">入る前に知っておきたい数字</h2>
-          </div>
-          <span style="font-size: 12px; font-weight: 700; color: #6E6E73">病院の申告値｜2026年10月更新</span>
-        </div>
-        <div style="display: flex; flex-direction: column; gap: 14px; background: #F5F5F7; border-radius: 14px; padding: 20px">
-          <sc-for list="{{bars}}" as="b" hint-placeholder-count="2">
-            <div style="display: flex; flex-direction: column; gap: 6px">
-              <div style="display: flex; justify-content: space-between; align-items: baseline; font-size: 13px; font-weight: 700">
-                <span>{{b.label}}</span>
-                <span style="display: flex; gap: 10px; align-items: baseline"><span style="font-size: 11px; color: #6E6E73">エリア平均 {{b.avg}}</span><span style="font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', Meiryo, sans-serif; font-size: 20px">{{b.value}}</span></span>
-              </div>
-              <div style="height: 12px; background: #E5E5EA; border-radius: 999px; position: relative; overflow: hidden">
-                <div style="position: absolute; left: 0; top: 0; height: 12px; border-radius: 999px; background: {{b.color}}; width: {{b.w}}"></div>
-                <div style="position: absolute; top: 0; height: 12px; width: 3px; background: #1D1D1F; left: {{b.avgPos}}"></div>
-              </div>
-              <span style="font-size: 11px; color: #6E6E73">{{b.note}}</span>
-            </div>
-          </sc-for>
-          <div style="display: flex; flex-wrap: wrap; gap: 12px">
-            <sc-for list="{{facts}}" as="f" hint-placeholder-count="2">
-              <div style="flex: 1 1 140px; min-width: 0; background: #FFFFFF; border-radius: 14px; padding: 14px; display: flex; flex-direction: column; gap: 2px">
-                <span style="font-size: 12px; font-weight: 700; color: #6E6E73">{{f.label}}</span>
-                <span style="font-size: 20px; font-weight: 700">{{f.value}}</span>
-                <span style="font-size: 11px; color: #6E6E73">{{f.note}}</span>
-              </div>
-            </sc-for>
-          </div>
-        </div>
-        <div style="display: flex; flex-direction: column; gap: 10px">
-          <span style="font-size: 14px; font-weight: 700">年次ごとの働く人の声</span>
-          <div style="display: flex; flex-wrap: wrap; gap: 12px">
-            <sc-for list="{{voices}}" as="v" hint-placeholder-count="4">
-              <div style="flex: 1 1 220px; min-width: 0; background: #F5F5F7; border-radius: 14px; padding: 16px 18px; display: flex; flex-direction: column; gap: 8px">
-                <span style="align-self: flex-start; font-size: 12px; font-weight: 700; color: #FFFFFF; background: #1D1D1F; padding: 2px 10px; border-radius: 999px">{{v.year}}</span>
-                <span style="font-size: 14px; line-height: 1.8">{{v.text}}</span>
-                <span style="font-size: 12px; color: #6E6E73">{{v.who}}</span>
-              </div>
-            </sc-for>
-          </div>
-        </div>
-      </section>
+      </sc-if>
 
       <p style="margin: 0; font-size: 12px; color: #6E6E73">※病院名・声・数値はプロトタイプ用のサンプルです</p>
     </main>
@@ -403,7 +448,9 @@ class Component extends DCLogic {
     let last = null;
     try { if (!talk && typeof location !== 'undefined' && location.hash === '#talk') talk = 1; } catch (e) {}
     try { if (!talk && typeof location !== 'undefined' && location.hash === '#sent') { talk = 2; last = window.Nasuri && window.Nasuri.lastState && window.Nasuri.lastState(); } } catch (e) {}
-    this.state = Object.assign({ shiftTab: 0, applied: talk === 2, liked: false, talk, feel: 1, who: { 0: true, 2: true }, asks: (p && p.talk) ? { 0: true, 1: true } : {}, way: 1, note: '', busy: false, err: '' }, last || {});
+    let tab0 = 0;
+    try { tab0 = { '#pay': 1, '#work': 2, '#people': 3 }[location.hash] || 0; } catch (e) {}
+    this.state = Object.assign({ tab: tab0, shiftTab: 0, applied: talk === 2, liked: false, talk, feel: 1, who: { 0: true, 2: true }, asks: (p && p.talk) ? { 0: true, 1: true } : {}, way: 1, note: '', busy: false, err: '' }, last || {}, { tab: tab0 });
     try { window.addEventListener('nasuri:ready', () => this.forceUpdate()); } catch (e) {}
   }
   renderVals() {
@@ -426,7 +473,10 @@ class Component extends DCLogic {
       }).catch(() => this.setState({ busy: false, err: '送信できませんでした。通信環境を確認して、もう一度お試しください。' }));
     };
     const raw = [['人間関係', 88, 71, '#1D1D1F'], ['教育', 82, 68, '#1D1D1F'], ['業務量', 74, 62, '#1D1D1F'], ['休みやすさ', 80, 66, '#1D1D1F'], ['給与', 70, 69, '#1D1D1F'], ['経営への信頼', 76, 60, '#1D1D1F']];
+    const tabDefs = [['施設概要', 'about'], ['給与・手当', 'pay'], ['働き方', 'work'], ['働く人の声', 'people']];
     return {
+      tabs: tabDefs.map((d, i) => ({ label: d[0], on: st.tab === i, line: st.tab === i ? '#1D1D1F' : 'transparent', fg: st.tab === i ? '#1D1D1F' : '#6E6E73', pick: () => { this.setState({ tab: i }); try { history.replaceState(null, '', '#' + d[1]); } catch (e) {} } })),
+      isAbout: st.tab === 0, isPay: st.tab === 1, isWork: st.tab === 2, isPeople: st.tab === 3,
       applied: this.state.applied, notApplied: !this.state.applied,
       apply: () => this.setState({ talk: 1 }),
       talkOpen: st.talk > 0, isTalkForm: st.talk === 1, isTalkDone: st.talk === 2, talkTitle: st.talk === 2 ? '送信しました' : '話を聞きに行きたい',
@@ -449,13 +499,19 @@ class Component extends DCLogic {
       ],
       liked: this.state.liked, toggleLike: () => this.setState({ liked: !this.state.liked }),
       likeFill: this.state.liked ? '#1D1D1F' : 'none', likeBg: this.state.liked ? '#F5F5F7' : '#FFFFFF', likeBorder: this.state.liked ? '#1D1D1F' : '#D2D2D7',
-      groups: [
-        { title: '募集要項', rows: [
-          { k: '職種', v: '正看護師' }, { k: '雇用形態', v: '正社員（常勤・夜勤あり）' }, { k: '配属先', v: '内科病棟' },
-          { k: '業務内容', v: '内科病棟での入院患者の看護（アセスメント、日々のケア、退院支援カンファレンスへの参加）' },
-          { k: '応募条件', v: '看護師免許。経験年数は問いません。ブランクのある方、主婦・主夫の方も応募可' },
-          { k: '教育制度', v: '中途入職者に教育担当が3か月専任。OJT、院内研修、院外研修' }
+      aboutGroups: [
+        { title: '施設情報', rows: [
+          { k: '施設形態', v: '一般病院（急性期）' }, { k: '病床数', v: '[病床数]床' }, { k: '診療科目', v: '内科・外科・整形外科・循環器内科 ほか' },
+          { k: '看護基準', v: '7対1' }, { k: '職員数', v: '看護師 [人数]名／全体 [人数]名' }, { k: 'カルテ', v: '電子カルテ（[製品名]）' },
+          { k: '勤務地・交通', v: '東京都港区[住所]\n[駅名]駅 徒歩[分]分。車通勤可' },
+          { k: '運営', v: '[法人名]' }, { k: '公式サイト', v: '[URL]' }
         ] },
+        { title: '募集の基本', rows: [
+          { k: '職種', v: '正看護師' }, { k: '雇用形態', v: '正社員（常勤・夜勤あり）' },
+          { k: '応募条件', v: '看護師免許。経験年数は問いません。ブランクのある方、主婦・主夫の方も応募可' }
+        ] }
+      ],
+      payGroups: [
         { title: '給与', rows: [
           { k: '月収', v: '276,500円〜（夜勤手当4回分・各種手当を含む目安）' }, { k: '夜勤なしの場合', v: '月収 [金額]円〜' }, { k: '基本給', v: '[金額]〜' },
           { k: '賞与', v: '年2回（基本給の約[月数]か月分）' }, { k: '昇給', v: '年1回' },
@@ -463,37 +519,36 @@ class Component extends DCLogic {
         ] },
         { title: '手当', rows: [
           { k: '夜勤手当', v: '[金額]円／回' }, { k: '資格手当', v: '[金額]円' }, { k: '家族手当', v: '[金額]円（世帯主、上限[人]名）' },
-          { k: '通勤手当', v: '月[金額]円まで。車通勤可（駐車場あり）' }, { k: '固定残業代', v: 'なし' }
+          { k: '通勤手当', v: '月[金額]円まで' }, { k: '固定残業代', v: 'なし' }
+        ] },
+        { title: '福利厚生', rows: [
+          { k: '社会保険', v: '雇用・労災・健康・厚生年金' }, { k: '退職金', v: 'あり（勤続3年以上）' }, { k: '定年・再雇用', v: '60歳／65歳まで再雇用' }
+        ] }
+      ],
+      workGroups: [
+        { title: '勤務時間・夜勤', rows: [
+          { k: '日勤', v: '8:30〜17:15（休憩60分）' }, { k: '夜勤', v: '16:30〜翌9:00（仮眠2時間）' },
+          { k: '夜勤回数', v: '月4回（2交替制）' }, { k: '残業時間', v: '月8時間（直近6か月の実績）' }
         ] },
         { title: '休日・休暇', rows: [
           { k: '年間休日', v: '120日' }, { k: '休日制度', v: '4週8休（シフト制）' }, { k: '土日祝', v: 'シフト制。土日の休みは月4〜5日' },
           { k: '休暇', v: '夏季・冬季休暇、産前産後休暇、育児休暇、有給休暇（初年度[日数]日）' }, { k: '有休消化率', v: '9割（前年度実績）' }
         ] },
-        { title: '勤務時間・交替制', rows: [
-          { k: '日勤', v: '8:30〜17:15（休憩60分）' }, { k: '夜勤', v: '16:30〜翌9:00（仮眠2時間）' },
-          { k: '交替制', v: '2交替制。夜勤は看護師3名＋看護補助者1名' }, { k: '残業時間', v: '月8時間（直近6か月の実績）' }, { k: '夜勤回数', v: '月4回' }
+        { title: '教育', rows: [
+          { k: '教育制度', v: '中途入職者に教育担当が3か月専任。OJT、院内研修、院外研修' }
         ] },
-        { title: '福利厚生', rows: [
-          { k: '社会保険', v: '雇用・労災・健康・厚生年金' }, { k: '退職金', v: 'あり（勤続3年以上）' }, { k: '定年・再雇用', v: '60歳／65歳まで再雇用' },
-          { k: 'その他', v: '制服貸与、復職支援、院内保育所（[時間]まで）' }
-        ] },
-        { title: '施設情報', rows: [
-          { k: '施設形態', v: '一般病院（急性期）' }, { k: '病床数', v: '[病床数]床' }, { k: '診療科目', v: '内科・外科・整形外科・循環器内科 ほか' },
-          { k: '看護基準', v: '7対1' }, { k: '職員数', v: '看護師 [人数]名／全体 [人数]名' }, { k: 'カルテ', v: '電子カルテ（[製品名]）' },
-          { k: '寮・保育', v: '寮なし／院内保育所あり' }, { k: '勤務地・交通', v: '東京都港区[住所]\n[駅名]駅 徒歩[分]分。車通勤可' },
-          { k: '運営', v: '[法人名]' }, { k: '公式サイト', v: '[URL]' }
+        { title: '子育て・暮らし', rows: [
+          { k: '保育', v: '院内保育所あり（[時間]まで）' }, { k: '寮', v: 'なし' }, { k: '通勤', v: '車通勤可（駐車場あり）' },
+          { k: 'その他', v: '制服貸与、復職支援' }
         ] }
       ],
       axes: raw.map((r) => ({ label: r[0], v: r[1], avg: r[2], w: r[1] + '%', avgPos: r[2] + '%', color: r[3] })),
       bars: [
         { label: '1人あたりの担当患者数（日勤）', value: '7人', avg: '10人', w: (7 / 30 * 100) + '%', avgPos: (10 / 30 * 100) + '%', color: '#1D1D1F', note: '内科病棟の平均。目盛りは最大30人' },
-        { label: '平均残業時間（月）', value: '8h', avg: '18h', w: (8 / 40 * 100) + '%', avgPos: (18 / 40 * 100) + '%', color: '#1D1D1F', note: '直近6か月の実績。目盛りは最大40時間' },
-        { label: '離職率（年）', value: '6.5%', avg: '11%', w: (6.5 / 30 * 100) + '%', avgPos: (11 / 30 * 100) + '%', color: '#1D1D1F', note: '昨年度、看護師24名中 2名が退職（産休・育休は含まない）。目盛りは最大30%' }
+        { label: '平均残業時間（月）', value: '8h', avg: '18h', w: (8 / 40 * 100) + '%', avgPos: (18 / 40 * 100) + '%', color: '#1D1D1F', note: '直近6か月の実績。目盛りは最大40時間' }
       ],
-      facts: [
-        { label: '夜勤', value: '月4回', note: '2交代・仮眠2時間' },
-        { label: '有休消化', value: '9割', note: '前年度の実績' },
-        { label: '年間休日', value: '120日', note: '4週8休・シフト制' }
+      peopleBars: [
+        { label: '離職率（年）', value: '6.5%', avg: '11%', w: (6.5 / 30 * 100) + '%', avgPos: (11 / 30 * 100) + '%', color: '#1D1D1F', note: '昨年度、看護師24名中 2名が退職（産休・育休は含まない）。目盛りは最大30%' }
       ],
       voices: [
         { year: '1年目', text: '「最初の3か月は先輩が横についてくれて、夜勤に入る前に一緒に練習できた。聞けば必ず答えてもらえる」', who: '新卒入職' },
@@ -504,6 +559,7 @@ class Component extends DCLogic {
       ward: [
         { k: '配属先', v: '内科病棟（一般内科・循環器・呼吸器の混合）／42床' },
         { k: '主な患者さん', v: '75歳以上の方が7割。肺炎、心不全、脱水、糖尿病の悪化などで入院し、急性期の治療から退院支援までを担当します' },
+        { k: '業務内容', v: '内科病棟での入院患者の看護（アセスメント、日々のケア、退院支援カンファレンスへの参加）' },
         { k: '平均在院日数', v: '約14日' }
       ],
       acuityLabel: '中くらい',
