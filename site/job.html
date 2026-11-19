@@ -173,8 +173,8 @@ a{color:#1D1D1F}a:hover{color:#6E6E73}
       </section>
 
       <section style="background: #FFFFFF; border-radius: 14px; padding: 32px 36px; display: flex; flex-direction: column; gap: 20px">
-        <div style="display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap">
-          <span style="font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', Meiryo, sans-serif; font-size: 13px; font-weight: 700; color: #3A6CF2">01</span>
+        <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap">
+          <span aria-hidden="true" style="flex: 0 0 auto; width: 36px; height: 36px; border-radius: 10px; background: #EEF3FE; color: #3A6CF2; display: flex; align-items: center; justify-content: center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18V8m0 6h18v4M21 14v-2a3 3 0 0 0-3-3h-7v5M7 11.5a1.5 1.5 0 1 0 0-.01"></path></svg></span>
           <h3 style="margin: 0; font-size: 19px; font-weight: 700">配属先と患者さん</h3>
         </div>
         <div style="display: flex; flex-direction: column; gap: 6px">
@@ -202,8 +202,8 @@ a{color:#1D1D1F}a:hover{color:#6E6E73}
       </section>
 
       <section style="background: #FFFFFF; border-radius: 14px; padding: 32px 36px; display: flex; flex-direction: column; gap: 20px">
-        <div style="display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap">
-          <span style="font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', Meiryo, sans-serif; font-size: 13px; font-weight: 700; color: #3A6CF2">02</span>
+        <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap">
+          <span aria-hidden="true" style="flex: 0 0 auto; width: 36px; height: 36px; border-radius: 10px; background: #EEF3FE; color: #3A6CF2; display: flex; align-items: center; justify-content: center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 20v-1a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v1M9.5 11a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7M21 20v-1a4 4 0 0 0-3-3.85M15.5 4.15a3.5 3.5 0 0 1 0 6.7"></path></svg></span>
           <h3 style="margin: 0; font-size: 19px; font-weight: 700">看護体制</h3>
         </div>
         <div style="display: flex; flex-wrap: wrap; gap: 0 32px">
@@ -219,8 +219,8 @@ a{color:#1D1D1F}a:hover{color:#6E6E73}
 
       <section style="background: #FFFFFF; border-radius: 14px; padding: 32px 36px; display: flex; flex-direction: column; gap: 20px">
         <div style="display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap">
-          <div style="display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap">
-          <span style="font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', Meiryo, sans-serif; font-size: 13px; font-weight: 700; color: #3A6CF2">03</span>
+          <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap">
+          <span aria-hidden="true" style="flex: 0 0 auto; width: 36px; height: 36px; border-radius: 10px; background: #EEF3FE; color: #3A6CF2; display: flex; align-items: center; justify-content: center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18M12 7v5l3 2"></path></svg></span>
           <h3 style="margin: 0; font-size: 19px; font-weight: 700">1日の流れ</h3>
         </div>
           <div role="tablist" aria-label="勤務" style="display: flex; gap: 4px; background: #F5F5F7; border-radius: 999px; padding: 3px">
@@ -240,8 +240,8 @@ a{color:#1D1D1F}a:hover{color:#6E6E73}
 
       <sc-for list="{{workCards}}" as="c" hint-placeholder-count="2">
         <section style="background: #FFFFFF; border-radius: 14px; padding: 32px 36px; display: flex; flex-direction: column; gap: 20px">
-          <div style="display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap">
-            <span style="font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', Meiryo, sans-serif; font-size: 13px; font-weight: 700; color: #3A6CF2">{{c.n}}</span>
+          <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap">
+            <span aria-hidden="true" style="flex: 0 0 auto; width: 36px; height: 36px; border-radius: 10px; background: #EEF3FE; color: #3A6CF2; display: flex; align-items: center; justify-content: center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="{{c.icon}}"></path></svg></span>
             <h3 style="margin: 0; font-size: 19px; font-weight: 700">{{c.title}}</h3>
           </div>
           <div style="display: flex; flex-wrap: wrap; gap: 24px 40px">
@@ -571,7 +571,7 @@ class Component extends DCLogic {
       workStats: [{ label: '勤務', value: '2交替制' }, { label: '夜勤', value: '月4回' }, { label: '残業', value: '月8時間' }, { label: '年間休日', value: '120日' }],
       get wardName() { return this.ward[0].v; }, get wardLead() { return this.ward[1].v; },
       get wardJob() { return this.ward[2].v; }, get wardStay() { return this.ward[3].v; },
-      get workCards() { const g = this.workGroups; return [{ n: '04', title: '勤務時間と休み', groups: [g[0], g[1]] }, { n: '05', title: '教育と暮らし', groups: [g[2], g[3]] }]; },
+      get workCards() { const g = this.workGroups; return [{ icon: 'M5 5h14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2M3 10h18M8 3v4M16 3v4', title: '勤務時間と休み', groups: [g[0], g[1]] }, { icon: 'M3 11l9-7 9 7M5 10v10h14V10M10 20v-6h4v6', title: '教育と暮らし', groups: [g[2], g[3]] }]; },
       get head() { return this.members[0]; },
       // 病院側で追加・削除できる記事。表示はアイコン・タイトル・ラベル（年次・科）のみ
       get articles() {
