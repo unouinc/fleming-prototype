@@ -21,6 +21,8 @@ a{color:#1D1D1F}a:hover{color:#6E6E73}
   .m-only{display:flex!important}
   .hdr{padding:0 16px!important;height:56px!important}
   .wrap{padding:12px 16px 96px!important;gap:16px!important;flex-direction:column!important;align-items:stretch!important}
+  .featgrid{display:flex!important;overflow-x:auto;scrollbar-width:none;margin:0 -16px;padding:0 16px}
+  .featgrid>button{flex:0 0 150px}
   .side{position:static!important;width:auto!important;flex:0 0 auto!important;order:-1}
   .cardtop{grid-template-columns:1fr!important;padding:0!important;gap:0!important}
   .cardtop .cover{order:-1;border-radius:0!important}
@@ -203,6 +205,19 @@ a{color:#1D1D1F}a:hover{color:#6E6E73}
           </div>
       </div>
       <a href="#" style="align-self: flex-end; font-size: 13px; font-weight: 400; color: #1D1D1F; text-decoration: none">条件の保存・新着求人のお知らせ設定 ›</a>
+      <section class="feat" aria-label="おすすめ求人特集" style="margin-top: 14px; display: flex; flex-direction: column; gap: 10px">
+        <span style="display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 700; color: #1D1D1F"><span aria-hidden="true" style="flex: 0 0 auto; width: 26px; height: 26px; border-radius: 8px; background: #EEF3FE; color: #3A6CF2; display: flex; align-items: center; justify-content: center"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg></span>おすすめ求人特集</span>
+        <div class="featgrid" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px">
+          <sc-for list="{{features}}" as="f" hint-placeholder-count="6">
+            <button type="button" onClick="{{f.pick}}" aria-pressed="{{f.on}}" style="position: relative; overflow: hidden; text-align: left; border: 2px solid {{f.border}}; background: {{f.bg}}; color: {{f.fg}}; border-radius: 14px; padding: 12px 12px 14px; min-height: 104px; font-family: inherit; cursor: pointer; display: flex; flex-direction: column; justify-content: flex-end; gap: 2px">
+              <svg aria-hidden="true" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" style="position: absolute; right: -8px; top: -8px; opacity: 0.22"><path d="{{f.icon}}"></path></svg>
+              <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom: 6px"><path d="{{f.icon}}"></path></svg>
+              <span style="font-size: 15px; font-weight: 700; line-height: 1.35">{{f.title}}</span>
+              <span style="font-size: 11px; font-weight: 400; line-height: 1.5; color: #1D1D1F">{{f.sub}}</span>
+            </button>
+          </sc-for>
+        </div>
+      </section>
     </aside>
 
   </div>
@@ -270,7 +285,7 @@ a{color:#1D1D1F}a:hover{color:#6E6E73}
               <sc-for list="{{condSections}}" as="sec" hint-placeholder-count="6">
                 <div style="background: #FFFFFF; border-radius: 14px; padding: 18px 18px 14px; display: flex; flex-direction: column; gap: 10px">
                   <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap">
-                    <span style="font-size: 15px; font-weight: 700">{{sec.title}}</span>
+                    <span aria-hidden="true" style="flex: 0 0 auto; width: 30px; height: 30px; border-radius: 8px; background: #EEF3FE; color: #3A6CF2; display: flex; align-items: center; justify-content: center"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="{{sec.icon}}"></path></svg></span><span style="font-size: 15px; font-weight: 700">{{sec.title}}</span>
                     <sc-if value="{{sec.badge}}" hint-placeholder-val="{{false}}"><span style="font-size: 11px; font-weight: 700; background: #E8E8ED; padding: 2px 8px; border-radius: 999px">{{sec.badge}}</span></sc-if>
                     <span style="font-size: 12px; font-weight: 400; color: #6E6E73">{{sec.note}}</span>
                   </div>
@@ -290,7 +305,7 @@ a{color:#1D1D1F}a:hover{color:#6E6E73}
                 </div>
               </sc-for>
               <div style="background: #FFFFFF; border-radius: 14px; padding: 18px; display: flex; flex-direction: column; gap: 10px">
-                <span style="font-size: 15px; font-weight: 700">病院名</span>
+                <span style="display: flex; align-items: center; gap: 8px"><span aria-hidden="true" style="flex: 0 0 auto; width: 30px; height: 30px; border-radius: 8px; background: #EEF3FE; color: #3A6CF2; display: flex; align-items: center; justify-content: center"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M11 18a7 7 0 1 0 0-14 7 7 0 0 0 0 14M20 20l-4-4"></path></svg></span><span style="font-size: 15px; font-weight: 700">病院名</span></span>
                 <input id="condname" type="search" value="{{nameQ}}" onInput="{{setName}}" placeholder="例：みなと中央病院" style="border: 1px solid #D2D2D7; border-radius: 10px; font-family: inherit; font-size: 15px; font-weight: 400; padding: 0 14px; min-height: 46px; color: #1D1D1F; outline: none">
               </div>
             </div>
@@ -395,21 +410,34 @@ class Component extends DCLogic {
     const multi = (key, title, names) => ({ title, type: 'checkbox', name: key, options: names.map((label, i) => { const on = !!(c[key] || {})[i]; return { label, on, toggle: () => setC({ [key]: Object.assign({}, c[key], { [i]: !on }) }) }; }) });
     const single = (key, title, names) => ({ title, type: 'radio', name: key, options: names.map((label, i) => { const on = c[key] === i; return { label, on, toggle: () => setC({ [key]: on ? null : i }) }; }) });
     const condSections = [
-      { title: '雇用形態', badge: '', note: '', groups: [multi('emp', '', ['常勤', 'パート（非常勤）'])] },
-      { title: '勤務形態', badge: '', note: '', groups: [multi('shift', '', ['2交代', '3交代', '日勤のみ', '夜勤のみ'])] },
-      { title: '給与', badge: '', note: '※手取りではなく額面', groups: [single('pay', '月給', ['25万円以上', '28万円以上', '30万円以上', '33万円以上', '35万円以上'])] },
-      { title: '職場の数字', badge: 'ナスリーだけ', note: '病院が同じ定義で開示した数字で絞り込めます', groups: [
+      { icon: 'M4 8h16a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1M9 8V6a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2M3 13h18', title: '雇用形態', badge: '', note: '', groups: [multi('emp', '', ['常勤', 'パート（非常勤）'])] },
+      { icon: 'M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18M12 7v5l3 2', title: '勤務形態', badge: '', note: '', groups: [multi('shift', '', ['2交代', '3交代', '日勤のみ', '夜勤のみ'])] },
+      { icon: 'M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18M8.5 7.5L12 12l3.5-4.5M12 12v5M9 12.5h6M9 15h6', title: '給与', badge: '', note: '※手取りではなく額面', groups: [single('pay', '月給', ['25万円以上', '28万円以上', '30万円以上', '33万円以上', '35万円以上'])] },
+      { icon: 'M4 20V10M10 20V4M16 20v-7M21 20H3', title: '職場の数字', badge: 'ナスリーだけ', note: '病院が同じ定義で開示した数字で絞り込めます', groups: [
         single('pts', '1人あたりの担当患者数（日勤）', ['5人以下', '7人以下', '10人以下']),
         single('ot', '平均残業時間（月）', ['5時間以内', '10時間以内', '20時間以内']),
         single('tr', '離職率（年）', ['都県平均以下', '10%以下', '7%以下']),
         single('night', '夜勤回数（月）', ['4回以内', '6回以内']) ] },
-      { title: '病院の種類', badge: '', note: '', groups: [
+      { icon: 'M4 21V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v16M16 9h2a2 2 0 0 1 2 2v10M3 21h18M8 7h4M8 11h4M8 15h4', title: '病院の種類', badge: '', note: '', groups: [
         multi('htype', '', ['一般病院（急性期）', '大学病院', '回復期リハビリ病院', '療養型病院', '精神科病院']),
         multi('beds', '病床数', ['199床以下', '200〜399床', '400床以上']) ] },
-      { title: '担当業務', badge: '', note: '', groups: [multi('duty', '', ['病棟', '外来', 'オペ室', '救急外来', 'ICU系', '透析', '内視鏡'])] },
-      { title: '診療科', badge: '', note: '', groups: [multi('dept', '', ['内科', '外科', '整形外科', '脳神経外科', '循環器', '消化器', '呼吸器', '小児科', '産婦人科', '精神科', 'リハビリテーション科', '緩和ケア'])] },
-      { title: '職場の特徴', badge: '', note: '', groups: [multi('feat', '', ['中途にも教育担当', '師長インタビューあり', '託児所あり', '寮あり', '電子カルテあり', '駅徒歩5分以内', '車通勤可', '4週8休以上', '年間休日120日以上', '土日祝休み', 'ブランク可'])] }
+      { icon: 'M9 4h6v3H9zM9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2M9 12h6M9 16h4', title: '担当業務', badge: '', note: '', groups: [multi('duty', '', ['病棟', '外来', 'オペ室', '救急外来', 'ICU系', '透析', '内視鏡'])] },
+      { icon: 'M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10zM7 11h2.5l1.5-2.5 2 4 1.5-1.5H17', title: '診療科', badge: '', note: '', groups: [multi('dept', '', ['内科', '外科', '整形外科', '脳神経外科', '循環器', '消化器', '呼吸器', '小児科', '産婦人科', '精神科', 'リハビリテーション科', '緩和ケア'])] },
+      { icon: 'M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z', title: '職場の特徴', badge: '', note: '', groups: [multi('feat', '', ['中途にも教育担当', '師長インタビューあり', '託児所あり', '寮あり', '電子カルテあり', '駅徒歩5分以内', '車通勤可', '4週8休以上', '年間休日120日以上', '土日祝休み', 'ブランク可'])] }
     ];
+    const featDefs = [
+      ['土日祝休み', '週末は家族や自分の時間に', 'M12 16a4 4 0 1 0 0-8 4 4 0 0 0 0 8M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.5 1.5M17.5 17.5L19 19M19 5l-1.5 1.5M6.5 17.5L5 19', '#EEF7E2', '#3B7A1E', { feat: 9 }],
+      ['休日120日以上', '年間休日が多い病院', 'M5 5h14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2M3 10h18M8 3v4M16 3v4', '#FFF4D6', '#8A5A00', { feat: 8 }],
+      ['残業10時間以内', '月の実績を開示している病院', 'M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18M12 7v5l3 2', '#E8F0FF', '#2A56D6', { ot: 1 }],
+      ['受け持ち7人以下', '患者さんと向き合える', 'M16 20v-1a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v1M9.5 11a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7M21 20v-1a4 4 0 0 0-3-3.85M15.5 4.15a3.5 3.5 0 0 1 0 6.7', '#E3F6F3', '#0F6F63', { pts: 1 }],
+      ['日勤のみ', '夜勤なしで働く', 'M3 11l9-7 9 7M5 10v10h14V10M10 20v-6h4v6', '#FFEEE2', '#A4501A', { shift: 2 }],
+      ['託児所あり', '子育てと両立しやすい', 'M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z', '#FDEAF1', '#A8325E', { feat: 2 }]
+    ];
+    const features = featDefs.map(([title, sub, icon, bg, fg, cond]) => {
+      const key = Object.keys(cond)[0], v = cond[key], multiKey = key === 'feat' || key === 'shift';
+      const on = multiKey ? !!(c[key] && c[key][v]) : c[key] === v;
+      return { title, sub, icon, bg, fg, on, border: on ? fg : 'transparent', pick: () => setC({ [key]: multiKey ? Object.assign({}, c[key], { [v]: !on }) : (on ? null : v) }) };
+    });
     const areaChips = Object.keys(areas).filter((k) => areas[k]).map((k) => { const [p, g, it] = k.split('|'); return { label: label(p, g, it), remove: () => setAreas({ [k]: false }) }; })
       .concat(lineSel.map((x) => ({ label: x.label, remove: () => { const p = {}; x.keys.forEach((k) => { p[k] = false; }); setLines(p); } })));
     const SHORT = { '月給': '月給', '1人あたりの担当患者数（日勤）': '担当患者数', '平均残業時間（月）': '残業', '離職率（年）': '離職率', '夜勤回数（月）': '夜勤' };
@@ -443,7 +471,7 @@ class Component extends DCLogic {
       switchLabel: m === 'cond' ? 'エリア条件の追加・変更' : 'こだわり条件の追加・変更', switchModal: () => this.setState({ modal: m === 'cond' ? 'area' : 'cond' }),
       prefList, areaRows,
       areaTabs: ['市区町村', '路線・駅'].map((label, i) => ({ label, on: st.areaTab === i, line: st.areaTab === i ? '#1D1D1F' : 'transparent', fg: st.areaTab === i ? '#1D1D1F' : '#86868B', fw: st.areaTab === i ? 700 : 400, pick: () => this.setState({ areaTab: i }) })),
-      condSections, clearCond: () => this.setState({ c: { emp: {}, shift: {}, pay: null, pts: null, ot: null, tr: null, night: null, htype: {}, beds: {}, duty: {}, dept: {}, feat: {} }, name: '' }),
+      features, condSections, clearCond: () => this.setState({ c: { emp: {}, shift: {}, pay: null, pts: null, ot: null, tr: null, night: null, htype: {}, beds: {}, duty: {}, dept: {}, feat: {} }, name: '' }),
       nameQ: st.name, setName: (e) => this.setState({ name: e.target.value })
     };
   }
