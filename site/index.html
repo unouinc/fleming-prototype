@@ -353,7 +353,7 @@ class Component extends DCLogic {
     const st = this.state;
     const tabs = ['おすすめ順', '更新日順', '給与が高い順', '残業が少ない順'].map((label, i) => ({ label, i: String(i), on: st.tab === i }));
     const raw = [
-      { id: 1, talk: 3, type: '正社員', cat: '病院', title: '「聞きやすさ」で選ばれる内科病棟で、一緒に働く看護師を募集', org: 'みなと中央病院', area: '東京都港区', payLabel: '月収', pay: '276,500円〜', payNote: '夜勤手当4回分を含む目安', work: [{ k: '配属', v: '内科病棟' }, { k: '年間休日', v: '120日' }, { k: '勤務', v: '2交代（夜勤月4回）' }, { k: '土日祝', v: 'シフト制' }], img: 'images/sns3.jpg', photo: '病棟の廊下でポーズをとるスタッフ4名（動画サムネイル）', gallery: [{ src: 'images/sns3.jpg', alt: '病棟の廊下でポーズをとるスタッフ4名（動画サムネイル）' }, { src: 'images/station.jpg', alt: 'ナースステーションの様子' }, { src: 'images/mentor.jpg', alt: '先輩看護師が新人に教えている様子' }], pts: 7, ot: 8, tr: 6.5, facts: ['教育担当つき', '2交代', '有休消化 9割'], likes: 0, posted: '2日前' }
+      { id: 1, talk: 3, type: '正社員', cat: '病院', title: '「聞きやすさ」で選ばれる内科病棟で、一緒に働く看護師を募集', org: 'みなと中央病院', area: '東京都港区', payLabel: '月収', pay: '276,500円〜', payNote: '夜勤手当4回分を含む目安', work: [{ k: '配属', v: '内科病棟' }, { k: '年間休日', v: '120日' }, { k: '勤務', v: '2交代（夜勤月4回）' }, { k: '土日祝', v: 'シフト制' }], img: 'images/station.jpg', photo: '病棟の廊下でポーズをとるスタッフ4名（動画サムネイル）', gallery: [{ src: 'images/station.jpg', alt: 'ナースステーションで話す看護師たち' }, { src: 'images/rehab.jpg', alt: '院内の合同訓練の様子' }, { src: 'images/exterior.jpg', alt: '病院の外観' }], pts: 7, ot: 8, tr: 6.5, facts: ['教育担当つき', '2交代', '有休消化 9割'], likes: 0, posted: '2日前' }
     ];
     const jobs = raw.map((j) => {
       const liked = !!st.liked[j.id];
@@ -431,12 +431,12 @@ class Component extends DCLogic {
       { icon: 'M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z', title: '職場の特徴', badge: '', note: '', groups: [multi('feat', '', ['中途にも教育担当', '師長インタビューあり', '託児所あり', '寮あり', '電子カルテあり', '駅徒歩5分以内', '車通勤可', '4週8休以上', '年間休日120日以上', '土日祝休み', 'ブランク可'])] }
     ];
     const featDefs = [
-      ['土日祝休み', '休みの日は家族や自分の時間に', 'images/director2.jpg', '50% 30%', 'M12 16a4 4 0 1 0 0-8 4 4 0 0 0 0 8M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.5 1.5M17.5 17.5L19 19M19 5l-1.5 1.5M6.5 17.5L5 19', '#EEF7E2', '#3B7A1E', { feat: 9 }],
-      ['休日120日以上', '年間休日が多い病院', 'images/mentor.jpg', '20% 30%', 'M5 5h14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2M3 10h18M8 3v4M16 3v4', '#FFF4D6', '#8A5A00', { feat: 8 }],
-      ['残業10時間以内', '残業の実績を開示', 'images/station.jpg', '45% 30%', 'M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18M12 7v5l3 2', '#E8F0FF', '#2A56D6', { ot: 1 }],
-      ['受け持ち7人以下', '患者さんと向き合える', 'images/rehab.jpg', '50% 25%', 'M16 20v-1a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v1M9.5 11a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7M21 20v-1a4 4 0 0 0-3-3.85M15.5 4.15a3.5 3.5 0 0 1 0 6.7', '#E3F6F3', '#0F6F63', { pts: 1 }],
-      ['日勤のみ', '夜勤なしで働く', 'images/station.jpg', '95% 30%', 'M3 11l9-7 9 7M5 10v10h14V10M10 20v-6h4v6', '#FFEEE2', '#A4501A', { shift: 2 }],
-      ['託児所あり', '子育てと両立しやすい', 'images/director2.jpg', '10% 30%', 'M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z', '#FDEAF1', '#A8325E', { feat: 2 }]
+      ['土日祝休み', '休みの日は家族や自分の時間に', 'images/exterior.jpg', '35% 40%', 'M12 16a4 4 0 1 0 0-8 4 4 0 0 0 0 8M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.5 1.5M17.5 17.5L19 19M19 5l-1.5 1.5M6.5 17.5L5 19', '#EEF7E2', '#3B7A1E', { feat: 9 }],
+      ['休日120日以上', '年間休日が多い病院', 'images/station.jpg', '0% 30%', 'M5 5h14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2M3 10h18M8 3v4M16 3v4', '#FFF4D6', '#8A5A00', { feat: 8 }],
+      ['残業10時間以内', '残業の実績を開示', 'images/station.jpg', '55% 30%', 'M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18M12 7v5l3 2', '#E8F0FF', '#2A56D6', { ot: 1 }],
+      ['受け持ち7人以下', '患者さんと向き合える', 'images/rehab.jpg', '40% 60%', 'M16 20v-1a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v1M9.5 11a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7M21 20v-1a4 4 0 0 0-3-3.85M15.5 4.15a3.5 3.5 0 0 1 0 6.7', '#E3F6F3', '#0F6F63', { pts: 1 }],
+      ['日勤のみ', '夜勤なしで働く', 'images/station.jpg', '100% 30%', 'M3 11l9-7 9 7M5 10v10h14V10M10 20v-6h4v6', '#FFEEE2', '#A4501A', { shift: 2 }],
+      ['託児所あり', '子育てと両立しやすい', 'images/exterior.jpg', '90% 70%', 'M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z', '#FDEAF1', '#A8325E', { feat: 2 }]
     ];
     const features = featDefs.map(([title, sub, img, pos, icon, bg, fg, cond]) => {
       const key = Object.keys(cond)[0], v = cond[key], multiKey = key === 'feat' || key === 'shift';
