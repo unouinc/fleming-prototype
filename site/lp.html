@@ -1,0 +1,502 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/svg+xml" href="images/favicon.svg">
+<title>ナスリー｜職場がみえる 看護師のための転職プラットフォーム【事前登録受付中】</title>
+<meta name="description" content="ナスリーは、入る前に職場の中がわかる、看護師のための転職プラットフォーム。2027年3月、東東京からスタート。営業電話は一切なし。事前登録を受付中です。">
+<meta property="og:title" content="ナスリー｜職場がみえる 看護師のための転職プラットフォーム">
+<meta property="og:description" content="2027年3月、東東京からスタート。営業電話は一切なし。事前登録を受付中です。">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&amp;family=Inter:wght@500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+:root{--blue:#3A6CF2;--blue-d:#2A56D6;--tint:#EEF3FE;--ink:#1D1D1F;--sub:#6E6E73;--line:#E5E5EA;--bg:#F5F5F7;--white:#FFFFFF}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+html,body{overflow-x:clip}
+body{margin:0;background:var(--white);color:var(--ink);font-family:'Noto Sans JP',-apple-system,BlinkMacSystemFont,'Hiragino Sans',Meiryo,sans-serif;font-size:16px;line-height:1.8;-webkit-font-smoothing:antialiased}
+img,svg{display:block}
+a{color:inherit}
+.en{font-family:'Inter','Noto Sans JP',sans-serif}
+.wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+.nb{white-space:nowrap}
+
+/* header */
+.hdr{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.hdr .wrap{height:64px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none}
+.brand .mark{width:28px;height:28px}
+.brand .type{height:18px;width:auto}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:56px;padding:0 32px;border-radius:999px;background:var(--blue);color:#fff;font-weight:700;font-size:17px;text-decoration:none;border:none;cursor:pointer;font-family:inherit;transition:background .15s,transform .15s}
+.btn:hover{background:var(--blue-d);transform:translateY(-1px)}
+.btn:focus-visible,.share a:focus-visible,.share button:focus-visible{outline:3px solid #9DB6F9;outline-offset:3px}
+.btn.sm{min-height:44px;padding:0 20px;font-size:14px}
+.btn.white{background:#fff;color:var(--blue)}
+.btn.white:hover{background:var(--tint)}
+.notes{display:flex;flex-wrap:wrap;gap:6px 18px;margin:16px 0 0;padding:0;list-style:none;font-size:13px;font-weight:500;color:var(--sub)}
+.notes li{display:flex;align-items:center;gap:6px}
+.notes svg{color:var(--blue);flex:0 0 auto}
+
+/* hero */
+.hero{background:linear-gradient(180deg,#F3F6FF 0%,#FFFFFF 100%);overflow:hidden}
+.hero .wrap{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:48px;align-items:center;padding-top:72px;padding-bottom:80px}
+.badge{display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid #D5E0FC;color:var(--blue-d);font-size:13px;font-weight:700;padding:6px 14px;border-radius:999px}
+.badge i{width:8px;height:8px;border-radius:50%;background:var(--blue);display:block}
+h1{margin:20px 0 0;font-size:46px;line-height:1.35;font-weight:700;letter-spacing:.01em}
+h1 em{font-style:normal;color:var(--blue)}
+.lead{margin:20px 0 28px;font-size:17px;line-height:1.9;color:#3A3A3C}
+
+/* mock */
+.mock{background:#fff;border-radius:22px;box-shadow:0 24px 60px rgba(42,86,214,.16),0 2px 8px rgba(0,0,0,.04);padding:20px;display:flex;flex-direction:column;gap:14px}
+.mock .cap{font-size:11px;color:var(--sub);text-align:right}
+.ph{border-radius:14px;height:150px;background:linear-gradient(135deg,#DCE6FD 0%,#EEF3FE 55%,#F8FAFF 100%);position:relative;overflow:hidden;display:flex;align-items:flex-end;padding:12px}
+.ph svg{position:absolute;right:14px;top:14px;color:#A9BFF8}
+.pill{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.94);border-radius:999px;padding:5px 12px;font-size:12px;font-weight:700}
+.tags{display:flex;gap:6px;flex-wrap:wrap}
+.tag{font-size:11px;font-weight:700;padding:3px 9px;border-radius:6px;border:1px solid #D2D2D7}
+.tag.k{background:var(--ink);color:#fff;border-color:var(--ink)}
+.mt{font-size:16px;font-weight:700;line-height:1.5;margin:0}
+.ms{font-size:12px;color:var(--sub)}
+.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.stat{background:var(--bg);border-radius:10px;padding:10px 12px}
+.stat b{display:block;font-size:20px;line-height:1.3}
+.stat span{font-size:11px;color:var(--sub);font-weight:500;line-height:1.4;display:block}
+.fakebtn{display:flex;align-items:center;justify-content:center;min-height:44px;border-radius:999px;background:var(--ink);color:#fff;font-size:14px;font-weight:700}
+
+/* sections */
+section{padding:88px 0}
+.eyebrow{font-size:13px;font-weight:700;letter-spacing:.14em;color:var(--blue)}
+h2{margin:10px 0 0;font-size:32px;line-height:1.5;font-weight:700}
+.sec-lead{margin:16px 0 0;color:#3A3A3C;max-width:680px}
+.center{text-align:center}
+.center .sec-lead{margin-left:auto;margin-right:auto}
+
+/* worries */
+.worries{background:var(--bg)}
+.wgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:40px}
+.w{background:#fff;border-radius:16px;padding:26px 24px;display:flex;flex-direction:column;gap:10px}
+.w .q{font-size:17px;font-weight:700;line-height:1.6}
+.w p{margin:0;font-size:14px;color:var(--sub);line-height:1.8}
+.ico{width:44px;height:44px;border-radius:12px;background:var(--tint);color:var(--blue);display:flex;align-items:center;justify-content:center;flex:0 0 auto}
+.turn{margin:44px auto 0;text-align:center;font-size:20px;font-weight:700;line-height:1.7}
+.turn em{font-style:normal;background:linear-gradient(transparent 62%,#CFDCFD 62%)}
+
+/* features */
+.feat{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:56px;align-items:center;padding:44px 0}
+.feat + .feat{border-top:1px solid var(--line)}
+.feat.rev .ftext{order:2}
+.num{display:inline-flex;align-items:center;gap:10px;font-size:13px;font-weight:700;color:var(--blue)}
+.num b{font-size:40px;line-height:1;font-weight:700}
+.feat h3{margin:12px 0 0;font-size:28px;line-height:1.5;font-weight:700}
+.feat p{margin:14px 0 0;color:#3A3A3C}
+.checks{margin:18px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:8px;font-size:15px;font-weight:500}
+.checks li{display:flex;gap:10px;align-items:flex-start}
+.checks svg{color:var(--blue);flex:0 0 auto;margin-top:5px}
+.panel{background:var(--bg);border-radius:22px;padding:28px}
+.panel .mock{box-shadow:0 10px 30px rgba(0,0,0,.06)}
+.row{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}
+.row:last-of-type{border-bottom:none}
+.av{width:40px;height:40px;border-radius:50%;background:#E8E8ED;color:#86868B;display:flex;align-items:center;justify-content:center;flex:0 0 auto}
+.row .t{flex:1 1 auto;min-width:0;display:flex;flex-direction:column;line-height:1.5}
+.row .t b{font-size:14px}
+.row .t span{font-size:12px;color:var(--sub);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dot{width:9px;height:9px;border-radius:50%;background:var(--blue);flex:0 0 auto}
+.bar{display:flex;flex-direction:column;gap:4px}
+.bar .l{display:flex;justify-content:space-between;font-size:12px;font-weight:700}
+.bar .l span{color:var(--sub);font-weight:500}
+.bar i{display:block;height:8px;border-radius:999px;background:#E5E5EA;position:relative;overflow:hidden}
+.bar i::after{content:"";position:absolute;inset:0;width:var(--w);background:var(--blue);border-radius:999px}
+
+/* no tel */
+.notel{background:var(--ink);color:#fff}
+.notel .wrap{display:grid;grid-template-columns:auto minmax(0,1fr);gap:40px;align-items:center}
+.notel .big{width:132px;height:132px;border-radius:50%;background:rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;color:#fff}
+.notel h2{margin:0;font-size:34px}
+.notel p{margin:14px 0 0;color:#D2D2D7;max-width:640px}
+.notel ul{margin:18px 0 0;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:8px}
+.notel li{font-size:13px;font-weight:700;border:1px solid rgba(255,255,255,.3);border-radius:999px;padding:6px 14px}
+
+/* launch */
+.launch .box{margin-top:40px;display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:20px}
+.when{background:var(--tint);border-radius:20px;padding:32px;display:flex;flex-direction:column;justify-content:center;gap:6px}
+.when .d{font-size:15px;font-weight:700;color:var(--blue-d)}
+.when .y{font-size:44px;font-weight:700;line-height:1.2}
+.when .y small{font-size:22px}
+.when p{margin:8px 0 0;font-size:14px;color:#3A3A3C}
+.merits{display:flex;flex-direction:column;gap:12px}
+.merit{background:#fff;border:1px solid var(--line);border-radius:16px;padding:20px 22px;display:flex;gap:16px;align-items:flex-start}
+.merit b{display:block;font-size:16px;line-height:1.6}
+.merit span{font-size:14px;color:var(--sub);line-height:1.8}
+
+/* steps */
+.steps{background:var(--bg)}
+.sgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:40px;counter-reset:s}
+.s{background:#fff;border-radius:16px;padding:26px 24px;counter-increment:s;position:relative}
+.s::before{content:"STEP " counter(s);font-family:'Inter',sans-serif;font-size:12px;font-weight:700;letter-spacing:.1em;color:var(--blue)}
+.s b{display:block;margin-top:6px;font-size:18px;line-height:1.6}
+.s p{margin:8px 0 0;font-size:14px;color:var(--sub);line-height:1.8}
+
+/* faq */
+.faq{max-width:760px;margin:36px auto 0;display:flex;flex-direction:column;gap:10px}
+details{border:1px solid var(--line);border-radius:14px;background:#fff}
+summary{list-style:none;cursor:pointer;padding:18px 52px 18px 22px;font-weight:700;position:relative;line-height:1.6}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"";position:absolute;right:22px;top:50%;width:10px;height:10px;border-right:2px solid var(--ink);border-bottom:2px solid var(--ink);transform:translateY(-70%) rotate(45deg);transition:transform .15s}
+details[open] summary::after{transform:translateY(-30%) rotate(-135deg)}
+details p{margin:0;padding:0 22px 20px;font-size:15px;color:#3A3A3C}
+
+/* share */
+.sharebox{background:var(--tint);border-radius:22px;padding:40px;text-align:center}
+.sharebox h2{font-size:26px}
+.sharebox p{margin:12px auto 0;max-width:560px;font-size:15px;color:#3A3A3C}
+.share{margin-top:24px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.share a,.share button{display:inline-flex;align-items:center;gap:8px;min-height:48px;padding:0 22px;border-radius:999px;background:#fff;border:1px solid #D5E0FC;font-family:inherit;font-size:14px;font-weight:700;color:var(--ink);text-decoration:none;cursor:pointer}
+.share a:hover,.share button:hover{border-color:var(--blue)}
+
+/* final */
+.final{background:var(--blue);color:#fff;text-align:center}
+.final h2{font-size:34px}
+.final p{margin:14px auto 28px;max-width:560px;color:#E3EBFE}
+.final .notes{justify-content:center;color:#E3EBFE}
+.final .notes svg{color:#fff}
+
+footer{padding:36px 0 110px;font-size:12px;color:var(--sub)}
+footer .wrap{display:flex;flex-wrap:wrap;gap:10px 24px;align-items:center;justify-content:space-between}
+footer nav{display:flex;gap:18px}
+
+.sticky{display:none}
+
+@media (max-width:820px){
+  .wrap{padding:0 20px}
+  section{padding:60px 0}
+  .hero .wrap{grid-template-columns:1fr;gap:36px;padding-top:40px;padding-bottom:56px}
+  h1{font-size:32px}
+  .lead{font-size:15px}
+  h2{font-size:24px}
+  .hero .btn{width:100%}
+  .wgrid,.sgrid{grid-template-columns:1fr}
+  .turn{font-size:17px}
+  .feat{grid-template-columns:1fr;gap:24px;padding:36px 0}
+  .feat.rev .ftext{order:0}
+  .feat h3{font-size:22px}
+  .panel{padding:16px}
+  .notel .wrap{grid-template-columns:1fr;gap:20px}
+  .notel .big{width:88px;height:88px}
+  .notel .big svg{width:40px;height:40px}
+  .notel h2{font-size:26px}
+  .launch .box{grid-template-columns:1fr}
+  .when .y{font-size:36px}
+  .sharebox{padding:28px 20px}
+  .final h2{font-size:26px}
+  .hdr .btn{display:none}
+  .sticky{display:block;position:fixed;left:0;right:0;bottom:0;z-index:30;background:rgba(255,255,255,.96);backdrop-filter:blur(10px);border-top:1px solid var(--line);padding:10px 16px calc(10px + env(safe-area-inset-bottom))}
+  .sticky .btn{width:100%;min-height:52px;font-size:16px}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.btn{transition:none}}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="ナスリー">
+      <img class="mark" src="images/logo-mark.svg" alt="">
+      <img class="type" src="images/logotype.svg" alt="ナスリー">
+    </a>
+    <a class="btn sm" href="signup.html">事前登録する（無料）</a>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- HERO -->
+<div class="hero">
+  <div class="wrap">
+    <div>
+      <span class="badge"><i></i>2027年3月 東東京からスタート｜事前登録受付中</span>
+      <h1>職場が<em>みえる</em>。<br>だから、納得して<span class="nb">選べる。</span></h1>
+      <p class="lead">ナスリーは、入る前に職場の中がわかる、看護師のための転職プラットフォームです。受け持ちの人数、残業、働く人の雰囲気。求人票だけではわからないことを、先に確かめられます。</p>
+      <a class="btn" href="signup.html">事前登録する（無料）
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+      <ul class="notes">
+        <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>営業電話は一切なし</li>
+        <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>ずっと無料</li>
+        <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>登録は1分ほど</li>
+      </ul>
+    </div>
+
+    <div class="mock" role="img" aria-label="求人ページのイメージ。担当患者数、残業時間、離職率が数字で載り、話を聞ける人が3人いる">
+      <div class="ph">
+        <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 21V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v16M16 9h2a2 2 0 0 1 2 2v10M3 21h18M8 7h4M8 11h4M8 15h4"/></svg>
+        <span class="pill"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></svg>話を聞ける人 3人</span>
+      </div>
+      <div class="tags"><span class="tag k">正社員</span><span class="tag">急性期・内科病棟</span><span class="tag">2交替</span></div>
+      <p class="mt">「聞きやすさ」で選ばれる内科病棟</p>
+      <div class="stats">
+        <div class="stat"><span>担当患者数</span><b class="en">7人</b></div>
+        <div class="stat"><span>残業（月）</span><b class="en">8h</b></div>
+        <div class="stat"><span>離職率（年）</span><b class="en">6.5%</b></div>
+      </div>
+      <div class="fakebtn">話を聞きに行きたい</div>
+      <span class="cap">画面は開発中のイメージです</span>
+    </div>
+  </div>
+</div>
+
+<!-- WORRIES -->
+<section class="worries">
+  <div class="wrap">
+    <div class="center">
+      <span class="eyebrow en">BEFORE</span>
+      <h2>転職で、こんな思いを<span class="nb">していませんか。</span></h2>
+    </div>
+    <div class="wgrid">
+      <div class="w">
+        <span class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 4h6v3H9zM9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2M9 12h6M9 16h4"/></svg></span>
+        <span class="q">求人票は、どこも同じに見える</span>
+        <p>「アットホームな職場」「残業少なめ」。実際の受け持ち人数や残業時間は、入ってみるまでわからない。</p>
+      </div>
+      <div class="w">
+        <span class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg></span>
+        <span class="q">登録したら、電話が鳴りやまない</span>
+        <p>情報を見たいだけなのに、勤務中も夜勤明けも着信が続く。それが嫌で、転職サイトに登録できない。</p>
+      </div>
+      <div class="w">
+        <span class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8M4 21c0-4 3.6-7 8-7s8 3 8 7"/></svg></span>
+        <span class="q">本当に聞きたいことは、面接で聞けない</span>
+        <p>師長はどんな人か。夜勤は何人体制か。子育て中の人はいるか。選考の場では、なかなか聞きづらい。</p>
+      </div>
+    </div>
+    <p class="turn">ナスリーは、<em>入る前に職場の中を確かめられる</em><span class="nb">転職サービスです。</span></p>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section id="features">
+  <div class="wrap">
+    <div class="center">
+      <span class="eyebrow en">FEATURES</span>
+      <h2>ナスリーの3つの特徴</h2>
+    </div>
+
+    <div class="feat" style="margin-top:20px">
+      <div class="ftext">
+        <span class="num"><b class="en">01</b>職場がみえる</span>
+        <h3>数字と人で、<span class="nb">職場の中がわかる。</span></h3>
+        <p>病院が自分たちで開示した数字と、そこで働く人の声を載せています。ことばの印象ではなく、事実で比べられます。</p>
+        <ul class="checks">
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>1人あたりの担当患者数、残業時間、離職率</li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>看護体制と、日勤・夜勤の1日の流れ</li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>師長の考え方と、年次ごとのスタッフの声</li>
+        </ul>
+      </div>
+      <div class="panel">
+        <div class="mock" role="img" aria-label="職場の数字のイメージ">
+          <p class="mt">ひと目でわかる数字</p>
+          <div class="bar"><div class="l">1人あたりの担当患者数<span>7人</span></div><i style="--w:58%"></i></div>
+          <div class="bar"><div class="l">平均残業時間（月）<span>8時間</span></div><i style="--w:27%"></i></div>
+          <div class="bar"><div class="l">有休消化率<span>9割</span></div><i style="--w:90%"></i></div>
+          <div class="tags" style="margin-top:4px"><span class="tag">固定チームナーシング</span><span class="tag">夜勤 3名＋補助1名</span><span class="tag">教育担当つき</span></div>
+          <span class="cap">画面は開発中のイメージです</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="feat rev">
+      <div class="ftext">
+        <span class="num"><b class="en">02</b>話を聞ける</span>
+        <h3>応募の前に、<span class="nb">現場の人と話せる。</span></h3>
+        <p>気になる病院には「話を聞きに行きたい」を送るだけ。エージェントではなく、師長や現場の看護師と直接話せます。応募ではないので、聞いてみて合わなければそれで終わりにできます。</p>
+        <ul class="checks">
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>話せる相手のプロフィールを、先に見られる</li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>見学やオンラインでの雑談から始められる</li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>履歴書や職務経歴書は、この時点では不要</li>
+        </ul>
+      </div>
+      <div class="panel">
+        <div class="mock" role="img" aria-label="話を聞ける人のイメージ">
+          <p class="mt">話を聞ける人</p>
+          <div>
+            <div class="row"><span class="av"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"/></svg></span><span class="t"><b>内科病棟 師長</b><span>病棟の方針、夜勤の体制、子育てとの両立</span></span></div>
+            <div class="row"><span class="av"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"/></svg></span><span class="t"><b>教育担当・8年目</b><span>中途で入った人の最初の3か月</span></span></div>
+            <div class="row"><span class="av"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"/></svg></span><span class="t"><b>3年目の看護師</b><span>転職して変わったこと、1日の動き方</span></span></div>
+          </div>
+          <div class="fakebtn">話を聞きに行きたい</div>
+          <span class="cap">画面は開発中のイメージです</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="feat">
+      <div class="ftext">
+        <span class="num"><b class="en">03</b>スカウトが来る</span>
+        <h3>登録しておくだけで、<span class="nb">病院から声がかかる。</span></h3>
+        <p>希望する働き方と経験を登録しておくと、条件の合う病院からメッセージが届きます。忙しくて探す時間がなくても、気になったものにだけ返事をすれば大丈夫です。</p>
+        <ul class="checks">
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>連絡はサービス内のメッセージだけ</li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>最寄駅から通える病院を中心に届く</li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>返事をしなくても、催促の電話はなし</li>
+        </ul>
+      </div>
+      <div class="panel">
+        <div class="mock" role="img" aria-label="病院から届くメッセージのイメージ">
+          <p class="mt">メッセージ</p>
+          <div>
+            <div class="row"><span class="dot"></span><span class="t"><b>病院A・内科病棟</b><span>ご経験を拝見しました。一度お話ししませんか</span></span></div>
+            <div class="row"><span class="dot"></span><span class="t"><b>病院B・回復期リハ病棟</b><span>日勤のみの募集が出ました。ご希望に近いと思い…</span></span></div>
+            <div class="row"><span class="dot" style="background:#D2D2D7"></span><span class="t"><b>病院C・地域包括ケア病棟</b><span>見学のご案内です。平日の午後であれば…</span></span></div>
+          </div>
+          <span class="cap">画面は開発中のイメージです</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NO TEL -->
+<section class="notel">
+  <div class="wrap">
+    <span class="big" aria-hidden="true">
+      <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/><path d="M3 3l18 18"/></svg>
+    </span>
+    <div>
+      <h2>営業電話は、<span class="nb">一切かけません。</span></h2>
+      <p>ナスリーには、電話番号を登録する欄がありません。運営からも病院からも、電話がかかってくることはありません。やりとりはすべて、あなたのペースで読んで返せるメッセージで行います。</p>
+      <ul>
+        <li>電話番号の登録なし</li>
+        <li>エージェントからの連絡なし</li>
+        <li>連絡はメッセージとメールだけ</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- LAUNCH -->
+<section class="launch">
+  <div class="wrap">
+    <div class="center">
+      <span class="eyebrow en">LAUNCH</span>
+      <h2>2027年3月、<span class="nb">東東京からはじまります。</span></h2>
+      <p class="sec-lead">いまは、情報をきちんと開示してくれる病院を1つずつ増やしている段階です。先に登録しておくと、サービス開始と同時に使いはじめられます。</p>
+    </div>
+    <div class="box">
+      <div class="when">
+        <span class="d">サービス開始予定</span>
+        <span class="y en">2027<small>年</small> 3<small>月</small></span>
+        <p>最初のエリアは東東京です。その後、通える範囲に掲載病院がそろった地域から、順に広げていきます。</p>
+      </div>
+      <div class="merits">
+        <div class="merit">
+          <span class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9a6 6 0 1 1 12 0c0 6 2 7 2 7H4s2-1 2-7M10 20a2 2 0 0 0 4 0"/></svg></span>
+          <div><b>開始のお知らせが、いちばんに届く</b><span>サービスが始まったら、登録したメールアドレスにご案内します。</span></div>
+        </div>
+        <div class="merit">
+          <span class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></span>
+          <div><b>通える病院が載ったら、わかる</b><span>登録した最寄駅から通える病院が掲載されたときに、お知らせします。</span></div>
+        </div>
+        <div class="merit">
+          <span class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18M12 7v5l3 2"/></svg></span>
+          <div><b>いますぐ転職しなくてもいい</b><span>「いつか」のための登録で大丈夫です。合う職場が出てくるまで、待っていられます。</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STEPS -->
+<section class="steps">
+  <div class="wrap">
+    <div class="center">
+      <span class="eyebrow en">HOW IT WORKS</span>
+      <h2>登録からの流れ</h2>
+    </div>
+    <div class="sgrid">
+      <div class="s"><b>事前登録する</b><p>メールアドレスと、お名前・最寄駅・経験年数などを入力します。1分ほどで終わります。</p></div>
+      <div class="s"><b>開始のお知らせを待つ</b><p>2027年3月のサービス開始時にメールでご案内します。それまで、こちらから電話をすることはありません。</p></div>
+      <div class="s"><b>職場を見て、話を聞く</b><p>気になる病院のページを見て、話を聞きたいと思ったらボタンを押すだけ。応募はそのあとで決められます。</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section>
+  <div class="wrap">
+    <div class="center">
+      <span class="eyebrow en">FAQ</span>
+      <h2>よくある質問</h2>
+    </div>
+    <div class="faq">
+      <details><summary>利用にお金はかかりますか？</summary><p>かかりません。看護師のみなさんは、登録から転職が決まるまで、すべて無料で使えます。</p></details>
+      <details><summary>本当に電話はかかってきませんか？</summary><p>かかってきません。登録の項目に電話番号がないので、運営にも病院にも、電話をかける手段がありません。連絡はメッセージとメールで行います。</p></details>
+      <details><summary>まだ転職するか決めていません。登録してもいいですか？</summary><p>もちろんです。情報を見るだけ、話を聞くだけの使い方を歓迎しています。応募を急かすことはありません。</p></details>
+      <details><summary>東東京以外に住んでいても登録できますか？</summary><p>登録できます。最初は東東京の病院から掲載しますが、エリアは順に広げていきます。お住まいの地域で始まるときにお知らせします。</p></details>
+      <details><summary>いまの職場に知られることはありませんか？</summary><p>登録した内容が、いまの職場に通知されることはありません。プロフィールは、あなたが「話を聞きたい」を送った病院と、条件の合う掲載病院にだけ表示されます。</p></details>
+      <details><summary>どんな求人が載りますか？</summary><p>病院の看護師求人が中心です。受け持ちの人数や残業時間などを開示してくれる病院だけを掲載します。美容クリニックや治験関連の求人は扱いません。</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- SHARE -->
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="sharebox">
+      <h2>同期や友だちにも、<span class="nb">教えてください。</span></h2>
+      <p>登録する人が増えるほど、掲載したいと手を挙げる病院が増えます。看護学校の同期や、同じ病棟の仲間に、このページを送ってもらえるとうれしいです。</p>
+      <div class="share">
+        <a id="s-line" href="#" target="_blank" rel="noopener">LINEで送る</a>
+        <a id="s-x" href="#" target="_blank" rel="noopener">Xでポスト</a>
+        <button type="button" id="s-copy">リンクをコピー</button>
+      </div>
+      <span id="s-msg" role="status" style="display:block;margin-top:12px;font-size:13px;font-weight:700;color:var(--blue-d);min-height:1.8em"></span>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL -->
+<section class="final">
+  <div class="wrap">
+    <h2>入る前に、職場をみよう。</h2>
+    <p>2027年3月、東東京からスタート。事前登録を受け付けています。</p>
+    <a class="btn white" href="signup.html">事前登録する（無料）
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+    </a>
+    <ul class="notes">
+      <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>営業電話は一切なし</li>
+      <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>ずっと無料</li>
+      <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>登録は1分ほど</li>
+    </ul>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>運営：unou株式会社</span>
+    <nav aria-label="フッター"><a href="terms.html">利用規約</a><a href="privacy.html">プライバシーポリシー</a></nav>
+  </div>
+</footer>
+
+<div class="sticky"><a class="btn" href="signup.html">事前登録する（無料）</a></div>
+
+<script>
+(function () {
+  var url = location.origin + location.pathname;
+  var text = '職場がみえる、看護師のための転職プラットフォーム「ナスリー」。2027年3月に東東京からスタート。営業電話は一切なしで、事前登録を受付中です。';
+  document.getElementById('s-line').href = 'https://line.me/R/share?text=' + encodeURIComponent(text + '\n' + url);
+  document.getElementById('s-x').href = 'https://twitter.com/intent/tweet?text=' + encodeURIComponent(text) + '&url=' + encodeURIComponent(url);
+  var msg = document.getElementById('s-msg');
+  document.getElementById('s-copy').addEventListener('click', function () {
+    var done = function () { msg.textContent = 'リンクをコピーしました'; setTimeout(function () { msg.textContent = ''; }, 2500); };
+    if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(url).then(done, function () { msg.textContent = url; }); }
+    else { msg.textContent = url; }
+  });
+})();
+</script>
+</body>
+</html>
