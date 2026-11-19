@@ -52,6 +52,8 @@ h1 em{font-style:normal;color:var(--blue)}
 .h1sub::before{content:"";display:inline-block;width:28px;height:3px;border-radius:2px;background:var(--blue);vertical-align:middle;margin-right:12px}
 .lead{margin:20px 0 28px;font-size:15px;line-height:1.9;color:#3A3A3C}
 
+.kv-ph{aspect-ratio:4/3.4;border-radius:22px;background:#E5E5EA;color:#8E8E93;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;font-size:14px;font-weight:600;letter-spacing:.08em}
+
 /* mock */
 .mock{background:#fff;border-radius:22px;box-shadow:0 24px 60px rgba(42,86,214,.16),0 2px 8px rgba(0,0,0,.04);padding:20px;display:flex;flex-direction:column;gap:14px}
 .mock .cap{font-size:11px;color:var(--sub);text-align:right}
@@ -241,6 +243,7 @@ footer nav{display:flex;gap:18px}
   .lead{font-size:14px}
   h2{font-size:24px}
   .hero .btn{width:100%}
+  .kv-ph{aspect-ratio:4/3}
   .wgrid,.sgrid{grid-template-columns:1fr}
   .turn{font-size:17px}
   .feat{grid-template-columns:1fr;gap:24px;padding:36px 0}
@@ -304,20 +307,9 @@ footer nav{display:flex;gap:18px}
       </ul>
     </div>
 
-    <div class="mock" role="img" aria-label="求人ページのイメージ。担当患者数、残業時間、離職率が数字で載り、話を聞ける人が3人いる">
-      <div class="ph">
-        <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 21V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v16M16 9h2a2 2 0 0 1 2 2v10M3 21h18M8 7h4M8 11h4M8 15h4"/></svg>
-        <span class="pill"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></svg>話を聞ける人 3人</span>
-      </div>
-      <div class="tags"><span class="tag k">正社員</span><span class="tag">急性期・内科病棟</span><span class="tag">2交替</span></div>
-      <p class="mt">「聞きやすさ」で選ばれる内科病棟</p>
-      <div class="stats">
-        <div class="stat"><span>担当患者数</span><b class="en">7人</b></div>
-        <div class="stat"><span>残業（月）</span><b class="en">8h</b></div>
-        <div class="stat"><span>離職率（年）</span><b class="en">6.5%</b></div>
-      </div>
-      <div class="fakebtn">話を聞きに行きたい</div>
-      <span class="cap">画面は開発中のイメージです</span>
+    <div class="kv-ph" role="img" aria-label="キービジュアル（検討中）">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="9.5" r="1.5"/><path d="M21 16l-5-5-8 8"/></svg>
+      <span class="en">image</span>
     </div>
   </div>
 </div>
