@@ -156,80 +156,113 @@ a{color:#1D1D1F}a:hover{color:#6E6E73}
       <!-- Work -->
       <sc-if value="{{isWork}}">
       <!-- Work -->
-      <section id="work" style="background: #FFFFFF; border-radius: 14px; padding: 36px; display: flex; flex-direction: column; gap: 28px">
+      <section id="work" style="background: #FFFFFF; border-radius: 14px; padding: 32px 36px; display: flex; flex-direction: column; gap: 20px">
         <div style="display: flex; flex-direction: column; gap: 8px">
           <span style="font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', Meiryo, sans-serif; font-weight: 700; font-size: 12px; letter-spacing: 2px; color: #1D1D1F">WORK</span>
           <h2 style="margin: 0; font-size: 22px; font-weight: 700">配属先と仕事の中身</h2>
           <span style="font-size: 13px; line-height: 1.7; color: #6E6E73">どんな患者さんを、どんな体制で看るのか。入ってからのギャップが出やすいところを、先に書いています。</span>
         </div>
-        <div style="display: flex; flex-direction: column; gap: 12px">
-          <h3 style="margin: 0; font-size: 16px; font-weight: 700; padding-bottom: 10px; border-bottom: 2px solid #1D1D1F">配属先と患者さん</h3>
-          <dl style="margin: 0; display: flex; flex-direction: column">
-            <sc-for list="{{ward}}" as="r" hint-placeholder-count="3">
-              <div style="display: flex; gap: 16px; padding: 12px 0; border-bottom: 1px solid #E5E5EA">
-                <dt style="flex: 0 0 150px; font-size: 13px; font-weight: 700; color: #6E6E73; padding-top: 2px">{{r.k}}</dt>
-                <dd style="margin: 0; flex: 1 1 auto; min-width: 0; font-size: 14px; font-weight: 700; line-height: 1.7">{{r.v}}</dd>
-              </div>
-            </sc-for>
-          </dl>
-          <div style="display: flex; flex-direction: column; gap: 8px; background: #F5F5F7; border-radius: 14px; padding: 16px 20px">
-            <div style="display: flex; justify-content: space-between; align-items: baseline; font-size: 13px; font-weight: 700"><span>患者さんの重症度</span><span style="font-size: 16px">{{acuityLabel}}</span></div>
-            <div style="display: flex; gap: 4px">
-              <sc-for list="{{acuity}}" as="a" hint-placeholder-count="3"><span style="flex: 1 1 0; display: flex; flex-direction: column; gap: 4px"><span style="height: 10px; border-radius: 999px; background: {{a.bg}}"></span><span style="font-size: 11px; color: {{a.fg}}; text-align: center">{{a.label}}</span></span></sc-for>
+        <div style="display: flex; flex-wrap: wrap; gap: 10px">
+          <sc-for list="{{workStats}}" as="s" hint-placeholder-count="4">
+            <div style="flex: 1 1 110px; box-sizing: border-box; min-width: 0; background: #F5F5F7; border-radius: 12px; padding: 14px 16px; display: flex; flex-direction: column; gap: 4px">
+              <span style="font-size: 12px; font-weight: 700; color: #6E6E73">{{s.label}}</span>
+              <span style="font-size: 20px; font-weight: 700; line-height: 1.3">{{s.value}}</span>
             </div>
-            <span style="font-size: 11px; color: #6E6E73">{{acuityNote}}</span>
-          </div>
-          <div style="display: flex; flex-direction: column; gap: 8px">
-            <span style="font-size: 13px; font-weight: 700; color: #6E6E73">よくある処置・業務</span>
-            <div style="display: flex; gap: 6px; flex-wrap: wrap"><sc-for list="{{tasks}}" as="t" hint-placeholder-count="5"><span style="font-size: 13px; color: #1D1D1F; background: #F5F5F7; padding: 6px 12px; border-radius: 999px">{{t}}</span></sc-for></div>
-          </div>
+          </sc-for>
         </div>
-        <div style="display: flex; flex-direction: column; gap: 12px">
-          <h3 style="margin: 0; font-size: 16px; font-weight: 700; padding-bottom: 10px; border-bottom: 2px solid #1D1D1F">看護体制</h3>
-          <div style="display: flex; flex-wrap: wrap; gap: 12px">
-            <sc-for list="{{system}}" as="s" hint-placeholder-count="4">
-              <div style="flex: 1 1 180px; min-width: 0; background: #F5F5F7; border-radius: 14px; padding: 14px 16px; display: flex; flex-direction: column; gap: 2px">
-                <span style="font-size: 12px; font-weight: 700; color: #6E6E73">{{s.label}}</span>
-                <span style="font-size: 17px; font-weight: 700">{{s.value}}</span>
-                <span style="font-size: 12px; line-height: 1.6; color: #6E6E73">{{s.note}}</span>
-              </div>
-            </sc-for>
-          </div>
-        </div>
-        <div style="display: flex; flex-direction: column; gap: 12px">
-          <div style="display: flex; justify-content: space-between; align-items: flex-end; gap: 12px; padding-bottom: 10px; border-bottom: 2px solid #1D1D1F; flex-wrap: wrap">
-            <h3 style="margin: 0; font-size: 16px; font-weight: 700">1日の流れ</h3>
-            <div role="tablist" aria-label="勤務" style="display: flex; gap: 4px; background: #F5F5F7; border-radius: 999px; padding: 3px">
-              <sc-for list="{{dayTabs}}" as="d" hint-placeholder-count="2"><button type="button" role="tab" aria-selected="{{d.on}}" onClick="{{d.pick}}" style="border: none; border-radius: 999px; padding: 6px 16px; min-height: 32px; font-family: inherit; font-size: 13px; font-weight: 700; cursor: pointer; background: {{d.bg}}; color: #1D1D1F">{{d.label}}</button></sc-for>
-            </div>
-          </div>
-          <ol style="list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column">
-            <sc-for list="{{flow}}" as="f" hint-placeholder-count="6">
-              <li style="display: flex; gap: 16px">
-                <span style="flex: 0 0 52px; font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', Meiryo, sans-serif; font-size: 14px; font-weight: 700; padding: 12px 0">{{f.t}}</span>
-                <span style="flex: 0 0 auto; width: 12px; display: flex; flex-direction: column; align-items: center"><span style="width: 2px; height: 16px; background: {{f.lineTop}}"></span><span style="width: 10px; height: 10px; border-radius: 50%; background: #1D1D1F"></span><span style="width: 2px; flex: 1 1 auto; background: {{f.lineBottom}}"></span></span>
-                <span style="flex: 1 1 auto; min-width: 0; padding: 10px 0; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 14px; font-weight: 700">{{f.what}}</span><span style="font-size: 13px; line-height: 1.7; color: #6E6E73">{{f.note}}</span></span>
-              </li>
-            </sc-for>
-          </ol>
-        </div>
-        <sc-for list="{{workGroups}}" as="g" hint-placeholder-count="8">
-          <div style="display: flex; flex-direction: column; gap: 4px">
-            <h3 style="margin: 0 0 8px; font-size: 16px; font-weight: 700; padding-bottom: 10px; border-bottom: 2px solid #1D1D1F">{{g.title}}</h3>
-            <dl style="margin: 0; display: flex; flex-direction: column">
-              <sc-for list="{{g.rows}}" as="r" hint-placeholder-count="4">
-                <div style="display: flex; gap: 16px; padding: 12px 0; border-bottom: 1px solid #E5E5EA">
-                  <dt style="flex: 0 0 150px; font-size: 13px; font-weight: 700; color: #6E6E73; padding-top: 2px">{{r.k}}</dt>
-                  <dd style="margin: 0; flex: 1 1 auto; min-width: 0; font-size: 14px; font-weight: 700; line-height: 1.7; white-space: pre-line">{{r.v}}</dd>
-                </div>
-              </sc-for>
-            </dl>
-          </div>
-        </sc-for>
       </section>
+
+      <section style="background: #FFFFFF; border-radius: 14px; padding: 32px 36px; display: flex; flex-direction: column; gap: 20px">
+        <div style="display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap">
+          <span style="font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', Meiryo, sans-serif; font-size: 13px; font-weight: 700; color: #3A6CF2">01</span>
+          <h3 style="margin: 0; font-size: 19px; font-weight: 700">配属先と患者さん</h3>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 6px">
+          <span style="font-size: 17px; font-weight: 700; line-height: 1.6">{{wardName}}</span>
+          <span style="font-size: 14px; line-height: 1.9; color: #1D1D1F">{{wardLead}}</span>
+        </div>
+        <div style="display: flex; flex-wrap: wrap; gap: 12px">
+          <div style="flex: 1 1 260px; min-width: 0; display: flex; flex-direction: column; gap: 8px; background: #F5F5F7; border-radius: 12px; padding: 16px 18px">
+            <div style="display: flex; justify-content: space-between; align-items: baseline; font-size: 12px; font-weight: 700; color: #6E6E73"><span>患者さんの重症度</span><span style="font-size: 16px; color: #1D1D1F">{{acuityLabel}}</span></div>
+            <div style="display: flex; gap: 4px">
+              <sc-for list="{{acuity}}" as="a" hint-placeholder-count="3"><span style="flex: 1 1 0; display: flex; flex-direction: column; gap: 4px"><span style="height: 8px; border-radius: 999px; background: {{a.bg}}"></span><span style="font-size: 11px; color: {{a.fg}}; text-align: center">{{a.label}}</span></span></sc-for>
+            </div>
+            <span style="font-size: 11px; line-height: 1.6; color: #6E6E73">{{acuityNote}}</span>
+          </div>
+          <div style="flex: 0 1 180px; min-width: 0; display: flex; flex-direction: column; gap: 4px; background: #F5F5F7; border-radius: 12px; padding: 16px 18px">
+            <span style="font-size: 12px; font-weight: 700; color: #6E6E73">平均在院日数</span>
+            <span style="font-size: 20px; font-weight: 700">{{wardStay}}</span>
+          </div>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 8px">
+          <span style="font-size: 12px; font-weight: 700; color: #6E6E73">業務内容</span>
+          <span style="font-size: 14px; line-height: 1.8">{{wardJob}}</span>
+          <div style="display: flex; gap: 6px; flex-wrap: wrap; padding-top: 4px"><sc-for list="{{tasks}}" as="t" hint-placeholder-count="5"><span style="font-size: 13px; color: #1D1D1F; border: 1px solid #D2D2D7; padding: 5px 12px; border-radius: 999px">{{t}}</span></sc-for></div>
+        </div>
+      </section>
+
+      <section style="background: #FFFFFF; border-radius: 14px; padding: 32px 36px; display: flex; flex-direction: column; gap: 20px">
+        <div style="display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap">
+          <span style="font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', Meiryo, sans-serif; font-size: 13px; font-weight: 700; color: #3A6CF2">02</span>
+          <h3 style="margin: 0; font-size: 19px; font-weight: 700">看護体制</h3>
+        </div>
+        <div style="display: flex; flex-wrap: wrap; gap: 0 32px">
+          <sc-for list="{{system}}" as="s" hint-placeholder-count="4">
+            <div style="flex: 1 1 260px; min-width: 0; padding: 14px 0; border-top: 1px solid #E5E5EA; display: flex; flex-direction: column; gap: 2px">
+              <span style="font-size: 12px; font-weight: 700; color: #6E6E73">{{s.label}}</span>
+              <span style="font-size: 17px; font-weight: 700">{{s.value}}</span>
+              <span style="font-size: 12px; line-height: 1.6; color: #6E6E73">{{s.note}}</span>
+            </div>
+          </sc-for>
+        </div>
+      </section>
+
+      <section style="background: #FFFFFF; border-radius: 14px; padding: 32px 36px; display: flex; flex-direction: column; gap: 20px">
+        <div style="display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap">
+          <div style="display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap">
+          <span style="font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', Meiryo, sans-serif; font-size: 13px; font-weight: 700; color: #3A6CF2">03</span>
+          <h3 style="margin: 0; font-size: 19px; font-weight: 700">1日の流れ</h3>
+        </div>
+          <div role="tablist" aria-label="勤務" style="display: flex; gap: 4px; background: #F5F5F7; border-radius: 999px; padding: 3px">
+            <sc-for list="{{dayTabs}}" as="d" hint-placeholder-count="2"><button type="button" role="tab" aria-selected="{{d.on}}" onClick="{{d.pick}}" style="border: none; border-radius: 999px; padding: 6px 18px; min-height: 36px; font-family: inherit; font-size: 13px; font-weight: 700; cursor: pointer; background: {{d.bg}}; color: #1D1D1F">{{d.label}}</button></sc-for>
+          </div>
+        </div>
+        <ol style="list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column">
+          <sc-for list="{{flow}}" as="f" hint-placeholder-count="6">
+            <li style="display: flex; gap: 14px">
+              <span style="flex: 0 0 48px; font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', Meiryo, sans-serif; font-size: 14px; font-weight: 700; padding: 10px 0; text-align: right">{{f.t}}</span>
+              <span style="flex: 0 0 auto; width: 12px; display: flex; flex-direction: column; align-items: center"><span style="width: 2px; height: 15px; background: {{f.lineTop}}"></span><span style="width: 10px; height: 10px; border-radius: 50%; background: #3A6CF2"></span><span style="width: 2px; flex: 1 1 auto; background: {{f.lineBottom}}"></span></span>
+              <span style="flex: 1 1 auto; min-width: 0; padding: 8px 0 12px; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 14px; font-weight: 700">{{f.what}}</span><span style="font-size: 13px; line-height: 1.7; color: #6E6E73">{{f.note}}</span></span>
+            </li>
+          </sc-for>
+        </ol>
+      </section>
+
+      <sc-for list="{{workCards}}" as="c" hint-placeholder-count="2">
+        <section style="background: #FFFFFF; border-radius: 14px; padding: 32px 36px; display: flex; flex-direction: column; gap: 20px">
+          <div style="display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap">
+            <span style="font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', Meiryo, sans-serif; font-size: 13px; font-weight: 700; color: #3A6CF2">{{c.n}}</span>
+            <h3 style="margin: 0; font-size: 19px; font-weight: 700">{{c.title}}</h3>
+          </div>
+          <div style="display: flex; flex-wrap: wrap; gap: 24px 40px">
+            <sc-for list="{{c.groups}}" as="g" hint-placeholder-count="2">
+              <div style="flex: 1 1 280px; min-width: 0; display: flex; flex-direction: column; gap: 4px">
+                <h4 style="margin: 0; font-size: 14px; font-weight: 700; padding-bottom: 8px; border-bottom: 2px solid #1D1D1F">{{g.title}}</h4>
+                <dl style="margin: 0; display: flex; flex-direction: column">
+                  <sc-for list="{{g.rows}}" as="r" hint-placeholder-count="4">
+                    <div style="display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px solid #E5E5EA">
+                      <dt style="flex: 0 0 84px; font-size: 12px; font-weight: 700; color: #6E6E73; padding-top: 3px">{{r.k}}</dt>
+                      <dd style="margin: 0; flex: 1 1 auto; min-width: 0; font-size: 14px; line-height: 1.7; white-space: pre-line">{{r.v}}</dd>
+                    </div>
+                  </sc-for>
+                </dl>
+              </div>
+            </sc-for>
+          </div>
+        </section>
+      </sc-for>
       </sc-if>
 
-      <!-- People -->
       <sc-if value="{{isPeople}}">
       <!-- Head nurse -->
       <section id="people" style="background: #FFFFFF; border-radius: 14px; padding: 36px; display: flex; flex-direction: column; gap: 20px">
@@ -535,6 +568,10 @@ class Component extends DCLogic {
         { label: '平均残業時間（月）', value: '8h', avg: '18h', w: (8 / 40 * 100) + '%', avgPos: (18 / 40 * 100) + '%', color: '#1D1D1F', note: '直近6か月の実績。目盛りは最大40時間' },
         { label: '離職率（年）', value: '6.5%', avg: '11%', w: (6.5 / 30 * 100) + '%', avgPos: (11 / 30 * 100) + '%', color: '#1D1D1F', note: '昨年度、看護師24名中 2名が退職（産休・育休は含まない）。目盛りは最大30%' }
       ],
+      workStats: [{ label: '勤務', value: '2交替制' }, { label: '夜勤', value: '月4回' }, { label: '残業', value: '月8時間' }, { label: '年間休日', value: '120日' }],
+      get wardName() { return this.ward[0].v; }, get wardLead() { return this.ward[1].v; },
+      get wardJob() { return this.ward[2].v; }, get wardStay() { return this.ward[3].v; },
+      get workCards() { const g = this.workGroups; return [{ n: '04', title: '勤務時間と休み', groups: [g[0], g[1]] }, { n: '05', title: '教育と暮らし', groups: [g[2], g[3]] }]; },
       get head() { return this.members[0]; },
       // 病院側で追加・削除できる記事。表示はアイコン・タイトル・ラベル（年次・科）のみ
       get articles() {
