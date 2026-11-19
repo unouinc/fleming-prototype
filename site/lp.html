@@ -113,6 +113,24 @@ h2{margin:10px 0 0;font-size:32px;line-height:1.5;font-weight:700}
 .bar i{display:block;height:8px;border-radius:999px;background:#E5E5EA;position:relative;overflow:hidden}
 .bar i::after{content:"";position:absolute;inset:0;width:var(--w);background:var(--blue);border-radius:999px}
 
+/* stacked cards */
+.stack{position:relative;padding:0 0 196px}
+.stack .mock{box-shadow:0 14px 36px rgba(0,0,0,.10);gap:12px}
+.c-people{width:82%;transform:rotate(-2deg);transform-origin:left top}
+.c-nums{position:absolute;right:0;bottom:0;width:62%;transform:rotate(2.5deg);padding:18px;box-shadow:0 20px 44px rgba(42,86,214,.22)!important}
+.clabel{display:inline-flex;align-items:center;gap:6px;align-self:flex-start;font-size:11px;font-weight:700;color:var(--blue-d);background:var(--tint);padding:3px 10px;border-radius:999px}
+.clabel i{width:6px;height:6px;border-radius:50%;background:var(--blue);display:block}
+.who{display:flex;gap:12px;align-items:center}
+.who .t{display:flex;flex-direction:column;gap:2px;min-width:0}
+.who b{font-size:15px;line-height:1.55}
+.av.lg{width:56px;height:56px}
+.lb{display:flex!important;gap:5px;margin-top:3px;overflow:visible!important}
+.lb em{font-style:normal;font-size:10px;font-weight:700;color:var(--ink);background:var(--bg);padding:1px 8px;border-radius:999px}
+.mini{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:2px}
+.mini span{background:var(--bg);border-radius:10px;padding:8px 10px;display:flex;flex-direction:column;line-height:1.4}
+.mini small{font-size:10px;color:var(--sub);font-weight:500}
+.mini b{font-size:16px}
+
 /* no tel */
 .notel{background:var(--ink);color:#fff}
 .notel .wrap{display:grid;grid-template-columns:auto minmax(0,1fr);gap:40px;align-items:center}
@@ -186,7 +204,11 @@ footer nav{display:flex;gap:18px}
   .feat{grid-template-columns:1fr;gap:24px;padding:36px 0}
   .feat.rev .ftext{order:0}
   .feat h3{font-size:22px}
-  .panel{padding:16px}
+  .panel{padding:20px 16px}
+  .stack{padding-bottom:206px}
+  .c-people{width:90%}
+  .c-nums{width:70%;padding:14px}
+  .who b{font-size:14px}
   .notel .wrap{grid-template-columns:1fr;gap:20px}
   .notel .big{width:88px;height:88px}
   .notel .big svg{width:40px;height:40px}
@@ -290,23 +312,37 @@ footer nav{display:flex;gap:18px}
     <div class="feat" style="margin-top:20px">
       <div class="ftext">
         <span class="num"><b class="en">01</b>職場がみえる</span>
-        <h3>数字と人で、<span class="nb">職場の中がわかる。</span></h3>
-        <p>病院が自分たちで開示した数字と、そこで働く人の声を載せています。ことばの印象ではなく、事実で比べられます。</p>
+        <h3>人と数字で、<span class="nb">職場の中がわかる。</span></h3>
+        <p>どんな人が、どんな考えで働いているのか。受け持ちは何人で、残業はどれくらいか。師長やスタッフの声と、病院が自分たちで開示した数字の両方を載せています。雰囲気と事実を、入る前に確かめられます。</p>
         <ul class="checks">
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>師長の考え方と、年次ごとのスタッフの声</li>
           <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>1人あたりの担当患者数、残業時間、離職率</li>
           <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>看護体制と、日勤・夜勤の1日の流れ</li>
-          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>師長の考え方と、年次ごとのスタッフの声</li>
         </ul>
       </div>
       <div class="panel">
-        <div class="mock" role="img" aria-label="職場の数字のイメージ">
-          <p class="mt">ひと目でわかる数字</p>
-          <div class="bar"><div class="l">1人あたりの担当患者数<span>7人</span></div><i style="--w:58%"></i></div>
-          <div class="bar"><div class="l">平均残業時間（月）<span>8時間</span></div><i style="--w:27%"></i></div>
-          <div class="bar"><div class="l">有休消化率<span>9割</span></div><i style="--w:90%"></i></div>
-          <div class="tags" style="margin-top:4px"><span class="tag">固定チームナーシング</span><span class="tag">夜勤 3名＋補助1名</span><span class="tag">教育担当つき</span></div>
-          <span class="cap">画面は開発中のイメージです</span>
+        <div class="stack" role="img" aria-label="職場ページのイメージ。師長とスタッフの声のカードと、担当患者数や残業時間などの数字のカードが重なっている">
+          <div class="mock c-people">
+            <span class="clabel"><i></i>人がみえる</span>
+            <div class="who">
+              <span class="av lg"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"/></svg></span>
+              <span class="t"><span class="ms">内科病棟 師長</span><b>「聞きやすい病棟」を、<br>いちばん大事にしています。</b></span>
+            </div>
+            <div class="tags"><span class="tag">看護師歴 18年</span><span class="tag">2児の母</span></div>
+            <div>
+              <div class="row"><span class="av"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"/></svg></span><span class="t"><b>夜勤明けに、ちゃんと帰れる</b><span class="lb"><em>3年目</em><em>内科病棟</em></span></span></div>
+              <div class="row"><span class="av"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"/></svg></span><span class="t"><b>ブランク5年でも、聞ける人がいた</b><span class="lb"><em>1年目</em><em>内科病棟</em></span></span></div>
+            </div>
+          </div>
+          <div class="mock c-nums">
+            <span class="clabel"><i></i>数字がみえる</span>
+            <div class="bar"><div class="l">担当患者数<span>7人</span></div><i style="--w:58%"></i></div>
+            <div class="bar"><div class="l">残業（月）<span>8時間</span></div><i style="--w:27%"></i></div>
+            <div class="bar"><div class="l">有休消化率<span>9割</span></div><i style="--w:90%"></i></div>
+            <div class="mini"><span><small>離職率（年）</small><b class="en">6.5%</b></span><span><small>夜勤</small><b>月4回</b></span></div>
+          </div>
         </div>
+        <span class="cap" style="display:block;margin-top:14px;font-size:11px;color:var(--sub);text-align:right">画面は開発中のイメージです</span>
       </div>
     </div>
 
