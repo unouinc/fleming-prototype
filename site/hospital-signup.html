@@ -1,0 +1,373 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/svg+xml" href="images/favicon.svg">
+<title>病院の初期登録｜ナスリー</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&amp;family=Inter:wght@500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+:root{--blue:#3A6CF2;--blue-d:#2A56D6;--tint:#EEF3FE;--ink:#1D1D1F;--sub:#6E6E73;--line:#E5E5EA;--bg:#F5F5F7;--ok:#1E8E5A;--okbg:#E7F6EE;--warn:#B25E00;--warnbg:#FFF3DD}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'Noto Sans JP',-apple-system,BlinkMacSystemFont,'Hiragino Sans',Meiryo,sans-serif;font-size:15px;line-height:1.7;-webkit-font-smoothing:antialiased}
+.en{font-family:'Inter','Noto Sans JP',sans-serif}
+button,input,textarea,select{font-family:inherit;font-size:inherit;color:inherit}
+[hidden]{display:none!important}
+
+.top{height:60px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 24px;position:sticky;top:0;z-index:10}
+.brand{display:flex;align-items:center;gap:10px}
+.brand img.m{width:26px;height:26px}.brand img.t{height:17px}
+.brand span{font-size:12px;font-weight:700;color:var(--sub);border:1px solid var(--line);border-radius:999px;padding:2px 10px;margin-left:4px}
+.proto{font-size:12px;color:var(--sub)}
+
+.shell > *{min-width:0}
+.shell{max-width:1120px;margin:0 auto;padding:32px 24px 80px;display:grid;grid-template-columns:240px minmax(0,1fr);gap:32px;align-items:start}
+.steps{position:sticky;top:92px;list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:4px}
+.steps li{display:flex;gap:12px;align-items:center;padding:10px 12px;border-radius:12px;font-size:14px;font-weight:500;color:var(--sub)}
+.steps li b{width:26px;height:26px;border-radius:50%;border:2px solid #D2D2D7;display:flex;align-items:center;justify-content:center;font-size:12px;flex:0 0 auto;background:#fff}
+.steps li.on{background:#fff;color:var(--ink);font-weight:700}
+.steps li.on b{border-color:var(--blue);background:var(--blue);color:#fff}
+.steps li.done{color:var(--ink)}
+.steps li.done b{border-color:var(--ok);background:var(--ok);color:#fff}
+.steps small{display:block;font-size:11px;font-weight:400;color:var(--sub)}
+.time{margin:14px 12px 0;font-size:12px;color:var(--sub);line-height:1.7}
+
+.card{background:#fff;border-radius:18px;padding:36px 40px;display:flex;flex-direction:column;gap:24px}
+h1{margin:0;font-size:26px;line-height:1.5;font-weight:700}
+h2{margin:0;font-size:17px;font-weight:700;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.lead{margin:0;color:#3A3A3C}
+.eyebrow{font-size:12px;font-weight:700;letter-spacing:.12em;color:var(--blue)}
+
+.field{display:flex;flex-direction:column;gap:6px}
+.field label,.lbl{font-size:13px;font-weight:700}
+.inp{width:100%;min-height:48px;border:1px solid #D2D2D7;border-radius:12px;padding:10px 14px;background:#fff}
+.inp:focus,textarea:focus{outline:3px solid #C9D8FC;border-color:var(--blue)}
+.hint{font-size:12px;color:var(--sub)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:0 26px;border-radius:999px;border:none;background:var(--ink);color:#fff;font-weight:700;cursor:pointer}
+.btn:hover{background:#000}
+.btn.blue{background:var(--blue)}.btn.blue:hover{background:var(--blue-d)}
+.btn.ghost{background:#fff;color:var(--ink);border:1px solid #D2D2D7}
+.btn.sm{min-height:38px;padding:0 16px;font-size:13px}
+.btn:focus-visible,.chip:focus-visible{outline:3px solid #9DB6F9;outline-offset:2px}
+.foot{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding-top:8px;border-top:1px solid var(--line);margin-top:4px}
+
+/* crawl */
+.src{display:flex;flex-direction:column;border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.src > div{display:flex;align-items:center;gap:14px;padding:14px 18px;border-bottom:1px solid var(--line)}
+.src > div:last-child{border-bottom:none}
+.src .ic{width:26px;height:26px;border-radius:50%;border:2px solid #D2D2D7;flex:0 0 auto;display:flex;align-items:center;justify-content:center;color:#fff}
+.src .run .ic{border-color:var(--blue);border-top-color:transparent;animation:spin .8s linear infinite}
+.src .ok .ic{border-color:var(--ok);background:var(--ok)}
+.src .t{flex:1 1 auto;min-width:0}
+.src .t b{display:block;font-size:14px}
+.src .t span{font-size:12px;color:var(--sub)}
+.src .n{font-size:13px;font-weight:700;color:var(--ok);white-space:nowrap;opacity:0}
+.src .ok .n{opacity:1}
+@keyframes spin{to{transform:rotate(360deg)}}
+.prog{height:8px;border-radius:999px;background:var(--line);overflow:hidden}
+.prog i{display:block;height:100%;width:0;background:var(--blue);border-radius:999px;transition:width .5s}
+
+/* review */
+.sum{display:flex;gap:20px;align-items:center;background:var(--tint);border-radius:14px;padding:18px 22px;flex-wrap:wrap}
+.sum b.big{font-size:38px;line-height:1;color:var(--blue)}
+.sum span{font-size:14px}
+.badge{font-size:11px;font-weight:700;padding:2px 8px;border-radius:999px;white-space:nowrap}
+.badge.auto{background:var(--okbg);color:var(--ok)}
+.badge.todo{background:var(--warnbg);color:var(--warn)}
+.badge.ai{background:var(--tint);color:var(--blue-d)}
+.rows{border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.r{display:grid;grid-template-columns:150px minmax(0,1fr) auto;gap:14px;align-items:center;padding:10px 16px;border-bottom:1px solid var(--line)}
+.r:last-child{border-bottom:none}
+.r dt{font-size:13px;font-weight:700;color:var(--sub)}
+.r dd{margin:0}
+.r input{width:100%;border:1px solid transparent;border-radius:8px;padding:6px 8px;background:transparent;font-weight:500}
+.r input:hover{border-color:#D2D2D7}.r input:focus{outline:none;border-color:var(--blue);background:#fff}
+.r .from{font-size:11px;color:var(--sub);white-space:nowrap}
+
+/* chips */
+.q{display:flex;flex-direction:column;gap:10px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{min-height:40px;padding:0 16px;border-radius:999px;border:1px solid #D2D2D7;background:#fff;font-weight:500;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff;font-weight:700}
+.left{font-size:13px;font-weight:700;color:var(--warn);background:var(--warnbg);padding:4px 12px;border-radius:999px}
+.left.z{color:var(--ok);background:var(--okbg)}
+
+/* photos */
+.photos{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.ph{aspect-ratio:4/3;border-radius:12px;background:#E5E5EA;color:#8E8E93;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font-size:12px;font-weight:600;border:3px solid transparent;cursor:pointer;position:relative;padding:0}
+.ph[aria-pressed="true"]{border-color:var(--blue)}
+.ph[aria-pressed="true"]::after{content:"使う";position:absolute;right:6px;top:6px;background:var(--blue);color:#fff;font-size:11px;font-weight:700;padding:1px 8px;border-radius:999px}
+.ph.add{background:#fff;border:2px dashed #C7C7CC;color:var(--sub)}
+.aibox{border:1px solid var(--line);border-radius:14px;padding:18px 20px;display:flex;flex-direction:column;gap:12px}
+.aihead{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+textarea{width:100%;min-height:128px;border:1px solid #D2D2D7;border-radius:12px;padding:12px 14px;line-height:1.8;resize:vertical;background:#fff}
+.caret::after{content:"";display:inline-block;width:2px;height:1.1em;background:var(--blue);vertical-align:-3px;margin-left:2px;animation:blink 1s steps(2) infinite}
+@keyframes blink{50%{opacity:0}}
+
+/* done */
+.donebox{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:24px;align-items:center}
+.pv{border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#fff;box-shadow:0 14px 34px rgba(0,0,0,.08)}
+.pv .img{height:120px;background:#E5E5EA;display:flex;align-items:center;justify-content:center;color:#8E8E93;font-size:12px;font-weight:600}
+.pv .bd{padding:14px 16px;display:flex;flex-direction:column;gap:8px}
+.pv .st{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.pv .st div{background:var(--bg);border-radius:8px;padding:6px 8px;font-size:10px;color:var(--sub);line-height:1.4}
+.pv .st b{display:block;font-size:15px;color:var(--ink)}
+.next{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.next li{display:flex;gap:12px;align-items:flex-start;font-size:14px}
+.next li i{width:22px;height:22px;border-radius:50%;background:var(--okbg);color:var(--ok);display:flex;align-items:center;justify-content:center;flex:0 0 auto;margin-top:2px;font-style:normal;font-size:12px;font-weight:700}
+
+@media (max-width:820px){
+  .shell{grid-template-columns:1fr;padding:16px 14px 60px;gap:14px}
+  .steps{position:static;flex-direction:row;overflow-x:auto;gap:6px;scrollbar-width:none}
+  .steps li{padding:6px 10px;white-space:nowrap;font-size:12px}
+  .steps small,.time{display:none}
+  .card{padding:22px 18px;gap:20px}
+  h1{font-size:21px}
+  .r{grid-template-columns:1fr auto;gap:2px 10px}
+  .r dt{grid-column:1/-1}
+  .photos{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .donebox{grid-template-columns:1fr}
+  .proto{display:none}
+}
+@media (prefers-reduced-motion:reduce){.src .run .ic,.caret::after{animation:none}.prog i{transition:none}}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="brand"><img class="m" src="images/logo-mark.svg" alt=""><img class="t" src="images/logotype.svg" alt="ナスリー"><span>病院向け</span></div>
+  <span class="proto">画面イメージ（情報の自動取得は動作の見本です）</span>
+</header>
+
+<div class="shell">
+  <nav aria-label="登録の手順">
+    <ol class="steps" id="steps">
+      <li><b class="en">1</b><span>病院を指定<small>10秒</small></span></li>
+      <li><b class="en">2</b><span>情報を自動で集める<small>待つだけ</small></span></li>
+      <li><b class="en">3</b><span>内容を確かめる<small>1分</small></span></li>
+      <li><b class="en">4</b><span>残りを選ぶ<small>3分</small></span></li>
+      <li><b class="en">5</b><span>写真と紹介文<small>AIが下書き</small></span></li>
+      <li><b class="en">6</b><span>完了</span></li>
+    </ol>
+    <p class="time">入力はほとんどありません。公開されている情報から先に埋めておき、残りは選ぶだけです。</p>
+  </nav>
+
+  <main>
+    <!-- 1 -->
+    <section class="card" data-step="0">
+      <div><span class="eyebrow en">STEP 1</span><h1>病院のホームページを教えてください</h1></div>
+      <p class="lead">ホームページと、国や都道府県に届け出ている情報から、掲載ページに必要な内容を自動で集めます。</p>
+      <div class="field">
+        <label for="url">病院のホームページのURL</label>
+        <input class="inp" id="url" type="url" value="https://www.minato-chuo-hospital.example/" inputmode="url">
+        <span class="hint">病院名で探すこともできます。</span>
+      </div>
+      <div class="field">
+        <label for="mail">ご担当者のメールアドレス</label>
+        <input class="inp" id="mail" type="email" value="kango@minato-chuo-hospital.example">
+      </div>
+      <div class="foot"><span></span><button class="btn blue" data-go="1">情報を集める</button></div>
+    </section>
+
+    <!-- 2 -->
+    <section class="card" data-step="1" hidden>
+      <div><span class="eyebrow en">STEP 2</span><h1>公開されている情報を集めています</h1></div>
+      <p class="lead">このままお待ちください。30秒ほどで終わります。</p>
+      <div class="prog" role="progressbar" aria-label="情報の取得" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><i id="bar"></i></div>
+      <div class="src" id="src">
+        <div><span class="ic"></span><span class="t"><b>病院のホームページ</b><span>病院名、所在地、診療科、看護部の紹介、写真</span></span><span class="n">11項目</span></div>
+        <div><span class="ic"></span><span class="t"><b>施設基準の届出（加算の届出内容）</b><span>入院基本料、看護職員の配置、看護補助、夜間の体制</span></span><span class="n">8項目</span></div>
+        <div><span class="ic"></span><span class="t"><b>病床機能報告</b><span>病床数、病棟の種類、看護職員数、平均在院日数</span></span><span class="n">6項目</span></div>
+        <div><span class="ic"></span><span class="t"><b>医療情報ネット</b><span>開設者、最寄駅、駐車場、対応している診療</span></span><span class="n">4項目</span></div>
+        <div><span class="ic"></span><span class="t"><b>募集中の求人ページ</b><span>給与、勤務時間、休日、手当</span></span><span class="n">5項目</span></div>
+      </div>
+      <div class="foot"><button class="btn ghost" data-go="0">戻る</button><button class="btn blue" id="toReview" data-go="2" disabled style="opacity:.4">内容を確かめる</button></div>
+    </section>
+
+    <!-- 3 -->
+    <section class="card" data-step="2" hidden>
+      <div><span class="eyebrow en">STEP 3</span><h1>集まった内容を確かめてください</h1></div>
+      <div class="sum"><b class="big en">34<small style="font-size:18px"> / 42</small></b><span><b>42項目のうち34項目を自動で入力しました。</b><br>違っているところだけ、その場で直せます。</span></div>
+
+      <h2>基本情報 <span class="badge auto">自動入力 9</span></h2>
+      <dl class="rows" style="margin:0">
+        <div class="r"><dt>病院名</dt><dd><input value="みなと中央病院" aria-label="病院名"></dd><span class="from">ホームページ</span></div>
+        <div class="r"><dt>運営</dt><dd><input value="医療法人社団 [法人名]" aria-label="運営"></dd><span class="from">医療情報ネット</span></div>
+        <div class="r"><dt>所在地</dt><dd><input value="東京都港区[住所]" aria-label="所在地"></dd><span class="from">ホームページ</span></div>
+        <div class="r"><dt>最寄駅</dt><dd><input value="[駅名]駅 徒歩[分]分" aria-label="最寄駅"></dd><span class="from">医療情報ネット</span></div>
+        <div class="r"><dt>病床数</dt><dd><input value="[病床数]床（一般）" aria-label="病床数"></dd><span class="from">病床機能報告</span></div>
+        <div class="r"><dt>診療科目</dt><dd><input value="内科・外科・整形外科・循環器内科 ほか" aria-label="診療科目"></dd><span class="from">ホームページ</span></div>
+      </dl>
+
+      <h2>看護の体制 <span class="badge auto">自動入力 8</span></h2>
+      <dl class="rows" style="margin:0">
+        <div class="r"><dt>入院基本料</dt><dd><input value="急性期一般入院料1（7対1）" aria-label="入院基本料"></dd><span class="from">施設基準の届出</span></div>
+        <div class="r"><dt>看護補助</dt><dd><input value="急性期看護補助体制加算 25対1" aria-label="看護補助"></dd><span class="from">施設基準の届出</span></div>
+        <div class="r"><dt>夜間の体制</dt><dd><input value="看護職員夜間配置加算 12対1" aria-label="夜間の体制"></dd><span class="from">施設基準の届出</span></div>
+        <div class="r"><dt>看護職員数</dt><dd><input value="[人数]名" aria-label="看護職員数"></dd><span class="from">病床機能報告</span></div>
+        <div class="r"><dt>平均在院日数</dt><dd><input value="約14日" aria-label="平均在院日数"></dd><span class="from">病床機能報告</span></div>
+      </dl>
+
+      <h2>給与・勤務 <span class="badge auto">自動入力 5</span> <span class="badge todo">未入力 8</span></h2>
+      <dl class="rows" style="margin:0">
+        <div class="r"><dt>月収</dt><dd><input value="276,500円〜" aria-label="月収"></dd><span class="from">求人ページ</span></div>
+        <div class="r"><dt>勤務時間</dt><dd><input value="日勤 8:30〜17:15／夜勤 16:30〜翌9:00" aria-label="勤務時間"></dd><span class="from">求人ページ</span></div>
+        <div class="r"><dt>年間休日</dt><dd><input value="120日" aria-label="年間休日"></dd><span class="from">求人ページ</span></div>
+        <div class="r"><dt>残業・夜勤回数など</dt><dd><input value="" placeholder="次の画面で選びます" aria-label="残業・夜勤回数など" disabled></dd><span class="badge todo">次で選ぶ</span></div>
+      </dl>
+      <div class="foot"><button class="btn ghost" data-go="0">最初から</button><button class="btn" data-go="3">合っている。次へ</button></div>
+    </section>
+
+    <!-- 4 -->
+    <section class="card" data-step="3" hidden>
+      <div><span class="eyebrow en">STEP 4</span><h1>公開情報にない8項目を、選んでください</h1></div>
+      <p class="lead" style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">近いものを押すだけです。正確な数字は、あとから管理画面で直せます。<span class="left" id="left">あと8項目</span></p>
+      <div id="qs" style="display:flex;flex-direction:column;gap:22px"></div>
+      <div class="foot"><button class="btn ghost" data-go="2">戻る</button><button class="btn" data-go="4">次へ</button></div>
+    </section>
+
+    <!-- 5 -->
+    <section class="card" data-step="4" hidden>
+      <div><span class="eyebrow en">STEP 5</span><h1>写真と紹介文を用意します</h1></div>
+      <h2>写真 <span class="badge auto">ホームページから6枚見つかりました</span></h2>
+      <p class="lead">使いたい写真を選んでください。手元の写真を足すこともできます。</p>
+      <div class="photos" id="photos"></div>
+
+      <h2>病棟の紹介文 <span class="badge ai">AIが下書き</span></h2>
+      <div class="aibox">
+        <div class="aihead">
+          <div class="chips" id="tone" role="group" aria-label="文章の雰囲気">
+            <button class="chip" aria-pressed="true">落ち着いた</button><button class="chip" aria-pressed="false">親しみやすい</button><button class="chip" aria-pressed="false">きっぱり</button>
+          </div>
+          <button class="btn sm ghost" id="regen">書き直す</button>
+        </div>
+        <textarea id="intro" aria-label="病棟の紹介文"></textarea>
+        <span class="hint">集めた情報と、先ほど選んだ内容をもとに書いています。そのまま使っても、直しても大丈夫です。</span>
+      </div>
+
+      <h2>看護師長からひとこと <span class="badge ai">3つの質問に答えるだけ</span></h2>
+      <div class="aibox">
+        <div class="field"><label for="a1">どんな病棟にしたいですか</label><input class="inp" id="a1" value="聞きやすい雰囲気を大事にしたい"></div>
+        <div class="field"><label for="a2">新しく入る人に、最初に伝えたいことは</label><input class="inp" id="a2" placeholder="ひとことで大丈夫です"></div>
+        <div class="field"><label for="a3">この病棟のいいところを1つ</label><input class="inp" id="a3" placeholder="ひとことで大丈夫です"></div>
+        <span class="hint">短い答えから、AIが師長の紹介文にまとめます。スマホで話して答えることもできます。</span>
+      </div>
+      <div class="foot"><button class="btn ghost" data-go="3">戻る</button><button class="btn blue" data-go="5">掲載ページの下書きを作る</button></div>
+    </section>
+
+    <!-- 6 -->
+    <section class="card" data-step="5" hidden>
+      <div><span class="eyebrow en">DONE</span><h1>掲載ページの下書きができました</h1></div>
+      <div class="donebox">
+        <div style="display:flex;flex-direction:column;gap:18px">
+          <p class="lead">まだ公開はされていません。内容を見て、よければ公開の申請をしてください。</p>
+          <ul class="next">
+            <li><i>✓</i><span><b>42項目すべてが入りました。</b>自動入力34、選択8。</span></li>
+            <li><i>✓</i><span><b>写真と紹介文の下書きができました。</b></span></li>
+            <li><i>✓</i><span><b>数字は毎月、資料を1枚上げるだけで更新できます。</b>管理画面でご案内します。</span></li>
+          </ul>
+          <div style="display:flex;gap:10px;flex-wrap:wrap"><a class="btn" href="job.html" style="text-decoration:none">下書きを見る</a><button class="btn ghost" data-go="0">最初からやり直す</button></div>
+        </div>
+        <div class="pv" aria-label="掲載ページの下書きのイメージ">
+          <div class="img">image</div>
+          <div class="bd">
+            <span style="font-size:11px;color:var(--sub)">みなと中央病院・内科病棟</span>
+            <b style="font-size:14px;line-height:1.5">「聞きやすさ」で選ばれる内科病棟</b>
+            <div class="st"><div>担当患者数<b class="en">7人</b></div><div>残業（月）<b class="en">8h</b></div><div>年間休日<b class="en">120日</b></div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<script>
+(function () {
+  var $ = function (s, r) { return (r || document).querySelector(s); };
+  var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+  var cards = $$('[data-step]'), steps = $$('#steps li'), timers = [];
+
+  function go(n) {
+    timers.forEach(clearTimeout); timers = [];
+    cards.forEach(function (c) { c.hidden = +c.dataset.step !== n; });
+    steps.forEach(function (li, i) { li.className = i < n ? 'done' : i === n ? 'on' : ''; if (i === n) li.setAttribute('aria-current', 'step'); else li.removeAttribute('aria-current'); });
+    window.scrollTo(0, 0);
+    if (n === 1) crawl();
+    if (n === 4 && !$('#intro').value) write(0);
+  }
+  document.addEventListener('click', function (e) { var b = e.target.closest('[data-go]'); if (b && !b.disabled) go(+b.dataset.go); });
+
+  // 2: fake crawl
+  function crawl() {
+    var rows = $$('#src > div'), bar = $('#bar'), btn = $('#toReview');
+    rows.forEach(function (r) { r.className = ''; r.querySelector('.ic').textContent = ''; });
+    bar.style.width = '0'; btn.disabled = true; btn.style.opacity = .4;
+    rows.forEach(function (r, i) {
+      timers.push(setTimeout(function () { r.className = 'run'; }, i * 900));
+      timers.push(setTimeout(function () {
+        r.className = 'ok'; r.querySelector('.ic').textContent = '✓'; r.querySelector('.ic').style.fontSize = '13px';
+        var v = Math.round((i + 1) / rows.length * 100); bar.style.width = v + '%'; bar.parentNode.setAttribute('aria-valuenow', v);
+        if (i === rows.length - 1) { btn.disabled = false; btn.style.opacity = 1; }
+      }, i * 900 + 800));
+    });
+  }
+
+  // 4: chip questions
+  var Q = [
+    ['募集する病棟', ['内科', '外科', '整形外科', '回復期リハ', '地域包括ケア', '療養', '外来'], -1],
+    ['交替制', ['2交替', '3交替', '日勤のみも可'], -1],
+    ['夜勤の回数（月）', ['なし', '2〜3回', '4回', '5回以上'], -1],
+    ['残業（月）', ['ほぼなし', '10時間以内', '10〜20時間', '20時間以上'], -1],
+    ['1人あたりの担当患者数（日勤）', ['5人以下', '6〜7人', '8〜10人', '11人以上'], -1],
+    ['有休の取りやすさ', ['ほぼ全部取れる', '7〜8割', '半分くらい'], -1],
+    ['中途で入った人の教育', ['教育担当がつく', 'チームで見る', '決まっていない'], -1],
+    ['あてはまるもの（いくつでも）', ['託児所あり', '寮あり', '車通勤可', 'ブランク可', '土日祝休み', '時短勤務可'], -2]
+  ];
+  var qs = $('#qs');
+  Q.forEach(function (q, qi) {
+    var d = document.createElement('div'); d.className = 'q';
+    d.innerHTML = '<span class="lbl">' + q[0] + '</span><div class="chips" role="group" aria-label="' + q[0] + '">' + q[1].map(function (c, i) { return '<button class="chip" aria-pressed="' + (q[2] === i) + '">' + c + '</button>'; }).join('') + '</div>';
+    d.dataset.multi = q[2] === -2 ? '1' : '';
+    qs.appendChild(d);
+  });
+  function count() {
+    var n = $$('.q', qs).filter(function (d) { return !$('[aria-pressed="true"]', d); }).length, el = $('#left');
+    el.textContent = n ? 'あと' + n + '項目' : 'すべて選びました'; el.className = 'left' + (n ? '' : ' z');
+  }
+  qs.addEventListener('click', function (e) {
+    var b = e.target.closest('.chip'); if (!b) return; var d = b.closest('.q');
+    if (d.dataset.multi) b.setAttribute('aria-pressed', b.getAttribute('aria-pressed') !== 'true');
+    else $$('.chip', d).forEach(function (c) { c.setAttribute('aria-pressed', c === b); });
+    count();
+  });
+  count();
+
+  // 5: photos + AI text
+  var ph = $('#photos');
+  ['外観', 'ナースステーション', '病棟の廊下', '研修の様子', '休憩室', '集合写真'].forEach(function (n, i) {
+    ph.insertAdjacentHTML('beforeend', '<button class="ph" aria-pressed="' + (i < 3) + '"><span class="en">image</span>' + n + '</button>');
+  });
+  ph.insertAdjacentHTML('beforeend', '<button class="ph add" aria-label="写真を追加">＋<span>写真を追加</span></button>');
+  ph.addEventListener('click', function (e) { var b = e.target.closest('.ph'); if (b && !b.classList.contains('add')) b.setAttribute('aria-pressed', b.getAttribute('aria-pressed') !== 'true'); });
+
+  var T = [
+    '内科病棟は、急性期の患者さんを7対1の体制で看ています。日勤の受け持ちは1人あたり6〜7人で、残業は月10時間以内です。中途で入った方には教育担当が3か月つき、わからないことをその場で聞ける雰囲気を大切にしています。',
+    'みなと中央病院の内科病棟です。受け持ちは日勤で6〜7人。残業は月10時間以内で、夜勤明けはちゃんと帰れます。中途で入った方には教育担当が3か月つくので、ブランクがあっても安心してください。',
+    '7対1の急性期内科病棟。日勤の受け持ちは6〜7人、残業は月10時間以内。中途入職者には教育担当が3か月つきます。'
+  ], ti = 0, tw;
+  function write(i) {
+    var ta = $('#intro'), s = T[i], k = 0; clearInterval(tw); ta.value = '';
+    tw = setInterval(function () { k += 3; ta.value = s.slice(0, k); if (k >= s.length) clearInterval(tw); }, 24);
+  }
+  $('#tone').addEventListener('click', function (e) {
+    var b = e.target.closest('.chip'); if (!b) return; var all = $$('.chip', this);
+    all.forEach(function (c) { c.setAttribute('aria-pressed', c === b); }); ti = all.indexOf(b); write(ti);
+  });
+  $('#regen').addEventListener('click', function () { write(ti); });
+
+  go(({ '#crawl': 1, '#review': 2, '#choose': 3, '#write': 4, '#done': 5 })[location.hash] || 0);
+})();
+</script>
+</body>
+</html>
