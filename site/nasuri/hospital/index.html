@@ -1,0 +1,380 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/svg+xml" href="../../images/favicon.svg">
+<title>ナスリー｜看護師を、紹介料なしで採用できる採用プラットフォーム【病院の採用ご担当者様へ】</title>
+<meta name="description" content="ナスリーは、病院が自分で職場を発信し、看護師と直接つながる採用プラットフォームです。料金は月額の定額で、成功報酬はいただきません。2027年3月、東京23区の東側から開始。先行掲載病院を募集しています。">
+<meta property="og:title" content="ナスリー｜看護師を、紹介料なしで採用できる仕組みをつくります。">
+<meta property="og:description" content="月額の定額で、成功報酬なし。何人採用しても費用は変わりません。先行掲載病院を募集しています。">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&amp;family=Inter:wght@500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+:root{--blue:#3A6CF2;--blue-d:#2A56D6;--tint:#EEF3FE;--ink:#1D1D1F;--sub:#5F5F66;--line:#E5E5EA;--bg:#F5F5F7;--white:#FFFFFF;--warm:#B4401A}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+html,body{overflow-x:clip}
+body{margin:0;background:var(--white);color:var(--ink);font-family:'Noto Sans JP',-apple-system,BlinkMacSystemFont,'Hiragino Sans',Meiryo,sans-serif;font-size:16px;line-height:1.8;-webkit-font-smoothing:antialiased}
+img,svg{display:block;max-width:100%}
+a{color:inherit}
+h1,h2,h3,p,ul,ol,dl,dd{margin:0}
+ul,ol{padding:0;list-style:none}
+.en{font-family:'Inter','Noto Sans JP',sans-serif}
+.wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+.nb{white-space:nowrap}
+
+.hdr{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.94);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.hdr .wrap{min-height:64px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand{display:flex;align-items:center;gap:8px;text-decoration:none}
+.brand .mark{width:28px;height:28px}
+.brand .type{height:18px;width:auto}
+.brand .for{margin-left:10px;font-size:12px;font-weight:700;color:var(--sub);border:1px solid var(--line);border-radius:6px;padding:2px 8px;line-height:1.6}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:56px;padding:0 30px;border-radius:999px;background:var(--blue);color:#fff;font-weight:700;font-size:17px;text-decoration:none;border:none;cursor:pointer;font-family:inherit;transition:background .15s,transform .15s}
+.btn:hover{background:var(--blue-d);transform:translateY(-1px)}
+.btn:focus-visible,a:focus-visible{outline:3px solid #9DB6F9;outline-offset:3px}
+.btn.sm{min-height:44px;padding:0 20px;font-size:14px}
+.btn.line{background:#fff;color:var(--ink);border:1.5px solid var(--ink)}
+.btn.line:hover{background:var(--bg)}
+.btn.white{background:#fff;color:var(--blue)}
+.btn.white:hover{background:var(--tint)}
+
+.hero{background:linear-gradient(180deg,#F3F6FF 0%,#FFFFFF 100%)}
+.hero .wrap{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(0,.92fr);gap:48px;align-items:center;padding-top:64px;padding-bottom:72px}
+.badge{display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid #D5E0FC;color:var(--blue-d);font-size:13px;font-weight:700;padding:6px 14px;border-radius:18px;line-height:1.5}
+.badge i{width:8px;height:8px;border-radius:50%;background:var(--blue);display:block;flex:0 0 auto}
+h1{margin-top:20px;font-size:46px;line-height:1.4;font-weight:700;letter-spacing:.01em}
+h1 em{font-style:normal;color:var(--blue)}
+.lead{margin:20px 0 28px;font-size:16px;line-height:1.9;color:#3A3A3C}
+.cta{display:flex;flex-wrap:wrap;gap:12px}
+.points{display:flex;flex-wrap:wrap;gap:6px 18px;margin-top:18px;font-size:13px;font-weight:700;color:var(--sub)}
+.points li{display:flex;align-items:center;gap:6px}
+.points svg{color:var(--blue);flex:0 0 auto}
+
+.mock{position:relative;background:#fff;border-radius:22px;box-shadow:0 24px 60px rgba(42,86,214,.16),0 2px 8px rgba(0,0,0,.04);padding:16px;display:flex;flex-direction:column;gap:12px}
+.mock .photo{border-radius:14px;aspect-ratio:16/9;object-fit:cover;width:100%}
+.mock .name{font-size:17px;font-weight:700;line-height:1.5}
+.mock .meta{font-size:12px;color:var(--sub)}
+.mock .who{display:flex;align-items:center;gap:10px;background:var(--bg);border-radius:12px;padding:10px 12px}
+.mock .who img{width:44px;height:44px;border-radius:50%;object-fit:cover}
+.mock .who b{display:block;font-size:13px;line-height:1.5}
+.mock .who span{display:block;font-size:12px;color:var(--sub);line-height:1.5}
+.mock .nums{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.mock .nums div{background:var(--tint);border-radius:12px;padding:8px 10px}
+.mock .nums dt{font-size:11px;color:var(--sub);line-height:1.5}
+.mock .nums dd{font-size:18px;font-weight:700;line-height:1.4}
+.mock .nums dd small{font-size:11px;font-weight:500}
+.mock .cap{font-size:11px;color:var(--sub);text-align:right}
+.toast{position:absolute;right:-14px;top:30px;background:var(--ink);color:#fff;border-radius:14px;padding:10px 14px;font-size:13px;font-weight:700;line-height:1.5;box-shadow:0 10px 24px rgba(0,0,0,.18);display:flex;align-items:center;gap:8px}
+.toast i{width:8px;height:8px;border-radius:50%;background:#7FA2FA;display:block}
+
+section{padding:80px 0}
+.sec-head{max-width:720px;margin-bottom:36px}
+.eyebrow{font-size:13px;font-weight:700;letter-spacing:.12em;color:var(--blue)}
+h2{margin-top:8px;font-size:32px;line-height:1.5;font-weight:700}
+.sec-head p{margin-top:12px;color:#3A3A3C}
+.gray{background:var(--bg)}
+
+.feats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.feat{background:#fff;border:1px solid var(--line);border-radius:20px;padding:28px 26px;display:flex;flex-direction:column;gap:12px}
+.feat .no{font-size:14px;font-weight:700;color:var(--blue);letter-spacing:.08em}
+.feat .ico{width:52px;height:52px;border-radius:14px;background:var(--tint);color:var(--blue);display:flex;align-items:center;justify-content:center}
+.feat h3{font-size:21px;line-height:1.5;font-weight:700}
+.feat p{font-size:15px;color:#3A3A3C}
+
+.see{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:40px;align-items:center}
+.see ul{display:flex;flex-direction:column;gap:14px;margin-top:20px}
+.see li{display:flex;gap:12px;align-items:flex-start;font-size:15px}
+.see li svg{color:var(--blue);flex:0 0 auto;margin-top:5px}
+.see li b{display:block;font-size:16px}
+.see .pics{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.see .pics img{border-radius:16px;aspect-ratio:4/3;object-fit:cover;width:100%}
+.see .pics img.wide{grid-column:1 / 3;aspect-ratio:16/8}
+.see .link{display:inline-flex;margin-top:24px}
+
+.steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;counter-reset:s}
+.steps li{background:#fff;border:1px solid var(--line);border-radius:18px;padding:22px 20px;display:flex;flex-direction:column;gap:8px}
+.steps .n{font-size:13px;font-weight:700;color:var(--blue);letter-spacing:.08em}
+.steps b{font-size:17px;line-height:1.5}
+.steps span{font-size:14px;color:#3A3A3C;line-height:1.75}
+
+.price{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px;align-items:stretch}
+.plan{border:1px solid var(--line);border-radius:22px;padding:30px 28px;background:#fff;display:flex;flex-direction:column;gap:14px}
+.plan h3{font-size:18px;font-weight:700}
+.plan .yen{font-size:20px;font-weight:700;line-height:1.3}
+.plan .yen .en{font-size:52px;letter-spacing:-.01em}
+.plan ul{display:flex;flex-direction:column;gap:8px;font-size:15px}
+.plan li{display:flex;gap:10px;align-items:flex-start}
+.plan li svg{color:var(--blue);flex:0 0 auto;margin-top:7px}
+.plan.camp{background:var(--ink);color:#fff;border-color:var(--ink)}
+.plan.camp .tag{align-self:flex-start;background:#fff;color:var(--ink);font-size:13px;font-weight:700;padding:3px 12px;border-radius:8px}
+.plan.camp .was{font-size:17px;color:#C7C7CC}
+.plan.camp .was s{text-decoration-thickness:2px}
+.plan.camp .yen .en{font-size:68px}
+.plan.camp li svg{color:#9DB6F9}
+.plan.camp .note{font-size:13px;color:#C7C7CC}
+
+.area{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:40px;align-items:center}
+.wards{display:flex;flex-wrap:wrap;gap:10px}
+.wards li{background:#fff;border:1.5px solid var(--blue);color:var(--blue-d);font-weight:700;font-size:16px;border-radius:999px;padding:6px 18px}
+.wards li.next{border-color:var(--line);color:var(--sub);font-weight:500}
+
+.faq{display:flex;flex-direction:column;gap:12px;max-width:820px}
+.faq details{background:#fff;border:1px solid var(--line);border-radius:16px;padding:0 22px}
+.faq summary{cursor:pointer;list-style:none;font-weight:700;font-size:16px;padding:18px 28px 18px 0;position:relative;line-height:1.7}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"";position:absolute;right:2px;top:50%;width:10px;height:10px;border-right:2px solid var(--ink);border-bottom:2px solid var(--ink);transform:translateY(-70%) rotate(45deg)}
+.faq details[open] summary::after{transform:translateY(-30%) rotate(-135deg)}
+.faq p{padding:0 0 18px;font-size:15px;color:#3A3A3C}
+
+.contact{background:var(--blue);color:#fff}
+.contact .wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:40px;align-items:center}
+.contact h2{margin-top:0;color:#fff}
+.contact p{margin-top:14px;color:#E3EAFD}
+.ways{display:flex;flex-direction:column;gap:14px}
+.way{background:#fff;color:var(--ink);border-radius:18px;padding:20px 22px;text-decoration:none;display:flex;flex-direction:column;gap:2px;transition:transform .15s}
+.way:hover{transform:translateY(-2px)}
+.way small{font-size:13px;font-weight:700;color:var(--sub)}
+.way b{font-size:26px;line-height:1.4;word-break:break-all}
+.way b.mail{font-size:20px}
+.way span{font-size:13px;color:var(--sub)}
+
+footer{padding:28px 0;border-top:1px solid var(--line);font-size:13px;color:var(--sub)}
+footer .wrap{display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-between}
+footer nav{display:flex;gap:18px}
+
+@media (max-width:860px){
+  .hero .wrap,.see,.price,.area,.contact .wrap{grid-template-columns:minmax(0,1fr)}
+  .hero .wrap{padding-top:40px;padding-bottom:56px;gap:36px}
+  h1{font-size:32px}
+  h2{font-size:25px}
+  section{padding:56px 0}
+  .feats{grid-template-columns:minmax(0,1fr)}
+  .steps{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .toast{right:8px;top:24px}
+  .brand .for{display:none}
+  .btn{width:100%}
+  .btn.sm{width:auto}
+  .plan .yen .en{font-size:44px}
+  .plan.camp .yen .en{font-size:56px}
+}
+@media (max-width:480px){
+  .steps{grid-template-columns:minmax(0,1fr)}
+  .mock .nums dd{font-size:16px}
+}
+</style>
+</head>
+<body id="top">
+
+<header class="hdr">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="ナスリー">
+      <img class="mark" src="../../images/logo-mark.svg" alt="">
+      <img class="type" src="../../images/logotype.svg" alt="ナスリー">
+      <span class="for">病院の採用ご担当者様へ</span>
+    </a>
+    <a class="btn sm" href="#contact">お問い合わせ</a>
+  </div>
+</header>
+
+<main>
+<div class="hero">
+  <div class="wrap">
+    <div>
+      <span class="badge"><i></i>2027年3月開始｜先行掲載病院を募集しています</span>
+      <h1>看護師を、<em>紹介料なし</em>で<br>採用できる仕組みを<span class="nb">つくります。</span></h1>
+      <p class="lead">ナスリーは、病院が自分で職場を発信し、看護師と直接つながる採用プラットフォームです。<br>料金は月額の定額で、成功報酬はいただきません。何人採用しても費用は変わりません。</p>
+      <div class="cta">
+        <a class="btn" href="#contact">資料請求・お問い合わせ</a>
+        <a class="btn line" href="#price">料金を見る</a>
+      </div>
+      <ul class="points">
+        <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 5"/></svg>成功報酬なし</li>
+        <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 5"/></svg>採用人数の上限なし</li>
+        <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 5"/></svg>掲載ページの下書きは運営が用意</li>
+      </ul>
+    </div>
+    <div class="mock" aria-label="掲載ページの見本">
+      <img class="photo" src="../../images/exterior.jpg" alt="病院の外観の写真">
+      <div>
+        <p class="name">みなと総合病院（見本）</p>
+        <p class="meta">急性期・199床　東京都江東区　最寄り駅から徒歩6分</p>
+      </div>
+      <div class="who">
+        <img src="../../images/av-head.jpg" alt="">
+        <div><b>看護師長に話を聞けます</b><span>応募の前に、オンラインで</span></div>
+      </div>
+      <dl class="nums">
+        <div><dt>受け持ち</dt><dd>7<small>人</small></dd></div>
+        <div><dt>残業（月）</dt><dd>8<small>時間</small></dd></div>
+        <div><dt>離職率</dt><dd>7.2<small>%</small></dd></div>
+      </dl>
+      <p class="cap">画面は見本です。病院名と数値は架空のものです</p>
+      <div class="toast"><i></i>看護師から応募が届きました</div>
+    </div>
+  </div>
+</div>
+
+<section id="features">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">FEATURES</p>
+      <h2>ナスリーでできること</h2>
+    </div>
+    <div class="feats">
+      <div class="feat">
+        <div class="ico"><svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h20v13H13l-5 4v-4H4z"/><path d="M9 12h10M9 16h6"/></svg></div>
+        <p class="no en">01</p>
+        <h3>看護師から<br>直接応募がくる</h3>
+        <p>紹介会社を挟まず、看護師が貴院に直接応募します。応募の前に、気になる点を直接話すこともできます。</p>
+      </div>
+      <div class="feat">
+        <div class="ico"><svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M24 4L12.5 15.5"/><path d="M24 4l-7 20-4.5-8.5L4 11z"/></svg></div>
+        <p class="no en">02</p>
+        <h3>看護師へ<br>スカウトが送れる</h3>
+        <p>通勤圏に住む看護師へ、病院からメッセージを送れます。応募を待つだけでなく、貴院から声をかけられます。</p>
+      </div>
+      <div class="feat">
+        <div class="ico"><svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 4h10l5 5v15H7z"/><path d="M17 4v5h5"/><path d="M11 14h7M11 18h7"/></svg></div>
+        <p class="no en">03</p>
+        <h3>掲載サポートも<br>充実</h3>
+        <p>貴院のホームページをもとに、掲載ページの下書きをこちらで用意します。写真撮影とインタビュー記事の作成も行います。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="gray" id="page">
+  <div class="wrap see">
+    <div>
+      <p class="eyebrow">YOUR PAGE</p>
+      <h2>職場の中が見えるから、<br>合う人が応募してくる</h2>
+      <ul>
+        <li><svg width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 5"/></svg><span><b>働く人の顔が見える</b>看護師長や先輩を、写真とインタビュー記事で紹介します。</span></li>
+        <li><svg width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 5"/></svg><span><b>働き方が数字で見える</b>受け持ち人数や残業時間を、どの病院も同じ項目で載せます。</span></li>
+        <li><svg width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 5"/></svg><span><b>応募の前に話せる</b>看護師は、気になった病院の人に直接話を聞いてから応募できます。</span></li>
+      </ul>
+      <a class="btn line link" href="../../job.html">掲載ページの見本を見る</a>
+    </div>
+    <div class="pics">
+      <img class="wide" src="../../images/station.jpg" alt="ナースステーションの写真">
+      <img src="../../images/head.jpg" alt="看護師長の写真">
+      <img src="../../images/rehab.jpg" alt="院内の研修の写真">
+    </div>
+  </div>
+</section>
+
+<section id="flow">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">FLOW</p>
+      <h2>掲載までの流れ</h2>
+    </div>
+    <ol class="steps">
+      <li><p class="n en">STEP 1</p><b>お問い合わせ</b><span>お電話かメールでご連絡ください。資料だけのご請求も承ります。</span></li>
+      <li><p class="n en">STEP 2</p><b>ご説明</b><span>オンラインで15分ほど。画面をお見せしながらご説明します。</span></li>
+      <li><p class="n en">STEP 3</p><b>掲載ページの作成</b><span>下書きは運営が用意します。貴院はご確認と写真の追加だけです。</span></li>
+      <li><p class="n en">STEP 4</p><b>公開・スカウト開始</b><span>2027年3月の開始と同時に公開し、看護師へスカウトを送れます。</span></li>
+    </ol>
+  </div>
+</section>
+
+<section class="gray" id="price">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">PRICE</p>
+      <h2>料金</h2>
+      <p>月額の定額です。採用が決まっても、追加の費用はかかりません。</p>
+    </div>
+    <div class="price">
+      <div class="plan">
+        <h3>通常料金</h3>
+        <p class="yen">月額 <span class="en">10</span>万円</p>
+        <ul>
+          <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 5"/></svg>成功報酬なし</li>
+          <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 5"/></svg>採用人数の上限なし</li>
+          <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 5"/></svg>掲載ページの下書きを運営が用意</li>
+          <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 5"/></svg>看護師へのスカウト送信</li>
+        </ul>
+      </div>
+      <div class="plan camp">
+        <p class="tag">FAXをご覧の病院様へ｜先行掲載キャンペーン</p>
+        <p class="was">通常 <s>月額10万円</s></p>
+        <p class="yen">月額 <span class="en">3</span>万円</p>
+        <ul>
+          <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 5"/></svg>通常料金の内容をすべて含みます</li>
+          <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 5"/></svg>写真撮影が無料</li>
+          <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 5"/></svg>インタビュー記事の作成が無料</li>
+        </ul>
+        <p class="note">お問い合わせの際に「FAXを見た」とお伝えください。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="area">
+  <div class="wrap area">
+    <div>
+      <p class="eyebrow">AREA</p>
+      <h2>東京23区の東側から、<br>看護師を先に集めています</h2>
+      <p style="margin-top:12px;color:#3A3A3C">このエリアにお住まいの看護師の事前登録を進めています。2027年3月の開始と同時に、スカウトを送れます。関東のほかのエリアにも順次広げます。</p>
+    </div>
+    <ul class="wards" aria-label="開始エリア">
+      <li>足立区</li><li>葛飾区</li><li>江戸川区</li><li>墨田区</li><li>江東区</li><li>荒川区</li><li>台東区</li>
+      <li class="next">関東のほかのエリアは順次</li>
+    </ul>
+  </div>
+</section>
+
+<section class="gray" id="faq">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">FAQ</p>
+      <h2>よくあるご質問</h2>
+    </div>
+    <div class="faq">
+      <details open>
+        <summary>採用が決まったときに、追加の費用はかかりますか。</summary>
+        <p>かかりません。料金は月額の定額だけで、成功報酬はいただきません。何人採用しても費用は変わりません。</p>
+      </details>
+      <details>
+        <summary>掲載の準備に、どのくらい手間がかかりますか。</summary>
+        <p>貴院のホームページをもとに、掲載ページの下書きを運営が用意します。貴院にお願いするのは、内容のご確認と写真の追加です。キャンペーンの対象となる病院様には、写真撮影とインタビュー記事の作成も運営が行います。</p>
+      </details>
+      <details>
+        <summary>開始エリアの外にある病院でも、申し込めますか。</summary>
+        <p>お申し込みいただけます。開始は東京23区の東側の7区からで、関東のほかのエリアには順次広げます。貴院のエリアの開始時期は、お問い合わせの際にご案内します。</p>
+      </details>
+      <details>
+        <summary>FAXの送信を止めてほしいのですが。</summary>
+        <p>お電話かメールでお知らせください。次回以降の送信を停止します。</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="wrap">
+    <div>
+      <h2>資料請求・お問い合わせ</h2>
+      <p>資料のご請求、オンラインでのご説明（15分ほど）を承ります。お電話かメールでご連絡ください。</p>
+    </div>
+    <div class="ways">
+      <a class="way" href="tel:09036183067"><small>お電話（担当 西坂）</small><b class="en">090-3618-3067</b><span>資料請求だけでもお気軽にどうぞ</span></a>
+      <a class="way" href="mailto:y.nishisaka@unou.design?subject=%E3%83%8A%E3%82%B9%E3%83%AA%E3%83%BC%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6%E3%81%AE%E3%81%8A%E5%95%8F%E3%81%84%E5%90%88%E3%82%8F%E3%81%9B"><small>メール</small><b class="en mail">y.nishisaka@unou.design</b><span>病院名とご担当者名を添えてお送りください</span></a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>運営：unou株式会社　〒104-0052 東京都中央区月島一丁目21番8号</span>
+    <nav aria-label="フッター"><a href="../../terms.html">利用規約</a><a href="../../privacy.html">プライバシーポリシー</a></nav>
+  </div>
+</footer>
+
+</body>
+</html>
