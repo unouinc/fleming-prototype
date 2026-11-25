@@ -1,0 +1,58 @@
+# main ブランチに入ったら、病院向けサイトを Xserver の unou.design/public_html/nasuri/ に自動でアップロードする
+# 公開URL：https://unou.design/nasuri/hospital/
+#
+# 事前に GitHub の Settings → Secrets and variables → Actions に登録するもの
+#   FTP_SERVER     … Xserverの FTPホスト名（例：sv12345.xserver.jp）
+#   FTP_USERNAME   … FTPユーザー名
+#   FTP_PASSWORD   … FTPパスワード
+#   FTP_SERVER_DIR … アップロード先のフォルダ（末尾に / を付ける）
+#                    ・nasuri 専用のFTPアカウントを作った場合：./
+#                    ・既存のFTPアカウントの場合：/unou.design/public_html/nasuri/
+# Secrets が未登録のあいだは、アップロードはスキップされる
+name: Deploy to Xserver
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: xserver
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check secrets
+        id: check
+        env:
+          FTP_SERVER: ${{ secrets.FTP_SERVER }}
+        run: |
+          if [ -z "$FTP_SERVER" ]; then
+            echo "FTPのSecretsが未登録のため、アップロードをスキップします。"
+            echo "ready=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "ready=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - uses: actions/checkout@v4
+        if: steps.check.outputs.ready == 'true'
+
+      - name: Build files for unou.design
+        if: steps.check.outputs.ready == 'true'
+        run: ./scripts/build-unou-design.sh
+
+      - name: Upload via FTP
+        if: steps.check.outputs.ready == 'true'
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          server-dir: ${{ secrets.FTP_SERVER_DIR }}
+          local-dir: ./out/
+          protocol: ftps
