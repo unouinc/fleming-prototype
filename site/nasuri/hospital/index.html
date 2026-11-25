@@ -133,13 +133,43 @@ h2{margin-top:8px;font-size:32px;line-height:1.5;font-weight:700}
 .contact .wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:40px;align-items:center}
 .contact h2{margin-top:0;color:#fff}
 .contact p{margin-top:14px;color:#E3EAFD}
-.ways{display:flex;flex-direction:column;gap:14px}
-.way{background:#fff;color:var(--ink);border-radius:18px;padding:20px 22px;text-decoration:none;display:flex;flex-direction:column;gap:2px;transition:transform .15s}
-.way:hover{transform:translateY(-2px)}
-.way small{font-size:13px;font-weight:700;color:var(--sub)}
-.way b{font-size:26px;line-height:1.4;word-break:break-all}
-.way b.mail{font-size:20px}
-.way span{font-size:13px;color:var(--sub)}
+.ways{display:flex;flex-direction:column;gap:12px;margin-top:24px}
+.way{background:rgba(255,255,255,.14);color:#fff;border:1px solid rgba(255,255,255,.4);border-radius:16px;padding:14px 18px;text-decoration:none;display:flex;flex-direction:column;gap:0;transition:background .15s}
+.way:hover{background:rgba(255,255,255,.22)}
+.way small{font-size:13px;font-weight:700;color:#E3EAFD}
+.way b{font-size:24px;line-height:1.4;word-break:break-all}
+.way b.mail{font-size:18px}
+.contact .wrap{align-items:start}
+[hidden]{display:none!important}
+.formbox{background:#fff;color:var(--ink);border-radius:22px;padding:26px 24px}
+.formbox form{display:flex;flex-direction:column;gap:14px}
+.fld{display:flex;flex-direction:column;gap:4px;min-width:0}
+.fld label,.kinds legend{font-size:14px;font-weight:700;display:flex;align-items:center;gap:8px;padding:0}
+.req{font-size:11px;font-weight:700;color:#fff;background:var(--warm);border-radius:4px;padding:0 6px;line-height:1.7}
+.fld input,.fld textarea{font:inherit;font-size:16px;color:var(--ink);border:1.5px solid #C7C7CC;border-radius:10px;padding:10px 12px;min-height:48px;width:100%;background:#fff}
+.fld textarea{resize:vertical;line-height:1.6}
+.fld input:focus,.fld textarea:focus{outline:3px solid #9DB6F9;outline-offset:1px;border-color:var(--blue)}
+.fld input.bad{border-color:var(--warm)}
+.two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.kinds{border:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:8px}
+.kinds legend{margin-bottom:6px}
+.kinds label{position:relative;cursor:pointer}
+.kinds input{position:absolute;opacity:0;inset:0;cursor:pointer}
+.kinds label span{display:flex;align-items:center;min-height:44px;padding:0 16px;border:1.5px solid #C7C7CC;border-radius:999px;font-size:15px;font-weight:700}
+.kinds input:checked+span{background:var(--ink);border-color:var(--ink);color:#fff}
+.kinds input:focus-visible+span{outline:3px solid #9DB6F9;outline-offset:2px}
+.chk{display:flex;gap:10px;align-items:flex-start;font-size:14px;cursor:pointer}
+.chk input{width:20px;height:20px;margin-top:3px;flex:0 0 auto;accent-color:var(--blue)}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.err{color:var(--warm);font-size:14px;font-weight:700;margin:0}
+.agree{font-size:12px;color:var(--sub);margin:0}
+.contact .formbox p{color:var(--ink);margin-top:0}
+.contact .formbox .agree{color:var(--sub)}
+.contact .formbox .err{color:var(--warm)}
+.formbox .btn{width:100%}
+.formbox .btn[disabled]{opacity:.6;cursor:default;transform:none}
+.done h3{font-size:22px}
+.done p{margin-top:10px}
 
 footer{padding:28px 0;border-top:1px solid var(--line);font-size:13px;color:var(--sub)}
 footer .wrap{display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-between}
@@ -162,6 +192,7 @@ footer nav{display:flex;gap:18px}
 }
 @media (max-width:480px){
   .steps{grid-template-columns:minmax(0,1fr)}
+  .two{grid-template-columns:minmax(0,1fr)}
   .mock .nums dd{font-size:16px}
 }
 </style>
@@ -359,11 +390,40 @@ footer nav{display:flex;gap:18px}
   <div class="wrap">
     <div>
       <h2>資料請求・お問い合わせ</h2>
-      <p>資料のご請求、オンラインでのご説明（15分ほど）を承ります。お電話かメールでご連絡ください。</p>
+      <p>資料のご請求、オンラインでのご説明（15分ほど）を承ります。フォームのほか、お電話とメールでもご連絡いただけます。</p>
+      <div class="ways">
+        <a class="way" href="tel:09036183067"><small>お電話（担当 西坂）</small><b class="en">090-3618-3067</b></a>
+        <a class="way" href="mailto:y.nishisaka@unou.design?subject=%E3%83%8A%E3%82%B9%E3%83%AA%E3%83%BC%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6%E3%81%AE%E3%81%8A%E5%95%8F%E3%81%84%E5%90%88%E3%82%8F%E3%81%9B"><small>メール</small><b class="en mail">y.nishisaka@unou.design</b></a>
+      </div>
     </div>
-    <div class="ways">
-      <a class="way" href="tel:09036183067"><small>お電話（担当 西坂）</small><b class="en">090-3618-3067</b><span>資料請求だけでもお気軽にどうぞ</span></a>
-      <a class="way" href="mailto:y.nishisaka@unou.design?subject=%E3%83%8A%E3%82%B9%E3%83%AA%E3%83%BC%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6%E3%81%AE%E3%81%8A%E5%95%8F%E3%81%84%E5%90%88%E3%82%8F%E3%81%9B"><small>メール</small><b class="en mail">y.nishisaka@unou.design</b><span>病院名とご担当者名を添えてお送りください</span></a>
+    <div class="formbox">
+      <form id="inq" novalidate>
+        <fieldset class="kinds">
+          <legend>ご用件<span class="req">必須</span></legend>
+          <label><input type="radio" name="kind" value="資料がほしい" checked><span>資料がほしい</span></label>
+          <label><input type="radio" name="kind" value="説明を聞きたい"><span>説明を聞きたい</span></label>
+          <label><input type="radio" name="kind" value="その他"><span>その他</span></label>
+        </fieldset>
+        <div class="fld"><label for="f-hospital">病院名<span class="req">必須</span></label><input id="f-hospital" name="hospital" type="text" maxlength="100" autocomplete="organization" required></div>
+        <div class="two">
+          <div class="fld"><label for="f-name">お名前<span class="req">必須</span></label><input id="f-name" name="name" type="text" maxlength="60" autocomplete="name" required></div>
+          <div class="fld"><label for="f-dept">部署・役職</label><input id="f-dept" name="dept" type="text" maxlength="60" autocomplete="organization-title"></div>
+        </div>
+        <div class="two">
+          <div class="fld"><label for="f-email">メールアドレス<span class="req">必須</span></label><input id="f-email" name="email" type="email" maxlength="200" autocomplete="email" inputmode="email" required></div>
+          <div class="fld"><label for="f-tel">電話番号</label><input id="f-tel" name="tel" type="tel" maxlength="30" autocomplete="tel" inputmode="tel"></div>
+        </div>
+        <div class="fld"><label for="f-message">ご質問・ご要望</label><textarea id="f-message" name="message" rows="3" maxlength="2000"></textarea></div>
+        <label class="chk"><input type="checkbox" name="saw_fax"><span>FAXを見た（先行掲載キャンペーンの対象になります）</span></label>
+        <div class="hp" aria-hidden="true"><label>ここは入力しないでください<input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
+        <p class="err" id="inq-err" role="alert" hidden></p>
+        <button class="btn" type="submit" id="inq-btn">送信する</button>
+        <p class="agree">送信すると、<a href="../../privacy.html">プライバシーポリシー</a>に同意したものとみなします。</p>
+      </form>
+      <div class="done" id="inq-done" hidden tabindex="-1">
+        <h3>送信しました</h3>
+        <p>お問い合わせありがとうございます。担当の西坂より、いただいたメールアドレスへご連絡します。</p>
+      </div>
     </div>
   </div>
 </section>
@@ -375,6 +435,45 @@ footer nav{display:flex;gap:18px}
     <nav aria-label="フッター"><a href="../../terms.html">利用規約</a><a href="../../privacy.html">プライバシーポリシー</a></nav>
   </div>
 </footer>
+<script src="../../config.js"></script>
+<script>
+(function () {
+  var form = document.getElementById('inq'), btn = document.getElementById('inq-btn');
+  var err = document.getElementById('inq-err'), done = document.getElementById('inq-done');
+  var cfg = window.NASURI_CONFIG || {};
+  function show(msg) { err.textContent = msg; err.hidden = false; }
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    err.hidden = true;
+    var f = form.elements, bad = null;
+    ['hospital', 'name', 'email'].forEach(function (k) {
+      var ok = f[k].value.trim() !== '' && (k !== 'email' || /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(f[k].value.trim()));
+      f[k].classList.toggle('bad', !ok);
+      f[k].setAttribute('aria-invalid', ok ? 'false' : 'true');
+      if (!ok && !bad) bad = f[k];
+    });
+    if (bad) { show('病院名、お名前、メールアドレスをご確認ください。'); bad.focus(); return; }
+    if (f.website.value) { form.hidden = true; done.hidden = false; return; }
+    if (!cfg.supabaseUrl || !cfg.supabaseAnonKey) { show('送信できませんでした。お手数ですが、お電話かメールでご連絡ください。'); return; }
+    btn.disabled = true; btn.textContent = '送信しています…';
+    fetch(cfg.supabaseUrl + '/rest/v1/hospital_inquiries', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', apikey: cfg.supabaseAnonKey, Authorization: 'Bearer ' + cfg.supabaseAnonKey, Prefer: 'return=minimal' },
+      body: JSON.stringify({
+        hospital: f.hospital.value.trim(), name: f.name.value.trim(), dept: f.dept.value.trim(),
+        email: f.email.value.trim(), tel: f.tel.value.trim(), kind: f.kind.value,
+        message: f.message.value.trim(), saw_fax: f.saw_fax.checked, source: 'hospital-site'
+      })
+    }).then(function (r) {
+      if (!r.ok) throw new Error(String(r.status));
+      form.hidden = true; done.hidden = false; done.focus();
+    }).catch(function () {
+      btn.disabled = false; btn.textContent = '送信する';
+      show('送信できませんでした。時間をおいてもう一度お試しいただくか、お電話かメールでご連絡ください。');
+    });
+  });
+})();
+</script>
 
 </body>
 </html>
