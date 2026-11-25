@@ -407,11 +407,7 @@ footer nav{display:flex;gap:18px}
         <div class="fld"><label for="f-hospital">病院名<span class="req">必須</span></label><input id="f-hospital" name="hospital" type="text" maxlength="100" autocomplete="organization" required></div>
         <div class="two">
           <div class="fld"><label for="f-name">お名前<span class="req">必須</span></label><input id="f-name" name="name" type="text" maxlength="60" autocomplete="name" required></div>
-          <div class="fld"><label for="f-dept">部署・役職</label><input id="f-dept" name="dept" type="text" maxlength="60" autocomplete="organization-title"></div>
-        </div>
-        <div class="two">
-          <div class="fld"><label for="f-email">メールアドレス<span class="req">必須</span></label><input id="f-email" name="email" type="email" maxlength="200" autocomplete="email" inputmode="email" required></div>
-          <div class="fld"><label for="f-tel">電話番号</label><input id="f-tel" name="tel" type="tel" maxlength="30" autocomplete="tel" inputmode="tel"></div>
+          <div class="fld"><label for="f-tel">電話番号<span class="req">必須</span></label><input id="f-tel" name="tel" type="tel" maxlength="30" autocomplete="tel" inputmode="tel" required></div>
         </div>
         <div class="fld"><label for="f-message">ご質問・ご要望</label><textarea id="f-message" name="message" rows="3" maxlength="2000"></textarea></div>
         <label class="chk"><input type="checkbox" name="saw_fax"><span>FAXを見た（先行掲載キャンペーンの対象になります）</span></label>
@@ -422,7 +418,7 @@ footer nav{display:flex;gap:18px}
       </form>
       <div class="done" id="inq-done" hidden tabindex="-1">
         <h3>送信しました</h3>
-        <p>お問い合わせありがとうございます。担当の西坂より、いただいたメールアドレスへご連絡します。</p>
+        <p>お問い合わせありがとうございます。担当の西坂より、お電話でご連絡します。</p>
       </div>
     </div>
   </div>
@@ -446,13 +442,13 @@ footer nav{display:flex;gap:18px}
     e.preventDefault();
     err.hidden = true;
     var f = form.elements, bad = null;
-    ['hospital', 'name', 'email'].forEach(function (k) {
-      var ok = f[k].value.trim() !== '' && (k !== 'email' || /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(f[k].value.trim()));
+    ['hospital', 'name', 'tel'].forEach(function (k) {
+      var ok = f[k].value.trim() !== '' && (k !== 'tel' || f[k].value.replace(/\D/g, '').length >= 10);
       f[k].classList.toggle('bad', !ok);
       f[k].setAttribute('aria-invalid', ok ? 'false' : 'true');
       if (!ok && !bad) bad = f[k];
     });
-    if (bad) { show('病院名、お名前、メールアドレスをご確認ください。'); bad.focus(); return; }
+    if (bad) { show('病院名、お名前、電話番号をご確認ください。'); bad.focus(); return; }
     if (f.website.value) { form.hidden = true; done.hidden = false; return; }
     if (!cfg.supabaseUrl || !cfg.supabaseAnonKey) { show('送信できませんでした。お手数ですが、お電話かメールでご連絡ください。'); return; }
     btn.disabled = true; btn.textContent = '送信しています…';
@@ -460,8 +456,7 @@ footer nav{display:flex;gap:18px}
       method: 'POST',
       headers: { 'Content-Type': 'application/json', apikey: cfg.supabaseAnonKey, Authorization: 'Bearer ' + cfg.supabaseAnonKey, Prefer: 'return=minimal' },
       body: JSON.stringify({
-        hospital: f.hospital.value.trim(), name: f.name.value.trim(), dept: f.dept.value.trim(),
-        email: f.email.value.trim(), tel: f.tel.value.trim(), kind: f.kind.value,
+        hospital: f.hospital.value.trim(), name: f.name.value.trim(), tel: f.tel.value.trim(), kind: f.kind.value,
         message: f.message.value.trim(), saw_fax: f.saw_fax.checked, source: 'hospital-site'
       })
     }).then(function (r) {
